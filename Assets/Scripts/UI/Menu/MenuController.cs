@@ -74,28 +74,41 @@ public class MenuController : MonoBehaviour
 
     public void Trigger()
     {
-        if (isOpen)
-        {
-            if (expand)
+        if (CanToggleMenu()){
+            if (isOpen)
             {
-                SlowHideMenu();
+                if (expand)
+                {
+                    SlowHideMenu();
+                }
+                else
+                {
+                    InstantHideMenu();
+                }
             }
             else
             {
-                InstantHideMenu();
+                if (expand)
+                {
+                    SlowShowMenu();
+                }
+                else
+                {
+                    InstantShowMenu();
+                }
             }
         }
-        else
-        {
-            if (expand)
-            {
-                SlowShowMenu();
-            }
-            else
-            {
-                InstantShowMenu();
-            }
-        }
+    }
+
+    private bool CanToggleMenu(){
+        GameManager gm = GameManager.instance;
+        return (
+            !(
+                gm.isGamePaused)
+                || gm.isEndOfLevelScreen
+                || gm.isGameOverScreen
+                || gm.isGameOverScreen
+            );
     }
 
     public void SlowShowMenu()
@@ -115,8 +128,6 @@ public class MenuController : MonoBehaviour
 
         SetImagesEnabled(true);
     }
-
-
 
     public void SlowHideMenu()
     {
