@@ -1,0 +1,194 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+
+
+public class MovingObject : MonoBehaviour
+{
+
+    public static float moveTime = 0.1f;
+
+    public LayerMask blockingLayer;
+    
+    private MatrixCollider _matrixCollider;
+    private float _inverseMoveTime;
+    private float _actionCoolDownTime;
+
+    // the object can perform an action
+    private bool _isReady = false;
+
+    // the object is currently moving
+    private bool _isMoving = false;
+
+    private Animator _animator;
+
+    // needed for face function
+    private SpriteRenderer _spriteRenderer;
+    private SpriteHolder _spriteHolder;
+
+
+
+    // Use this for initialization
+    protected virtual void Start()
+    {
+        _matrixCollider = GetComponent<MatrixCollider>();
+        if (_matrixCollider == null)
+        {
+            Debug.LogError(this.gameObject.ToString() + ": MatrixCollider not found");
+        }
+
+        _inverseMoveTime = 1f / moveTime;
+
+        _animator = GetComponent<Animator>();
+        _spriteHolder = GetComponent<SpriteHolder>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    protected virtual void Update()
+    {
+        if (!_isReady) {
+            _actionCoolDownTime -= Time.deltaTime;
+            if (_actionCoolDownTime< 0){
+                _isReady = true;
+            }
+        }
+    }
+
+    public bool IsReady()
+    {
+        return _isReady & !_isMoving;
+    }
+
+    private void SetNotReady()
+    {
+        _actionCoolDownTime = moveTime;
+        _isReady = false;
+    }
+
+    protected IEnumerator SmoothMovement(Vector3 endPos)
+    {
+        // sqr for the remaining distance
+        // = distance between the current position and the end position
+        float sqrRemainingDistance = (transform.position - endPos).sqrMagnitude;
+
+        _isMoving = true;
+        AnimateWalk(true);
+        while (sqrRemainingDistance > float.Epsilon)
+        {
+            // move the rigidbody moveUnits units toward the end position
+            float moveUnits = _inverseMoveTime * Time.deltaTime;
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, endPos, moveUnits);
+            transform.position = newPosition;
+            sqrRemainingDistance = (transform.position - endPos).sqrMagnitude;
+            // wait for a frame before reevalue the conditions of the loop
+            yield return null;
+
+        }
+
+        // set at the correct place at the end
+        transform.position = endPos;
+        _isMoving = false;
+        AnimateWalk(false);
+    }
+
+    protected bool Move(Direction direction)
+    {
+        Face(direction);
+
+        // update collider position
+        _matrixCollider.matrixPosition += direction.ToPos();
+
+        // update real position
+        Vector2 realPosStart = transform.position;
+        Vector2 realPosEnd = realPosStart + (Vector2) direction.ToPos();
+        StartCoroutine(SmoothMovement(realPosEnd));
+
+        // return True if we successfuly move
+        return true;
+    }
+
+    protected virtual void AttemptMove(Direction direction)
+    {
+        // start cooldown for action
+        SetNotReady();
+
+        GameObject collidingObject = _matrixCollider.GetObjectInDirection(direction);
+        bool canMove = true;
+
+        if (collidingObject != null)
+        {
+            MatrixCollider otherCollider = collidingObject.GetComponent<MatrixCollider>();
+            ActivableObject activableObject = collidingObject.GetComponent<ActivableObject>();
+            canMove = !otherCollider.IsBlocking;
+
+            if (otherCollider == null)
+            {
+                Debug.LogError(otherCollider.ToString() + ": colliding but no collider found");
+                return;
+            }
+
+            if (activableObject != null)
+            {
+                canMove = activableObject.Activate(gameObject);
+            }
+        }        
+
+        // Check that direction is valid and that object is able to move
+        if (_matrixCollider.IsValidDirection(direction) & canMove)
+        {
+            Move(direction);
+        }
+    }
+
+    private void AnimateWalk(bool start = true)
+    {
+        if (_animator != null)
+        {
+            if (start) {
+                _animator.SetBool("walk", true);
+            }
+            else
+            {
+                StartCoroutine(CheckAnimatorMoving(moveTime / 10f));
+            }
+        }
+    }
+
+    protected IEnumerator CheckAnimatorMoving(float totalWaitTime)
+    {
+
+        float waitTime = 0;
+
+        while (waitTime < totalWaitTime)
+        {
+            waitTime += Time.deltaTime;
+            yield return null;
+        }
+
+        if (!_isMoving)
+        {
+            _animator.SetBool("walk", false);
+        }
+    }
+
+    public void Face(Direction direction)
+    {
+        if (_spriteHolder != null)
+        {
+            _spriteHolder.FaceDirection(direction);
+        }
+        else if (_spriteRenderer != null)
+        {
+            if (direction.IsRight())
+            {
+                _spriteRenderer.flipX = false;
+            }
+            else if (direction.IsLeft())
+            {
+                _spriteRenderer.flipX = true;
+            }
+        }
+    }
+}
