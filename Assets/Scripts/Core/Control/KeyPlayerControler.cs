@@ -6,13 +6,10 @@ public class KeyPlayerControler : PlayerControler
 {
     private void Update()
     {
-        int horizontal = 0;
-        int vertical = 0;
+        int horizontal = (int)(Input.GetAxisRaw("Horizontal"));
+        int vertical = (int)(Input.GetAxisRaw("Vertical"));
 
-        horizontal = (int)(Input.GetAxisRaw("Horizontal"));
-        vertical = (int)(Input.GetAxisRaw("Vertical"));
-
-        if ((vertical != 0) && (horizontal != 0)){
+        if ((vertical != 0) || (horizontal != 0)){
             Direction direction = new Direction(horizontal, vertical);
 
             if (!direction.IsIdle()) {
