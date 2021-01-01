@@ -21,36 +21,20 @@ public class Player : MovingObject
 
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
             Destroy(gameObject);
+
+        PlayerControler.OnGetCommand += TriggerMovement;
     }
 
-    // Update is called once per frame
-    protected override void Update()
-    {
-        base.Update();
-
-        int horizontal = 0;
-        int vertical = 0;
-
-        horizontal = (int)(Input.GetAxisRaw("Horizontal"));
-        vertical = (int)(Input.GetAxisRaw("Vertical"));
-
-        // TODO: all the logic to check if player is able to move should be in GameManager instead
+    private void TriggerMovement(Direction direction){
         if (
             IsReady()
             && GameManager.instance.playerCanMove
             && !GameManager.instance.isGamePaused
             && !MenuController.instance.isOpen
+            && !direction.IsIdle()
         ){
-
-            Direction direction = new Direction(horizontal, vertical);
-
-            if (!direction.IsIdle()) {
-                AttemptMove(direction);
-            }
+            AttemptMove(direction);
         }       
     }
-    
-    
-
 
 }
