@@ -22,7 +22,7 @@ public class Player : MovingObject
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
             Destroy(gameObject);
 
-        PlayerControler.OnGetCommand += TriggerMovement;
+        PlayerController.OnGetCommand += TriggerMovement;
     }
 
     private void TriggerMovement(Direction direction){

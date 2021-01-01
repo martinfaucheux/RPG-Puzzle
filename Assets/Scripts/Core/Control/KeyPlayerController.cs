@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyPlayerControler : PlayerControler
+public class KeyPlayerController : PlayerController
 {
     private void Update()
     {

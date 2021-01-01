@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public abstract class PlayerControler : MonoBehaviour
+public abstract class PlayerController : MonoBehaviour
 {
     public static event Action<Direction> OnGetCommand = delegate { };
 

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public class PlayerControlerLogger : MonoBehaviour
+public class PlayerControllerLogger : MonoBehaviour
 {
     private void Awake()
     {
-        PlayerControler.OnGetCommand += TriggerLog;
+        PlayerController.OnGetCommand += TriggerLog;
     }
 
     private void TriggerLog(Direction direction)

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class SwipePlayerControler : PlayerControler
+public class SwipePlayerController : PlayerController
 {
     private Vector2 fingerDownPosition;
     private Vector2 fingerUpPosition;
