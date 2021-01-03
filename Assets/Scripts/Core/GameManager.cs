@@ -118,14 +118,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void EnterPause(){
-        Debug.Log("Enter pause");
         isGamePaused = true;
+        Time.timeScale = 0f;
         InGameMenu menu = (InGameMenu) BaseMenu.instance;
         menu.OpenMenu();
     }
 
     public void ExitPause(){
         isGamePaused = false;
+        Time.timeScale = 1f;
         InGameMenu menu = (InGameMenu) BaseMenu.instance;
         menu.CloseMenu();
     }
