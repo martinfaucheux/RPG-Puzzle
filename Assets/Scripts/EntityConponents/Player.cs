@@ -25,6 +25,10 @@ public class Player : MovingObject
         PlayerController.OnGetCommand += TriggerMovement;
     }
 
+    private void OnDestroy(){
+        PlayerController.OnGetCommand -= TriggerMovement;
+    }
+
     private void TriggerMovement(Direction direction){
         if (
             IsReady()
