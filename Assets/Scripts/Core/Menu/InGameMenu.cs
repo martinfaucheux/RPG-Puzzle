@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class InGameMenu : BaseMenu
 {
     private bool _isOpen = false;
+    public Text titleTextComponent;
 
     public override void Start(){
 
@@ -25,6 +27,7 @@ public class InGameMenu : BaseMenu
     }
 
     public void OpenMenu(){
+        SetTittle();
         mainMenuGO.SetActive(true);
         backgroundGO.SetActive(true);
         _isOpen = true;
@@ -37,4 +40,8 @@ public class InGameMenu : BaseMenu
         _isOpen = false;
     }
 
+    private void SetTittle(){
+        string text = "Level " + LevelLoader.instance.currentLevelId.ToString();
+        titleTextComponent.text = text;
+    }
 }

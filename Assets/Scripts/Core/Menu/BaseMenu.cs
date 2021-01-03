@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BaseMenu : MonoBehaviour
 {
@@ -48,6 +47,4 @@ public class BaseMenu : MonoBehaviour
         mainMenuGO.SetActive(false);
         optionMenuGO.SetActive(true);
     }
-
-
 }

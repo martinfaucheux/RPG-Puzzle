@@ -79,7 +79,6 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadFirstScene(){
-        Debug.Log("load first level");
         LoadLevel(0, false);
     }
 

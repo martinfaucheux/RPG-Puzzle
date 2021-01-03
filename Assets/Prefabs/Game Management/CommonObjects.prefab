@@ -2404,7 +2404,7 @@ GameObject:
   - component: {fileID: 6528736790499205031}
   - component: {fileID: 3790610356354722826}
   m_Layer: 5
-  m_Name: Game Tittle
+  m_Name: Levell Tittle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2773,6 +2773,7 @@ MonoBehaviour:
   mainMenuGO: {fileID: 2286913961527049522}
   optionMenuGO: {fileID: 3808578440424502587}
   backgroundGO: {fileID: 3709529791996900459}
+  titleTextComponent: {fileID: 3790610356354722826}
 --- !u!1 &7354257206294237275
 GameObject:
   m_ObjectHideFlags: 0
