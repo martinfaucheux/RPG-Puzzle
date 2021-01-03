@@ -97,6 +97,14 @@ public class LevelLoader : MonoBehaviour
         return (levelId <= maxLevelId);
     }
 
+    public bool IsPreviousLevelAvailable(){
+        return currentLevelId > 1;
+    }
+
+    public bool IsNextLevelAvailable(){
+        return (currentLevelId < maxLevelId);
+    }
+
     private void UnlockLevel(int levelID){
         if (maxLevelId < levelID){
             maxLevelId = levelID;

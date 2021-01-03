@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class InGameMenu : BaseMenu
 {
     private bool _isOpen = false;
+    public GameObject nextLevelButtonGO;
+    public GameObject previousLevelButtonGO;
     public Text titleTextComponent;
 
     public override void Start(){
@@ -28,6 +30,9 @@ public class InGameMenu : BaseMenu
 
     public void OpenMenu(){
         SetTittle();
+        SetPreviousLevelButtonState();
+        SetNextLevelButtonState();
+
         mainMenuGO.SetActive(true);
         backgroundGO.SetActive(true);
         _isOpen = true;
@@ -43,5 +48,15 @@ public class InGameMenu : BaseMenu
     private void SetTittle(){
         string text = "Level " + LevelLoader.instance.currentLevelId.ToString();
         titleTextComponent.text = text;
+    }
+
+    private void SetPreviousLevelButtonState(){
+        bool hasNextLevel = LevelLoader.instance.IsPreviousLevelAvailable();
+        previousLevelButtonGO.SetActive(hasNextLevel);
+    }
+
+    private void SetNextLevelButtonState(){
+        bool hasNextLevel = LevelLoader.instance.IsNextLevelAvailable();
+        nextLevelButtonGO.SetActive(hasNextLevel);
     }
 }
