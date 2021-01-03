@@ -15,7 +15,7 @@ public class LevelLoader : MonoBehaviour
     public float transitionDuration = 0.5f;
 
     // cache last level that was played (for play button)
-    private int _lastLevelPlayed = 1;
+    private int _lastLevelPlayedID = 1;
     private bool _isMainMenu = false;
 
     //Awake is always called before any Start functions
@@ -75,7 +75,12 @@ public class LevelLoader : MonoBehaviour
     }
 
     public void LoadLastLevelPlayed(){
-        LoadLevel(_lastLevelPlayed, false);
+        LoadLevel(_lastLevelPlayedID, false);
+    }
+
+    public void LoadFirstScene(){
+        Debug.Log("load first level");
+        LoadLevel(0, false);
     }
 
     private void LoadLevel(int levelID, bool doSaveData = true){
@@ -85,7 +90,7 @@ public class LevelLoader : MonoBehaviour
             SaveData(currentLevelID: levelID);
         }
         
-        _lastLevelPlayed = levelID;
+        _lastLevelPlayedID = levelID;
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
     }
 
@@ -117,19 +122,20 @@ public class LevelLoader : MonoBehaviour
 
         if (playerData != null){
             maxLevelId = playerData.maxLevelId;
-            _lastLevelPlayed = playerData.currentLevelId;
+            _lastLevelPlayedID = playerData.currentLevelId;
         }
     }
 
     public void DeleteSavedData(){
         DataSaver.DeleteSavedData();
         maxLevelId = 1;
-        _lastLevelPlayed = 1;
+        _lastLevelPlayedID = 1;
     }
 
     private IEnumerator DelayLoadScene(int sceneBuildIndex, float seconds)
     {
-        yield return new WaitForSeconds(seconds);
+        // use WaitForSecondsRealtime to allow moving when timeScale = 0 (game paused)
+        yield return new WaitForSecondsRealtime(seconds);
         SceneManager.LoadScene(sceneBuildIndex);
     }
 

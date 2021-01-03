@@ -87,7 +87,8 @@ public class SceneChangeCircle : MonoBehaviour
             Vector3 newPos = initPos + (targetPos - initPos) * (timeSinceStart / transitionTime);
             _rectTransform.anchoredPosition = newPos;
 
-            timeSinceStart += Time.deltaTime;
+            // use unscaledDeltaTime to allow moving when timeScale = 0 (game paused)
+            timeSinceStart += Time.unscaledDeltaTime;
             yield return null;
         }
 

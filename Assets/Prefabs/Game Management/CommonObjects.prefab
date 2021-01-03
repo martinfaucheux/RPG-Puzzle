@@ -1017,10 +1017,10 @@ RectTransform:
   m_Father: {fileID: 3844803843736141191}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 233, y: 142.1}
+  m_SizeDelta: {x: 0, y: 142.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5252036847163703926
 CanvasRenderer:
@@ -1126,7 +1126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3844803843736141191}
   m_Layer: 5
-  m_Name: Main Menu
+  m_Name: Pause Main Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1544,9 +1544,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Exit
-
-'
+  m_Text: Go to main menu
 --- !u!1 &3948788066556400141
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,7 +2563,7 @@ GameObject:
   - component: {fileID: 7270070984570961215}
   - component: {fileID: 2287114698873138251}
   m_Layer: 5
-  m_Name: Exit Button
+  m_Name: GoToMainMenu Button
   m_TagString: Reward Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2586,10 +2584,10 @@ RectTransform:
   m_Father: {fileID: 3844803843736141191}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -202}
-  m_SizeDelta: {x: 220.9, y: 105.7}
+  m_SizeDelta: {x: 0, y: 105.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1560110600476246462
 CanvasRenderer:
@@ -2674,8 +2672,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1245291857}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Quit
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: LoadFirstScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2809,10 +2807,10 @@ RectTransform:
   m_Father: {fileID: 5529139602755197964}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000011444, y: -148}
-  m_SizeDelta: {x: 175.3, y: 91.3}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -148}
+  m_SizeDelta: {x: 0, y: 91.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4459256847402302742
 CanvasRenderer:
@@ -3235,10 +3233,10 @@ RectTransform:
   m_Father: {fileID: 3844803843736141191}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -83}
-  m_SizeDelta: {x: 220.9, y: 105.7}
+  m_SizeDelta: {x: 0, y: 105.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8691531093000233388
 CanvasRenderer:
@@ -4003,7 +4001,7 @@ PrefabInstance:
     - target: {fileID: 4550512030688858427, guid: 8de0871dd8335ff48b8b504bba720b91,
         type: 3}
       propertyPath: m_Name
-      value: Menu
+      value: Context Menu
       objectReference: {fileID: 0}
     - target: {fileID: 4550512030688858428, guid: 8de0871dd8335ff48b8b504bba720b91,
         type: 3}
