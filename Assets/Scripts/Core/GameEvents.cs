@@ -10,6 +10,7 @@ public class GameEvents : MonoBehaviour
     public event Action onEnterLevelUp;
     public event Action onExitLevelUp;
     public event Action<int> onHealthChange;
+    public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
     public event Action onEndOfLevel;
     public event Action onGameOver;
@@ -51,6 +52,14 @@ public class GameEvents : MonoBehaviour
         if (onHealthChange != null)
         {
             onHealthChange(healthID);
+        }
+    }
+
+    public void PlayerGetDamage()
+    {
+        if (onPlayerGetDamage != null)
+        {
+            onPlayerGetDamage();
         }
     }
 

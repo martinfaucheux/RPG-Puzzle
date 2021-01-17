@@ -32,6 +32,7 @@ public class CameraShake : MonoBehaviour
     private void Start()
     {
         _initPos = transform.position;
+        GameEvents.instance.onPlayerGetDamage += ShakeOnce;
     }
 
     private void Update()

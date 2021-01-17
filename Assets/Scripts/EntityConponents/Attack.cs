@@ -57,8 +57,6 @@ public class Attack : MonoBehaviour {
     // damage each other with other entity
     public void Fight(Health opponentHealth, Attack opponentAttack)
     {
-        CameraShake.instance.ShakeOnce();
-
         if(opponentHealth.gameObject.tag == "Player")
         {
             // Force this to face player

@@ -26,6 +26,7 @@ public class Health : MonoBehaviour {
 
     public int expRewardPoints = 1;
 
+
     public bool isDead = false;
     public HealthDisplay healthDisplay = null;
 
@@ -57,6 +58,10 @@ public class Health : MonoBehaviour {
         CurrentHealthPoints = newValue;
 
         UpdateUI();
+
+        if (tag == "Player"){
+            GameEvents.instance.PlayerGetDamage();
+        }
 
 
         if (CurrentHealthPoints <= 0)
