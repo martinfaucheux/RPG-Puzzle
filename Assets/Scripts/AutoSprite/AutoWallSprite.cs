@@ -121,7 +121,7 @@ public class AutoWallSprite: MonoBehaviour
         return null;
     }
 
-    private bool HasWallAtDirection(Direction direction)
+    private bool HasWallAtDirection(Direction2 direction)
     {
         Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
         Vector2 position = currentPosition + direction.ToPos();
@@ -131,7 +131,7 @@ public class AutoWallSprite: MonoBehaviour
 
     private bool HasWallAtAnyDirection()
     {
-        foreach(Direction direction in Direction.GetAllDirections())
+        foreach(Direction2 direction in Direction2.GetAll<Direction2>())
         {
             if (HasWallAtDirection(direction)){
                 return true;

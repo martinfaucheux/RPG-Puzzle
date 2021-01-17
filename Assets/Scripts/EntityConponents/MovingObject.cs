@@ -93,12 +93,17 @@ public class MovingObject : MonoBehaviour
         AnimateWalk(false);
     }
 
-    protected bool Move(Direction direction)
+    protected bool Move(Direction2 direction)
     {
         Face(direction);
 
         // update collider position
         _matrixCollider.matrixPosition += direction.ToPos();
+
+        // // update real position
+        // Vector3 realPosStart = transform.position;
+        // // need to use a CollisionMatrix method instead
+        // Vector3 realPosEnd = realPosStart + direction.ToPos();
 
         // update real position
         Vector2 realPosStart = transform.position;
@@ -109,7 +114,7 @@ public class MovingObject : MonoBehaviour
         return true;
     }
 
-    protected virtual void AttemptMove(Direction direction)
+    protected virtual void AttemptMove(Direction2 direction)
     {
         // start cooldown for action
         SetNotReady();
@@ -173,7 +178,7 @@ public class MovingObject : MonoBehaviour
         }
     }
 
-    public void Face(Direction direction)
+    public void Face(Direction2 direction)
     {
         if (_spriteHolder != null)
         {
@@ -181,11 +186,11 @@ public class MovingObject : MonoBehaviour
         }
         else if (_spriteRenderer != null)
         {
-            if (direction.IsRight())
+            if (direction == Direction2.RIGHT)
             {
                 _spriteRenderer.flipX = false;
             }
-            else if (direction.IsLeft())
+            else if (direction == Direction2.LEFT)
             {
                 _spriteRenderer.flipX = true;
             }

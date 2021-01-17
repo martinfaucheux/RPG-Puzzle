@@ -26,6 +26,24 @@ public class Direction{
         this.value = GetDirectionValueFromCoord((int) horizontal, (int) vertical);
     }
 
+    // define conversion methods to new Direction class
+    public static implicit operator Direction(Direction2 d) => d.ToPreviousType();
+    public static implicit operator Direction2(Direction d){
+        switch (d.value){
+            case DirectionValue.UP:
+                return Direction2.UP;
+            case DirectionValue.DOWN:
+                return Direction2.DOWN;
+            case DirectionValue.LEFT:
+                return Direction2.LEFT;
+            case DirectionValue.RIGHT:
+                return Direction2.RIGHT;
+            default:
+                return Direction2.IDLE;
+        }
+    }
+
+
     public DirectionValue GetDirectionValueFromCoord(int horizontal, int vertical)
     {
         DirectionValue value;
@@ -78,6 +96,11 @@ public class Direction{
     public static Direction RIGHT()
     {
         return new Direction(DirectionValue.RIGHT);
+    }
+
+    public static Direction IDLE()
+    {
+        return new Direction(DirectionValue.IDLE);
     }
 
     public Vector2Int ToPos()

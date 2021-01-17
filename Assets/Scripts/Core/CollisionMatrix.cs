@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionMatrix: MonoBehaviour { 
+public class CollisionMatrix: MonoBehaviour {
+
+    public enum Mode 
+    {
+        TOP_DOWN,
+        ISOMETRIC
+    }
 
     //Static instance of GameManager which allows it to be accessed by any other script.
     public static CollisionMatrix instance = null;
@@ -10,11 +16,14 @@ public class CollisionMatrix: MonoBehaviour {
     public Vector2Int matrixSize;
     public Vector2 origin;
 
+    public Mode mode = Mode.TOP_DOWN;
     public bool showSceneBounds = true;
     public Color sceneBoundsColor;
     public GameObject borderWallPrefab;
 
     private List<MatrixCollider> colliderList = new List<MatrixCollider>();
+
+    
 
     //Awake is always called before any Start functions
     void Awake()
@@ -79,4 +88,31 @@ public class CollisionMatrix: MonoBehaviour {
     {
         origin = - (Vector2) matrixSize / 2f;
     }
+
+    // public Vector3 GetRealWorldVector(Direction direction){
+        
+    //     if (mode == Mode.TOP_DOWN){
+    //         Vector2Int pos = Vector2Int.zero;
+    //         switch (direction){
+    //             case (DirectionValue.UP):
+    //                 pos = Vector2Int.up;
+    //                 break;
+
+    //             case (DirectionValue.DOWN):
+    //                     pos = Vector2Int.down;
+    //                 break;
+    //             case (DirectionValue.LEFT):
+    //                 pos = Vector2Int.left;
+    //                 break;
+    //             case (DirectionValue.RIGHT):
+    //                 pos = Vector2Int.right;
+    //                 break;
+    //             case (DirectionValue.IDLE):
+    //                 break;
+    //         }
+    //         return (Vector3) (Vector2) pos;
+    //     }
+    //     return Vector3.zero;
+    // }
+    
 }

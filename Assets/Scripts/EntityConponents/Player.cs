@@ -29,13 +29,13 @@ public class Player : MovingObject
         PlayerController.OnGetCommand -= TriggerMovement;
     }
 
-    private void TriggerMovement(Direction direction){
+    private void TriggerMovement(Direction2 direction){
         if (
             IsReady()
             && GameManager.instance.playerCanMove
             && !GameManager.instance.isGamePaused
             && !MenuController.instance.isOpen
-            && !direction.IsIdle()
+            && (direction != Direction2.IDLE)
         ){
             AttemptMove(direction);
         }       

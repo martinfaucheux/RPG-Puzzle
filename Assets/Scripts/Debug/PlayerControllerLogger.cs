@@ -7,7 +7,7 @@ public class PlayerControllerLogger : MonoBehaviour
         PlayerController.OnGetCommand += TriggerLog;
     }
 
-    private void TriggerLog(Direction direction)
+    private void TriggerLog(Direction2 direction)
     {
         Debug.Log("Command: " + direction);
     }

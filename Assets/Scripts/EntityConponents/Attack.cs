@@ -38,7 +38,7 @@ public class Attack : MonoBehaviour {
     public void Damage(Health opponentHealth)
     {
         // get direction to opponent
-        Direction directionToOpponent = GetDirectionToOppenent(
+        Direction2 directionToOpponent = GetDirectionToOppenent(
             opponentHealth.GetComponent<MatrixCollider>()
         );
 
@@ -81,7 +81,7 @@ public class Attack : MonoBehaviour {
     }
 
     // animate the attack
-    private void AnimateAttack(Direction direction = null)
+    private void AnimateAttack(Direction2 direction = null)
     {
         if (_animator != null)
         {
@@ -96,14 +96,14 @@ public class Attack : MonoBehaviour {
 
     private void FaceOpponent(MatrixCollider opponentCollider)
     {
-        Direction faceDirection = GetDirectionToOppenent(opponentCollider);
+        Direction2 faceDirection = GetDirectionToOppenent(opponentCollider);
         if (faceDirection != null)
         {
             _movingObject.Face(faceDirection);
         }
     }
 
-    private Direction GetDirectionToOppenent(MatrixCollider opponentCollider)
+    private Direction2 GetDirectionToOppenent(MatrixCollider opponentCollider)
     {
         if (_movingObject != null & opponentCollider != null)
         {
