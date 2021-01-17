@@ -6,7 +6,7 @@ public class CollisionMatrix: MonoBehaviour {
 
     public enum Mode 
     {
-        TOP_DOWN,
+        TOPDOWN,
         ISOMETRIC
     }
 
@@ -16,7 +16,7 @@ public class CollisionMatrix: MonoBehaviour {
     public Vector2Int matrixSize;
     public Vector2 origin;
 
-    public Mode mode = Mode.TOP_DOWN;
+    public Mode mode = Mode.TOPDOWN;
     public bool showSceneBounds = true;
     public Color sceneBoundsColor;
     public GameObject borderWallPrefab;
@@ -89,30 +89,15 @@ public class CollisionMatrix: MonoBehaviour {
         origin = - (Vector2) matrixSize / 2f;
     }
 
-    // public Vector3 GetRealWorldVector(Direction direction){
+    public Vector3 GetRealWorldVector(Direction direction){
         
-    //     if (mode == Mode.TOP_DOWN){
-    //         Vector2Int pos = Vector2Int.zero;
-    //         switch (direction){
-    //             case (DirectionValue.UP):
-    //                 pos = Vector2Int.up;
-    //                 break;
+        Vector2 pos = direction.ToPos();
 
-    //             case (DirectionValue.DOWN):
-    //                     pos = Vector2Int.down;
-    //                 break;
-    //             case (DirectionValue.LEFT):
-    //                 pos = Vector2Int.left;
-    //                 break;
-    //             case (DirectionValue.RIGHT):
-    //                 pos = Vector2Int.right;
-    //                 break;
-    //             case (DirectionValue.IDLE):
-    //                 break;
-    //         }
-    //         return (Vector3) (Vector2) pos;
-    //     }
-    //     return Vector3.zero;
-    // }
+        if (mode == Mode.ISOMETRIC){
+            return new Vector3(pos.x, 0, pos.y);
+        }
+
+        return pos;
+    }
     
 }

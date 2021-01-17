@@ -104,8 +104,8 @@ public class SpriteHolder : MonoBehaviour
     ){
         //Vector3 initPos = spriteHolderTransform.position;
         Vector3 initPos = transform.position;
-        Vector2 vectDiff = direction.ToPos();
-        Vector3 targetPos = spriteHolderTransform.position + (Vector3) vectDiff * amplitude;
+        Vector3 vectDiff = CollisionMatrix.instance.GetRealWorldVector(direction);
+        Vector3 targetPos = spriteHolderTransform.position + vectDiff * amplitude;
         float moveHalfDuration = moveDuration / 2;
 
         float timeSinceStart = 0f;

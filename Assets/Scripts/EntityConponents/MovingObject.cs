@@ -100,14 +100,11 @@ public class MovingObject : MonoBehaviour
         // update collider position
         _matrixCollider.matrixPosition += direction.ToPos();
 
-        // // update real position
-        // Vector3 realPosStart = transform.position;
-        // // need to use a CollisionMatrix method instead
-        // Vector3 realPosEnd = realPosStart + direction.ToPos();
-
         // update real position
-        Vector2 realPosStart = transform.position;
-        Vector2 realPosEnd = realPosStart + (Vector2) direction.ToPos();
+        Vector3 realPosStart = transform.position;
+        // need to use a CollisionMatrix method instead
+        Vector3 realPosEnd = realPosStart + CollisionMatrix.instance.GetRealWorldVector(direction);
+
         StartCoroutine(SmoothMovement(realPosEnd));
 
         // return True if we successfuly move

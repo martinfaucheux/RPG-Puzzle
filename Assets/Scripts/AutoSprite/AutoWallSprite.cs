@@ -14,6 +14,9 @@ using System;
 [ExecuteInEditMode]
 public class AutoWallSprite: MonoBehaviour
 {
+
+    // TODO: Fix position, they might have been borken when migrating to new Direction class
+
     public static string wallTag = "Wall";
 
     public WallSpriteList sprites;
