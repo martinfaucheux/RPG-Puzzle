@@ -23,13 +23,27 @@ public class CollisionMatrixCustomInspector : Editor
             float matrixWidth = t.matrixSize.x;
             float matrixHeight = t.matrixSize.y;
 
-            Vector3[] verts = new Vector3[]
-            {
-            new Vector3(origin.x, origin.y),
-            new Vector3(origin.x, origin.y + matrixHeight),
-            new Vector3(origin.x + matrixWidth, origin.y + matrixHeight),
-            new Vector3(origin.x + matrixWidth, origin.y),
-            };
+            Vector3[] verts;
+            // ISOMETRIC
+            if (t.mode == CollisionMatrix.Mode.ISOMETRIC){
+                verts = new Vector3[]
+                {
+                new Vector3(origin.x, 0, origin.y),
+                new Vector3(origin.x, 0, origin.y + matrixHeight),
+                new Vector3(origin.x + matrixWidth, 0, origin.y + matrixHeight),
+                new Vector3(origin.x + matrixWidth, 0, origin.y),
+                };
+            }
+            // TOP DOWN
+            else {
+                verts = new Vector3[]
+                {
+                new Vector3(origin.x, origin.y),
+                new Vector3(origin.x, origin.y + matrixHeight),
+                new Vector3(origin.x + matrixWidth, origin.y + matrixHeight),
+                new Vector3(origin.x + matrixWidth, origin.y),
+                };
+            }
 
             Handles.DrawSolidRectangleWithOutline(verts, t.sceneBoundsColor, new Color(0, 0, 0, 1));
         }
