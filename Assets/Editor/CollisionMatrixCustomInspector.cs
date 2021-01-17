@@ -19,34 +19,39 @@ public class CollisionMatrixCustomInspector : Editor
     {
         if (t.showSceneBounds)
         {
-            Vector2 origin = t.origin - Vector2.one * 0.5f;
-            float matrixWidth = t.matrixSize.x;
-            float matrixHeight = t.matrixSize.y;
-
-            Vector3[] verts;
-            // ISOMETRIC
-            if (t.mode == CollisionMatrix.Mode.ISOMETRIC){
-                verts = new Vector3[]
-                {
-                new Vector3(origin.x, 0, origin.y),
-                new Vector3(origin.x, 0, origin.y + matrixHeight),
-                new Vector3(origin.x + matrixWidth, 0, origin.y + matrixHeight),
-                new Vector3(origin.x + matrixWidth, 0, origin.y),
-                };
-            }
-            // TOP DOWN
-            else {
-                verts = new Vector3[]
-                {
-                new Vector3(origin.x, origin.y),
-                new Vector3(origin.x, origin.y + matrixHeight),
-                new Vector3(origin.x + matrixWidth, origin.y + matrixHeight),
-                new Vector3(origin.x + matrixWidth, origin.y),
-                };
-            }
-
-            Handles.DrawSolidRectangleWithOutline(verts, t.sceneBoundsColor, new Color(0, 0, 0, 1));
+            DrawMatrixBounds();
         }
+    }
+
+    private void DrawMatrixBounds(){
+        
+        Vector3 origin = t.origin - Vector3.one * 0.5f;
+        Vector3[] verts;
+        float matrixWidth = t.matrixSize.x;
+        float matrixHeight = t.matrixSize.y;
+
+        // ISOMETRIC
+        if (t.mode == CollisionMatrix.Mode.ISOMETRIC){
+            verts = new Vector3[]
+            {
+            new Vector3(origin.x, 0, origin.z),
+            new Vector3(origin.x, 0, origin.z + matrixHeight),
+            new Vector3(origin.x + matrixWidth, 0, origin.z + matrixHeight),
+            new Vector3(origin.x + matrixWidth, 0, origin.z),
+            };
+        }
+        // TOP DOWN
+        else {
+            verts= new Vector3[]
+            {
+            new Vector3(origin.x, origin.y),
+            new Vector3(origin.x, origin.y + matrixHeight),
+            new Vector3(origin.x + matrixWidth, origin.y + matrixHeight),
+            new Vector3(origin.x + matrixWidth, origin.y),
+            };
+        }
+
+        Handles.DrawSolidRectangleWithOutline(verts, t.sceneBoundsColor, new Color(0, 0, 0, 1));
     }
 
     public override void OnInspectorGUI()

@@ -14,7 +14,7 @@ public class CollisionMatrix: MonoBehaviour {
     public static CollisionMatrix instance = null;
 
     public Vector2Int matrixSize;
-    public Vector2 origin;
+    public Vector3 origin;
 
     public Mode mode = Mode.TOPDOWN;
     public bool showSceneBounds = true;
@@ -78,15 +78,33 @@ public class CollisionMatrix: MonoBehaviour {
 
     public Vector2Int GetMatrixPos(Transform transform)
     {
-        Vector2 realPos = new Vector2(transform.position.x, transform.position.y);
-        realPos -= origin;
-        Vector2Int result = new Vector2Int((int)realPos.x, (int)realPos.y);
-        return result;
+        Vector3 realPos = transform.position - origin;
+        float x = realPos.x;
+        float y = (mode == Mode.TOPDOWN) ? realPos.y : realPos.z;
+        return new Vector2Int((int) x, (int) y);
     }
 
     public void CenterOrigin()
     {
-        origin = - (Vector2) matrixSize / 2f;
+        Vector3 newOrigin = - (Vector2) matrixSize / 2f;
+        if (mode == Mode.TOPDOWN){
+            origin = newOrigin;
+        }
+        else {
+            origin = new Vector3(newOrigin.x, 0, newOrigin.y);
+        }
+    }
+
+    public Vector3 GetRealWorldPosition(Vector2 matrixPos){
+        float x = matrixPos.x;
+        float y = matrixPos.y;
+        Vector3 realWorldPos;
+        if (mode == Mode.TOPDOWN)
+            realWorldPos = new Vector3(x, y, 0);
+        else
+            realWorldPos = new Vector3(x, 0, y);
+        
+        return origin + realWorldPos;
     }
 
     public Vector3 GetRealWorldVector(Direction direction){

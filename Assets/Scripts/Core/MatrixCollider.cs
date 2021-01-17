@@ -21,9 +21,9 @@ public class MatrixCollider : MonoBehaviour {
         _collisionMatrix.RemoveCollider(this);
     }
 
-    public Vector2 GetRealPos()
+    public Vector3 GetRealPos()
     {
-        return _collisionMatrix.origin + (Vector2) matrixPosition;
+        return _collisionMatrix.GetRealWorldPosition(matrixPosition);
     }
 
     public bool IsValidDirection(Direction direction)
