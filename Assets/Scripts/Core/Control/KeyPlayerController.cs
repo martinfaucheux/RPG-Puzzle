@@ -10,9 +10,9 @@ public class KeyPlayerController : PlayerController
         int vertical = (int)(Input.GetAxisRaw("Vertical"));
 
         if ((vertical != 0) || (horizontal != 0)){
-            Direction2 direction = Direction2.GetDirection2ValueFromCoord(horizontal, vertical);
+            Direction direction = Direction.GetDirection2ValueFromCoord(horizontal, vertical);
 
-            if (direction != Direction2.IDLE) {
+            if (direction != Direction.IDLE) {
                 TriggerMovement(direction);
             }           
         }       

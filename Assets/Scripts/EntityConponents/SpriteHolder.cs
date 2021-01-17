@@ -33,16 +33,16 @@ public class SpriteHolder : MonoBehaviour
         }
     }
 
-    public void FaceDirection(Direction2 direction)
+    public void FaceDirection(Direction direction)
     {
-        if (direction == Direction2.RIGHT)
+        if (direction == Direction.RIGHT)
         {
             Vector3 scale = spriteHolderTransform.localScale;
             float scaleX = Mathf.Abs(scale.x);
             scale = new Vector3(scaleX, scale.y, scale.z);
             spriteHolderTransform.localScale = scale;
         }
-        if (direction == Direction2.LEFT)
+        if (direction == Direction.LEFT)
         {
             Vector3 scale = spriteHolderTransform.localScale;
             float scaleX = -Mathf.Abs(scale.x);
@@ -90,7 +90,7 @@ public class SpriteHolder : MonoBehaviour
     }
 
     public void AttackMoveSprite(
-        Direction2 direction,
+        Direction direction,
         float animatonAmplitude = 0.3f,
         float animationDuration = 0.2f
     ){
@@ -98,7 +98,7 @@ public class SpriteHolder : MonoBehaviour
     }
 
     private IEnumerator AttackMoveSpriteCoroutine(
-        Direction2 direction,
+        Direction direction,
         float amplitude,
         float moveDuration
     ){

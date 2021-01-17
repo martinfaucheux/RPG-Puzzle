@@ -26,13 +26,13 @@ public class MatrixCollider : MonoBehaviour {
         return _collisionMatrix.origin + (Vector2) matrixPosition;
     }
 
-    public bool IsValidDirection(Direction2 direction)
+    public bool IsValidDirection(Direction direction)
     {
         Vector2Int futureMatrixPosition = matrixPosition + direction.ToPos();
         return _collisionMatrix.IsValidPosition(futureMatrixPosition);
     }
 
-    public GameObject GetObjectInDirection(Direction2 direction)
+    public GameObject GetObjectInDirection(Direction direction)
     {
         Vector2Int positionToCheck = matrixPosition + direction.ToPos();
 
@@ -45,10 +45,10 @@ public class MatrixCollider : MonoBehaviour {
     }
     
 
-    public Direction2 GetDirectionToOtherCollider(MatrixCollider otherCollider)
+    public Direction GetDirectionToOtherCollider(MatrixCollider otherCollider)
     {
         Vector2Int posDiff = otherCollider.matrixPosition - this.matrixPosition;
-        return Direction2.GetDirection2ValueFromCoord(posDiff.x, posDiff.y);
+        return Direction.GetDirection2ValueFromCoord(posDiff.x, posDiff.y);
     }
 
 

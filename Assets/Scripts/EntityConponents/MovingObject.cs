@@ -93,7 +93,7 @@ public class MovingObject : MonoBehaviour
         AnimateWalk(false);
     }
 
-    protected bool Move(Direction2 direction)
+    protected bool Move(Direction direction)
     {
         Face(direction);
 
@@ -114,7 +114,7 @@ public class MovingObject : MonoBehaviour
         return true;
     }
 
-    protected virtual void AttemptMove(Direction2 direction)
+    protected virtual void AttemptMove(Direction direction)
     {
         // start cooldown for action
         SetNotReady();
@@ -178,7 +178,7 @@ public class MovingObject : MonoBehaviour
         }
     }
 
-    public void Face(Direction2 direction)
+    public void Face(Direction direction)
     {
         if (_spriteHolder != null)
         {
@@ -186,11 +186,11 @@ public class MovingObject : MonoBehaviour
         }
         else if (_spriteRenderer != null)
         {
-            if (direction == Direction2.RIGHT)
+            if (direction == Direction.RIGHT)
             {
                 _spriteRenderer.flipX = false;
             }
-            else if (direction == Direction2.LEFT)
+            else if (direction == Direction.LEFT)
             {
                 _spriteRenderer.flipX = true;
             }

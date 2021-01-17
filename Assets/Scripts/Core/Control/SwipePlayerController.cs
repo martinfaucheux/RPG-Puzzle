@@ -40,7 +40,7 @@ public class SwipePlayerController : PlayerController
     {
         if (SwipeDistanceCheckMet())
         {
-            Direction2 direction = GetDirection(fingerDownPosition - fingerUpPosition);
+            Direction direction = GetDirection(fingerDownPosition - fingerUpPosition);
             TriggerMovement(direction);
         }
     }
@@ -60,20 +60,20 @@ public class SwipePlayerController : PlayerController
         return Mathf.Abs(fingerDownPosition.x - fingerUpPosition.x);
     }
 
-    private Direction2 GetDirection(Vector2 swipeVector){
+    private Direction GetDirection(Vector2 swipeVector){
         float x = swipeVector.x;
         float y = swipeVector.y;
         if (Mathf.Abs(x) > Mathf.Abs(y)){
             if (x > 0f)
-                return Direction2.RIGHT;
+                return Direction.RIGHT;
             else
-                return Direction2.LEFT;
+                return Direction.LEFT;
         }
         else{
            if (y > 0f)
-                return Direction2.UP;
+                return Direction.UP;
             else
-                return Direction2.DOWN;
+                return Direction.DOWN;
         }
     }
 }

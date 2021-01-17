@@ -47,10 +47,10 @@ public class AutoWallSprite: MonoBehaviour
 
     private void UpdateWallsInfo()
     {
-        _hasWallUP = HasWallAtDirection(Direction2.UP);
-        _hasWallDOWN = HasWallAtDirection(Direction2.DOWN);
-        _hasWallLEFT = HasWallAtDirection(Direction2.LEFT);
-        _hasWallRIGHT = HasWallAtDirection(Direction2.RIGHT);
+        _hasWallUP = HasWallAtDirection(Direction.UP);
+        _hasWallDOWN = HasWallAtDirection(Direction.DOWN);
+        _hasWallLEFT = HasWallAtDirection(Direction.LEFT);
+        _hasWallRIGHT = HasWallAtDirection(Direction.RIGHT);
 
         _countConnectedEdges = 0;
         bool[] boolArray = new bool[] { _hasWallUP, _hasWallDOWN, _hasWallLEFT, _hasWallRIGHT };
@@ -121,7 +121,7 @@ public class AutoWallSprite: MonoBehaviour
         return null;
     }
 
-    private bool HasWallAtDirection(Direction2 direction)
+    private bool HasWallAtDirection(Direction direction)
     {
         Vector2 currentPosition = new Vector2(transform.position.x, transform.position.y);
         Vector2 position = currentPosition + direction.ToPos();
@@ -131,7 +131,7 @@ public class AutoWallSprite: MonoBehaviour
 
     private bool HasWallAtAnyDirection()
     {
-        foreach(Direction2 direction in Direction2.GetAll<Direction2>())
+        foreach(Direction direction in Direction.GetAll<Direction>())
         {
             if (HasWallAtDirection(direction)){
                 return true;
