@@ -47,10 +47,10 @@ public class AutoWallSprite: MonoBehaviour
 
     private void UpdateWallsInfo()
     {
-        _hasWallUP = HasWallAtDirection(Direction.UP());
-        _hasWallDOWN = HasWallAtDirection(Direction.DOWN());
-        _hasWallLEFT = HasWallAtDirection(Direction.LEFT());
-        _hasWallRIGHT = HasWallAtDirection(Direction.RIGHT());
+        _hasWallUP = HasWallAtDirection(Direction2.UP);
+        _hasWallDOWN = HasWallAtDirection(Direction2.DOWN);
+        _hasWallLEFT = HasWallAtDirection(Direction2.LEFT);
+        _hasWallRIGHT = HasWallAtDirection(Direction2.RIGHT);
 
         _countConnectedEdges = 0;
         bool[] boolArray = new bool[] { _hasWallUP, _hasWallDOWN, _hasWallLEFT, _hasWallRIGHT };

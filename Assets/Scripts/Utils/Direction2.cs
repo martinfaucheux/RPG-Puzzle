@@ -67,21 +67,4 @@ public class Direction2 : Enumeration{
                 return Direction2.IDLE;
         }
     }
-
-    public Direction ToPreviousType(){
-        switch (this.Name)
-        {
-            case "RIGHT":
-                return Direction.RIGHT();
-            case "LEFT":
-                return Direction.LEFT();
-            case "UP":
-                return Direction.UP();
-            case "DOWN":
-                return Direction.DOWN();
-            default:
-                return Direction.IDLE();
-        }
-    }
-
 }
