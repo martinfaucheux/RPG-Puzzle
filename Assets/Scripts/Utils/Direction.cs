@@ -46,6 +46,10 @@ public class Direction : Enumeration{
         return GetDirection2ValueFromCoord((int) horizontal, (int) vertical);
     }
 
+    public static Direction GetDirection2ValueFromCoord(Vector2 coord){
+        return GetDirection2ValueFromCoord((int) coord.x, (int) coord.y);
+    }
+
     public Vector2Int ToPos()
     {
         return new Vector2Int(_xValue, _yValue);
