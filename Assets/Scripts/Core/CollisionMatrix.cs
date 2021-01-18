@@ -20,6 +20,7 @@ public class CollisionMatrix: MonoBehaviour {
     public bool showSceneBounds = true;
     public Color sceneBoundsColor;
     public GameObject borderWallPrefab;
+    public GameObject GridUnitPrefab;
 
     private List<MatrixCollider> colliderList = new List<MatrixCollider>();
 

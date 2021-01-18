@@ -69,6 +69,11 @@ public class CollisionMatrixCustomInspector : Editor
             t.CenterOrigin();
         }
 
+        if (GUILayout.Button("Create Grid"))
+        {
+            InstantiateGrid();
+        }
+
         if (GUILayout.Button("Build Border Walls"))
         {
             BuildBorderWalls();
@@ -130,14 +135,7 @@ public void BuildBorderWalls()
 
         if (borderWallsGO == null)
         {
-            GameObject envGO = GameObject.Find("Environment");
-
-            if (envGO == null)
-            {
-                Debug.Log("could not find Env GO, instantiate it");
-                envGO = Instantiate(new GameObject(), Vector3.zero, Quaternion.identity);
-                envGO.name = "Environment";
-            }
+            GameObject envGO = GetOrInstiateEmpty("Environment");
 
             borderWallsGO = new GameObject();
             borderWallsGO.transform.SetParent(envGO.transform);
@@ -147,7 +145,7 @@ public void BuildBorderWalls()
         return borderWallsGO;
     }
 
-    public static void RealignTransformsOnGrids(){
+    private static void RealignTransformsOnGrids(){
 
         float gridPace = 0.5f;
 
@@ -165,5 +163,33 @@ public void BuildBorderWalls()
                 initPos.z
             );
         }
+    }
+
+    private void InstantiateGrid(){
+
+        Vector3 constant = 1 * new Vector3(1, -0.82f, 1);
+        GameObject gridContainer = GetOrInstiateEmpty("Grid");
+
+        for(float x = 0; x < t.matrixSize.x; x++){
+            for(float y = 0; y < t.matrixSize.y; y++){
+                Vector3 position = t.GetRealWorldPosition(new Vector2(x, y));
+                GameObject gridUnitGO = Instantiate(t.GridUnitPrefab, position + constant, Quaternion.identity);
+                gridUnitGO.transform.SetParent(gridContainer.transform);
+            }
+        }
+    }
+
+    private static GameObject GetOrInstiateEmpty(string gameObjectName) => GetOrInstiateEmpty(gameObjectName, Vector3.zero);
+
+    private static GameObject GetOrInstiateEmpty(string gameObjectName, Vector3 position){
+        GameObject newGameObject = GameObject.Find(gameObjectName);
+
+        if (newGameObject == null)
+        {
+            Debug.Log("could not find " + gameObjectName + ", instantiate it");
+            newGameObject = Instantiate(new GameObject(), position, Quaternion.identity);
+            newGameObject.name = gameObjectName;
+        }
+        return newGameObject;
     }
 }
