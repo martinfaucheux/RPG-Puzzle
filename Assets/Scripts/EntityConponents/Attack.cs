@@ -95,7 +95,7 @@ public class Attack : MonoBehaviour {
     private void FaceOpponent(MatrixCollider opponentCollider)
     {
         Direction faceDirection = GetDirectionToOppenent(opponentCollider);
-        if (faceDirection != null)
+        if (faceDirection != null & _movingObject != null)
         {
             _movingObject.Face(faceDirection);
         }
@@ -103,7 +103,7 @@ public class Attack : MonoBehaviour {
 
     private Direction GetDirectionToOppenent(MatrixCollider opponentCollider)
     {
-        if (_movingObject != null & opponentCollider != null)
+        if (opponentCollider != null)
         {
             return _matrixCollider.GetDirectionToOtherCollider(opponentCollider);
         }

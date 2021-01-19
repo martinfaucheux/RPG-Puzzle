@@ -42,12 +42,10 @@ GameObject:
   - component: {fileID: 868061431883986102}
   - component: {fileID: 868061431883986103}
   - component: {fileID: 868061431883986100}
-  - component: {fileID: 868061431883986101}
   - component: {fileID: 868061431883986106}
   - component: {fileID: 868061431883986107}
   - component: {fileID: 868061431883986104}
   - component: {fileID: 868061431883986105}
-  - component: {fileID: 868061431883986110}
   - component: {fileID: 868061431883986111}
   m_Layer: 0
   m_Name: Skeleton
@@ -102,21 +100,6 @@ MonoBehaviour:
   healthDisplay: {fileID: 0}
   _currentHealth: 0
   _maxHealthPoints: 2
---- !u!114 &868061431883986101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868061431883986108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b6eb0f0d31a794484ab583d5933f6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentLevel: 1
-  currentExpPoints: 0
-  targetExpPoints: 0
 --- !u!114 &868061431883986106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,19 +168,6 @@ MonoBehaviour:
   hoverEnabled: 0
   hoverAmplitude: 0.1
   hoverPerdiod: 6
---- !u!114 &868061431883986110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868061431883986108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6a2f2f9514247246bc8e1a0ddf92c11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyCount: 0
 --- !u!114 &868061431883986111
 MonoBehaviour:
   m_ObjectHideFlags: 0
