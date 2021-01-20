@@ -167,13 +167,13 @@ public void BuildBorderWalls()
 
     private void InstantiateGrid(){
 
-        Vector3 constant = 1 * new Vector3(1, -0.82f, 1);
+        Vector3 constantVect = 1 * new Vector3(1, -0.82f, 1);
         GameObject gridContainer = GetOrInstiateEmpty("Grid");
 
         for(float x = 0; x < t.matrixSize.x; x++){
             for(float y = 0; y < t.matrixSize.y; y++){
                 Vector3 position = t.GetRealWorldPosition(new Vector2(x, y));
-                GameObject gridUnitGO = Instantiate(t.GridUnitPrefab, position + constant, Quaternion.identity);
+                GameObject gridUnitGO = Instantiate(t.GridUnitPrefab, position + constantVect, Quaternion.identity);
                 gridUnitGO.transform.SetParent(gridContainer.transform);
             }
         }
