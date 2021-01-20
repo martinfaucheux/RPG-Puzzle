@@ -34,7 +34,9 @@ public class RosaceMask : MonoBehaviour
 
     public void Show()
     {
-        transform.position = _playerCollider.GetRealPos();
+        // no longer needed as translation is already applied by CameraTranslation script
+        // transform.position = _playerCollider.GetRealPos();
+        
         StartCoroutine(ResizeRosace());
         isShowing = true;
     }
