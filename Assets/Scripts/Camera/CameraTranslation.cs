@@ -10,6 +10,7 @@ public class CameraTranslation : MonoBehaviour
 
     // private Transform _playerTransform;
     private MatrixCollider _playerCollider;
+    private Transform _playerTransform;
     private Vector3 _defaultPosition;
 
     // Start is called before the first frame update
@@ -17,7 +18,9 @@ public class CameraTranslation : MonoBehaviour
     {
         _defaultPosition = transform.position;
         // _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        _playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<MatrixCollider>();
+        GameObject playerGO = GameObject.FindGameObjectWithTag("Player");
+        _playerCollider = playerGO.GetComponent<MatrixCollider>();
+        _playerTransform = playerGO.GetComponent<Transform>();
 
         // listen to the event
         GameEvents.instance.onEnterLevelUp += TargetPlayer;
@@ -29,56 +32,30 @@ public class CameraTranslation : MonoBehaviour
 
     private void TargetPlayer()
     {
-        TargetPosition(_playerCollider, transitionTime);
+        Target(_playerTransform, transitionTime);
     }
 
     private void SlowTargetPlayer()
     {
-        TargetPosition(_playerCollider, slowTransitionTime);
+        Target(_playerTransform, slowTransitionTime);
     }
 
     private void TargetPosition(Vector3 position, float transitionTime)
     {
-        StartCoroutine(SmoothTargetPosition(position, transitionTime));
+        StartCoroutine(SmoothTarget(position, transitionTime));
     }
 
-    private void TargetPosition(MatrixCollider collider, float transitionTime)
+    private void Target(Transform targetTransform, float transitionTime)
     {
-        StartCoroutine(SmoothTargetCollider(collider, transitionTime));
+        StartCoroutine(SmoothTarget(targetTransform, transitionTime));
     }
 
     private void Reset()
     {
-        StartCoroutine(SmoothTargetPosition(_defaultPosition, transitionTime));
+        StartCoroutine(SmoothTarget(_defaultPosition, transitionTime));
     }
 
-    private IEnumerator SmoothTargetCollider(MatrixCollider collider, float transitionTime)
-    {
-        Vector3 targetPos3d = collider.GetRealPos();
-        targetPos3d.z = _defaultPosition.z;
-
-        Vector3 initPos = transform.position;
-
-        float timeSinceStart = 0f;
-
-        isMoving = true;
-        while (timeSinceStart < transitionTime)
-        {
-            targetPos3d = collider.GetRealPos();
-            targetPos3d.z = _defaultPosition.z;
-
-            Vector3 newPos = initPos + (targetPos3d - initPos) * (timeSinceStart / transitionTime);
-            transform.position = newPos;
-
-            timeSinceStart += Time.deltaTime;
-            yield return null;
-        }
-
-        isMoving = false;
-        transform.position = targetPos3d;
-    }
-
-    private IEnumerator SmoothTargetPosition(Vector3 targetPos, float transitionTime)
+    private IEnumerator SmoothTarget(Vector3 targetPos, float transitionTime)
     {
         Vector3 targetPos3d = new Vector3(targetPos.x, targetPos.y, _defaultPosition.z);
         Vector3 initPos = transform.position;
@@ -98,4 +75,32 @@ public class CameraTranslation : MonoBehaviour
         isMoving = false;
         transform.position = targetPos3d;
     }
+
+    private IEnumerator SmoothTarget(Transform targetTransform, float transitionTime)
+    {
+        Vector3 initPos = transform.position;
+        Vector3 targetPos3d;
+        Vector3 newPos;
+        
+        float timeSinceStart = 0f;
+
+        isMoving = true;
+        while (timeSinceStart < transitionTime)
+        {
+            targetPos3d = targetTransform.position;
+            Debug.Log("target pos " + targetPos3d.ToString());
+
+            
+            newPos = initPos + (targetPos3d - initPos) * (timeSinceStart / transitionTime);
+            transform.position = newPos;
+
+            timeSinceStart += Time.deltaTime;
+            yield return null;
+        }
+
+        isMoving = false;
+        transform.position = targetTransform.position;
+    }
+
+
 }
