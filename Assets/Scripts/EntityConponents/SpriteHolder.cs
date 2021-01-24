@@ -5,11 +5,16 @@ using UnityEngine;
 public class SpriteHolder : MonoBehaviour
 {
     public static string spriteHolderName = "SpriteHolder";
+    private static string _spriteGOMarker = "sgo";
 
     public Transform spriteHolderTransform;
-    public bool hoverEnabled = false;
-    public float hoverAmplitude = 0.1f;
-    public float hoverPerdiod = 6f;
+    public bool flipForFacing = false;
+
+    private bool _hasUniqueSprite = true;
+    private GameObject _sgoNW;
+    private GameObject _sgoNE;
+    private GameObject _sgoSE;
+    private GameObject _sgoSW;
 
     private SpriteRenderer[] _spriteRenderers;
 
@@ -21,20 +26,28 @@ public class SpriteHolder : MonoBehaviour
     private void Start()
     {
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-    }
-
-    private void Update()
-    {
-        if (hoverEnabled)
-        {
-            float posDifference = hoverAmplitude * Mathf.Sin(2 * Mathf.PI * Time.time / hoverPerdiod);
-            Vector3 newSpirteHolderPos = transform.position + posDifference * Vector3.up;
-            spriteHolderTransform.position = newSpirteHolderPos;
-        }
+        DiscoverSpriteGameObjects();
     }
 
     public void FaceDirection(Direction direction)
     {
+        if (_hasUniqueSprite & flipForFacing){
+            FlipSprite(direction);
+        }
+        else if (!_hasUniqueSprite){
+            foreach(GameObject go in GetSpriteGameObjects()){
+                if (go != null){
+                    go.SetActive(false);
+                }
+            }
+            GameObject spriteGO = GetSpriteGOForDirection(direction);
+            if (spriteGO != null){
+                spriteGO.SetActive(true);
+            }
+        }
+    }
+
+    private void FlipSprite(Direction direction){
         if (direction == Direction.RIGHT)
         {
             Vector3 scale = spriteHolderTransform.localScale;
@@ -52,6 +65,7 @@ public class SpriteHolder : MonoBehaviour
     }
 
     public void BumpOrderLayer(int slide)
+    // TODO: this should go to another component. Used only in GameOverMask FadeIn method
     {
         foreach(SpriteRenderer spriteRenderer in _spriteRenderers)
         {
@@ -61,6 +75,7 @@ public class SpriteHolder : MonoBehaviour
     }
 
     public void Randomize(bool allowFlipX=true, bool allowFlipY=true, bool allowRotate=true)
+    // TODO: this should to to another component
     {
         Vector3 scale = spriteHolderTransform.localScale;
         float scaleX = scale.x;
@@ -132,4 +147,60 @@ public class SpriteHolder : MonoBehaviour
 
         spriteHolderTransform.position = initPos;
     }
+
+    private void DiscoverSpriteGameObjects(){
+        foreach (Transform childTransform in spriteHolderTransform)
+        {
+            if(childTransform.name.StartsWith(_spriteGOMarker)){
+                string transformName = childTransform.name.Replace(_spriteGOMarker, "");
+
+                switch(transformName){
+                case "NW":
+                    _sgoNW = childTransform.gameObject;
+                    break;
+                case "NE":
+                    _sgoNE = childTransform.gameObject;
+                    break;
+                case "SE":
+                    _sgoSE = childTransform.gameObject;
+                    break;
+                case "SW":
+                    _sgoSW = childTransform.gameObject;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        if (
+            _sgoNW != null
+            & _sgoNE != null
+            & _sgoSW != null
+            & _sgoSE != null
+        ){
+            _hasUniqueSprite = false;
+        }
+    }
+
+    private GameObject[] GetSpriteGameObjects(){
+        return new GameObject[]{
+            _sgoNW, _sgoNE, _sgoSW, _sgoSE
+        };
+    }
+
+    private GameObject GetSpriteGOForDirection(Direction direction){
+        switch (direction.SpriteDirection){
+            case "NW":
+                return _sgoNW;
+            case "NE":
+                return _sgoNE;
+            case "SE":
+                return _sgoSE;
+            case "SW":
+                return _sgoSW;
+            default:
+                return null; 
+        }
+    }
+
 }

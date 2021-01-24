@@ -6,18 +6,21 @@ using System;
 [Serializable]
 public class Direction : Enumeration{
 
-    public static Direction IDLE = new Direction(0, nameof(IDLE), 0, 0);
-    public static Direction UP = new Direction(1, nameof(UP), 0, 1);
-    public static Direction DOWN = new Direction(2, nameof(DOWN), 0, -1);
-    public static Direction LEFT = new Direction(3, nameof(LEFT), -1, 0);
-    public static Direction RIGHT = new Direction(4, nameof(RIGHT), 1, 0);
+    public static Direction IDLE = new Direction(0, nameof(IDLE), 0, 0, "");
+    public static Direction UP = new Direction(1, nameof(UP), 0, 1, "NW");
+    public static Direction DOWN = new Direction(2, nameof(DOWN), 0, -1, "SE");
+    public static Direction LEFT = new Direction(3, nameof(LEFT), -1, 0, "SW");
+    public static Direction RIGHT = new Direction(4, nameof(RIGHT), 1, 0, "NE");
 
+    public string SpriteDirection{get { return _isoSpriteDirection; }}
     private int _xValue;
     private int _yValue;
+    private string _isoSpriteDirection;
 
-    public Direction(int id, string name, int xValue, int yValue) : base (id, name){
+    public Direction(int id, string name, int xValue, int yValue, string isoSpriteDirection) : base (id, name){
         this._xValue = xValue;
         this._yValue = yValue;
+        this._isoSpriteDirection = isoSpriteDirection;
     }
 
     public static Direction GetDirection2ValueFromCoord(int horizontal, int vertical)
