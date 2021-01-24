@@ -30,19 +30,24 @@ public class Attack : MonoBehaviour {
         }
     }
 
-    public void AddAttack(int attackPoint = 1)
+    public void AddAttackPoint(int attackPoint = 1)
     {
+        // Increase the amount of damage dealt when attacking
         this.attackPoints += attackPoints;
     }
 
     public void Damage(Health opponentHealth)
     {
+        // Main function called to apply damage to another Health component
+
         // get direction to opponent
         Direction directionToOpponent = GetDirectionToOppenent(
             opponentHealth.GetComponent<MatrixCollider>()
         );
 
+        // face direction then animate attack
         AnimateAttack(directionToOpponent);
+
         opponentHealth.TakeDamage(attackPoints);
 
         if (opponentHealth.isDead)
@@ -81,6 +86,9 @@ public class Attack : MonoBehaviour {
     // animate the attack
     private void AnimateAttack(Direction direction = null)
     {
+        if (_spriteHolder != null){
+            _spriteHolder.FaceDirection(direction);
+        }
         if (_animator != null)
         {
             _animator.SetTrigger("attack");

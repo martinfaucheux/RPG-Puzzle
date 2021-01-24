@@ -70,7 +70,7 @@ public class Experience : MonoBehaviour {
                 break;
             case LevelUpReward.ADD_ATTACK:
                 Attack attackComponent = GetComponent<Attack>();
-                attackComponent.AddAttack();
+                attackComponent.AddAttackPoint();
                 break;
             case LevelUpReward.HEAL:
                 _healthComponent.HealFullHealth();
