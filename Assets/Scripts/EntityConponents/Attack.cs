@@ -95,7 +95,7 @@ public class Attack : MonoBehaviour {
         }
         // if sprite holder is provided, the dash animation can be played
         if(_spriteHolder != null && direction != null) {
-            float animationDuration = MovingObject.moveTime;
+            float animationDuration = GameManager.instance.actionDuration;
             _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
         }
     }

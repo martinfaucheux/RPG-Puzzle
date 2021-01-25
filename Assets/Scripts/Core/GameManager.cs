@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
+    // time for basic action (e.g. moving)
+    public float actionDuration = 0.1f;
 
     public bool playerCanMove = false;
     public bool isGamePaused = false;

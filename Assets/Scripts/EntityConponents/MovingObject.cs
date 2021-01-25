@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
-
-    public static float moveTime = 0.1f;
-
     public LayerMask blockingLayer;
     
     private MatrixCollider _matrixCollider;
@@ -39,7 +36,7 @@ public class MovingObject : MonoBehaviour
             Debug.LogError(this.gameObject.ToString() + ": MatrixCollider not found");
         }
 
-        _inverseMoveTime = 1f / moveTime;
+        _inverseMoveTime = 1f / GameManager.instance.actionDuration;
 
         _animator = GetComponent<Animator>();
         _spriteHolder = GetComponent<SpriteHolder>();
@@ -63,7 +60,7 @@ public class MovingObject : MonoBehaviour
 
     private void SetNotReady()
     {
-        _actionCoolDownTime = moveTime;
+        _actionCoolDownTime = GameManager.instance.actionDuration;
         _isReady = false;
     }
 
@@ -157,7 +154,9 @@ public class MovingObject : MonoBehaviour
             }
             else
             {
-                StartCoroutine(CheckAnimatorMoving(moveTime / 10f));
+                StartCoroutine(
+                    CheckAnimatorMoving(GameManager.instance.actionDuration / 10f)
+                );
             }
         }
     }
