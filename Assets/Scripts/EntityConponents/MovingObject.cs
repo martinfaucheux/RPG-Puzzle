@@ -146,6 +146,10 @@ public class MovingObject : MonoBehaviour
 
     private void AnimateWalk(bool start = true)
     {
+        if(_spriteHolder != null & _spriteHolder.activeAnimator){
+            _spriteHolder.activeAnimator.SetTrigger("bump");
+        }
+        // TODO: to be deprecated
         if (_animator != null)
         {
             if (start) {

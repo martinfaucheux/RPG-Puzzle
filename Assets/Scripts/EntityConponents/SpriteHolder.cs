@@ -11,6 +11,7 @@ public class SpriteHolder : MonoBehaviour
     public bool flipForFacing = false;
 
     private bool _hasUniqueSprite = true;
+    public Animator activeAnimator;
     private GameObject _sgoNW;
     private GameObject _sgoNE;
     private GameObject _sgoSE;
@@ -26,7 +27,9 @@ public class SpriteHolder : MonoBehaviour
     private void Start()
     {
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        activeAnimator = GetComponent<Animator>();
         DiscoverSpriteGameObjects();
+        activeAnimator = GetComponentInChildren<Animator>(false);
     }
 
     public void FaceDirection(Direction direction)
@@ -43,6 +46,10 @@ public class SpriteHolder : MonoBehaviour
             GameObject spriteGO = GetSpriteGOForDirection(direction);
             if (spriteGO != null){
                 spriteGO.SetActive(true);
+                Animator childAnimator = spriteGO.GetComponent<Animator>();
+                if (childAnimator != null){
+                    activeAnimator = childAnimator;
+                }
             }
         }
     }
@@ -202,5 +209,4 @@ public class SpriteHolder : MonoBehaviour
                 return null; 
         }
     }
-
 }
