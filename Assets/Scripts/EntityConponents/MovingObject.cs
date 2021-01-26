@@ -72,6 +72,9 @@ public class MovingObject : MonoBehaviour
 
         _isMoving = true;
         AnimateWalk(true);
+        if(_spriteHolder != null & _spriteHolder.activeAnimator){
+            _spriteHolder.activeAnimator.SetTrigger("bump");
+        }
         while (sqrRemainingDistance > float.Epsilon)
         {
             // move the rigidbody moveUnits units toward the end position
@@ -143,9 +146,6 @@ public class MovingObject : MonoBehaviour
 
     private void AnimateWalk(bool start = true)
     {
-        if(_spriteHolder != null & _spriteHolder.activeAnimator){
-            _spriteHolder.activeAnimator.SetTrigger("bump");
-        }
         // TODO: to be deprecated
         if (_animator != null)
         {
