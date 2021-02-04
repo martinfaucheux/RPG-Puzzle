@@ -98,6 +98,7 @@ public class Attack : MonoBehaviour {
             float animationDuration = GameManager.instance.actionDuration;
             _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
         }
+        StartCoroutine(AnimateSlice(direction));
     }
 
     private void FaceOpponent(MatrixCollider opponentCollider)
@@ -116,5 +117,16 @@ public class Attack : MonoBehaviour {
             return _matrixCollider.GetDirectionToOtherCollider(opponentCollider);
         }
         return null;
+    }
+
+    // TODO: understand why the animation is not visible on the camera depending on point of view
+    private IEnumerator AnimateSlice(Direction direction){
+        GameObject attackEffectObject = ObjectPool.GetPool("attack").GetPooledObject();
+        attackEffectObject.transform.position = transform.position;
+        attackEffectObject.gameObject.SetActive(true);
+        attackEffectObject.GetComponent<Animator>().SetTrigger("attack");
+
+        yield return new WaitForSeconds(GameManager.instance.actionDuration * 0.99f);
+        attackEffectObject.gameObject.SetActive(false);
     }
 }
