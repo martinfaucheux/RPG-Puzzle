@@ -11521,27 +11521,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3611613658329471090, guid: ad2b22696840f1d4494be8e53580b7fe,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 327e14b1e8bf63b4e973eb0c6942abad,
-        type: 3}
-    - target: {fileID: 3611613658329471091, guid: ad2b22696840f1d4494be8e53580b7fe,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3611613658329471091, guid: ad2b22696840f1d4494be8e53580b7fe,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3611613658329471091, guid: ad2b22696840f1d4494be8e53580b7fe,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7601447744238510507, guid: ad2b22696840f1d4494be8e53580b7fe,
         type: 3}
       propertyPath: m_RootOrder
@@ -11604,31 +11583,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad2b22696840f1d4494be8e53580b7fe, type: 3}
---- !u!1 &1882202568 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3611613659097909206, guid: ad2b22696840f1d4494be8e53580b7fe,
-    type: 3}
-  m_PrefabInstance: {fileID: 1882202567}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1882202569
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1882202568}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9c89bd88e9be50346be98295b9500910, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1887415520
 GameObject:
   m_ObjectHideFlags: 0
