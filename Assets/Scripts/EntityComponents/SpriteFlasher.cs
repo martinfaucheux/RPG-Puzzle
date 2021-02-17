@@ -30,7 +30,7 @@ public class SpriteFlasher : MonoBehaviour
 
     private float GetFlashIntensity(){
         if(_spriteRenderers != null & _spriteRenderers.Length > 0){
-            return _spriteRenderers[0].sharedMaterial.GetFloat(materialPropertyName);
+            return _spriteRenderers[0].material.GetFloat(materialPropertyName);
         }
         return 0f;
     }
@@ -39,7 +39,7 @@ public class SpriteFlasher : MonoBehaviour
         if(_spriteRenderers != null){
             foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
             {
-                spriteRenderer.sharedMaterial.SetFloat(materialPropertyName, value);
+                spriteRenderer.material.SetFloat(materialPropertyName, value);
             }
         }
     }

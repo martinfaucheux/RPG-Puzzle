@@ -98,7 +98,8 @@ public class Attack : MonoBehaviour {
             float animationDuration = GameManager.instance.actionDuration;
             _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
         }
-        StartCoroutine(AnimateSlice(direction));
+        // TODO: need to fix slice animation first
+        // StartCoroutine(AnimateSlice(direction));
     }
 
     private void FaceOpponent(MatrixCollider opponentCollider)
