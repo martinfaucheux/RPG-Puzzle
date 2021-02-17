@@ -123,27 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &21339645 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4513580360118921162, guid: bc97bb1d773f68a4a9c5cb5b12c03e91,
-    type: 3}
-  m_PrefabInstance: {fileID: 1385832062}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &21339646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 21339645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 611d7e0b72fc1cf4ea9a053b1907a4d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  flashDuration: 0.2
-  materialPropertyName: _FlashIntensity
-  _spriteRenderers: []
 --- !u!1 &46969868
 GameObject:
   m_ObjectHideFlags: 0
@@ -7313,23 +7292,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1451269038, guid: bc97bb1d773f68a4a9c5cb5b12c03e91, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a3145b2362b21404880d74f1e7408571, type: 2}
-    - target: {fileID: 1778007267, guid: bc97bb1d773f68a4a9c5cb5b12c03e91, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a3145b2362b21404880d74f1e7408571, type: 2}
-    - target: {fileID: 1791976617, guid: bc97bb1d773f68a4a9c5cb5b12c03e91, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a3145b2362b21404880d74f1e7408571, type: 2}
-    - target: {fileID: 3796690443959403215, guid: bc97bb1d773f68a4a9c5cb5b12c03e91,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a3145b2362b21404880d74f1e7408571, type: 2}
     - target: {fileID: 4513580360118921160, guid: bc97bb1d773f68a4a9c5cb5b12c03e91,
         type: 3}
       propertyPath: m_RootOrder
