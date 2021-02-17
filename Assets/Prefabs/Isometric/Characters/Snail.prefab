@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 6251587325624568229}
   - component: {fileID: 6251587325624568228}
   - component: {fileID: 6251587325624568226}
+  - component: {fileID: 9131272513049090710}
   m_Layer: 0
   m_Name: Snail
   m_TagString: Enemy
@@ -165,9 +166,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteHolderTransform: {fileID: 0}
-  hoverEnabled: 0
-  hoverAmplitude: 0.1
-  hoverPerdiod: 6
+  flipForFacing: 0
+  activeAnimator: {fileID: 0}
 --- !u!114 &6251587325624568226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,6 +180,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d316ed24bffbfbd4caf87648ba6cda36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9131272513049090710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6251587325624568225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 611d7e0b72fc1cf4ea9a053b1907a4d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashDuration: 0.2
+  materialPropertyName: _FlashIntensity
 --- !u!1 &6251587325664579998
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +244,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a3145b2362b21404880d74f1e7408571, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
