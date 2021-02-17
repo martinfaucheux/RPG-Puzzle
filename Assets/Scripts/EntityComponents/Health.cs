@@ -34,12 +34,14 @@ public class Health : MonoBehaviour {
     private int _currentHealth;
     [SerializeField]
     private int _maxHealthPoints;
+    private SpriteFlasher _spriteFlasher;
     
 
     // Use this for initialization
     void Start () {
 
         CurrentHealthPoints = MaxHealthPoints;
+        _spriteFlasher = GetComponent<SpriteFlasher>();
         UpdateUI();
 	}
 
@@ -61,6 +63,10 @@ public class Health : MonoBehaviour {
 
         if (tag == "Player"){
             GameEvents.instance.PlayerGetDamage();
+        }
+
+        if (_spriteFlasher != null){
+            _spriteFlasher.Flash();
         }
 
 
