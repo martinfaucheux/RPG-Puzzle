@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ExpBarManager : MonoBehaviour
 {
     public Slider barSlider;
+    public Text levelIntTextComponent;
 
     public float fillTransitionDuraton = 0.2f;
     private Experience _expComponent;
@@ -16,16 +17,22 @@ public class ExpBarManager : MonoBehaviour
 
         // TODO: register to exp change signal
         GameEvents.instance.onPlayerExperienceChange += UpdateExpFill;
+        GameEvents.instance.onEnterLevelUp += UpdateLevelInt;
     }
 
     private void OnDestroy(){
         GameEvents.instance.onPlayerExperienceChange -= UpdateExpFill;
+        GameEvents.instance.onEnterLevelUp -= UpdateLevelInt;
     }
 
     public void UpdateExpFill(){
         float fillPercent = (float) _expComponent.currentExpPoints / (float) _expComponent.targetExpPoints;
         StartCoroutine(FilleCoroutine(fillPercent));
         
+    }
+
+    public void UpdateLevelInt(){
+        levelIntTextComponent.text = _expComponent.currentLevel.ToString();
     }
 
     private IEnumerator FilleCoroutine(float targetPercent){
