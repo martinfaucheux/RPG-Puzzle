@@ -39,6 +39,7 @@ public class Experience : MonoBehaviour {
         {
             LevelUp();
         }
+        GameEvents.instance.PlayerExperienceChangeTrigger();
         UIManager.instance.UpdateUI();
     }
 

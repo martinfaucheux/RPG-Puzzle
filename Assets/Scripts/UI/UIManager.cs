@@ -24,7 +24,10 @@ public class UIManager : MonoBehaviour
 
     public void UpdateUI()
     {
-        LevelDisplay.instance.UpdateUI();
-        ExpDisplay.instance.UpdateUI();
+        if (LevelDisplay.instance)
+            LevelDisplay.instance.UpdateUI();
+        
+        if (ExpDisplay.instance)
+            ExpDisplay.instance.UpdateUI();
     }
 }
