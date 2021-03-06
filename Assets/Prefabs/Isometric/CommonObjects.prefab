@@ -576,7 +576,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5604584728809877348}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6090337663579058056}
+        m_TargetAssemblyTypeName: ToggleMenu, Assembly-CSharp
+        m_MethodName: Toggle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1357691206977504493
 GameObject:
   m_ObjectHideFlags: 0
@@ -3921,6 +3933,7 @@ GameObject:
   - component: {fileID: 8952932252850200160}
   - component: {fileID: 8953418106182982073}
   - component: {fileID: 1874510005636241744}
+  - component: {fileID: 9116858907165850389}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4032,6 +4045,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 990488b10fe6c9c41b9e6e0e5158dc24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &9116858907165850389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8952932252850200187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06aa81d60758d824d93f978805acd35d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _skillPoint: 0
 --- !u!1 &8953418105907001223
 GameObject:
   m_ObjectHideFlags: 0
@@ -6017,3 +6043,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 8023439543313661959}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6090337663579058056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4313817424140398479, guid: 5a18bc78c67fc994ab85a57b2372c2ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 8023439543313661959}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b47abaaed8f0b0c4c8b066ea9b03ea36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

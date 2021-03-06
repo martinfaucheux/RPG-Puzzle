@@ -32,6 +32,7 @@ public class SkillManager : MonoBehaviour
             Destroy(gameObject);
 
         _skills = new List<Skill>();
+        GameEvents.instance.onEnterLevelUp += AddSkillPoint;
     }
 
     public void AddSkill (Skill skill){
