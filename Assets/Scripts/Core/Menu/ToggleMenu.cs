@@ -29,8 +29,10 @@ public class ToggleMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(toggleKeyCode)){
-            Toggle();
+        if(toggleKeyCode != KeyCode.None){
+            if(Input.GetKeyDown(toggleKeyCode)){
+                Toggle();
+            }
         }
     }
 
