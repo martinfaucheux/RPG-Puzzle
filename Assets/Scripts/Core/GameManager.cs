@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     public bool isEndOfLevelScreen = false;
     public bool isGameOverScreen = false;
 
+    #region Singleton
+
     //Awake is always called before any Start functions
     void Awake()
     {
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
             Destroy(gameObject);
     }
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()

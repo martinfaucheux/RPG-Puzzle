@@ -15,6 +15,10 @@ public class GameEvents : MonoBehaviour
     public event Action onEndOfLevel;
     public event Action onGameOver;
 
+    public event Action onSkillEnabled;
+
+    # region Singleton
+
     //Awake is always called before any Start functions
     void Awake()
     {
@@ -30,6 +34,8 @@ public class GameEvents : MonoBehaviour
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
             Destroy(gameObject);
     }
+
+    # endregion
 
     public void LevelUpEnterTrigger()
     {
@@ -84,6 +90,14 @@ public class GameEvents : MonoBehaviour
         if (onGameOver != null)
         {
             onGameOver();
+        }
+    }
+
+    public void SkillEnabledTrigger()
+    {
+        if (onSkillEnabled != null)
+        {
+            onSkillEnabled();
         }
     }
 
