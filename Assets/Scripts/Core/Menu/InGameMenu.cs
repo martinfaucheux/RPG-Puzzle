@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class InGameMenu : BaseMenu
+public class InGameMenu : MainMenu
 {
     private bool _isOpen = false;
     public GameObject nextLevelButtonGO;

@@ -35,6 +35,7 @@ public class Player : MovingObject
             && GameManager.instance.playerCanMove
             && !GameManager.instance.isGamePaused
             && !MenuController.instance.isOpen
+            && !SkillMenu.instance.isShowing
             && (direction != Direction.IDLE)
         ){
             AttemptMove(direction);
