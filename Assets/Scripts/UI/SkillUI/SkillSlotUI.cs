@@ -23,8 +23,10 @@ public class SkillSlotUI : MonoBehaviour
     }
 
     public void Enable(){
-        _buttonComponent.interactable = false;
-        SkillManager.instance.Enable(skill);
+        bool result = SkillManager.instance.Enable(skill);
+        if (result){
+            _buttonComponent.interactable = false;
+        }
     }
 
     private void SetSprite(){

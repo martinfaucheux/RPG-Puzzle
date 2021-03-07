@@ -43,11 +43,13 @@ public class SkillManager : MonoBehaviour
         skillPoint += 1;
     }
 
-    public void Enable(Skill skill){
+    public bool Enable(Skill skill){
         if (skillPoint > 0){
             skillPoint -= 1;
             GameObject playerGo = GameObject.FindGameObjectWithTag("Player");
             skill.Enable(playerGo);
+            return true;
         }
+        return false;
     }
 }
