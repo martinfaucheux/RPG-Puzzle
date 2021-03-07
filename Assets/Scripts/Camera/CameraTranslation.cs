@@ -23,11 +23,7 @@ public class CameraTranslation : MonoBehaviour
         _playerTransform = playerGO.GetComponent<Transform>();
 
         // listen to the event
-        GameEvents.instance.onEnterLevelUp += TargetPlayer;
-        GameEvents.instance.onEndOfLevel += TargetPlayer;
         GameEvents.instance.onGameOver += SlowTargetPlayer;
-
-        GameEvents.instance.onExitLevelUp += Reset;
     }
 
     private void TargetPlayer()

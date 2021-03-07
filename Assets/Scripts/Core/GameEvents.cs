@@ -8,7 +8,6 @@ public class GameEvents : MonoBehaviour
     public static GameEvents instance = null;
 
     public event Action onEnterLevelUp;
-    public event Action onExitLevelUp;
     public event Action<int> onHealthChange;
     public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
@@ -42,14 +41,6 @@ public class GameEvents : MonoBehaviour
         if (onEnterLevelUp != null)
         {
             onEnterLevelUp();
-        }
-    }
-
-    public void LevelUpExitTrigger()
-    {
-        if (onExitLevelUp != null)
-        {
-            onExitLevelUp();
         }
     }
 

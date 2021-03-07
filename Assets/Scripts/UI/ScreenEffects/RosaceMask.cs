@@ -21,10 +21,7 @@ public class RosaceMask : MonoBehaviour
         EnableComponents(false);
 
         // listen to the event
-        GameEvents.instance.onEnterLevelUp += Show;
         GameEvents.instance.onEndOfLevel += Show;
-
-        GameEvents.instance.onExitLevelUp += Hide;
     }
 
     void Update()

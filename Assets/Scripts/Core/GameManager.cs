@@ -10,8 +10,6 @@ public class GameManager : MonoBehaviour
 
     public bool playerCanMove = false;
     public bool isGamePaused = false;
-
-    public bool isLevelUpScreen = false;
     public bool isEndOfLevelScreen = false;
     public bool isGameOverScreen = false;
 
@@ -38,14 +36,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameEvents.instance.onEnterLevelUp += OnEnterLevelUp;
-        GameEvents.instance.onEndOfLevel += OnEndOfLevel;
-    }
 
-    private void OnEnterLevelUp()
-    {
-        isLevelUpScreen = true;
-        playerCanMove = false;
     }
 
     private void OnEndOfLevel()
@@ -80,15 +71,6 @@ public class GameManager : MonoBehaviour
                 LevelLoader.instance.ReloadLevel();
             }
         }
-    }
-
-    public void ExitLevelUpScreen()
-    {
-        isLevelUpScreen = false;
-        playerCanMove = true;
-
-        // trigger end of level up event
-        GameEvents.instance.LevelUpExitTrigger();
     }
 
     public void Win()

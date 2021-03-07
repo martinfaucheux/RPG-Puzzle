@@ -25,8 +25,9 @@ public class Experience : MonoBehaviour {
         targetExpPoints = GetTargetExpForLevel(1);
         UIManager.instance.UpdateUI();
 
+        // TODO: this mechanism is no longer user
         // attach the appropirate function to each reward button
-        SetRewardButtonListeners();
+        // SetRewardButtonListeners();
     }
 
     public void GainExp(int expAmount)
@@ -61,6 +62,7 @@ public class Experience : MonoBehaviour {
         GameEvents.instance.LevelUpEnterTrigger();
     }
 
+    // TODO: this mechanism is no longer used
     private void PickLevelUpReward(LevelUpReward reward)
     {
         Debug.Log("pick reward");
@@ -77,7 +79,7 @@ public class Experience : MonoBehaviour {
                 _healthComponent.HealFullHealth();
                 break;
         }
-        GameManager.instance.ExitLevelUpScreen();
+        // GameManager.instance.ExitLevelUpScreen();
     }
 
     public void PickAddHealthReward() => PickLevelUpReward(LevelUpReward.ADD_HEALTH);

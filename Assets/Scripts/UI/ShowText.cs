@@ -12,7 +12,6 @@ public class ShowText: MonoBehaviour
     //}
     //public EventType eventType;
 
-    public string levelUpText = "Level Up";
     public string endOfLevelText = "Level Complete";
     public string gameOverText = "Game Over";
 
@@ -34,19 +33,12 @@ public class ShowText: MonoBehaviour
         SetPosition();
 
         // listen to the event
-        GameEvents.instance.onEnterLevelUp += ShowLevelUp;
-        GameEvents.instance.onExitLevelUp += Hide;
         GameEvents.instance.onEndOfLevel += ShowEndOfLevel;
         GameEvents.instance.onGameOver += ShowGameOver;
 
         textComponent = GetComponent<Text>();
         if (textComponent == null)
             Debug.LogError(gameObject.ToString() + ": No Text component found");
-    }
-
-    public void ShowLevelUp()
-    {
-        Show(levelUpText);
     }
 
     public void ShowEndOfLevel()
