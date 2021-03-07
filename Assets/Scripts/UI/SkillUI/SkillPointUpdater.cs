@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SkillPointUpdater : MonoBehaviour
 {
+    public bool showOnlyIfMoreThanZero = false;
+
+    public Image badgeImage;
     public Text skillPointCounterText;
     void Start()
     {
@@ -16,7 +19,15 @@ public class SkillPointUpdater : MonoBehaviour
     }
 
     public void UpdateSkillPointCounter(){
-        skillPointCounterText.text = SkillManager.instance.skillPoint.ToString();
+        int skillPoint = SkillManager.instance.skillPoint;
+        
+        if(showOnlyIfMoreThanZero && badgeImage != null){
+            bool condition = (skillPoint>0);
+            badgeImage.enabled = condition;
+            skillPointCounterText.enabled = condition;
+        }
+
+        skillPointCounterText.text = skillPoint.ToString();
     }
 
     void OnDestroy(){
