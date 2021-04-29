@@ -140,6 +140,7 @@ public class MovingObject : MonoBehaviour
         // Check that direction is valid and that object is able to move
         if (_matrixCollider.IsValidDirection(direction) & canMove)
         {
+            LeavePosition(_matrixCollider.matrixPosition);
             Move(direction);
         }
     }
@@ -158,6 +159,15 @@ public class MovingObject : MonoBehaviour
                     CheckAnimatorMoving(GameManager.instance.actionDuration / 10f)
                 );
             }
+        }
+    }
+
+    // play OnLeave of current sitting Activable object
+    private void LeavePosition(Vector2Int previousPosition){
+        GameObject collidingObject = CollisionMatrix.instance.GetObjectAtPosition(previousPosition);
+        ActivableObject leavingActivableObject = collidingObject.GetComponent<ActivableObject>();
+        if (leavingActivableObject != null){
+            leavingActivableObject.OnLeave();
         }
     }
 

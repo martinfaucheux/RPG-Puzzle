@@ -11,12 +11,15 @@ public class Crack : ActivableObject
     // return true if source object can move after activation
     public override bool Activate(GameObject sourceObject = null)
     {
+        return isWalkable;
+    }
+
+    public override void OnLeave()
+    {
         if(isWalkable){
             isWalkable = false;
             UpdateSprite();
-            return true;
         }
-        return false;
     }
 
     private void UpdateSprite(){

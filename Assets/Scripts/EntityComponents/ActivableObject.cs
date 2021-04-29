@@ -19,4 +19,9 @@ public class ActivableObject : MonoBehaviour {
         Debug.Log(gameObject.ToString() + ": Activated");
         return true;
     }
+
+	// function that will be ran once the player exit the case
+	public virtual void OnLeave(){
+		return;
+	}
 }
