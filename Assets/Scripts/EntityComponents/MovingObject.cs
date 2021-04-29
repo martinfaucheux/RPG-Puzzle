@@ -164,11 +164,14 @@ public class MovingObject : MonoBehaviour
 
     // play OnLeave of current sitting Activable object
     private void LeavePosition(Vector2Int previousPosition){
-        GameObject collidingObject = CollisionMatrix.instance.GetObjectAtPosition(previousPosition);
-        ActivableObject leavingActivableObject = collidingObject.GetComponent<ActivableObject>();
-        if (leavingActivableObject != null){
-            leavingActivableObject.OnLeave();
-        }
+
+        List<GameObject> objectsAtPosition = CollisionMatrix.instance.GetObjectsAtPosition(previousPosition);
+        foreach(GameObject gameObject in objectsAtPosition){
+            ActivableObject leavingActivableObject = gameObject.GetComponent<ActivableObject>();
+            if (leavingActivableObject != null){
+                leavingActivableObject.OnLeave();
+            }
+        }        
     }
 
     protected IEnumerator CheckAnimatorMoving(float totalWaitTime)
