@@ -4,18 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ToggleMenu : MonoBehaviour
 {
-    [SerializeField] private bool _isShowing;
-    public bool isShowing{
-        get{return _isShowing;}
-        set{
-            _isShowing = value;
-            if(value){
-                Show();
-            } else {
-                Hide();
-            }
-        }
-    }
+    public bool isShowing = false;
 
     public KeyCode toggleKeyCode;
 
@@ -37,16 +26,21 @@ public class ToggleMenu : MonoBehaviour
     }
 
     public void Toggle(){
-        isShowing = !(isShowing);
+        if (isShowing)
+            Hide();
+        else
+            Show();
     }
 
     private void Show(){
+        isShowing = true;
         foreach(Transform childTransform in transform){
             childTransform.gameObject.SetActive(true);
         }
     }
 
-    private void Hide(){
+    public void Hide(){
+        isShowing = false;
         foreach(Transform childTransform in transform){
             childTransform.gameObject.SetActive(false);
         }
