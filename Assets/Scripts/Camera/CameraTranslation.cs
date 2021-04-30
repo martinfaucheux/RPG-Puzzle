@@ -24,6 +24,7 @@ public class CameraTranslation : MonoBehaviour
 
         // listen to the event
         GameEvents.instance.onGameOver += SlowTargetPlayer;
+        GameEvents.instance.onEndOfLevel += TargetPlayer;
     }
 
     private void TargetPlayer()
