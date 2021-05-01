@@ -12,6 +12,7 @@ public class SpriteFlasher : MonoBehaviour
     public float flashDuration = 0.2f;
 
     public string materialPropertyName = "_FlashIntensity";
+    private string flashShaderName = "Shader Graphs/FlashShader";
 
     private SpriteRenderer[] _spriteRenderers;
     private bool _isFlashing = false;
@@ -19,7 +20,8 @@ public class SpriteFlasher : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        // get all _sprite renderers (even inactive ones)
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
     }
 
     public void Flash(){
@@ -39,7 +41,12 @@ public class SpriteFlasher : MonoBehaviour
         if(_spriteRenderers != null){
             foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
             {
-                spriteRenderer.material.SetFloat(materialPropertyName, value);
+                if (
+                    spriteRenderer.gameObject.activeSelf
+                    && spriteRenderer.material.shader.name == flashShaderName
+                ){
+                    spriteRenderer.material.SetFloat(materialPropertyName, value);
+                }
             }
         }
     }
