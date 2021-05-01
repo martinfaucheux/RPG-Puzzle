@@ -1,53 +1,51 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameOverMask : MonoBehaviour
+public class GameOverMaskUI : MonoBehaviour
 {
 
     public float fadeDuration = 3f;
-    public int playerLayerBumpOrder = 199;
-
-    private SpriteHolder _playerSpriteHolder;
-    private SpriteRenderer _maskSpriteRenderer;
+    private Image _imageComponent;
 
     // Start is called before the first frame update
     void Start()
     {
-        // get sprite renderers
-        _playerSpriteHolder = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteHolder>();
-        _maskSpriteRenderer = GetComponent<SpriteRenderer>();
-
+        // get image component
+        _imageComponent = GetComponent<Image>();
         GameEvents.instance.onGameOver += FadeIn;
     }
 
     public void FadeIn()
     {
-        _playerSpriteHolder.BumpOrderLayer(playerLayerBumpOrder);
         StartCoroutine(FadeInCoroutine());
     }
 
     private IEnumerator FadeInCoroutine()
     {
+        _imageComponent.enabled = true;
         float timeSinceStart = 0f;
-        Color spriteColor = _maskSpriteRenderer.color;
+        Color spriteColor = _imageComponent.color;
 
         while(timeSinceStart < fadeDuration)
         {
             float alphaValue = timeSinceStart / fadeDuration;
             spriteColor.a = alphaValue;
-            _maskSpriteRenderer.color = spriteColor;
+            _imageComponent.color = spriteColor;
 
             timeSinceStart += Time.deltaTime;
             yield return null;
         }
 
         spriteColor.a = 1;
-        _maskSpriteRenderer.color = spriteColor;
+        _imageComponent.color = spriteColor;
     }
 
     void OnDestroy(){
         GameEvents.instance.onGameOver -= FadeIn;
     }
+
+
 
 }
