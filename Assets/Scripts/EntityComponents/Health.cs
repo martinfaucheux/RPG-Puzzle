@@ -65,7 +65,7 @@ public class Health : MonoBehaviour {
             GameEvents.instance.PlayerGetDamage();
         }
 
-        if (_spriteFlasher != null){
+        if (damagePoints > 0 && _spriteFlasher != null){
             _spriteFlasher.Flash();
         }
 
