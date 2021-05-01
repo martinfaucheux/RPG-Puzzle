@@ -42,8 +42,8 @@ public class SpriteFlasher : MonoBehaviour
             foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
             {
                 if (
-                    spriteRenderer.gameObject.activeSelf
-                    && spriteRenderer.material.shader.name == flashShaderName
+                    spriteRenderer.material.shader.name == flashShaderName
+                    // && spriteRenderer.gameObject.activeSelf
                 ){
                     spriteRenderer.material.SetFloat(materialPropertyName, value);
                 }

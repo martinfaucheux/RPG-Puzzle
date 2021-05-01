@@ -85,8 +85,6 @@ public class CameraTranslation : MonoBehaviour
         while (timeSinceStart < transitionTime)
         {
             targetPos3d = targetTransform.position;
-            Debug.Log("target pos " + targetPos3d.ToString());
-
             
             newPos = initPos + (targetPos3d - initPos) * (timeSinceStart / transitionTime);
             transform.position = newPos;

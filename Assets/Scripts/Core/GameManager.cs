@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (isEndOfLevelScreen){
-            if(Input.anyKeyDown){
+            if(GetAnyButArrowKeyDown()){
                 isEndOfLevelScreen = false;
                 // move to next scene
                 LevelLoader.instance.LoadNextLevel();
@@ -114,5 +114,23 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(seconds);
         playerCanMove = true;
+    }
+
+    private static bool GetAnyButArrowKeyDown(){
+
+        List<KeyCode> keyCodeList = new List<KeyCode>(){
+            KeyCode.UpArrow,
+            KeyCode.DownArrow,
+            KeyCode.RightArrow,
+            KeyCode.LeftArrow,
+        };
+        
+        foreach(KeyCode keyCode in keyCodeList){
+            if(Input.GetKeyDown(keyCode)){
+                return false;
+            }
+        }
+
+        return Input.anyKeyDown;
     }
 }
