@@ -48,30 +48,19 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)){
-            TogglePause();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            LevelLoader.instance.ReloadLevel();
-        }
-
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (isEndOfLevelScreen)
-            {
+        if (isEndOfLevelScreen){
+            if(Input.anyKeyDown){
                 isEndOfLevelScreen = false;
-
                 // move to next scene
                 LevelLoader.instance.LoadNextLevel();
             }
-
-            else if (isGameOverScreen)
-            {
-                LevelLoader.instance.ReloadLevel();
-            }
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            LevelLoader.instance.ReloadLevel();
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape)){
+            TogglePause();
         }
     }
 
