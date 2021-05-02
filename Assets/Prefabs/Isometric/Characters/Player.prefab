@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -730,7 +730,6 @@ MonoBehaviour:
   spriteHolderTransform: {fileID: 3796690444420051863}
   flipForFacing: 0
   activeAnimator: {fileID: 0}
-  animators: []
 --- !u!114 &6291834942543316733
 MonoBehaviour:
   m_ObjectHideFlags: 0
