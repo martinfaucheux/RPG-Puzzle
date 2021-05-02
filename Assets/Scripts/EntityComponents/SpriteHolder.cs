@@ -27,7 +27,6 @@ public class SpriteHolder : MonoBehaviour
     private void Start()
     {
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
-        activeAnimator = GetComponent<Animator>();
         DiscoverSpriteGameObjects();
         activeAnimator = GetComponentInChildren<Animator>(false);
     }
