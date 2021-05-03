@@ -10,7 +10,6 @@ public class SkillDescriptionUpdater : MonoBehaviour
     public Text skillNameTextComponent;
     public Text skillDescriptionTextComponent;
 
-    private bool isShowing = false;
 
     void Awake()
     {
@@ -32,14 +31,12 @@ public class SkillDescriptionUpdater : MonoBehaviour
     }
 
     public void SetSkillInformation(Skill skill){
-        isShowing = true;
         backgroundImageComponent.enabled = true;
         skillNameTextComponent.text = skill.skillName;
         skillDescriptionTextComponent.text = skill.skillDescription;
     }
 
     public void CleanSkillInformation(){
-        isShowing = false;
         backgroundImageComponent.enabled = false;
         skillNameTextComponent.text = "";
         skillDescriptionTextComponent.text = "";
