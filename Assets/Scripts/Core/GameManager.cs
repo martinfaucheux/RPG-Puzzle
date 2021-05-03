@@ -98,14 +98,14 @@ public class GameManager : MonoBehaviour
 
     public void EnterPause(){
         isGamePaused = true;
-        Time.timeScale = 0f;
+        Chrono.instance.isCounting = false;
         InGameMenu menu = (InGameMenu) MainMenu.instance;
         menu.OpenMenu();
     }
 
     public void ExitPause(){
         isGamePaused = false;
-        Time.timeScale = 1f;
+        Chrono.instance.isCounting = true;
         InGameMenu menu = (InGameMenu) MainMenu.instance;
         menu.CloseMenu();
     }

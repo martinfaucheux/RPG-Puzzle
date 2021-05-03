@@ -27,7 +27,7 @@ public class PressRText : MonoBehaviour
         // once enabled periodically fade in the "Press R to restart" text
         if(_isShowing){
             Color color = _textComponent.color;
-            float timeOffset = Time.unscaledTime - _showTime;
+            float timeOffset = Time.time - _showTime;
             color.a = (1f - Mathf.Cos(timeOffset * 2f * Mathf.PI / textFadePeriod)) / 2f;
             _textComponent.color = color;
         }
@@ -41,7 +41,7 @@ public class PressRText : MonoBehaviour
         _textComponent = GetComponent<Text>();
         // wait for specified time before showing
         yield return new WaitForSeconds(showDelay);
-        _showTime = Time.unscaledTime;
+        _showTime = Time.time;
         _textComponent.enabled = true;
         _isShowing = true;
 
