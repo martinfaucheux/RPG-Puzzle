@@ -9,6 +9,9 @@ public class SkillSlotUI : MonoBehaviour
     public Skill skill;
     [SerializeField] private Image _imageComponent;
 
+    [Tooltip("Display or not the skill information with SkillDescriptionUpdater")]
+    public bool updateDescriptionOnHover = true;
+
     private Button _buttonComponent;
 
     void Start()
@@ -34,5 +37,12 @@ public class SkillSlotUI : MonoBehaviour
         Color newColor = _imageComponent.color;
         newColor.a = 1;
         _imageComponent.color = newColor;
+    }
+
+    public void SetSkillDescription(){
+        SkillDescriptionUpdater.instance.SetSkillInformation(skill);
+    }
+    public static void CleanSkillDescription(){
+        SkillDescriptionUpdater.instance.CleanSkillInformation();
     }
 }

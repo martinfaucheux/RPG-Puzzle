@@ -8,6 +8,7 @@ public abstract class Skill: ScriptableObject
     public Sprite sprite;
 
     public string skillName;
+    public string skillDescription;
     public bool isEnabled {get; private set;} = false;
 
     public virtual void Enable(GameObject target){

@@ -8,6 +8,9 @@ public class SkillPointUpdater : MonoBehaviour
 
     public Image badgeImage;
     public Text skillPointCounterText;
+
+    [Tooltip("Text to be left-concatenated to the score")]
+    public string displayPrefix;
     void Start()
     {
         GameEvents.instance.onEnterLevelUp += UpdateSkillPointCounter;
@@ -20,14 +23,16 @@ public class SkillPointUpdater : MonoBehaviour
 
     public void UpdateSkillPointCounter(){
         int skillPoint = SkillManager.instance.skillPoint;
+        skillPointCounterText.text = displayPrefix + skillPoint.ToString();
         
-        if(showOnlyIfMoreThanZero && badgeImage != null){
-            bool condition = (skillPoint>0);
-            badgeImage.enabled = condition;
+        if(showOnlyIfMoreThanZero){
+            bool condition = (skillPoint > 0);
             skillPointCounterText.enabled = condition;
+            
+            if(badgeImage != null){
+                badgeImage.enabled = condition;
+            }
         }
-
-        skillPointCounterText.text = skillPoint.ToString();
     }
 
     void OnDestroy(){
