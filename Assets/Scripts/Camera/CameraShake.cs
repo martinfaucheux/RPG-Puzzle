@@ -8,7 +8,7 @@ public class CameraShake : MonoBehaviour
 
     public float defaultShakeDuration = 0.5f;
     public float defaultShakeMagnitude = 0.5f;
-    public float defaultShakeAngle = 1f;
+    // public float defaultShakeAngle = 1f;
     public bool defaultFadingEnabled = true;
 
     private bool _isShaking = false;
@@ -37,15 +37,11 @@ public class CameraShake : MonoBehaviour
 
     private void Update()
     {
+        // TODO: remove
         if (Input.GetKeyDown(KeyCode.Space))
         {
             ShakeOnce();
         }
-    }
-
-    public void Shake()
-    {
-        Shake(defaultShakeDuration, defaultShakeMagnitude, defaultFadingEnabled);
     }
 
     public void ShakeOnce()
@@ -53,28 +49,16 @@ public class CameraShake : MonoBehaviour
         ShakeOnce(defaultShakeDuration, defaultShakeMagnitude);
     }
 
-    public void Shake(float duration, float magnitude, bool fadingEnabled)
-    {
-        if (!_isShaking)
-        {
-            StartCoroutine(ShakeCoroutine(duration, magnitude, fadingEnabled));
-            if (defaultShakeAngle > 0f)
-            {
-                StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle));
-            }
-        }
-
-    }
-
     public void ShakeOnce(float duration, float magnitude)
     {
         if (!_isShaking)
         {
             StartCoroutine(ShakeOnceCoroutine(duration, magnitude));
-            if (defaultShakeAngle > 0f)
-            {
-                StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle));
-            }
+        
+        //     if (defaultShakeAngle > 0f)
+        //     {
+        //         StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle));
+        //     }
         }
     }
 
@@ -100,7 +84,11 @@ public class CameraShake : MonoBehaviour
 
     private IEnumerator ShakeOnceCoroutine(float duration, float magnitude)
     {
-        Vector3 unitVector = Random.onUnitSphere;
+        // get a random unit Vector2
+        Vector2 _unitVector = Random.insideUnitCircle;
+        _unitVector.Normalize();
+        // make it Vector3
+        Vector3 unitVector = _unitVector;
 
         _isShaking = true;
         float timeSinceStart = 0f;
@@ -118,21 +106,21 @@ public class CameraShake : MonoBehaviour
         transform.position = _initPos;
     }
 
-    private IEnumerator ShakeRotationCoroutine(float duration, float maxAngle)
-    {
-        maxAngle = (Random.value > 0.5f) ? maxAngle : -maxAngle;
-        transform.Rotate(new Vector3(0f, 0f, maxAngle));
+    // private IEnumerator ShakeRotationCoroutine(float duration, float maxAngle)
+    // {
+    //     maxAngle = (Random.value > 0.5f) ? maxAngle : -maxAngle;
+    //     transform.Rotate(new Vector3(0f, 0f, maxAngle));
 
-        float timeSinceStart = 0f;
-        while (timeSinceStart < duration)
-        {
-            float diffAngle = - maxAngle * (Time.deltaTime / duration);
-            transform.Rotate(new Vector3(0f, 0f, diffAngle));
+    //     float timeSinceStart = 0f;
+    //     while (timeSinceStart < duration)
+    //     {
+    //         float diffAngle = - maxAngle * (Time.deltaTime / duration);
+    //         transform.Rotate(new Vector3(0f, 0f, diffAngle));
 
-            timeSinceStart += Time.deltaTime;
-            yield return null;
-        }
+    //         timeSinceStart += Time.deltaTime;
+    //         yield return null;
+    //     }
 
-        transform.rotation = Quaternion.identity;
-    }
+    //     transform.rotation = Quaternion.identity;
+    // }
 }

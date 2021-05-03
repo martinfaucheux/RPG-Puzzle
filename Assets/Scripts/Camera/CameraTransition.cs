@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraTranslation : MonoBehaviour
+public class CameraTransition : MonoBehaviour
 {
     public float transitionTime = 1f;
     public float slowTransitionTime = 3f;
