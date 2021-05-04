@@ -30,6 +30,7 @@ public class SkillSlotUI : MonoBehaviour
         if (result){
             _buttonComponent.interactable = false;
         }
+        else SkillCounterWizzer.instance.Wizz();
     }
 
     private void SetSprite(){
