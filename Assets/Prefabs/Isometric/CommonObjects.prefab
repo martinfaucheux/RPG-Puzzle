@@ -1671,9 +1671,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fe5316b565cdf4ca9e389519f5c0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultShakeDuration: 0.5
+  defaultShakeDuration: 0.1
   defaultShakeMagnitude: 0.1
-  defaultFadingEnabled: 1
+  defaultShakeAngle: 1
+  defaultShakeOccurences: 3
 --- !u!1 &3311961177461677169
 GameObject:
   m_ObjectHideFlags: 0

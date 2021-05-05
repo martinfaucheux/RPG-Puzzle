@@ -8,11 +8,13 @@ public class CameraShake : MonoBehaviour
 
     public float defaultShakeDuration = 0.5f;
     public float defaultShakeMagnitude = 0.5f;
-    // public float defaultShakeAngle = 1f;
-    public bool defaultFadingEnabled = true;
+    public float defaultShakeAngle = 1f;
+
+    public int defaultShakeOccurences = 1;
 
     private bool _isShaking = false;
     private Vector3 _initPos;
+    private Quaternion _initRotation;
 
     void Awake()
     {
@@ -32,7 +34,8 @@ public class CameraShake : MonoBehaviour
     private void Start()
     {
         _initPos = transform.position;
-        GameEvents.instance.onPlayerGetDamage += ShakeOnce;
+        _initRotation = transform.rotation;
+        GameEvents.instance.onPlayerGetDamage += Shake;
     }
 
     private void Update()
@@ -40,87 +43,80 @@ public class CameraShake : MonoBehaviour
         // TODO: remove
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            ShakeOnce();
+            Shake();
         }
     }
 
-    public void ShakeOnce()
+    public void Shake()
     {
-        ShakeOnce(defaultShakeDuration, defaultShakeMagnitude);
+        Shake(defaultShakeDuration, defaultShakeMagnitude, defaultShakeOccurences);
     }
 
-    public void ShakeOnce(float duration, float magnitude)
+    public void Shake(float duration, float magnitude, int occurences)
     {
         if (!_isShaking)
         {
-            StartCoroutine(ShakeOnceCoroutine(duration, magnitude));
+            StartCoroutine(ShakeCoroutine(duration, magnitude, occurences));
         
-        //     if (defaultShakeAngle > 0f)
-        //     {
-        //         StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle));
-        //     }
+            if (defaultShakeAngle > 0f)
+            {
+                StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle, occurences));
+            }
         }
     }
 
-    private IEnumerator ShakeCoroutine(float duration, float magnitude, bool fadingEnabled)
+    private IEnumerator ShakeCoroutine(float duration, float magnitude, int occurences)
     {
         _isShaking = true;
-        float timeSinceStart = 0f;
-        while(timeSinceStart < duration)
-        {
-            float multiplier = fadingEnabled ? (1f - timeSinceStart / duration) : 1f;
-            float x = magnitude * multiplier * Random.Range(-1f, 1f);
-            float y = magnitude * multiplier * Random.Range(-1f, 1f);
-            Vector3 vectorDiff = new Vector3(x, y, 0f);
 
-            transform.position = _initPos + vectorDiff;
-            timeSinceStart += Time.deltaTime;
-            yield return null;
+        for(int i=0; i < occurences; i++){
+
+            Vector3 unitVector = GetRandomUnitVector(magnitude);
+            float timeSinceStart = 0f;
+            while(timeSinceStart < duration)
+            {
+                float multiplier = (duration - timeSinceStart) / duration;
+                Vector3 vectorDiff = multiplier * magnitude * unitVector;
+
+                transform.position = _initPos + vectorDiff;
+                timeSinceStart += Time.deltaTime;
+                yield return null;
+            }
+            transform.position = _initPos;
         }
 
         _isShaking = false;
-        transform.position = _initPos;
     }
 
-    private IEnumerator ShakeOnceCoroutine(float duration, float magnitude)
+    private IEnumerator ShakeRotationCoroutine(float duration, float maxAngle, int occurences)
     {
-        // get a random unit Vector2
+
+        for(int i=0; i < occurences; i++){
+
+            maxAngle = GetRandomAngle(maxAngle);
+            transform.Rotate(new Vector3(0f, 0f, maxAngle));
+
+            float timeSinceStart = 0f;
+            while (timeSinceStart < duration)
+            {
+                float diffAngle = - maxAngle * (Time.deltaTime / duration);
+                transform.Rotate(new Vector3(0f, 0f, diffAngle));
+
+                timeSinceStart += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        transform.rotation = _initRotation;
+    }
+
+    private static Vector3 GetRandomUnitVector(float magnitude){
         Vector2 _unitVector = Random.insideUnitCircle;
         _unitVector.Normalize();
-        // make it Vector3
-        Vector3 unitVector = _unitVector;
-
-        _isShaking = true;
-        float timeSinceStart = 0f;
-        while(timeSinceStart < duration)
-        {
-            float multiplier = (duration - timeSinceStart) / duration;
-            Vector3 vectorDiff = multiplier * magnitude * unitVector;
-
-            transform.position = _initPos + vectorDiff;
-            timeSinceStart += Time.deltaTime;
-            yield return null;
-        }
-
-        _isShaking = false;
-        transform.position = _initPos;
+        return (Vector3) _unitVector;
     }
 
-    // private IEnumerator ShakeRotationCoroutine(float duration, float maxAngle)
-    // {
-    //     maxAngle = (Random.value > 0.5f) ? maxAngle : -maxAngle;
-    //     transform.Rotate(new Vector3(0f, 0f, maxAngle));
-
-    //     float timeSinceStart = 0f;
-    //     while (timeSinceStart < duration)
-    //     {
-    //         float diffAngle = - maxAngle * (Time.deltaTime / duration);
-    //         transform.Rotate(new Vector3(0f, 0f, diffAngle));
-
-    //         timeSinceStart += Time.deltaTime;
-    //         yield return null;
-    //     }
-
-    //     transform.rotation = Quaternion.identity;
-    // }
+    private static float GetRandomAngle(float angle){
+        return (Random.value > 0.5f) ? angle : -angle;
+    }
 }
