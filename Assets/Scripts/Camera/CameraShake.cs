@@ -10,7 +10,7 @@ public class CameraShake : MonoBehaviour
     public float defaultShakeMagnitude = 0.5f;
     public float defaultShakeAngle = 1f;
 
-    public int defaultShakeOccurences = 1;
+    public int defaultShakeIterations = 1;
 
     private bool _isShaking = false;
     private Vector3 _initPos;
@@ -49,34 +49,40 @@ public class CameraShake : MonoBehaviour
 
     public void Shake()
     {
-        Shake(defaultShakeDuration, defaultShakeMagnitude, defaultShakeOccurences);
+        Shake(defaultShakeDuration, defaultShakeMagnitude, defaultShakeIterations);
     }
 
-    public void Shake(float duration, float magnitude, int occurences)
+    public void Shake(float duration, float magnitude, int iterations)
     {
         if (!_isShaking)
         {
-            StartCoroutine(ShakeCoroutine(duration, magnitude, occurences));
+            StartCoroutine(ShakeCoroutine(duration, magnitude, iterations));
         
             if (defaultShakeAngle > 0f)
             {
-                StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle, occurences));
+                StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle, iterations));
             }
         }
     }
 
-    private IEnumerator ShakeCoroutine(float duration, float magnitude, int occurences)
+    private IEnumerator ShakeCoroutine(float duration, float magnitude, int iterations)
     {
         _isShaking = true;
 
-        for(int i=0; i < occurences; i++){
+        float timeSinceStart= 0f;
+        float timeSinceIteration= 0f;
+
+        for(int i=0; i < iterations; i++){
 
             Vector3 unitVector = GetRandomUnitVector(magnitude);
-            float timeSinceStart = 0f;
-            while(timeSinceStart < duration)
+
+            while(timeSinceIteration < duration)
             {
-                float multiplier = (duration - timeSinceStart) / duration;
-                Vector3 vectorDiff = multiplier * magnitude * unitVector;
+                timeSinceIteration = timeSinceStart - (i * duration);
+
+                float iterationMultiplier = (duration - timeSinceIteration) / duration;
+                float fadingMultipliertiplier = (iterations * duration - timeSinceStart) / (iterations * duration);
+                Vector3 vectorDiff = fadingMultipliertiplier * iterationMultiplier * magnitude * unitVector;
 
                 transform.position = _initPos + vectorDiff;
                 timeSinceStart += Time.deltaTime;
@@ -96,13 +102,13 @@ public class CameraShake : MonoBehaviour
             maxAngle = GetRandomAngle(maxAngle);
             transform.Rotate(new Vector3(0f, 0f, maxAngle));
 
-            float timeSinceStart = 0f;
-            while (timeSinceStart < duration)
+            float timeSinceIteration = 0f;
+            while (timeSinceIteration < duration)
             {
                 float diffAngle = - maxAngle * (Time.deltaTime / duration);
                 transform.Rotate(new Vector3(0f, 0f, diffAngle));
 
-                timeSinceStart += Time.deltaTime;
+                timeSinceIteration += Time.deltaTime;
                 yield return null;
             }
         }
