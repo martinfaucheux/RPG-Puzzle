@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 222563503509178214}
   - component: {fileID: 114377657389379618}
   - component: {fileID: 114597363378437028}
+  - component: {fileID: 2169640716673138319}
   m_Layer: 5
   m_Name: Heart UIElement
   m_TagString: Untagged
@@ -36,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 64, y: 64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &222563503509178214
 CanvasRenderer:
@@ -91,3 +92,22 @@ MonoBehaviour:
   imageComponent: {fileID: 114377657389379618}
   fullHeartSprite: {fileID: 21300000, guid: 2cc659eb1f4ddd84ba509fe579fa33ff, type: 3}
   emptyHeartSprite: {fileID: 21300000, guid: 2bf224cfb845be442a3e40fddfada672, type: 3}
+--- !u!95 &2169640716673138319
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440336099715514}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 311db8d4e4aa2d24f899395fb3e08362, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

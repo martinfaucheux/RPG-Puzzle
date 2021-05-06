@@ -9,6 +9,14 @@ public class HeartUI : UIBarElement
     public Sprite fullHeartSprite;
     public Sprite emptyHeartSprite;
 
+    private Animator _animator;
+    private bool currentValue = false;
+
+    void Start(){
+        _animator = GetComponent<Animator>();
+        PlayPulseAnim();
+    }
+
     public override void SetValue(bool value)
     {
         if (value)
@@ -24,10 +32,20 @@ public class HeartUI : UIBarElement
     public void SetToFull()
     {
         imageComponent.sprite = fullHeartSprite;
+        if (!currentValue)
+            PlayPulseAnim();
+        currentValue = true;
     }
 
     public void SetToEmpty()
     {
         imageComponent.sprite = emptyHeartSprite;
+        if (currentValue)
+            PlayPulseAnim();
+        currentValue = false;
+    }
+
+    private void PlayPulseAnim(){
+        _animator.SetTrigger("pulse");
     }
 }
