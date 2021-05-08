@@ -49,8 +49,12 @@ public class AttackAnimation : MonoBehaviour
             Pivot(direction);
 
             _isAnimPlaying = true;
+            
             _animator.SetTrigger("attack");
-            RotateMask();
+            
+            _isAnimPlaying = false;
+            // TODO: remove this
+            // RotateMask();
         }
         
     }

@@ -7,6 +7,7 @@ public class Attack : MonoBehaviour {
     private float attackAnimationAmplitude = 0.3f;
 
     public int attackPoints;
+    public AttackAnimation attackAnimComponent;
 
     private Experience _expComponent;
     private Health _healthComponent;
@@ -62,6 +63,7 @@ public class Attack : MonoBehaviour {
     // damage each other with other entity
     public void Fight(Health opponentHealth, Attack opponentAttack)
     {
+        // Player always attack last
         if(opponentHealth.gameObject.tag == "Player")
         {
             // Force this to face player
@@ -98,8 +100,10 @@ public class Attack : MonoBehaviour {
             float animationDuration = GameManager.instance.actionDuration;
             _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
         }
-        // TODO: need to fix slice animation first
-        // StartCoroutine(AnimateSlice(direction));
+        // TODO: use pooling to loose reference to AttackAnimation component
+        if(attackAnimComponent != null){
+            attackAnimComponent.Trigger(transform.position, direction);
+        }
     }
 
     private void FaceOpponent(MatrixCollider opponentCollider)
@@ -120,7 +124,7 @@ public class Attack : MonoBehaviour {
         return null;
     }
 
-    // TODO: understand why the animation is not visible on the camera depending on point of view
+    // TODO: fix object pooling
     private IEnumerator AnimateSlice(Direction direction){
         GameObject attackEffectObject = ObjectPool.GetPool("attack").GetPooledObject();
         attackEffectObject.transform.position = transform.position;
