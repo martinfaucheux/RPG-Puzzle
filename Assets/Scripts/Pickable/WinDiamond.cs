@@ -7,7 +7,7 @@ public class WinDiamond : Consumable
 {
 
 
-    public override void Consume(GameObject targetGameObject)
+    protected override void Consume(GameObject targetGameObject)
     {
         GameManager.instance.Win();
     }

@@ -6,7 +6,7 @@ public abstract class Storable : Item
 {
     abstract public void Store(GameObject targetGameObject);
 
-    public override void OnPickUp(GameObject pickerGameObject)
+    public override void PickUp(GameObject pickerGameObject)
     {
         Store(pickerGameObject);
     }

@@ -16,6 +16,9 @@ public class GameEvents : MonoBehaviour
 
     public event Action onSkillEnabled;
 
+    public event Action<Item> onPickItem;
+    public event Action<Item> onUseItem;
+
     # region Singleton
 
     //Awake is always called before any Start functions
@@ -89,6 +92,22 @@ public class GameEvents : MonoBehaviour
         if (onSkillEnabled != null)
         {
             onSkillEnabled();
+        }
+    }
+
+    public void PickItemTrigger(Item item)
+    {
+        if (onPickItem != null)
+        {
+            onPickItem(item);
+        }
+    }
+
+    public void UserItemTrigger(Item item)
+    {
+        if (onUseItem != null)
+        {
+            onUseItem(item);
         }
     }
 

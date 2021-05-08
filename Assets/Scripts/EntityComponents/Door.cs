@@ -14,6 +14,10 @@ public class Door : ActivableObject
             if (hasKey)
             {
                 Debug.Log("Player unlocked a door with a key");
+
+                // TODO: move this at the right place
+                GameEvents.instance.UserItemTrigger((Key) ScriptableObject.CreateInstance(typeof(Key)));
+
                 Destroy(this.gameObject, 0.05f);
                 return true;
             }

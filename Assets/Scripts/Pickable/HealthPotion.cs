@@ -14,7 +14,7 @@ public class HealthPotion : Consumable
         this.healthAmount = healthAmount;
     }
 
-    public override void Consume(GameObject targetGameObject)
+    protected override void Consume(GameObject targetGameObject)
     {
         Health healthComponent = targetGameObject.GetComponent<Health>();
         if (healthComponent != null)
