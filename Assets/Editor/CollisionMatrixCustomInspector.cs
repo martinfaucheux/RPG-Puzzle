@@ -184,11 +184,13 @@ public void BuildBorderWalls()
     private static GameObject GetOrInstiateEmpty(string gameObjectName, Vector3 position){
         GameObject newGameObject = GameObject.Find(gameObjectName);
 
+        
+
         if (newGameObject == null)
         {
             Debug.Log("could not find " + gameObjectName + ", instantiate it");
-            newGameObject = Instantiate(new GameObject(), position, Quaternion.identity);
-            newGameObject.name = gameObjectName;
+            newGameObject = new GameObject(gameObjectName);
+            newGameObject.transform.position = position;
         }
         return newGameObject;
     }
