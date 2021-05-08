@@ -35,9 +35,6 @@ public class KeyCountUI : MonoBehaviour
     }
 
     private void CheckUpdate(Item item){
-
-        Debug.Log("check update");
-
         if(item.GetType() == typeof(Key)){
 
             int newKeyCount = _inventory.keyCount;
