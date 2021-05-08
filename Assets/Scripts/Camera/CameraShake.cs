@@ -38,14 +38,13 @@ public class CameraShake : MonoBehaviour
         GameEvents.instance.onPlayerGetDamage += Shake;
     }
 
-    private void Update()
-    {
-        // TODO: remove
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Shake();
-        }
-    }
+    // private void Update()
+    // {
+    //     if (Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         Shake();
+    //     }
+    // }
 
     public void Shake()
     {

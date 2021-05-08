@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
             LevelLoader.instance.ReloadLevel();
         }
         else if (Input.GetKeyDown(KeyCode.Escape)){
-            TogglePause();
+            if (!isEndOfLevelScreen)
+                TogglePause();
         }
     }
 
