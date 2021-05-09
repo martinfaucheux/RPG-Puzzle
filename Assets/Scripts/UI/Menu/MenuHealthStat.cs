@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// DEPRECATED used in old version of context menu
+// replaced by MenuHealthContainer
 public class MenuHealthStat : UIEntityComponent
 {
     public Text menuHealthText;

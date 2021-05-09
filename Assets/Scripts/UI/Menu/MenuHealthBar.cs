@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// DEPRECATED used in old version of context menu
+// replaced by MenuHealthContainer
 public class MenuHealthBar : UIEntityComponent
 {
     private Health _healthComponent;

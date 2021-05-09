@@ -16,13 +16,13 @@ public class EntityInspector : MonoBehaviour
         _healthComponent = GetComponent<Health>();
     }
 
-    // void OnMouseOver()
-    // {
-    //     if (Input.GetMouseButtonDown(0))
-    //     {
-    //         MenuController.instance.AttachObject(gameObject);
-    //         MenuController.instance.Trigger();
-    //     }
-    //     UIManager.instance.UpdateUI();
-    // }
+    void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            MenuController.instance.AttachObject(gameObject);
+            MenuController.instance.Trigger();
+        }
+        UIManager.instance.UpdateUI();
+    }
 }

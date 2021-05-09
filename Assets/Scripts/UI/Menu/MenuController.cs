@@ -27,31 +27,38 @@ public class MenuController : MonoBehaviour
     }
 
     public GameObject attachedGameObject;
-    public RectTransform rectTransform;
+    private RectTransform _rectTransform;
 
     // if true, the menu will expand with an animation
     public bool expand = true;
     
     public bool isOpen = false;
 
+    // offset added when displaying the menu
+    public float offset = 100;
     private MonoBehaviour[] _hidableComponents;
     private Animator _animator;
 
     private void Start()
     {
-        _hidableComponents = GetComponentsInChildren<Image>();
-        _hidableComponents = _hidableComponents.Concat(GetComponentsInChildren<Text>()).ToArray();
+        _rectTransform = GetComponentInChildren<RectTransform>();
+        
+        SetHidableComponents(); 
         
         _animator = GetComponent<Animator>();
-
-        // enable animator only in the case where expand is true
-        _animator.enabled = expand;
-
+        if(_animator == null)
+            expand = false;
+        else{
+            // enable animator only in the case where expand is true
+            _animator.enabled = expand;
+        }
         InstantHideMenu();
     }
 
     public void AttachObject(GameObject attachedGameObject)
     {
+        Debug.Log("Attach " + attachedGameObject.name);
+
         this.attachedGameObject = attachedGameObject;
         foreach(UIEntityComponent entityComponent in GetComponentsInChildren<UIEntityComponent>())
         {
@@ -61,15 +68,26 @@ public class MenuController : MonoBehaviour
 
     private Vector3 GetMenuPosition()
     {
-        Vector3 attachedObjectPos = attachedGameObject.transform.position + Vector3.right * 0.5f;
+        Vector3 attachedObjectPos = attachedGameObject.transform.position + Vector3.up * 0.5f; // assume the size of entity is 1
         Vector3 screenPos = Camera.main.WorldToScreenPoint(attachedObjectPos);
-        Vector3 menuOffset = GetMenuWidth() * 1.01f * Vector3.right / 2;
+        Vector3 menuOffset = ((GetMenuSize().y * 1.01f) / 2  + offset) * Vector3.up;
         return screenPos + menuOffset;
     }
 
-    private float GetMenuWidth()
+    private Vector3 GetMenuPositionOld()
     {
-        return rectTransform.sizeDelta.x * transform.localScale.x;
+        Vector3 attachedObjectPos = attachedGameObject.transform.position + Vector3.right * 0.5f;
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(attachedObjectPos);
+        Vector3 menuOffset = GetMenuSize().x * 1.01f * Vector3.right / 2;
+        return screenPos + menuOffset;
+    }
+
+    private Vector2 GetMenuSize()
+    {
+        return new Vector2(
+            _rectTransform.sizeDelta.x * transform.localScale.x,
+            _rectTransform.sizeDelta.y * transform.localScale.y
+        );
     }
 
     public void Trigger()
@@ -116,9 +134,10 @@ public class MenuController : MonoBehaviour
         isOpen = true;
         transform.position = GetMenuPosition();
         
-        SetImagesEnabled(true);
+        SetChildrenEnabled(true);
 
-        _animator.SetBool("isShowing", true);
+        if(_animator != null)
+            _animator.SetBool("isShowing", true);
     }
 
     public void InstantShowMenu()
@@ -126,19 +145,22 @@ public class MenuController : MonoBehaviour
         isOpen = true;
         transform.position = GetMenuPosition();
 
-        SetImagesEnabled(true);
+        SetChildrenEnabled(true);
     }
 
     public void SlowHideMenu()
     {
         isOpen = false;
-        _animator.SetBool("isShowing", false);
-        StartCoroutine(DisableWhenAfterHide());
+        
+        if(_animator != null){
+            _animator.SetBool("isShowing", false);
+            StartCoroutine(DisableWhenAfterHide());
+        }
     }
 
     public void InstantHideMenu()
     {        
-        SetImagesEnabled(false);
+        SetChildrenEnabled(false);
 
         isOpen = false;
     }
@@ -152,11 +174,20 @@ public class MenuController : MonoBehaviour
         InstantHideMenu();
     }
 
-    private void SetImagesEnabled(bool enabled)
+    protected void SetHidableComponents(){
+        _hidableComponents = GetComponentsInChildren<Image>(true);
+        _hidableComponents = _hidableComponents.Concat(GetComponentsInChildren<Text>(true)).ToArray();
+    }
+
+    private void SetChildrenEnabled(bool enabled)
     {
         foreach(MonoBehaviour component in _hidableComponents)
         {
             component.enabled = enabled;
         }
+
+        // foreach(Transform childTransform in transform){
+        //     childTransform.gameObject.SetActive(enabled);
+        // }
     }
 }
