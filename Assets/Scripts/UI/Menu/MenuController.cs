@@ -179,7 +179,7 @@ public class MenuController : MonoBehaviour
         componentArray = componentArray.Concat(GetComponentsInChildren<Text>(true)).ToArray();
         _hidableComponents = componentArray.ToList();
     }
-    
+
     public void RegisterHiddableComponent(MonoBehaviour component){
         _hidableComponents.Add(component);
     }
@@ -190,9 +190,5 @@ public class MenuController : MonoBehaviour
         {
             component.enabled = enabled;
         }
-
-        // foreach(Transform childTransform in transform){
-        //     childTransform.gameObject.SetActive(enabled);
-        // }
     }
 }
