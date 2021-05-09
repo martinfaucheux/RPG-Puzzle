@@ -20,8 +20,14 @@ public class EntityInspector : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            MenuController.instance.AttachObject(gameObject);
-            MenuController.instance.Trigger();
+            // block interaction if any menu is open
+            if (
+                !GameManager.instance.isGamePaused
+                && !SkillMenu.instance.isShowing
+            ){
+                MenuController.instance.AttachObject(gameObject);
+                MenuController.instance.Trigger();
+            }
         }
         UIManager.instance.UpdateUI();
     }
