@@ -46,6 +46,8 @@ public class HeartUI : UIBarElement
     }
 
     private void PlayPulseAnim(){
-        _animator.SetTrigger("pulse");
+        // animator can be null if this is instantiated at the start of the scene
+        if (_animator != null)
+            _animator.SetTrigger("pulse");
     }
 }

@@ -36,7 +36,7 @@ public class MenuController : MonoBehaviour
 
     // offset added when displaying the menu
     public float offset = 100;
-    private MonoBehaviour[] _hidableComponents;
+    private List<MonoBehaviour> _hidableComponents;
     private Animator _animator;
 
     private void Start()
@@ -175,8 +175,13 @@ public class MenuController : MonoBehaviour
     }
 
     protected void SetHidableComponents(){
-        _hidableComponents = GetComponentsInChildren<Image>(true);
-        _hidableComponents = _hidableComponents.Concat(GetComponentsInChildren<Text>(true)).ToArray();
+        MonoBehaviour[] componentArray = GetComponentsInChildren<Image>(true);
+        componentArray = componentArray.Concat(GetComponentsInChildren<Text>(true)).ToArray();
+        _hidableComponents = componentArray.ToList();
+    }
+    
+    public void RegisterHiddableComponent(MonoBehaviour component){
+        _hidableComponents.Add(component);
     }
 
     private void SetChildrenEnabled(bool enabled)

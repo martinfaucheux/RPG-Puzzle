@@ -27,6 +27,16 @@ public class MenuHealthContainer : UIEntityComponent
 
     public override void UpdateUI()
     {
+        // instantiate missing images
+        int missingImageCount = _healthComponent.MaxHealthPoints - transform.childCount;
+        for(int i = 0; i < missingImageCount; i++){
+            Debug.Log("Instantiate " + i.ToString());
+            GameObject newGameObject = Instantiate(transform.GetChild(0).gameObject);
+            newGameObject.transform.SetParent(transform);
+            MenuController.instance.RegisterHiddableComponent(newGameObject.GetComponent<Image>());
+
+        }       
+
         if(IsReady()){
             for(int i = 0; i < transform.childCount; i++){
                 GameObject childGameObject = transform.GetChild(i).gameObject;
