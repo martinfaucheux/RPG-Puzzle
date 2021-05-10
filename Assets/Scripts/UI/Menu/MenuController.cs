@@ -28,9 +28,6 @@ public class MenuController : MonoBehaviour
 
     public GameObject attachedGameObject;
     private RectTransform _rectTransform;
-
-    // if true, the menu will expand with an animation
-    public bool expand = true;
     
     public bool isOpen = false;
 
@@ -46,12 +43,6 @@ public class MenuController : MonoBehaviour
         SetHidableComponents(); 
         
         _animator = GetComponent<Animator>();
-        if(_animator == null)
-            expand = false;
-        else{
-            // enable animator only in the case where expand is true
-            _animator.enabled = expand;
-        }
         InstantHideMenu();
     }
 
@@ -74,14 +65,6 @@ public class MenuController : MonoBehaviour
         return screenPos + menuOffset;
     }
 
-    private Vector3 GetMenuPositionOld()
-    {
-        Vector3 attachedObjectPos = attachedGameObject.transform.position + Vector3.right * 0.5f;
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(attachedObjectPos);
-        Vector3 menuOffset = GetMenuSize().x * 1.01f * Vector3.right / 2;
-        return screenPos + menuOffset;
-    }
-
     private Vector2 GetMenuSize()
     {
         return new Vector2(
@@ -95,25 +78,11 @@ public class MenuController : MonoBehaviour
         if (CanToggleMenu()){
             if (isOpen)
             {
-                if (expand)
-                {
-                    SlowHideMenu();
-                }
-                else
-                {
-                    InstantHideMenu();
-                }
+                InstantHideMenu();
             }
             else
             {
-                if (expand)
-                {
-                    SlowShowMenu();
-                }
-                else
-                {
-                    InstantShowMenu();
-                }
+                InstantShowMenu();
             }
         }
     }
@@ -129,49 +98,21 @@ public class MenuController : MonoBehaviour
             );
     }
 
-    public void SlowShowMenu()
-    {
-        isOpen = true;
-        transform.position = GetMenuPosition();
-        
-        SetChildrenEnabled(true);
-
-        if(_animator != null)
-            _animator.SetBool("isShowing", true);
-    }
-
     public void InstantShowMenu()
     {
+        Debug.Log("Show");
+
         isOpen = true;
         transform.position = GetMenuPosition();
-
         SetChildrenEnabled(true);
-    }
 
-    public void SlowHideMenu()
-    {
-        isOpen = false;
-        
-        if(_animator != null){
-            _animator.SetBool("isShowing", false);
-            StartCoroutine(DisableWhenAfterHide());
-        }
+        _animator.SetTrigger("pop");
     }
 
     public void InstantHideMenu()
     {        
         SetChildrenEnabled(false);
-
         isOpen = false;
-    }
-
-    private IEnumerator DisableWhenAfterHide()
-    {
-        while (_animator.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 < 0.99f)
-        {
-            yield return null;
-        }
-        InstantHideMenu();
     }
 
     protected void SetHidableComponents(){
