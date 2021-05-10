@@ -30,7 +30,6 @@ public class MenuHealthContainer : UIEntityComponent
         // instantiate missing images
         int missingImageCount = _healthComponent.MaxHealthPoints - transform.childCount;
         for(int i = 0; i < missingImageCount; i++){
-            Debug.Log("Instantiate " + i.ToString());
             GameObject newGameObject = Instantiate(transform.GetChild(0).gameObject);
             newGameObject.transform.SetParent(transform);
             MenuController.instance.RegisterHiddableComponent(newGameObject.GetComponent<Image>());

@@ -48,8 +48,6 @@ public class MenuController : MonoBehaviour
 
     public void AttachObject(GameObject attachedGameObject)
     {
-        Debug.Log("Attach " + attachedGameObject.name);
-
         this.attachedGameObject = attachedGameObject;
         foreach(UIEntityComponent entityComponent in GetComponentsInChildren<UIEntityComponent>())
         {
@@ -100,8 +98,6 @@ public class MenuController : MonoBehaviour
 
     public void InstantShowMenu()
     {
-        Debug.Log("Show");
-
         isOpen = true;
         transform.position = GetMenuPosition();
         SetChildrenEnabled(true);

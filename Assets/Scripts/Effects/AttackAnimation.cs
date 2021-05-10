@@ -42,8 +42,6 @@ public class AttackAnimation : MonoBehaviour
 
     public void Trigger(Vector3 position, Direction direction){
         if (!_isAnimPlaying){
-            Debug.Log("play anim");
-
             // Quaternion angle = GetAngleForDirection(direction);
             // transform.rotation = angle;
             Pivot(direction);

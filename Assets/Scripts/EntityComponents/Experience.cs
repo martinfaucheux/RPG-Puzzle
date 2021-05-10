@@ -62,7 +62,7 @@ public class Experience : MonoBehaviour {
         GameEvents.instance.LevelUpEnterTrigger();
     }
 
-    // TODO: this mechanism is no longer used
+    // DEPRECATED
     private void PickLevelUpReward(LevelUpReward reward)
     {
         Debug.Log("pick reward");
