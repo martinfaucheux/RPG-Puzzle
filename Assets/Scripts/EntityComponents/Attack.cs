@@ -91,10 +91,6 @@ public class Attack : MonoBehaviour {
         if (_spriteHolder != null){
             _spriteHolder.FaceDirection(direction);
         }
-        if (_animator != null)
-        {
-            _animator.SetTrigger("attack");
-        }
         // if sprite holder is provided, the dash animation can be played
         if(_spriteHolder != null && direction != null) {
             float animationDuration = GameManager.instance.actionDuration;
