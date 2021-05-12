@@ -71,7 +71,6 @@ public class MovingObject : MonoBehaviour
         float sqrRemainingDistance = (transform.position - endPos).sqrMagnitude;
 
         _isMoving = true;
-        AnimateWalk(true);
         if(_spriteHolder != null & _spriteHolder.activeAnimator){
             _spriteHolder.activeAnimator.SetTrigger("bump");
         }
@@ -90,7 +89,6 @@ public class MovingObject : MonoBehaviour
         // set at the correct place at the end
         transform.position = endPos;
         _isMoving = false;
-        AnimateWalk(false);
     }
 
     protected bool Move(Direction direction)
@@ -145,23 +143,6 @@ public class MovingObject : MonoBehaviour
         }
     }
 
-    private void AnimateWalk(bool start = true)
-    {
-        // TODO: to be deprecated
-        if (_animator != null)
-        {
-            if (start) {
-                _animator.SetBool("walk", true);
-            }
-            else
-            {
-                StartCoroutine(
-                    CheckAnimatorMoving(GameManager.instance.actionDuration / 10f)
-                );
-            }
-        }
-    }
-
     // play OnLeave of current sitting Activable object
     private void LeavePosition(Vector2Int previousPosition){
 
@@ -172,23 +153,6 @@ public class MovingObject : MonoBehaviour
                 leavingActivableObject.OnLeave();
             }
         }        
-    }
-
-    protected IEnumerator CheckAnimatorMoving(float totalWaitTime)
-    {
-
-        float waitTime = 0;
-
-        while (waitTime < totalWaitTime)
-        {
-            waitTime += Time.deltaTime;
-            yield return null;
-        }
-
-        if (!_isMoving)
-        {
-            _animator.SetBool("walk", false);
-        }
     }
 
     public void Face(Direction direction)
