@@ -25,6 +25,11 @@ public class CelebrateVictory : MonoBehaviour
 
         SpriteHolder _spriteHolder = GetComponentInParent<SpriteHolder>();
         _spriteHolder.activeAnimator.SetBool("celebrate", true);
+
+        foreach(Transform childTransform in _spriteHolder.activeAnimator.transform){
+            childTransform.gameObject.SetActive(false);
+        }
+
         GetComponent<SpriteRenderer>().enabled = true;
     }
 }
