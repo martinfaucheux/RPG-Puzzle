@@ -23,13 +23,18 @@ public class CelebrateVictory : MonoBehaviour
         // wait for next frame to make sure the final animator is enabled
         yield return null;
 
-        SpriteHolder _spriteHolder = GetComponentInParent<SpriteHolder>();
-        _spriteHolder.activeAnimator.SetBool("celebrate", true);
+        Animator activeAnimator = GetComponentInParent<SpriteHolder>().activeAnimator;
+        activeAnimator.SetBool("celebrate", true);
 
-        foreach(Transform childTransform in _spriteHolder.activeAnimator.transform){
+        // replace the different sprite parts by the unique "celebrate" sprite
+        // at the end of movement
+        yield return new WaitForSeconds(GameManager.instance.actionDuration);
+        while (!activeAnimator.GetCurrentAnimatorStateInfo(0).IsName("Celebrate")){
+            yield return null;
+        }
+        foreach(Transform childTransform in activeAnimator.transform){
             childTransform.gameObject.SetActive(false);
         }
-
         GetComponent<SpriteRenderer>().enabled = true;
     }
 }
