@@ -12,6 +12,9 @@ public class SwipePlayerController : PlayerController
     [SerializeField]
     private float minDistanceForSwipe = 20f;
 
+    [SerializeField]
+    private float angleOfGrid = -45f;
+
     private void Update()
     {
         foreach (Touch touch in Input.touches)
@@ -47,20 +50,15 @@ public class SwipePlayerController : PlayerController
 
     private bool SwipeDistanceCheckMet()
     {
-        return VerticalMovementDistance() > minDistanceForSwipe || HorizontalMovementDistance() > minDistanceForSwipe;
-    }
-
-    private float VerticalMovementDistance()
-    {
-        return Mathf.Abs(fingerDownPosition.y - fingerUpPosition.y);
-    }
-
-    private float HorizontalMovementDistance()
-    {
-        return Mathf.Abs(fingerDownPosition.x - fingerUpPosition.x);
+        return (fingerDownPosition - fingerUpPosition).magnitude >= minDistanceForSwipe;
     }
 
     private Direction GetDirection(Vector2 swipeVector){
+
+        if(angleOfGrid != 0){
+            swipeVector = Quaternion.Euler(0f,0f, angleOfGrid) * swipeVector;
+        }
+
         float x = swipeVector.x;
         float y = swipeVector.y;
         if (Mathf.Abs(x) > Mathf.Abs(y)){
