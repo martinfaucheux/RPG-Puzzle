@@ -16,7 +16,7 @@ public class KeyCountUI : MonoBehaviour
 
     void Start()
     {
-        _rectTransform = GetComponent<RectTransform>();
+        _rectTransform = (RectTransform) transform;
         _textComponent = GetComponentInChildren<Text>();
         _visiblePos = _rectTransform.anchoredPosition;
         _inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -79,8 +79,14 @@ public class KeyCountUI : MonoBehaviour
     }
 
     private void SetHiddenPosition(){
-        RectTransform parentRectTransform = gameObject.transform.parent.GetComponent<RectTransform>();
-        float slideDistance = parentRectTransform.sizeDelta.x;
+        RectTransform parentRectTransform = (RectTransform) transform.parent.transform;
+
+        // Not really sure about this part
+        Vector3[] v = new Vector3[4];
+        _rectTransform.GetWorldCorners(v);
+        float distanceFromEdge = - v[0][0];
+
+        float slideDistance = parentRectTransform.sizeDelta.x + distanceFromEdge;
         _hiddenPos = _visiblePos + new Vector2(-slideDistance, 0f);
     }
 }
