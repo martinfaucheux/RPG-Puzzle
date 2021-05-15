@@ -4104,6 +4104,7 @@ GameObject:
   - component: {fileID: 9116858907165850389}
   - component: {fileID: 1168790280060267103}
   - component: {fileID: 4139031786036428525}
+  - component: {fileID: 8190824923383471933}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -4255,6 +4256,35 @@ MonoBehaviour:
   detectSwipeOnlyAfterRelease: 0
   minDistanceForSwipe: 20
   angleOfGrid: -45
+--- !u!114 &8190824923383471933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8952932252850200187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be7de1c6a87bd34380e90ed900e200d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shakeDetectionThreshold: 3
+  minShakeTimeInterval: 0.7
+  onShakeEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8953418106182982073}
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: ReloadLevel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8953418107967555471
 GameObject:
   m_ObjectHideFlags: 0
