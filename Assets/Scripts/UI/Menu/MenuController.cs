@@ -35,6 +35,7 @@ public class MenuController : MonoBehaviour
     public float offset = 100;
     private List<MonoBehaviour> _hidableComponents;
     private Animator _animator;
+    private int _lastFrameTrigger;
 
     private void Start()
     {
@@ -44,6 +45,19 @@ public class MenuController : MonoBehaviour
         
         _animator = GetComponent<Animator>();
         InstantHideMenu();
+    }
+
+    void Update(){
+        if (
+            Input.GetMouseButtonDown(0)
+            && !GameManager.instance.isGamePaused
+            && !SkillMenu.instance.isShowing
+            && isOpen
+            // make sure menu was not opened during current frame
+            && Time.frameCount != _lastFrameTrigger
+        ){
+            InstantHideMenu();
+        }
     }
 
     public void AttachObject(GameObject attachedGameObject)
@@ -98,6 +112,7 @@ public class MenuController : MonoBehaviour
 
     public void InstantShowMenu()
     {
+        _lastFrameTrigger = Time.frameCount;
         isOpen = true;
         transform.position = GetMenuPosition();
         SetChildrenEnabled(true);

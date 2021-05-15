@@ -24,9 +24,10 @@ public class EntityInspector : MonoBehaviour
             if (
                 !GameManager.instance.isGamePaused
                 && !SkillMenu.instance.isShowing
+                && !MenuController.instance.isOpen
             ){
                 MenuController.instance.AttachObject(gameObject);
-                MenuController.instance.Trigger();
+                MenuController.instance.InstantShowMenu();
             }
         }
         UIManager.instance.UpdateUI();
