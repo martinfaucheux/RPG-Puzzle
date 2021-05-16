@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityInspector : MonoBehaviour
+public class EntityInspector : ClickAndRelease
 {
     public string entityName;
 
@@ -16,20 +16,18 @@ public class EntityInspector : MonoBehaviour
         _healthComponent = GetComponent<Health>();
     }
 
-    void OnMouseOver()
+    protected override void PerformAction()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            // block interaction if any menu is open
-            if (
-                !GameManager.instance.isGamePaused
-                && !SkillMenu.instance.isShowing
-                && !MenuController.instance.isOpen
-            ){
-                MenuController.instance.AttachObject(gameObject);
-                MenuController.instance.InstantShowMenu();
-            }
+        
+        // block interaction if any menu is open
+        if (
+            !GameManager.instance.isGamePaused
+            && !SkillMenu.instance.isShowing
+            && !MenuController.instance.isOpen
+        ){
+            MenuController.instance.AttachObject(gameObject);
+            MenuController.instance.InstantShowMenu();
+            UIManager.instance.UpdateUI();
         }
-        UIManager.instance.UpdateUI();
     }
 }

@@ -49,7 +49,7 @@ public class MenuController : MonoBehaviour
 
     void Update(){
         if (
-            Input.GetMouseButtonDown(0)
+            Input.GetMouseButtonUp(0)
             && !GameManager.instance.isGamePaused
             && !SkillMenu.instance.isShowing
             && isOpen
