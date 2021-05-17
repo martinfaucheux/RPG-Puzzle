@@ -21,25 +21,21 @@ public class SkillSelectorUI : MonoBehaviour
         _selectedSkill = skill;
         skillNameTextComponent.text = skill.skillName;
         skillDescriptionTextComponent.text = skill.skillDescription;
-
         SetButtonInteractable(skill);
     }
 
     public void ClearSkill(){
-        SetButtonInteractable();
         skillNameTextComponent.text = "";
         skillDescriptionTextComponent.text = "";
-
-        unlockSkillButton.interactable = false;
+        SetButtonInteractable();
     }
 
     public void UnlockSkill(){
         bool result = SkillManager.instance.Unlock(_selectedSkill);
-        SetButtonInteractable(_selectedSkill);
-        
         if (!result){
             SkillCounterWizzer.instance?.Wizz();
         }
+        SetButtonInteractable(_selectedSkill);
     }
 
     private void SetButtonInteractable() => SetButtonInteractable(null);
@@ -48,9 +44,11 @@ public class SkillSelectorUI : MonoBehaviour
         bool interactable = false;
 
         if(skill != null){
-            interactable = !SkillManager.instance.IsUnlocked(skill);
+            interactable = (
+                !SkillManager.instance.IsUnlocked(skill)
+                && SkillManager.instance.skillPoints > 0
+            );
         }
-
         unlockSkillButton.interactable = interactable;
     }
 
