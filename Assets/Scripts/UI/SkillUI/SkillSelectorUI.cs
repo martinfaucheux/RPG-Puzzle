@@ -6,12 +6,13 @@ using TMPro;
 
 public class SkillSelectorUI : MonoBehaviour
 {
-    public TextMeshProUGUI skillNameTextComponent;
-    public TextMeshProUGUI skillDescriptionTextComponent;
+    [SerializeField] TextMeshProUGUI skillNameTextComponent;
+    [SerializeField] TextMeshProUGUI skillDescriptionTextComponent;
+    [SerializeField] string defaultDescription;
+    [SerializeField] Button unlockSkillButton;
 
     private Skill _selectedSkill;
 
-    [SerializeField] Button unlockSkillButton;
 
     void Start(){
         ClearSkill();
@@ -26,7 +27,7 @@ public class SkillSelectorUI : MonoBehaviour
 
     public void ClearSkill(){
         skillNameTextComponent.text = "";
-        skillDescriptionTextComponent.text = "";
+        skillDescriptionTextComponent.text = defaultDescription;
         SetButtonInteractable();
     }
 
