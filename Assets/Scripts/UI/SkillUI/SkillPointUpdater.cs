@@ -48,9 +48,6 @@ public class SkillPointUpdater : MonoBehaviour
     }
 
     private void SetText(string text){
-
-        // TODO: remove
-        Debug.Log("set text " + text);
         
         if (skillPointCounterText != null)
             skillPointCounterText.text = text;

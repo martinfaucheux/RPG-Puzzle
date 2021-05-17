@@ -35,9 +35,6 @@ public class SkillSelectorUI : MonoBehaviour
 
     public void UnlockSkill(){
         bool result = SkillManager.instance.Enable(_selectedSkill);
-
-        Debug.Log(result);
-
         unlockSkillButton.interactable = !result;
         if (!result){
             SkillCounterWizzer.instance.Wizz();

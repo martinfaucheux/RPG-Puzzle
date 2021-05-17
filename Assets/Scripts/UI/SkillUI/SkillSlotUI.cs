@@ -9,6 +9,7 @@ public class SkillSlotUI : MonoBehaviour
     public Skill skill;
     [SerializeField] private Image _imageComponent;
     [SerializeField] SkillSelectorUI _skillSelectorUI;
+    [SerializeField] bool _disableButtonOnUnlock;
 
     private Button _buttonComponent;
 
@@ -20,16 +21,10 @@ public class SkillSlotUI : MonoBehaviour
         }
 
         _buttonComponent = GetComponent<Button>();
+
+        GameEvents.instance.onSkillEnabled += OnUnlockSkill;
         
     }
-
-    // public void Enable(){
-    //     bool result = SkillManager.instance.Enable(skill);
-    //     if (result){
-    //         _buttonComponent.interactable = false;
-    //     }
-    //     else SkillCounterWizzer.instance.Wizz();
-    // }
 
     private void SetSprite(){
         _imageComponent.sprite = skill.sprite;
@@ -42,7 +37,16 @@ public class SkillSlotUI : MonoBehaviour
         _skillSelectorUI?.SelectSkill(skill);
     }
 
-    // public void CleanSkillDescription(){
-    //     _skillSelectorUI?.ClearSkill();
-    // }
+    private void OnUnlockSkill(Skill skill){
+
+        Debug.Log(skill == this.skill);
+
+        if (skill == this.skill && _disableButtonOnUnlock){
+            _buttonComponent.interactable = false;
+        }
+    }
+
+    void OnDestroy(){
+        GameEvents.instance.onSkillEnabled -= OnUnlockSkill;
+    }
 }
