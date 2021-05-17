@@ -38,9 +38,6 @@ public class SkillSlotUI : MonoBehaviour
     }
 
     private void OnUnlockSkill(Skill skill){
-
-        Debug.Log(skill == this.skill);
-
         if (skill == this.skill && _disableButtonOnUnlock){
             _buttonComponent.interactable = false;
         }
