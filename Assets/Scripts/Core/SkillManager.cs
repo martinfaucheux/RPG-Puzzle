@@ -9,14 +9,12 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private int _skillPoint;
 
-    public int skillPoint {
+    public int skillPoints {
         get {return _skillPoint;}
         private set {_skillPoint = value;}
     }
 
-    private List<Skill> _skills;
-
-    private Dictionary<Skill, bool> _skillDict;
+    private Dictionary<Skill, bool> _unlockedSkills;
 
     //Awake is always called before any Start functions
     void Awake()
@@ -33,25 +31,23 @@ public class SkillManager : MonoBehaviour
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
             Destroy(gameObject);
 
-        _skills = new List<Skill>();
-        _skillDict = new Dictionary<Skill, bool>();
+        _unlockedSkills = new Dictionary<Skill, bool>();
         GameEvents.instance.onEnterLevelUp += AddSkillPoint;
     }
 
-    public void AddSkill (Skill skill){
-        _skills.Add(skill);
-        _skillDict.Add(skill, false);
+    public void RegisterSkill (Skill skill){
+        _unlockedSkills.Add(skill, false);
     }
 
     public void AddSkillPoint(){
-        skillPoint += 1;
+        skillPoints += 1;
     }
 
-    public bool Enable(Skill skill){
-        if (skillPoint > 0){
-            skillPoint -= 1;
+    public bool Unlock(Skill skill){
+        if (skillPoints > 0){
+            skillPoints -= 1;
 
-            _skillDict[skill] = true;
+            _unlockedSkills[skill] = true;
 
             // TODO: find a better way to reference user
             GameObject playerGo = GameObject.FindGameObjectWithTag("Player");
@@ -63,6 +59,6 @@ public class SkillManager : MonoBehaviour
     }
 
     public bool IsUnlocked(Skill skill){
-        return _skillDict[skill];
+        return _unlockedSkills[skill];
     }
 }

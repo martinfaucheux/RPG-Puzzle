@@ -16,7 +16,7 @@ public class SkillSlotUI : MonoBehaviour
     void Start()
     {
         if (skill != null){
-            SkillManager.instance.AddSkill(skill);
+            SkillManager.instance.RegisterSkill(skill);
             SetSprite();
         }
 

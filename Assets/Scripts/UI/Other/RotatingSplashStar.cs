@@ -30,11 +30,11 @@ public class RotatingSplashStar : MonoBehaviour
     private void UpdateState(Skill _) => UpdateState();
 
     private void UpdateState(){
-        int skillPoint = SkillManager.instance.skillPoint;
-        if (skillPoint > 0 && !isShowing){
+        int skillPoints = SkillManager.instance.skillPoints;
+        if (skillPoints > 0 && !isShowing){
             Show();
         }
-        else if (skillPoint == 0 && isShowing){
+        else if (skillPoints == 0 && isShowing){
             Hide();
         }
     }

@@ -34,7 +34,7 @@ public class SkillSelectorUI : MonoBehaviour
     }
 
     public void UnlockSkill(){
-        bool result = SkillManager.instance.Enable(_selectedSkill);
+        bool result = SkillManager.instance.Unlock(_selectedSkill);
         SetButtonInteractable(_selectedSkill);
         
         if (!result){

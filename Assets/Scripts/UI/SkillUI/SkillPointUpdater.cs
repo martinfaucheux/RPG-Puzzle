@@ -24,7 +24,7 @@ public class SkillPointUpdater : MonoBehaviour
     }
 
     public void UpdateSkillPointCounter(){
-        int skillPoint = SkillManager.instance.skillPoint;
+        int skillPoint = SkillManager.instance.skillPoints;
         SetText(displayPrefix + skillPoint.ToString());
         
         if(showOnlyIfMoreThanZero){
