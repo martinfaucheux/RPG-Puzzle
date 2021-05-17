@@ -9,6 +9,9 @@ public abstract class Skill: ScriptableObject
 
     public string skillName;
     public string skillDescription;
+
+    // to be DEPRECATED
+    // this information will now be stored in SkillManager
     public bool isEnabled {get; private set;} = false;
 
     public virtual void Enable(GameObject target){
