@@ -13,7 +13,7 @@ public abstract class Skill: ScriptableObject
 
     public virtual void Enable(GameObject target){
         isEnabled = true;
-        GameEvents.instance.SkillEnabledTrigger();
+        GameEvents.instance.SkillEnabledTrigger(this);
     }
 
     public virtual void Disable(GameObject target){

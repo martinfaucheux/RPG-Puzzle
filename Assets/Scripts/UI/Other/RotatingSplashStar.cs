@@ -26,6 +26,9 @@ public class RotatingSplashStar : MonoBehaviour
         }
     }
 
+    // be compliant with event signature
+    private void UpdateState(Skill _) => UpdateState();
+
     private void UpdateState(){
         int skillPoint = SkillManager.instance.skillPoint;
         if (skillPoint > 0 && !isShowing){

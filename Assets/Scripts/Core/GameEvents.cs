@@ -14,7 +14,7 @@ public class GameEvents : MonoBehaviour
     public event Action onEndOfLevel;
     public event Action onGameOver;
 
-    public event Action onSkillEnabled;
+    public event Action<Skill> onSkillEnabled;
 
     public event Action<Item> onPickItem;
     public event Action<Item> onUseItem;
@@ -87,11 +87,11 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public void SkillEnabledTrigger()
+    public void SkillEnabledTrigger(Skill skill)
     {
         if (onSkillEnabled != null)
         {
-            onSkillEnabled();
+            onSkillEnabled(skill);
         }
     }
 

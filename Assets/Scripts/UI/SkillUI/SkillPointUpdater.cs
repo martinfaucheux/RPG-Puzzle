@@ -37,6 +37,9 @@ public class SkillPointUpdater : MonoBehaviour
         }
     }
 
+    // to be compliant with event signature
+    private void UpdateSkillPointCounter(Skill _) => UpdateSkillPointCounter();
+
     private void SetShow(bool show){
         if (skillPointCounterText != null)
             skillPointCounterText.enabled = show;
