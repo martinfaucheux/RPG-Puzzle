@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 public class SkillPointUpdater : MonoBehaviour
 {
     public bool showOnlyIfMoreThanZero = false;
 
     public Image badgeImage;
     public Text skillPointCounterText;
+    public TextMeshProUGUI skillPointCounterTMProText;
 
     [Tooltip("Text to be left-concatenated to the score")]
     public string displayPrefix;
@@ -23,16 +25,34 @@ public class SkillPointUpdater : MonoBehaviour
 
     public void UpdateSkillPointCounter(){
         int skillPoint = SkillManager.instance.skillPoint;
-        skillPointCounterText.text = displayPrefix + skillPoint.ToString();
+        SetText(displayPrefix + skillPoint.ToString());
         
         if(showOnlyIfMoreThanZero){
             bool condition = (skillPoint > 0);
-            skillPointCounterText.enabled = condition;
+            SetShow(condition);
             
             if(badgeImage != null){
                 badgeImage.enabled = condition;
             }
         }
+    }
+
+    private void SetShow(bool show){
+        if (skillPointCounterText != null)
+            skillPointCounterText.enabled = show;
+        if (skillPointCounterTMProText != null)
+            skillPointCounterTMProText.enabled = show;
+    }
+
+    private void SetText(string text){
+
+        // TODO: remove
+        Debug.Log("set text " + text);
+        
+        if (skillPointCounterText != null)
+            skillPointCounterText.text = text;
+        if (skillPointCounterTMProText != null)
+            skillPointCounterTMProText.text = text;
     }
 
     void OnDestroy(){

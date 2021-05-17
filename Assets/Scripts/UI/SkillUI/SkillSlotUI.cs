@@ -8,9 +8,7 @@ public class SkillSlotUI : MonoBehaviour
     // TODO: This should be moved to SkillManager instead
     public Skill skill;
     [SerializeField] private Image _imageComponent;
-
-    [Tooltip("Display or not the skill information with SkillDescriptionUpdater")]
-    public bool updateDescriptionOnHover = true;
+    [SerializeField] SkillSelectorUI _skillSelectorUI;
 
     private Button _buttonComponent;
 
@@ -25,13 +23,13 @@ public class SkillSlotUI : MonoBehaviour
         
     }
 
-    public void Enable(){
-        bool result = SkillManager.instance.Enable(skill);
-        if (result){
-            _buttonComponent.interactable = false;
-        }
-        else SkillCounterWizzer.instance.Wizz();
-    }
+    // public void Enable(){
+    //     bool result = SkillManager.instance.Enable(skill);
+    //     if (result){
+    //         _buttonComponent.interactable = false;
+    //     }
+    //     else SkillCounterWizzer.instance.Wizz();
+    // }
 
     private void SetSprite(){
         _imageComponent.sprite = skill.sprite;
@@ -40,10 +38,11 @@ public class SkillSlotUI : MonoBehaviour
         _imageComponent.color = newColor;
     }
 
-    public void SetSkillDescription(){
-        SkillDescriptionUpdater.instance.SetSkillInformation(skill);
+    public void SelectSkill(){
+        _skillSelectorUI?.SelectSkill(skill);
     }
-    public static void CleanSkillDescription(){
-        SkillDescriptionUpdater.instance.CleanSkillInformation();
-    }
+
+    // public void CleanSkillDescription(){
+    //     _skillSelectorUI?.ClearSkill();
+    // }
 }

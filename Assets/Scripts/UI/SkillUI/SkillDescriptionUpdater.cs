@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class SkillDescriptionUpdater : MonoBehaviour
 {
+
+    // DEPRECATED => use SkillSelectorUI instead
+    
     public static SkillDescriptionUpdater instance;
     public Image backgroundImageComponent;
     public Text skillNameTextComponent;

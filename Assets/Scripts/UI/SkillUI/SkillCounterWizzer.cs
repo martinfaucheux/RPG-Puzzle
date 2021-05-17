@@ -6,9 +6,9 @@ public class SkillCounterWizzer : MonoBehaviour
 {
     public static SkillCounterWizzer instance;
 
-    public float period = 1f;
-    public float amplitude = 1f;
-    public int occurences = 1;
+    public float period = 0.2f;
+    public float amplitude = 10f;
+    public int occurences = 4;
 
     private bool _isWizzing = false;
     private RectTransform _rectTransform;
