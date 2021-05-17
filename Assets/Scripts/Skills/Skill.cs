@@ -19,4 +19,13 @@ public abstract class Skill: ScriptableObject
     public virtual void Disable(GameObject target){
         isEnabled = false;
     }
+
+    protected T GetComponentOrRaise<T>(GameObject target){
+        T component = target.GetComponent<T>();
+        
+        if (component == null)
+            Debug.LogWarning("Missing component: " + typeof(T).Name);
+        
+        return component;
+    }
 }

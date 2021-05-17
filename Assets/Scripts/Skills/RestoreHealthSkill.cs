@@ -7,7 +7,9 @@ public class RestoreHealthSkill: Skill
 {
     public override void Enable(GameObject target){
         base.Enable(target);
-        target.GetComponent<Health>().HealFullHealth();
+        Health healthComp = GetComponentOrRaise<Health>(target);
+        if (healthComp != null)
+            healthComp.HealFullHealth();
     }
 
     public override void Disable(GameObject target){

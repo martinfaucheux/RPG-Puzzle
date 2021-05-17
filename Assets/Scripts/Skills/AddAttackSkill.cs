@@ -7,11 +7,19 @@ public class AddAttackSkill: Skill
 {
     public override void Enable(GameObject target){
         base.Enable(target);
-        target.GetComponent<Attack>().attackPoints += 1;
+
+        Attack attackComponent = GetComponentOrRaise<Attack>(target);
+        if (attackComponent != null){
+            attackComponent.attackPoints += 1;
+        }
     }
 
     public override void Disable(GameObject target){
         base.Enable(target);
-        target.GetComponent<Attack>().attackPoints -= 1;
+
+        Attack attackComponent = GetComponentOrRaise<Attack>(target);
+        if (attackComponent != null){
+            attackComponent.attackPoints -= 1;
+        }
     }
 }

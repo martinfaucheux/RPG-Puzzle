@@ -7,7 +7,7 @@ public class AddHealthSkill: Skill
 {
     public override void Enable(GameObject target){
         base.Enable(target);
-        Health healthComp = target.GetComponent<Health>();
+        Health healthComp = GetComponentOrRaise<Health>(target);
 
         if (healthComp != null)
             healthComp.MaxHealthPoints += 1;
@@ -15,7 +15,7 @@ public class AddHealthSkill: Skill
 
     public override void Disable(GameObject target){
         base.Enable(target);
-        Health healthComp = target.GetComponent<Health>();
+        Health healthComp = GetComponentOrRaise<Health>(target);
 
         if (healthComp != null)
             healthComp.MaxHealthPoints -= 1;
