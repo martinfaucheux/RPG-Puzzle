@@ -32,14 +32,14 @@ public class ToggleMenu : MonoBehaviour
             Show();
     }
 
-    private void Show(){
+    protected virtual void Show(){
         isShowing = true;
         foreach(Transform childTransform in transform){
             childTransform.gameObject.SetActive(true);
         }
     }
 
-    public void Hide(){
+    protected virtual void Hide(){
         isShowing = false;
         foreach(Transform childTransform in transform){
             childTransform.gameObject.SetActive(false);

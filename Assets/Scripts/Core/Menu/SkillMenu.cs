@@ -26,4 +26,17 @@ public class SkillMenu : ToggleMenu
     }
 
     #endregion
+
+    protected override void Hide()
+    {
+        base.Hide();
+        GameEvents.instance.CloseSkillMenuTrigger();
+    }
+
+    protected override void Show()
+    {
+        base.Show();
+        GameEvents.instance.OpenSkillMenuTrigger();
+    }
+
 }
