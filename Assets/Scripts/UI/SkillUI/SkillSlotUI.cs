@@ -26,7 +26,7 @@ public class SkillSlotUI : MonoBehaviour
         
     }
 
-    private void SetSprite(){
+    public void SetSprite(){
         _imageComponent.sprite = skill.sprite;
         Color newColor = _imageComponent.color;
         newColor.a = 1;
