@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class KeyCountUI : MonoBehaviour
 {
-    public float slideSpeed = 400;
+    [SerializeField] float slideSpeed = 400;
+    [SerializeField] float distanceToEdge = 0;
     private int _previousCount = 0;
     private Vector2 _visiblePos;
     private Vector2 _hiddenPos;
@@ -82,11 +83,15 @@ public class KeyCountUI : MonoBehaviour
         RectTransform parentRectTransform = (RectTransform) transform.parent.transform;
 
         // Not really sure about this part
+        
+
+        float slideDistance = parentRectTransform.sizeDelta.x + distanceToEdge;
+        _hiddenPos = _visiblePos + new Vector2(-slideDistance, 0f);
+    }
+
+    private float GetDistanceToEdge(){
         Vector3[] v = new Vector3[4];
         _rectTransform.GetWorldCorners(v);
-        float distanceFromEdge = - v[0][0];
-
-        float slideDistance = parentRectTransform.sizeDelta.x + distanceFromEdge;
-        _hiddenPos = _visiblePos + new Vector2(-slideDistance, 0f);
+        return v[0][0];
     }
 }
