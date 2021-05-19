@@ -10,6 +10,7 @@ public class SkillSelectorUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI skillDescriptionTextComponent;
     [SerializeField] string defaultDescription;
     [SerializeField] Button unlockSkillButton;
+    [SerializeField] TextMeshProUGUI buttonText;
 
     private Skill _selectedSkill;
 
@@ -19,16 +20,17 @@ public class SkillSelectorUI : MonoBehaviour
     }
 
     public void SelectSkill(Skill skill){
+        Debug.Log("Skill " + skill.skillName + " selected");
         _selectedSkill = skill;
         skillNameTextComponent.text = skill.skillName;
         skillDescriptionTextComponent.text = skill.skillDescription;
-        SetButtonInteractable(skill);
+        UpdateUI(skill);
     }
 
     public void ClearSkill(){
         skillNameTextComponent.text = "";
         skillDescriptionTextComponent.text = defaultDescription;
-        SetButtonInteractable();
+        UpdateUI();
     }
 
     public void UnlockSkill(){
@@ -36,10 +38,15 @@ public class SkillSelectorUI : MonoBehaviour
         if (!result){
             SkillCounterWizzer.instance?.Wizz();
         }
-        SetButtonInteractable(_selectedSkill);
+        UpdateUI(_selectedSkill);
     }
 
-    private void SetButtonInteractable() => SetButtonInteractable(null);
+
+    private void UpdateUI(Skill skill){
+        SetButtonInteractable(skill);
+        SetButtonText(skill);
+    }
+    private void UpdateUI() => UpdateUI(null);
 
     private void SetButtonInteractable(Skill skill){
         bool interactable = false;
@@ -53,4 +60,11 @@ public class SkillSelectorUI : MonoBehaviour
         unlockSkillButton.interactable = interactable;
     }
 
+    private void SetButtonText(Skill skill){
+        string text = "Unlock";
+        if(skill != null && SkillManager.instance.IsUnlocked(skill)){
+            text = "Unlocked!";
+        }
+        buttonText.text = text;
+    }
 }

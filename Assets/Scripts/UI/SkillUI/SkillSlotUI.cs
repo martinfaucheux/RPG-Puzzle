@@ -7,8 +7,8 @@ public class SkillSlotUI : MonoBehaviour
 {
     // TODO: This should be moved to SkillManager instead
     public Skill skill;
+    public SkillSelectorUI skillSelectorUI{private get; set;}
     [SerializeField] private Image _imageComponent;
-    [SerializeField] SkillSelectorUI _skillSelectorUI;
     [SerializeField] bool _disableButtonOnUnlock;
 
     private Button _buttonComponent;
@@ -34,7 +34,7 @@ public class SkillSlotUI : MonoBehaviour
     }
 
     public void SelectSkill(){
-        _skillSelectorUI?.SelectSkill(skill);
+        skillSelectorUI?.SelectSkill(skill);
     }
 
     private void OnUnlockSkill(Skill skill){

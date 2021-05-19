@@ -6,18 +6,22 @@ public class SkillInitializer : MonoBehaviour
 {
     [SerializeField] Skill[] skills;
 
-    SkillSlotUI[] skillSlots;
+    private SkillSlotUI[] skillSlots;
+    private SkillSelectorUI skillSelector;
 
     void Start()
     {
         skillSlots = SkillMenu.instance.GetComponentsInChildren<SkillSlotUI>(true);
+        skillSelector = SkillMenu.instance.GetComponentInChildren<SkillSelectorUI>(true);
         PopulateSkills();
     }
 
     private void PopulateSkills(){
         for(int i = 0; i < skills.Length; i++){
-            skillSlots[i].skill = skills[i];
-            skillSlots[i].SetSprite();
+            SkillSlotUI skillSlot = skillSlots[i];
+            skillSlot.skill = skills[i];
+            skillSlot.SetSprite();
+            skillSlot.skillSelectorUI = skillSelector;
         }
     }
 }

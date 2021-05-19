@@ -799,6 +799,7 @@ MonoBehaviour:
   skillDescriptionTextComponent: {fileID: 4291251864773587163}
   defaultDescription: Select a skill to unlock it
   unlockSkillButton: {fileID: 4400633210137955406}
+  buttonText: {fileID: 484243627354426241}
 --- !u!1 &4949979537280925711
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,8 +1696,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -208.34491, y: 0}
-  m_SizeDelta: {x: 294.5453, y: 0}
+  m_AnchoredPosition: {x: -255.68927, y: 0}
+  m_SizeDelta: {x: 389.2339, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5413373379816415249
 CanvasRenderer:
@@ -1753,7 +1754,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 54.45
+  m_fontSize: 71.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2081,7 +2082,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 319.6952
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
@@ -2126,7 +2127,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 479.5428
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
@@ -2206,7 +2207,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 319.6952
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
@@ -2251,7 +2252,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 799.238
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
@@ -2331,7 +2332,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 319.6952
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
@@ -2376,7 +2377,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 159.8476
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
