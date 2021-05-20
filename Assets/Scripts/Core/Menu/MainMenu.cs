@@ -29,9 +29,6 @@ public class MainMenu : MonoBehaviour
 
         if (mainMenuGO == null)
             Debug.Log("No mainMenuGO provided");
-        
-        if (optionMenuGO == null)
-            Debug.Log("No optionMenuGO provided");
     }
 
     public void ExitGame(){
@@ -40,11 +37,11 @@ public class MainMenu : MonoBehaviour
 
     public void ToggleMainMenu(){
         mainMenuGO.SetActive(true);
-        optionMenuGO.SetActive(false);
+        optionMenuGO?.SetActive(false);
     }
 
     public void ToggleOptionMenu(){
         mainMenuGO.SetActive(false);
-        optionMenuGO.SetActive(true);
+        optionMenuGO?.SetActive(true);
     }
 }
