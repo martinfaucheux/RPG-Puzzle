@@ -40,9 +40,12 @@ public class InGameMenu : MainMenu
 
     public void CloseMenu(){
         mainMenuGO.SetActive(false);
-        optionMenuGO?.SetActive(false);
         backgroundGO.SetActive(false);
         _isOpen = false;
+        
+        if(optionMenuGO != null)
+            optionMenuGO?.SetActive(false);
+        
     }
 
     private void SetTittle(){
