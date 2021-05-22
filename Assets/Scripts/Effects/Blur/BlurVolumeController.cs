@@ -4,8 +4,10 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class BlurController : MonoBehaviour
+public class BlurVolumeController : MonoBehaviour
 {
+    // NOTE: this effect does not work as intended on Android
+    // it looks like default FOV is not sampled the same way than in Editor
 
     [SerializeField] float  disabledFocalLength;
 
@@ -14,9 +16,6 @@ public class BlurController : MonoBehaviour
     [SerializeField] float  transitionDuration = 0.2f;
     [SerializeField] AnimationCurve curve;
     [SerializeField] Volume _volumeComponent;
-
-    private bool _isBlurred = false;
-
     private DepthOfField _depthOfField;
 
     private float _focalLength
@@ -43,14 +42,10 @@ public class BlurController : MonoBehaviour
     }
 
     public void EnableBlur(){
-        _isBlurred = true;
-        // _focalLength = enabledFocalLength;
         StartCoroutine(ChangeBlurCoroutine(enabledFocalLength));
     }
 
     public void DisabledBlur(){
-        _isBlurred = false;
-        // _focalLength = disabledFocalLength;
         StartCoroutine(ChangeBlurCoroutine(disabledFocalLength));
     }
 
