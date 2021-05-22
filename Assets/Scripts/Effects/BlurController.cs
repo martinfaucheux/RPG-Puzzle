@@ -35,6 +35,7 @@ public class BlurController : MonoBehaviour
         {
             _depthOfField = _volumeProfile.Add<DepthOfField>(false);
         }
+        _focalLength = disabledFocalLength;
 
         GameEvents.instance.onOpenSkillMenu += EnableBlur;
         GameEvents.instance.onCloseSkillMenu += DisabledBlur;
