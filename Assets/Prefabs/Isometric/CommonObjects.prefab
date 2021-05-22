@@ -717,7 +717,7 @@ GameObject:
   - component: {fileID: 6149325711272643891}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4801,6 +4801,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784827194219040168, guid: 96a982aaa0570f54d8dfac263e3992aa,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7784827194219040168, guid: 96a982aaa0570f54d8dfac263e3992aa,
+        type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8101165364866935840, guid: 96a982aaa0570f54d8dfac263e3992aa,
         type: 3}

@@ -27,15 +27,25 @@ public class MenuController : MonoBehaviour
     }
 
     public GameObject attachedGameObject;
-    private RectTransform _rectTransform;
+
+    [SerializeField] RectTransform bubbleRectTransform;
     
     public bool isOpen = false;
+    public float offset = 100;
+    public float flipScreenRatio = 0.75f;
 
     // offset added when displaying the menu
-    public float offset = 100;
     private List<MonoBehaviour> _hidableComponents;
     private Animator _animator;
+    private RectTransform _rectTransform;
     private int _lastFrameTrigger;
+
+    // whether the game object is top side of the screen
+    private bool isAttachedGameObjectTopSide{
+        get{
+            return IsEntityTopSide(attachedGameObject.transform.position);
+        }
+    }
 
     private void Start()
     {
@@ -68,21 +78,8 @@ public class MenuController : MonoBehaviour
             entityComponent.AttachObject(attachedGameObject);
         }
     }
-
-    private Vector3 GetMenuPosition()
-    {
-        Vector3 attachedObjectPos = attachedGameObject.transform.position + Vector3.up * 0.5f; // assume the size of entity is 1
-        Vector3 screenPos = Camera.main.WorldToScreenPoint(attachedObjectPos);
-        Vector3 menuOffset = ((GetMenuSize().y * 1.01f) / 2  + offset) * Vector3.up;
-        return screenPos + menuOffset;
-    }
-
-    private Vector2 GetMenuSize()
-    {
-        return new Vector2(
-            _rectTransform.sizeDelta.x * transform.localScale.x,
-            _rectTransform.sizeDelta.y * transform.localScale.y
-        );
+    public void RegisterHiddableComponent(MonoBehaviour component){
+        _hidableComponents.Add(component);
     }
 
     public void Trigger()
@@ -99,6 +96,47 @@ public class MenuController : MonoBehaviour
         }
     }
 
+    public void InstantShowMenu()
+    {
+        _lastFrameTrigger = Time.frameCount;
+        isOpen = true;
+        transform.position = GetMenuPosition();
+
+        FlipBubbleImage();
+        SetChildrenEnabled(true);
+
+        _animator.SetTrigger("pop");
+    }
+
+    public void InstantHideMenu()
+    {        
+        SetChildrenEnabled(false);
+        isOpen = false;
+    }
+    protected void SetHidableComponents(){
+        MonoBehaviour[] componentArray = GetComponentsInChildren<Image>(true);
+        componentArray = componentArray.Concat(GetComponentsInChildren<Text>(true)).ToArray();
+        _hidableComponents = componentArray.ToList();
+    }
+
+    private Vector3 GetMenuPosition()
+    {
+        Vector3 attachedObjectPos = attachedGameObject.transform.position + Vector3.up * 0.5f; // assume the size of entity is 1
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(attachedObjectPos);
+
+        float menuOffsetValue = ((GetMenuSize().y * 1.01f) / 2  + offset);
+        Vector3 menuOffsetVect = menuOffsetValue * (isAttachedGameObjectTopSide ? Vector3.down : Vector3.up);
+        return screenPos + menuOffsetVect;
+    }
+
+    private Vector2 GetMenuSize()
+    {
+        return new Vector2(
+            _rectTransform.sizeDelta.x * transform.localScale.x,
+            _rectTransform.sizeDelta.y * transform.localScale.y
+        );
+    }
+
     private bool CanToggleMenu(){
         GameManager gm = GameManager.instance;
         return (
@@ -110,37 +148,22 @@ public class MenuController : MonoBehaviour
             );
     }
 
-    public void InstantShowMenu()
-    {
-        _lastFrameTrigger = Time.frameCount;
-        isOpen = true;
-        transform.position = GetMenuPosition();
-        SetChildrenEnabled(true);
-
-        _animator.SetTrigger("pop");
-    }
-
-    public void InstantHideMenu()
-    {        
-        SetChildrenEnabled(false);
-        isOpen = false;
-    }
-
-    protected void SetHidableComponents(){
-        MonoBehaviour[] componentArray = GetComponentsInChildren<Image>(true);
-        componentArray = componentArray.Concat(GetComponentsInChildren<Text>(true)).ToArray();
-        _hidableComponents = componentArray.ToList();
-    }
-
-    public void RegisterHiddableComponent(MonoBehaviour component){
-        _hidableComponents.Add(component);
-    }
-
     private void SetChildrenEnabled(bool enabled)
     {
         foreach(MonoBehaviour component in _hidableComponents)
         {
             component.enabled = enabled;
         }
+    }
+
+    private bool IsEntityTopSide(Vector3 position){
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(position);
+        return (screenPos.y / Screen.height) > flipScreenRatio;
+    }
+
+    private void FlipBubbleImage(){
+        Vector3 bubbleScale = bubbleRectTransform.localScale;
+        bubbleScale.y = (isAttachedGameObjectTopSide ? -1 : 1);
+        bubbleRectTransform.localScale = bubbleScale;
     }
 }
