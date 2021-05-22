@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BlurShaderMaterial
-  m_Shader: {fileID: -6465566751694194690, guid: 27099bdfde9814841b961c7f82320cf8,
+  m_Name: BlurShader2DMaterial
+  m_Shader: {fileID: -6465566751694194690, guid: 30ccecdefc3b6834e9a7a2b4a3632938,
     type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -21,10 +21,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _RenTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -41,6 +37,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_27e792877fa1444fb659da44eeb97176: 0.005
+    - Vector1_27e792877fa1444fb659da44eeb97176: 0.004
     m_Colors: []
   m_BuildTextureStacks: []

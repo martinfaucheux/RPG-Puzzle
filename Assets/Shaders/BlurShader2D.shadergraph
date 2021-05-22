@@ -2627,12 +2627,6 @@
 
 {
     "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalUnlitSubTarget",
-    "m_ObjectId": "7b51f4acb534403788a70f0c67907ae1"
-}
-
-{
-    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "7c3d10b7df11443da9b4c4d6bfda4a3b",
     "m_Id": 4,
@@ -4091,6 +4085,12 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalSpriteUnlitSubTarget",
+    "m_ObjectId": "d222e35c00994b97b29504ff07a3cd13"
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "d2f4dde278634cf89004ff3ea1da9268",
     "m_Id": 0,
@@ -4120,7 +4120,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"a6ffd4dcc43594c448713c9aae49ea8d\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"instanceID\":0}}",
         "m_Guid": ""
     },
     "m_Modifiable": true,
@@ -4213,7 +4213,7 @@
     "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
     "m_ObjectId": "d8c070343bfa4a74a9e03aeb3f4eac9e",
     "m_ActiveSubTarget": {
-        "m_Id": "7b51f4acb534403788a70f0c67907ae1"
+        "m_Id": "d222e35c00994b97b29504ff07a3cd13"
     },
     "m_SurfaceType": 1,
     "m_AlphaMode": 0,
