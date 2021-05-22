@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] Sound[] sounds;
-
     public static AudioManager instance;
+
+    [SerializeField] bool keepThroughScenes;
+    [SerializeField] Sound[] sounds;
 
     private Dictionary<string, Sound> _soundDict;
     void Awake()
     {
-        // CheckSingleton();
-        // DontDestroyOnLoad(gameObject);
+        CheckSingleton();
+
+        if (keepThroughScenes)
+            DontDestroyOnLoad(gameObject);
+        
         InitializeAudioSources();
     }
 
