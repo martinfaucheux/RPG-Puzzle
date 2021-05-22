@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     }
 
     private void InitializeAudioSources(){
+        _soundDict = new Dictionary<string, Sound>();
         foreach(Sound sound in sounds){
             sound.source = gameObject.AddComponent<AudioSource>();
             _soundDict.Add(sound.name, sound);
