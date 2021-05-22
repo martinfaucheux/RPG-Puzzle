@@ -7,9 +7,13 @@ public class AudioManager : MonoBehaviour
 {
     [SerializeField] Sound[] sounds;
 
+    public static AudioManager instance;
+
     private Dictionary<string, Sound> _soundDict;
     void Awake()
     {
+        // CheckSingleton();
+        // DontDestroyOnLoad(gameObject);
         InitializeAudioSources();
     }
 
@@ -27,6 +31,16 @@ public class AudioManager : MonoBehaviour
         }
         else{
             Debug.LogError("Unknown sound: " + soundName);
+        }
+    }
+
+    private void CheckSingleton(){
+        if(instance == null){
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+            return;
         }
     }
 
