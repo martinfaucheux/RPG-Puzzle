@@ -7,9 +7,9 @@ using UnityEngine;
 public class AutoRandomSprite : MonoBehaviour
 {
     public Sprite[] spriteList;
-    public bool allow_rotation = false;
-    public bool allow_vertical_flip = false;
-    public bool allow_horizontal_flip = false;
+    public bool allowRotation = false;
+    public bool allowVerticalFlip = false;
+    public bool allowHorizontalFlip = false;
 
     private SpriteRenderer _spriteRenderer;
 
@@ -51,7 +51,7 @@ public class AutoRandomSprite : MonoBehaviour
 
     private void TweakImage()
     {
-        if (allow_horizontal_flip)
+        if (allowHorizontalFlip)
         {
             if (Random.Range(0, 2) == 1)
             {
@@ -59,7 +59,7 @@ public class AutoRandomSprite : MonoBehaviour
             }
         }
 
-        if (allow_vertical_flip)
+        if (allowVerticalFlip)
         {
             if (Random.Range(0, 2) == 1)
             {
@@ -67,7 +67,7 @@ public class AutoRandomSprite : MonoBehaviour
             }
         }
 
-        if (allow_rotation)
+        if (allowRotation)
         {
             int angle_index = (Random.Range(0, 4));
             transform.Rotate(new Vector3(0f, 0f, angle_index * 90f));

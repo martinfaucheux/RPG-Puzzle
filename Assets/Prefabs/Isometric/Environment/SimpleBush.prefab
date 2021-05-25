@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8593272769699718819}
   - component: {fileID: 8593272769699718818}
+  - component: {fileID: 3060957772314809980}
   m_Layer: 0
   m_Name: sprite
   m_TagString: Untagged
@@ -81,7 +82,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 77125827f1c69d24baf1afe6bfd64efe, type: 2}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,7 +103,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ff93cd589e7a400488b6dc1d9d5a749a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9131dc8e03fce4e40bbc98f15f829c76, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -113,6 +114,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3060957772314809980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8593272769699718816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a52386bc4667a9b4da741c5afaeed0c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteList:
+  - {fileID: 21300000, guid: ff93cd589e7a400488b6dc1d9d5a749a, type: 3}
+  - {fileID: 21300000, guid: 89cca7ab004b53e49ae8974ae02fe415, type: 3}
+  - {fileID: 21300000, guid: 9131dc8e03fce4e40bbc98f15f829c76, type: 3}
+  - {fileID: 21300000, guid: 25068504c810c4e48beb297d864369f6, type: 3}
+  allowRotation: 0
+  allowVerticalFlip: 0
+  allowHorizontalFlip: 0
 --- !u!1 &8593272771008641965
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +161,7 @@ Transform:
   m_GameObject: {fileID: 8593272771008641965}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4, y: 0, z: 0}
-  m_LocalScale: {x: 1.03, y: 1.03, z: 1.03}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8593272769450880643}
   m_Father: {fileID: 0}
