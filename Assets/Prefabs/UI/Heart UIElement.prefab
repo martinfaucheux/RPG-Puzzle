@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 114377657389379618}
   - component: {fileID: 114597363378437028}
   - component: {fileID: 2169640716673138319}
+  - component: {fileID: 6736385228940386657}
   m_Layer: 5
   m_Name: Heart UIElement
   m_TagString: Untagged
@@ -111,3 +112,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6736385228940386657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440336099715514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AspectMode: 2
+  m_AspectRatio: 1
