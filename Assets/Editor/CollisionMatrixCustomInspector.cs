@@ -145,6 +145,8 @@ public void BuildBorderWalls()
         return borderWallsGO;
     }
 
+    // add anotation to make it show in top menu
+    [MenuItem ("Tools/Realign entities on grid" )]
     private static void RealignTransformsOnGrids(){
 
         float gridPace = 0.5f;
