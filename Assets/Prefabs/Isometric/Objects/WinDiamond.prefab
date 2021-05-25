@@ -126,6 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba36de937aeb6442b008ad2655b13be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hoverEnabled: 1
+  hoverAmplitude: 0.1
+  hoverPerdiod: 6
 --- !u!1 &8953833336809043528
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +203,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteHolderTransform: {fileID: 0}
-  hoverEnabled: 1
-  hoverAmplitude: 0.1
-  hoverPerdiod: 6
-  spritePrefabs: []
+  flipForFacing: 0
+  activeAnimator: {fileID: 0}
