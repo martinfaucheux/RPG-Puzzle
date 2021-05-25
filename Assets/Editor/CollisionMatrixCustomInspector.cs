@@ -160,7 +160,6 @@ public void BuildBorderWalls()
                 Mathf.Round(initPos.z / gridPace) * gridPace
             );
             collider.transform.position = newPos;
-            Debug.Log(newPos);
         }
     }
 
