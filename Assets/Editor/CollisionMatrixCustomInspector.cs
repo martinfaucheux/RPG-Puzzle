@@ -149,19 +149,18 @@ public void BuildBorderWalls()
 
         float gridPace = 0.5f;
 
-        float _multiplier = 1 / gridPace;
-
-
         Debug.Log("Realign all transforms on the grid");
 
         MatrixCollider[] colliders = FindObjectsOfType<MatrixCollider>();
         foreach(MatrixCollider collider in colliders){
             Vector3 initPos = collider.transform.position;
-            collider.transform.position = new Vector3(
-                Mathf.Round(initPos.x * _multiplier) / _multiplier,
-                Mathf.Round(initPos.y * _multiplier) / _multiplier,
-                initPos.z
+            Vector3 newPos =  new Vector3(
+                Mathf.Round(initPos.x / gridPace) * gridPace,
+                0f,
+                Mathf.Round(initPos.z / gridPace) * gridPace
             );
+            collider.transform.position = newPos;
+            Debug.Log(newPos);
         }
     }
 
