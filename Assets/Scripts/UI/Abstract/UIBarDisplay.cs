@@ -53,7 +53,6 @@ public abstract class UIBarDisplay : MonoBehaviour
         {
             for (int i = 0; i < newImageCount - imageCount; i++)
             {
-                Debug.Log("instantiate new");
                 GameObject newUIElementObject = Instantiate(
                     defaultUIElementPrefab,
                     imageContainerTransform.transform.position,
