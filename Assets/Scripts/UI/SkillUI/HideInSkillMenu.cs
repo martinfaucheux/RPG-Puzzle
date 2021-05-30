@@ -7,11 +7,9 @@ using System.Linq;
  
 public class HideInSkillMenu : MonoBehaviour
 {
-
     private List<MonoBehaviour> _hidableComponents;
     private bool _isShowing = true;
 
-    // Start is called before the first frame update
     void Start()
     {
         _hidableComponents = new List<MonoBehaviour>();

@@ -8,17 +8,20 @@ public class RotatingSplashStar : MonoBehaviour
     public bool isShowing = false;
     private RectTransform _rectTransform;
     private Image _image;
+
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
         Hide();
-        
+
         GameEvents.instance.onEnterLevelUp += UpdateState;
-        GameEvents.instance.onSkillEnabled += UpdateState;        
+        GameEvents.instance.onSkillEnabled += UpdateState;  
+
+        // avoid splash image showing after spending all points in skill menu      
+        GameEvents.instance.onCloseSkillMenu += UpdateState;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (isShowing){
@@ -26,15 +29,15 @@ public class RotatingSplashStar : MonoBehaviour
         }
     }
 
-    // be compliant with event signature
+    // be compliant with event signature 
     private void UpdateState(Skill _) => UpdateState();
 
     private void UpdateState(){
         int skillPoints = SkillManager.instance.skillPoints;
-        if (skillPoints > 0 && !isShowing){
+        if (skillPoints > 0){
             Show();
         }
-        else if (skillPoints == 0 && isShowing){
+        else if (skillPoints == 0){
             Hide();
         }
     }
