@@ -20,6 +20,7 @@ public class GameEvents : MonoBehaviour
 
     public event Action<Item> onPickItem;
     public event Action<Item> onUseItem;
+    public event Action<Health> onUnitDies;
 
     # region Singleton
 
@@ -126,6 +127,14 @@ public class GameEvents : MonoBehaviour
         if (onCloseSkillMenu != null)
         {
             onCloseSkillMenu();
+        }
+    }
+
+    public void UnitDiesTrigger(Health healthComponent)
+    {
+        if (onUnitDies != null)
+        {
+            onUnitDies(healthComponent);
         }
     }
 

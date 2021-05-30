@@ -112,6 +112,7 @@ public class Health : MonoBehaviour {
 
         if (tag != "Player")
         {
+            GameEvents.instance.UnitDiesTrigger(this);
             Destroy(gameObject);
         }
         else

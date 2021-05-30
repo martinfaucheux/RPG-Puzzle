@@ -4,62 +4,58 @@ using UnityEngine;
 
 public class ExpBall : MonoBehaviour
 {
+    public static ExpBall instance;
+    public Vector3 endPos;
+    public float transitionDuration;
+    public LTBezierPath ltPath ;
 
-    private Vector3 _targetPos = Vector3.zero;
-    // public float speed = 1f;
+    void Awake(){
+        CheckSingleton();
+    }
 
-    private Vector3 startPoint;
-    private Vector3 endPoint;
+    public void Tween(){
+        TweenLinear();
+    }
 
-    [Range(0, 1)] //Range between 0 and 1 that evolves from 0 to 1 during the animation
-    public float smoothness;
+    private Vector3[] GetBezierPoints(){
+        // Vector3[] bezierPoints = new Vector3[]{
+        //     new Vector3(0f,0f,0f),
+        //     new Vector3(1f,0f,0f),
+        //     new Vector3(1f,0f,0f),
+        //     new Vector3(1f,1f,0f)
+        // };
 
-    //Scale of the object before starting to lerp it
-    private Vector3 ownScale;
-    // void Start()
-    // {
-    //     ownScale = transform.localScale; //Save the scale before changing
+        float magnitude = (transform.position - endPos).magnitude;
 
+        return new Vector3[]{
+            transform.position,
+            new Vector3(1f, 0f, 0f) * magnitude,
+            new Vector3(1f, 0f, 0f) * magnitude,
+            endPos,
+        };
+    }
 
-    // _targetPos = ExpDisplay.instance.transform.position;
-
-    // // Find the points to start and to target, will need to put it in Update()
-    // // if the player is moving during the animation 
-    // startPoint = transform.position;
-    // endPoint = Camera.main.ScreenToWorldPoint(new Vector3(_targetPos.x, _targetPos.y, 1));
-    // }
- 
-    // void Update()
-    // {
-    //     transform.position = Vector3.Lerp(startPoint, endPoint, smoothness);
-    //     transform.localScale = ownScale * (1 - smoothness);
-    // }
-
-
-
-
-
-
-
-    // void Start()
-    // {
-    //     _targetPos = ExpDisplay.instance.transform.position;
-    // }
-
-    // void Update()
-    // {
-    //     Vector3 difference = (transform.position - _targetPos); 
-    //     float distance = difference.magnitude;
-
-    //     if( distance < 0.1f){
-    //         Destroy(this);
-    //         return;
-    //     }
-
-    //     float magnitude = Mathf.Min(distance, speed * Time.deltaTime);
-
-    //     Vector3 newPostion = magnitude * difference.normalized;
+    private void TweenBezier(){
         
-    //     transform.position = newPostion;
-    // }
+        LTBezierPath ltPath = new LTBezierPath(GetBezierPoints());
+        LeanTween.move(gameObject, ltPath, transitionDuration).setOrientToPath2d(true).setEaseOutQuint().setOnComplete(DestroyMe);
+    }
+
+    private void TweenLinear(){
+        LeanTween.move(gameObject, endPos, transitionDuration).setEaseInOutQuint().setOnComplete(DestroyMe);
+    }
+
+    private void DestroyMe(){
+        Destroy(gameObject);
+    }
+
+    private void CheckSingleton(){
+        if(instance == null){
+            instance = this;
+        }
+        else{
+            Destroy(gameObject);
+            return;
+        }
+    }
 }
