@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class UIBarDisplay : MonoBehaviour
 {
@@ -52,8 +53,14 @@ public abstract class UIBarDisplay : MonoBehaviour
         {
             for (int i = 0; i < newImageCount - imageCount; i++)
             {
-                GameObject newUIElementObject = Instantiate(defaultUIElementPrefab, imageContainerTransform.transform.position, Quaternion.identity);
-                newUIElementObject.transform.SetParent(imageContainerTransform);
+                Debug.Log("instantiate new");
+                GameObject newUIElementObject = Instantiate(
+                    defaultUIElementPrefab,
+                    imageContainerTransform.transform.position,
+                    Quaternion.identity
+                );
+                // set parent is done at the end of frame to force re-calculate layout
+                StartCoroutine(SetTransformParent(newUIElementObject));
             }
         }
 
@@ -65,5 +72,11 @@ public abstract class UIBarDisplay : MonoBehaviour
                 UIElementComponents[i].Hide();
             }
         }
+    }
+
+    private IEnumerator SetTransformParent(GameObject newGameObject){
+        yield return new WaitForEndOfFrame();
+        RectTransform rectTransform = (RectTransform) newGameObject.transform;
+        rectTransform.SetParent(imageContainerTransform);
     }
 }

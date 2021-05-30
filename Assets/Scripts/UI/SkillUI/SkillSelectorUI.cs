@@ -20,7 +20,6 @@ public class SkillSelectorUI : MonoBehaviour
     }
 
     public void SelectSkill(Skill skill){
-        Debug.Log("Skill " + skill.skillName + " selected");
         _selectedSkill = skill;
         skillNameTextComponent.text = skill.skillName;
         skillDescriptionTextComponent.text = skill.skillDescription;
