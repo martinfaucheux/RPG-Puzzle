@@ -8,6 +8,7 @@ public class ExpBall : MonoBehaviour
     public Vector3 endPos;
     public float transitionDuration;
     public LTBezierPath ltPath ;
+    private Material _material;
 
     void Awake(){
         CheckSingleton();
@@ -15,6 +16,16 @@ public class ExpBall : MonoBehaviour
 
     public void Tween(){
         TweenLinear();
+        TweenAlpha();
+        TweenSize();
+    }
+
+    public void TweenAlpha(){
+        LeanTween.alpha((RectTransform) transform, 0, transitionDuration).setEaseInQuint();
+    }
+
+    public void TweenSize(){
+        LeanTween.scale(gameObject, 0.5f * new Vector3(1, 1, 0), transitionDuration).setEaseInBack();
     }
 
     private Vector3[] GetBezierPoints(){
