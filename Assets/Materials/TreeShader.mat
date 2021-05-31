@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VegetationWindShaderMaterial
+  m_Name: TreeShader
   m_Shader: {fileID: -6465566751694194690, guid: 2a3035763430448408cb44a8998d3587,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
@@ -37,7 +37,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _WindIntensity: 0.148
-    - _WindSpeed: 1.21
+    - _FixedHight: 0.081
+    - _WindIntensity: 0.089
+    - _WindSpeed: 0.97
     m_Colors: []
   m_BuildTextureStacks: []

@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteHolderTransform: {fileID: 7741439170637017899}
-  hoverEnabled: 0
-  hoverAmplitude: 0.1
-  hoverPerdiod: 6
+  flipForFacing: 0
+  activeAnimator: {fileID: 0}
 --- !u!114 &7741439169816471047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +113,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: eb14df6b6d043d445938c64c09d52341, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,7 +134,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0173ccd83eeb2244094dcf104a4aff50, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2584e3aa2778fa14599f37ada638f361, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -163,10 +162,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0173ccd83eeb2244094dcf104a4aff50, type: 3}
   - {fileID: 21300000, guid: 2584e3aa2778fa14599f37ada638f361, type: 3}
   - {fileID: 21300000, guid: bfdb6d8c75db634479766cafc4a36355, type: 3}
-  allow_rotation: 0
-  allow_vertical_flip: 0
-  allow_horizontal_flip: 0
-  allowNone: 0
+  allowRotation: 0
+  allowVerticalFlip: 0
+  allowHorizontalFlip: 0
 --- !u!1 &7741439170637017896
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,7 +214,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1879082839419013136
 Transform:
   m_ObjectHideFlags: 0
@@ -271,7 +269,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -10
-  m_Sprite: {fileID: 21300000, guid: 54f2d411793cc19499f52c84e03f2112, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -279,7 +277,7 @@ SpriteRenderer:
   m_Size: {x: 1.8333334, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &3119753631664324870
@@ -303,7 +301,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  allow_rotation: 0
-  allow_vertical_flip: 0
-  allow_horizontal_flip: 0
-  allowNone: 0
+  allowRotation: 0
+  allowVerticalFlip: 0
+  allowHorizontalFlip: 0
