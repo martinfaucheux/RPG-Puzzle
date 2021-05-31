@@ -11,6 +11,8 @@ public class SkillPointUpdater : MonoBehaviour
     public Text skillPointCounterText;
     public TextMeshProUGUI skillPointCounterTMProText;
 
+    [SerializeField] bool showInSkillMenu = true;
+
     [Tooltip("Text to be left-concatenated to the score")]
     public string displayPrefix;
     void Start()
@@ -28,7 +30,10 @@ public class SkillPointUpdater : MonoBehaviour
         SetText(displayPrefix + skillPoint.ToString());
         
         if(showOnlyIfMoreThanZero){
-            bool condition = (skillPoint > 0);
+            bool condition = (
+                skillPoint > 0
+                && (!SkillMenu.instance.isShowing || showInSkillMenu)
+            );
             SetShow(condition);
             
             if(badgeImage != null){
