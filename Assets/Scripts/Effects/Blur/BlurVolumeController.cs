@@ -9,32 +9,33 @@ public class BlurVolumeController : MonoBehaviour
     // NOTE: this effect does not work as intended on Android
     // it looks like default FOV is not sampled the same way than in Editor
 
-    [SerializeField] float  disabledFocalLength;
+    [SerializeField] float  disabledDofValue;
 
     [Tooltip("150 looks like a good value")]
-    [SerializeField] float  enabledFocalLength = 150f;
+    [SerializeField] float  enabledDofValue = 150f;
     [SerializeField] float  transitionDuration = 0.2f;
     [SerializeField] AnimationCurve curve;
     [SerializeField] Volume _volumeComponent;
-    private DepthOfField _depthOfField;
+    private DepthOfField _dof;
 
-    private float _focalLength
+    private float _dofValue
     {
-        get { return _depthOfField.focalLength.value;}
+        get { return _dof.focalLength.value;}
         set
         {
-            _depthOfField.focalLength.value = value;
+            // _dof.focalLength.value = value;
+            _dof.focusDistance.value = value;
         }
     }
 
     void Start(){
-        VolumeProfile _volumeProfile = _volumeComponent.sharedProfile;
+        VolumeProfile _volumeProfile = _volumeComponent.profile;
 
-        if (!_volumeProfile.TryGet<DepthOfField>(out _depthOfField))
+        if (!_volumeProfile.TryGet<DepthOfField>(out _dof))
         {
-            _depthOfField = _volumeProfile.Add<DepthOfField>(false);
+            _dof = _volumeProfile.Add<DepthOfField>(true);
         }
-        _focalLength = disabledFocalLength;
+        _dofValue = disabledDofValue;
 
         GameEvents.instance.onOpenSkillMenu += EnableBlur;
         GameEvents.instance.onCloseSkillMenu += DisabledBlur;
@@ -42,29 +43,32 @@ public class BlurVolumeController : MonoBehaviour
     }
 
     public void EnableBlur(){
-        StartCoroutine(ChangeBlurCoroutine(enabledFocalLength));
+        _dofValue = enabledDofValue;
+        _volumeComponent.enabled = true;
+        // StartCoroutine(ChangeBlurCoroutine(enabledDofValue));
     }
 
     public void DisabledBlur(){
-        StartCoroutine(ChangeBlurCoroutine(disabledFocalLength));
+        _volumeComponent.enabled = false;
+        // StartCoroutine(ChangeBlurCoroutine(disabledDofValue));
     }
 
-    private IEnumerator ChangeBlurCoroutine(float targetFocalLength){
+    private IEnumerator ChangeBlurCoroutine(float targetDofValue){
         float timeSinceStart = 0f;
-        float initFocalLength = _focalLength;
+        float initDofValue = _dofValue;
 
         while(timeSinceStart < transitionDuration){
 
             float timeModifier = curve.Evaluate(timeSinceStart / transitionDuration);
             
-            float newValue = initFocalLength + (targetFocalLength - initFocalLength) * timeModifier;
+            float newValue = initDofValue + (targetDofValue - initDofValue) * timeModifier;
 
-            _focalLength = newValue;
+            _dofValue = newValue;
             timeSinceStart += Time.deltaTime;
             yield return null;
         }
 
-        _focalLength = targetFocalLength;
+        _dofValue = targetDofValue;
     }
 
     void OnDestroy(){
