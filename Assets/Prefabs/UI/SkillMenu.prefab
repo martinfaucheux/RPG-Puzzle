@@ -298,7 +298,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813313082034760188}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -404.95938}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2172044661106359}
@@ -396,7 +396,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2582949260648845785}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -47.85901}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 126927537061079988}
@@ -492,7 +492,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2659517206802576440}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -209.98099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4052097196101614616}
@@ -705,7 +705,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4642690392369208411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -209.98099}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6669032420730010346}
@@ -827,7 +827,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4949979537280925711}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -47.85901}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1244069505338467826}
@@ -924,7 +924,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5391575646640820034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -47.85901}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2094738630120245477}
@@ -1168,6 +1168,7 @@ MonoBehaviour:
   badgeImage: {fileID: 0}
   skillPointCounterText: {fileID: 0}
   skillPointCounterTMProText: {fileID: 0}
+  showInSkillMenu: 1
   displayPrefix: 'Skill points: '
 --- !u!222 &6907064904915706679
 CanvasRenderer:
@@ -1205,7 +1206,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8006355758194654452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -404.95938}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4845965878525413835}
@@ -1463,7 +1464,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8085907329536105615}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 404.95938}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5369839487816406928}
@@ -1618,7 +1619,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 62.5
+  m_fontSize: 72
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1827,6 +1828,7 @@ MonoBehaviour:
   badgeImage: {fileID: 0}
   skillPointCounterText: {fileID: 0}
   skillPointCounterTMProText: {fileID: 2081651510871210176}
+  showInSkillMenu: 1
   displayPrefix: 'Skill points: '
 --- !u!1 &9153315349713894602
 GameObject:
@@ -2087,7 +2089,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 290.36533
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
@@ -2212,7 +2214,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 290.36533
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
@@ -2337,7 +2339,7 @@ PrefabInstance:
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 290.36533
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1126730614265047749, guid: daae1393311dce644ba64a11e39f66c1,
         type: 3}
