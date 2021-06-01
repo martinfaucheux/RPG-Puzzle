@@ -25,7 +25,7 @@ public class ExpBall : MonoBehaviour
     }
 
     public void TweenSize(){
-        LeanTween.scale(gameObject, 0.5f * new Vector3(1, 1, 0), transitionDuration).setEaseInBack();
+        LeanTween.scale(gameObject, 0.25f * new Vector3(1, 1, 0), transitionDuration);
     }
 
     private Vector3[] GetBezierPoints(){
