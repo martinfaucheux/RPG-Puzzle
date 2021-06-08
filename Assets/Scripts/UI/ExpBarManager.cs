@@ -1,12 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ExpBarManager : MonoBehaviour
 {
     public Slider barSlider;
-    public Text levelIntTextComponent;
+    [SerializeField] TextMeshProUGUI levelIntTextComponent;
 
     public float fillTransitionDuraton = 0.2f;
     private Experience _expComponent;
