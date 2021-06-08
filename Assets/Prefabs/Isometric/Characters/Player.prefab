@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 605317121d9ca814995664b817c1ac03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackPoints: 1
+  _attackPoints: 1
   attackAnimComponent: {fileID: 1657235518229366471}
 --- !u!114 &4513580360118921153
 MonoBehaviour:
@@ -1603,6 +1603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361409b6d344f5546b6792eb83fcb345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonId: 0
   entityName: Knight
 --- !u!61 &4513580360118921152
 BoxCollider2D:

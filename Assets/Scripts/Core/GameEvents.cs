@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameEvents : MonoBehaviour
@@ -9,6 +7,7 @@ public class GameEvents : MonoBehaviour
 
     public event Action onEnterLevelUp;
     public event Action<int> onHealthChange;
+    public event Action<int> onAttackChange;
     public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
     public event Action onEndOfLevel;
@@ -55,6 +54,14 @@ public class GameEvents : MonoBehaviour
         if (onHealthChange != null)
         {
             onHealthChange(healthID);
+        }
+    }
+
+    public void AttackChangeTrigger(int attackID)
+    {
+        if (onAttackChange != null)
+        {
+            onAttackChange(attackID);
         }
     }
 

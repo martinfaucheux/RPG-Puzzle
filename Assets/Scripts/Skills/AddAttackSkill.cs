@@ -10,7 +10,7 @@ public class AddAttackSkill: Skill
 
         Attack attackComponent = GetComponentOrRaise<Attack>(target);
         if (attackComponent != null){
-            attackComponent.attackPoints += 1;
+            attackComponent.AddAttackPoint(1);
         }
     }
 
@@ -19,7 +19,7 @@ public class AddAttackSkill: Skill
 
         Attack attackComponent = GetComponentOrRaise<Attack>(target);
         if (attackComponent != null){
-            attackComponent.attackPoints -= 1;
+            attackComponent.AddAttackPoint(-1);
         }
     }
 }

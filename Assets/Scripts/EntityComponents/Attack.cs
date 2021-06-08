@@ -1,12 +1,18 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Attack : MonoBehaviour {
 
     private float attackAnimationAmplitude = 0.3f;
 
-    public int attackPoints;
+    public int attackPoints{
+        get {return _attackPoints;}
+        private set{
+            _attackPoints = value;
+            GameEvents.instance.AttackChangeTrigger(GetInstanceID());
+        }
+    }
+    [SerializeField] private int _attackPoints;
     public AttackAnimation attackAnimComponent;
 
     private Experience _expComponent;
