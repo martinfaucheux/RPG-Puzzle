@@ -26,12 +26,7 @@ public class SelectButton : MonoBehaviour, IPointerClickHandler // required inte
 
     private void HandleEvent(){
         UnselectAll();
-        
-        if (!selected){
-            selected = true;
-            currentSelected = this;
-            OnButtonSelect();
-        }
+        Select();        
     }
 
     protected virtual void OnButtonSelect(){}
@@ -39,10 +34,25 @@ public class SelectButton : MonoBehaviour, IPointerClickHandler // required inte
 
     private void UnselectAll(bool ignoreThis = true){
         foreach(SelectButton button in _selectButtons){
-            if (button.selected && !(button == this && !ignoreThis)){
-                button.OnButtonUnselect();
-                button.selected = false;
+            if (!(button == this && !ignoreThis)){
+                button.Unselect();
             }
+        }
+    }
+
+    protected void Select(){
+        if (!selected){
+            selected = true;
+            currentSelected = this;
+            OnButtonSelect();
+        }
+    }
+
+    protected void Unselect(){
+        if (selected){
+            currentSelected = null;
+            selected = false;
+            OnButtonUnselect();
         }
     }
 }

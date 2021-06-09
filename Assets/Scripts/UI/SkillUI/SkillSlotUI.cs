@@ -21,6 +21,9 @@ public class SkillSlotUI : SelectButton
             SetSprite();
         }
         GameEvents.instance.onSkillEnabled += OnUnlockSkill;
+        // fix some issues when skills keep selected
+        // after opening / closing skill menu
+        GameEvents.instance.onCloseSkillMenu += Unselect;
     }
 
     public void SetSprite(){
@@ -36,6 +39,10 @@ public class SkillSlotUI : SelectButton
     }
     protected override void OnButtonUnselect(){
         ScaleHighlightImage(1f);
+        // clear the skill description if no skill are selected
+        if (currentSelected == null){
+            skillSelectorUI.ClearSkill();
+        }
     }
 
     private void OnUnlockSkill(Skill skill){
@@ -60,5 +67,6 @@ public class SkillSlotUI : SelectButton
 
     void OnDestroy(){
         GameEvents.instance.onSkillEnabled -= OnUnlockSkill;
+        GameEvents.instance.onCloseSkillMenu -= Unselect;
     }
 }
