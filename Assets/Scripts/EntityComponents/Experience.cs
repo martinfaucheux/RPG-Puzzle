@@ -23,7 +23,6 @@ public class Experience : MonoBehaviour {
         _healthComponent = GetComponent<Health>();
 
         targetExpPoints = GetTargetExpForLevel(1);
-        UIManager.instance.UpdateUI();
 
         // TODO: this mechanism is no longer user
         // attach the appropirate function to each reward button
@@ -41,7 +40,6 @@ public class Experience : MonoBehaviour {
             LevelUp();
         }
         GameEvents.instance.PlayerExperienceChangeTrigger();
-        UIManager.instance.UpdateUI();
     }
 
     private void LevelUp()

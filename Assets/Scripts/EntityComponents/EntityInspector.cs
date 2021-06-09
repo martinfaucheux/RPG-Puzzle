@@ -27,7 +27,6 @@ public class EntityInspector : ClickAndRelease
         ){
             MenuController.instance.AttachObject(gameObject);
             MenuController.instance.InstantShowMenu();
-            UIManager.instance.UpdateUI();
         }
     }
 }

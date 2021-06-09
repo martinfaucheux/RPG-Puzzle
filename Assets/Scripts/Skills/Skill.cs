@@ -10,9 +10,6 @@ public abstract class Skill: ScriptableObject
     public string skillName;
     public string skillDescription;
 
-    // to be DEPRECATED
-    // this information will now be stored in SkillManager
-
     public virtual void Enable(GameObject target){
         GameEvents.instance.SkillEnabledTrigger(this);
     }
