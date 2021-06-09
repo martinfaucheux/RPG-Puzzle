@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class HeartUI : UIBarElement
 {
+    [SerializeField] bool isFull = false;
     // sprite images
     public Sprite fullHeartSprite;
     public Sprite emptyHeartSprite;
 
     private Animator _animator;
-    private bool currentValue = false;
 
     void Start(){
         _animator = GetComponent<Animator>();
@@ -32,17 +32,17 @@ public class HeartUI : UIBarElement
     public void SetToFull()
     {
         imageComponent.sprite = fullHeartSprite;
-        if (!currentValue)
+        if (!isFull)
             PlayPulseAnim();
-        currentValue = true;
+        isFull = true;
     }
 
     public void SetToEmpty()
     {
         imageComponent.sprite = emptyHeartSprite;
-        if (currentValue)
+        if (isFull)
             PlayPulseAnim();
-        currentValue = false;
+        isFull = false;
     }
 
     private void PlayPulseAnim(){

@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public abstract class UIBarDisplay : MonoBehaviour
 {
-    public Transform imageContainerTransform;
+    public RectTransform imageContainerTransform; // most likely this.transform
     public GameObject defaultUIElementPrefab;
+    private LayoutGroup _layoutGroup;
 
     // get the number of UIElements that should be displayed
     protected abstract int GetNewImageCount();
@@ -36,6 +37,7 @@ public abstract class UIBarDisplay : MonoBehaviour
     {
         int newImageCount = GetNewImageCount();
 
+        _layoutGroup = imageContainerTransform.GetComponent<LayoutGroup>();
         UIBarElement[] UIElementComponents = imageContainerTransform.GetComponentsInChildren<UIBarElement>();
 
         int imageCount;
@@ -53,13 +55,8 @@ public abstract class UIBarDisplay : MonoBehaviour
         {
             for (int i = 0; i < newImageCount - imageCount; i++)
             {
-                GameObject newUIElementObject = Instantiate(
-                    defaultUIElementPrefab,
-                    imageContainerTransform.transform.position,
-                    Quaternion.identity
-                );
                 // set parent is done at the end of frame to force re-calculate layout
-                StartCoroutine(SetTransformParent(newUIElementObject));
+                StartCoroutine(AddGameObject());
             }
         }
 
@@ -73,9 +70,23 @@ public abstract class UIBarDisplay : MonoBehaviour
         }
     }
 
-    private IEnumerator SetTransformParent(GameObject newGameObject){
+    private IEnumerator AddGameObject(){
+
+        GameObject newUIElementObject = Instantiate(
+            defaultUIElementPrefab,
+            imageContainerTransform.position,
+            Quaternion.identity,
+            imageContainerTransform
+        );
+        RectTransform rectTransform = (RectTransform) newUIElementObject.transform;
+        
         yield return new WaitForEndOfFrame();
-        RectTransform rectTransform = (RectTransform) newGameObject.transform;
-        rectTransform.SetParent(imageContainerTransform);
+        _layoutGroup.enabled = false;
+        rectTransform.anchorMin = new Vector2(0.5f, 1);
+
+        // NOTE: this might not work when adding 2 elements at the same time
+        _layoutGroup.CalculateLayoutInputHorizontal();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(imageContainerTransform);
+        _layoutGroup.enabled = true; // enable at the end of the operation
     }
 }
