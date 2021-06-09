@@ -28,12 +28,9 @@ public class Health : MonoBehaviour {
 
 
     public bool isDead = false;
-    public HealthDisplay healthDisplay = null;
 
-    [SerializeField]
-    private int _currentHealth;
-    [SerializeField]
-    private int _maxHealthPoints;
+    [SerializeField] int _currentHealth;
+    [SerializeField] int _maxHealthPoints;
     private SpriteFlasher _spriteFlasher;
     
 
@@ -42,7 +39,6 @@ public class Health : MonoBehaviour {
 
         CurrentHealthPoints = MaxHealthPoints;
         _spriteFlasher = GetComponent<SpriteFlasher>();
-        UpdateUI();
 	}
 
     public float GetHealthPercentage()
@@ -58,8 +54,6 @@ public class Health : MonoBehaviour {
             newValue = 0;
 
         CurrentHealthPoints = newValue;
-
-        UpdateUI();
 
         if (tag == "Player"){
             GameEvents.instance.PlayerGetDamage();
@@ -79,7 +73,6 @@ public class Health : MonoBehaviour {
     public void Heal(int healedHealthPoints)
     {
         CurrentHealthPoints = Mathf.Min(healedHealthPoints + CurrentHealthPoints, MaxHealthPoints);
-        UpdateUI();
     }
 
     public void HealFullHealth()
@@ -91,15 +84,6 @@ public class Health : MonoBehaviour {
     {
         MaxHealthPoints += healthPoints;
         CurrentHealthPoints += healthPoints;
-        UpdateUI();
-    }
-
-    private void UpdateUI()
-    {
-        if (healthDisplay != null)
-        {
-            healthDisplay.UpdateUI();
-        }
     }
 
 
