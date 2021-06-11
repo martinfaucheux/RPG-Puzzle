@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PressRText : MonoBehaviour
+public class GameOverText : MonoBehaviour
 {
 
     public float textFadePeriod = 2f;
