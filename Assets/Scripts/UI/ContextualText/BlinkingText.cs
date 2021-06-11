@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class GameOverText : MonoBehaviour
-{
 
-    public float textFadePeriod = 2f;
+public class BlinkingText : MonoBehaviour
+{
+    public float textFadePeriod = 3f;
     [Tooltip("Time after which we show the text")]
     public float showDelay = 1f;
     private bool _isShowing = false;
@@ -13,13 +13,6 @@ public class GameOverText : MonoBehaviour
 
     // time at which we start showing the text
     private float _showTime = 0f;
-    // Start is called before the first frame update
-
-    void Start()
-    {
-        // will enable on GameOver
-        GameEvents.instance.onGameOver += DelayShow;
-    }
 
     // Update is called once per frame
     void Update()
@@ -33,7 +26,7 @@ public class GameOverText : MonoBehaviour
         }
     }
 
-    private void DelayShow(){
+    protected void DelayShow(){
         StartCoroutine(ShowCoroutine());
     }
 
@@ -46,10 +39,4 @@ public class GameOverText : MonoBehaviour
         _isShowing = true;
 
     }
-
-    void OnDestroy(){
-        GameEvents.instance.onGameOver -= DelayShow;
-    }
-
-
 }
