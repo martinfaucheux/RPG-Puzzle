@@ -33,6 +33,7 @@ public class Player : MovingObject
         if (
             IsReady()
             && GameManager.instance.playerCanMove
+            && !GameManager.instance.isEndOfLevelScreen
             && !GameManager.instance.isGamePaused
             && !MenuController.instance.isOpen
             && !SkillMenu.instance.isShowing
