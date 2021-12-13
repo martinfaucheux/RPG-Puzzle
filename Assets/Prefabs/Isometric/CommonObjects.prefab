@@ -1392,6 +1392,7 @@ GameObject:
   - component: {fileID: 8270278189718040968}
   - component: {fileID: 7976333105442222819}
   - component: {fileID: 4978061652248354397}
+  - component: {fileID: 2794509428052769023}
   m_Layer: 5
   m_Name: GameOverInstruction Text
   m_TagString: Untagged
@@ -1474,6 +1475,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textFadePeriod: 3
   showDelay: 1
+--- !u!114 &2794509428052769023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3157648835919081474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3672239f240f299489c464bbe179bb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  desktopVersion: Press R to restart!
+  mobileVersion: Tap to restart!
 --- !u!1 &3225856780432386069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3507,6 +3522,7 @@ GameObject:
   - component: {fileID: 3015455633859555187}
   - component: {fileID: 1299532339466782242}
   - component: {fileID: 3224384044173542189}
+  - component: {fileID: 5219826680584352477}
   m_Layer: 5
   m_Name: EndOfLevelInstruction Text
   m_TagString: Untagged
@@ -3589,6 +3605,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textFadePeriod: 3
   showDelay: 1
+--- !u!114 &5219826680584352477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7109358212269298800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3672239f240f299489c464bbe179bb81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  desktopVersion: Press any key to continue.
+  mobileVersion: Tap to continue.
 --- !u!1 &7204684586047799770
 GameObject:
   m_ObjectHideFlags: 0
@@ -6002,6 +6032,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b11158d52b530fc4aac6df57152cd2c1, type: 3}
+--- !u!224 &3925220263367646683 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7290144933973841829, guid: b11158d52b530fc4aac6df57152cd2c1,
+    type: 3}
+  m_PrefabInstance: {fileID: 6004111087890221694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &3925220263367646681 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7290144933973841831, guid: b11158d52b530fc4aac6df57152cd2c1,
@@ -6014,12 +6050,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b47abaaed8f0b0c4c8b066ea9b03ea36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &3925220263367646683 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7290144933973841829, guid: b11158d52b530fc4aac6df57152cd2c1,
-    type: 3}
-  m_PrefabInstance: {fileID: 6004111087890221694}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6106452169031949717
 PrefabInstance:
   m_ObjectHideFlags: 0
