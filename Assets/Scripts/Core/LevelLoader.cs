@@ -43,7 +43,8 @@ public class LevelLoader : MonoBehaviour
         // trigger animation for start of level
         SceneChangeCircle.instance.SceneStarts();
 
-        if (!_isMainMenu){
+        if (GameManager.instance != null)
+        {
             GameManager.instance.BlockPlayer(transitionDuration);
         }
     }
@@ -74,66 +75,86 @@ public class LevelLoader : MonoBehaviour
         LoadLevel(currentLevelId);
     }
 
-    public void LoadLastLevelPlayed(){
+    public void LoadLastLevelPlayed()
+    {
         LoadLevel(_lastLevelPlayedID, false);
     }
 
-    public void LoadFirstScene(){
+    public void LoadFirstScene()
+    {
         LoadLevel(0, false);
     }
 
-    private void LoadLevel(int levelID, bool doSaveData = true){
+    private void LoadLevel(int levelID, bool doSaveData = true)
+    {
         SceneChangeCircle.instance.SceneEnds();
 
-        if (doSaveData){
+        if (doSaveData)
+        {
             SaveData(currentLevelID: levelID);
         }
-        
+
         _lastLevelPlayedID = levelID;
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
     }
 
-    public bool IsLevelUnlocked(int levelId){
+    public bool IsLevelUnlocked(int levelId)
+    {
         return (levelId <= maxLevelId);
     }
 
-    public bool IsPreviousLevelAvailable(){
+    public bool IsPreviousLevelAvailable()
+    {
         return currentLevelId > 1;
     }
 
-    public bool IsNextLevelAvailable(){
+    public bool IsNextLevelAvailable()
+    {
         return (currentLevelId < maxLevelId);
     }
 
-    private void UnlockLevel(int levelID){
-        if (maxLevelId < levelID){
+    private void UnlockLevel(int levelID)
+    {
+        if (maxLevelId < levelID)
+        {
             maxLevelId = levelID;
             SaveData(maxLevelId: levelID);
         }
     }
 
-    public void SaveData(int maxLevelId = -1, int currentLevelID = -1){
-        if (maxLevelId < 0 ){
+    public void SaveData(int maxLevelId = -1, int currentLevelID = -1)
+    {
+        if (maxLevelId < 0)
+        {
             maxLevelId = this.maxLevelId;
         }
 
-        if (currentLevelID < 0){
+        if (currentLevelID < 0)
+        {
             currentLevelID = this.currentLevelId;
         }
         DataSaver.SaveGameState(maxLevelId, currentLevelID);
 
     }
 
-    public void RetrieveGameState(){
+    public void ResetLastLevelPlayed()
+    {
+        SaveData(currentLevelId = 1);
+    }
+
+    public void RetrieveGameState()
+    {
         PlayerData playerData = DataSaver.LoadGameState();
 
-        if (playerData != null){
+        if (playerData != null)
+        {
             maxLevelId = playerData.maxLevelId;
             _lastLevelPlayedID = playerData.currentLevelId;
         }
     }
 
-    public void DeleteSavedData(){
+    public void DeleteSavedData()
+    {
         DataSaver.DeleteSavedData();
         maxLevelId = 1;
         _lastLevelPlayedID = 1;
@@ -147,7 +168,8 @@ public class LevelLoader : MonoBehaviour
     }
 
 
-    public void Quit(){
+    public void Quit()
+    {
         Application.Quit();
     }
 }

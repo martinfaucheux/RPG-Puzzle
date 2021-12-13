@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatrixCollider : MonoBehaviour {
+public class MatrixCollider : MonoBehaviour
+{
 
     public Vector2Int matrixPosition;
     public bool IsBlocking = false;
 
     private CollisionMatrix _collisionMatrix;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         _collisionMatrix = CollisionMatrix.instance;
         matrixPosition = _collisionMatrix.GetMatrixPos(this.transform);
         _collisionMatrix.AddCollider(this);
@@ -18,7 +20,7 @@ public class MatrixCollider : MonoBehaviour {
 
     private void OnDestroy()
     {
-        _collisionMatrix.RemoveCollider(this);
+        _collisionMatrix?.RemoveCollider(this);
     }
 
     public Vector3 GetRealPos()
@@ -43,7 +45,7 @@ public class MatrixCollider : MonoBehaviour {
 
         return _collisionMatrix.GetObjectAtPosition(positionToCheck);
     }
-    
+
 
     public Direction GetDirectionToOtherCollider(MatrixCollider otherCollider)
     {
