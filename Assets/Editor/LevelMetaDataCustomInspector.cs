@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 [CustomEditor(typeof(LevelMetaDataCollection))]
 public class LevelMetaDataCollectionCustomInspector : Editor
 {
-
     private LevelMetaDataCollection t;
 
     private void OnEnable()
@@ -18,26 +17,34 @@ public class LevelMetaDataCollectionCustomInspector : Editor
         // Show default inspector property editor
         DrawDefaultInspector();
 
-        if (GUILayout.Button("Check Integrity"))
+        if (GUILayout.Button("Bake build indices"))
         {
-            CheckIntegrity();
+            BakeBuildIndices();
         }
     }
 
-    public void CheckIntegrity()
+    public void BakeBuildIndices()
     {
-        string prefix = "Assets/Scenes/Levels/";
 
         foreach (LevelMetaData levelMetaData in t.levelList)
         {
-            string scenePath = prefix + levelMetaData.sceneName + ".unity";
-            int sceneIndex = SceneUtility.GetBuildIndexByScenePath(scenePath);
+            string scenePath = string.Format(
+                "Assets/Scenes/Levels/{0}.unity", levelMetaData.sceneName
+            );
+            int sceneBuildIndex = SceneUtility.GetBuildIndexByScenePath(scenePath);
 
-            if (sceneIndex < 0)
+            if (sceneBuildIndex < 0)
             {
-                Debug.LogError(string.Format("Invalid Scene name: '{0}'", levelMetaData.sceneName));
+                Debug.LogError(string.Format("Scene not found: '{0}'", levelMetaData.sceneName));
+            }
+            else
+            {
+                levelMetaData.sceneBuildIndex = sceneBuildIndex;
+                EditorUtility.SetDirty(levelMetaData);
             }
         }
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
     }
 
 }

@@ -8,6 +8,8 @@ public class LevelMetaData : ScriptableObject
     // TODO: NOT USED YET
     public string slug;
     public string sceneName;
+    public int sceneBuildIndex;
     public int gemCount = 1;
+
     // TODO: add quests here
 }

@@ -33,6 +33,4 @@ public class LevelMetaDataCollection : ScriptableObject
         Debug.LogError("Level with name does not exist: " + name);
         return null;
     }
-
-
 }
