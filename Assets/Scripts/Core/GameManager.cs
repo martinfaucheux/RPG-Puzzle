@@ -48,18 +48,23 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (isEndOfLevelScreen){
-            if(GetAnyButArrowKeyDown()){
+        if (isEndOfLevelScreen)
+        {
+            if (GetAnyButArrowKeyDown())
+            {
                 isEndOfLevelScreen = false;
                 // move to next scene
-                LevelLoader.instance.LoadNextLevel();
+                LevelLoader.instance.UnlockNextLevel();
+                LevelLoader.instance.SaveData();
+                LevelLoader.instance.LoadLevelSelectMenu();
             }
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             LevelLoader.instance.ReloadLevel();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape)){
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
             if (!isEndOfLevelScreen)
                 TogglePause();
         }
@@ -88,36 +93,43 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void TogglePause(){
-        if (isGamePaused){
+    private void TogglePause()
+    {
+        if (isGamePaused)
+        {
             ExitPause();
         }
-        else{
+        else
+        {
             EnterPause();
         }
     }
 
-    public void EnterPause(){
+    public void EnterPause()
+    {
         isGamePaused = true;
         Chrono.instance.isCounting = false;
-        InGameMenu menu = (InGameMenu) MainMenu.instance;
+        InGameMenu menu = (InGameMenu)MainMenu.instance;
         menu.OpenMenu();
     }
 
-    public void ExitPause(){
+    public void ExitPause()
+    {
         isGamePaused = false;
         Chrono.instance.isCounting = true;
-        InGameMenu menu = (InGameMenu) MainMenu.instance;
+        InGameMenu menu = (InGameMenu)MainMenu.instance;
         menu.CloseMenu();
     }
 
-    private IEnumerator EnableMoveAfter(float seconds) {
+    private IEnumerator EnableMoveAfter(float seconds)
+    {
 
         yield return new WaitForSeconds(seconds);
         playerCanMove = true;
     }
 
-    private static bool GetAnyButArrowKeyDown(){
+    private static bool GetAnyButArrowKeyDown()
+    {
 
         List<KeyCode> keyCodeList = new List<KeyCode>(){
             KeyCode.UpArrow,
@@ -125,9 +137,11 @@ public class GameManager : MonoBehaviour
             KeyCode.RightArrow,
             KeyCode.LeftArrow,
         };
-        
-        foreach(KeyCode keyCode in keyCodeList){
-            if(Input.GetKeyDown(keyCode)){
+
+        foreach (KeyCode keyCode in keyCodeList)
+        {
+            if (Input.GetKeyDown(keyCode))
+            {
                 return false;
             }
         }

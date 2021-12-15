@@ -8,16 +8,13 @@ public static class DataSaver
 
     public static string dataFileName = "player.data";
 
-    public static void SaveGameState(int levelId, LevelSaveData levelData)
+    public static void SaveGameState(PlayerData playerData)
     {
         BinaryFormatter formatter = new BinaryFormatter();
         string path = GetSaveDataPath();
 
-        PlayerData data = LoadGameState();
-        data.Update(levelId, levelData);
-
         FileStream stream = new FileStream(path, FileMode.Create);
-        formatter.Serialize(stream, data);
+        formatter.Serialize(stream, playerData);
         stream.Close();
     }
 

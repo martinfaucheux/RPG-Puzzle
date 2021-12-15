@@ -21,8 +21,6 @@ public class LevelGridManager : MonoBehaviour
         UpdateUI();
     }
 
-
-
     public void SelectLevel(int levelId)
     {
         _selectedLevelId = levelId;

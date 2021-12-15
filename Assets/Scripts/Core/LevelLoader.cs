@@ -7,17 +7,10 @@ public class LevelLoader : MonoBehaviour
 {
     public static LevelLoader instance = null;
 
-    // maximum level that was reached
-    // public int maxLevelId;
-
     // current loaded level id
     public int currentLevelId;
 
     public float transitionDuration = 0.5f;
-
-    // cache last level that was played (for play button)
-    private int _lastLevelPlayedID = 1;
-    private bool _isMainMenu = false;
 
     private PlayerData _playerSavedData;
 
@@ -41,7 +34,6 @@ public class LevelLoader : MonoBehaviour
     void Start()
     {
         currentLevelId = SceneManager.GetActiveScene().buildIndex;
-        _isMainMenu = (currentLevelId == 0);
 
         // trigger animation for start of level
         SceneChangeCircle.instance.SceneStarts();
@@ -78,9 +70,10 @@ public class LevelLoader : MonoBehaviour
         LoadLevel(currentLevelId);
     }
 
-    public void LoadLastLevelPlayed()
+    public void LoadLevel(int levelID)
     {
-        LoadLevel(_lastLevelPlayedID);
+        SceneChangeCircle.instance.SceneEnds();
+        StartCoroutine(DelayLoadScene(levelID, transitionDuration));
     }
 
     public void LoadFirstScene()
@@ -88,12 +81,10 @@ public class LevelLoader : MonoBehaviour
         LoadLevel(0);
     }
 
-    public void LoadLevel(int levelID)
+    public void LoadLevelSelectMenu()
     {
-        SceneChangeCircle.instance.SceneEnds();
-
-        _lastLevelPlayedID = levelID;
-        StartCoroutine(DelayLoadScene(levelID, transitionDuration));
+        int sceneId = SceneManager.sceneCountInBuildSettings - 1;
+        LoadLevel(sceneId);
     }
 
     public bool IsLevelUnlocked(int levelId)
@@ -116,18 +107,24 @@ public class LevelLoader : MonoBehaviour
         return (IsLevelUnlocked(currentLevelId + 1));
     }
 
-    private void UnlockLevel(int levelId)
+    public void UnlockLevel(int levelId)
     {
-        if (!IsLevelUnlocked(levelId))
-        {
-            _playerSavedData.Update(levelId, new LevelSaveData());
-        }
+        _playerSavedData.Unlock(levelId);
     }
 
-    public void SaveData(int gemCount, bool isSideQuestComplete)
+    public void UnlockNextLevel()
     {
-        LevelSaveData levelData = new LevelSaveData(gemCount, isSideQuestComplete);
-        DataSaver.SaveGameState(currentLevelId, levelData);
+        _playerSavedData.Unlock(currentLevelId + 1);
+    }
+
+    public void AddGem(int gemId)
+    {
+        _playerSavedData.AddGem(currentLevelId, gemId);
+    }
+
+    public void SaveData()
+    {
+        DataSaver.SaveGameState(_playerSavedData);
     }
 
 

@@ -27,9 +27,27 @@ public class PlayerData
         })
     { }
 
-    public void Update(int levelId, LevelSaveData levelSaveData)
+    public void Update(int levelId, bool[] gemsCollected, bool[] questCompleted)
     {
-        levelData[levelId] = levelSaveData;
+        if (IsUnlocked(levelId))
+        {
+            levelData[levelId].Update(gemsCollected, questCompleted);
+        }
+        else
+        {
+            levelData[levelId] = new LevelSaveData(gemsCollected, questCompleted);
+        }
+    }
+
+    public void Unlock(int levelId)
+    {
+        if (!IsUnlocked(levelId))
+            levelData[levelId] = new LevelSaveData();
+    }
+
+    public void AddGem(int levelId, int gemId)
+    {
+        levelData[levelId].gemsCollected[gemId] = true;
     }
 
     public bool IsUnlocked(int levelId)
@@ -46,14 +64,30 @@ public class PlayerData
 [System.Serializable]
 public class LevelSaveData
 {
-    int collectedGems;
-    bool isSideQuestCompleted;
+    public bool[] gemsCollected;
+    public bool[] questsCompleted;
 
-    public LevelSaveData(int collectedGems, bool isSideQuestCompleted)
+    public LevelSaveData(bool[] gemsCollected, bool[] questsCompleted)
     {
-        this.collectedGems = collectedGems;
-        this.isSideQuestCompleted = isSideQuestCompleted;
+        this.gemsCollected = gemsCollected;
+        this.questsCompleted = questsCompleted;
     }
 
-    public LevelSaveData() : this(0, false) { }
+    public LevelSaveData() : this(
+        new bool[] { false }, new bool[] { false }
+    )
+    { }
+
+    public void Update(bool[] gemsCollected, bool[] questsCompleted)
+    {
+        for (int gemIndex = 0; gemIndex < gemsCollected.Length; gemIndex++)
+        {
+            this.gemsCollected[gemIndex] |= gemsCollected[gemIndex];
+        }
+
+        for (int questIndex = 0; questIndex < questsCompleted.Length; questIndex++)
+        {
+            this.questsCompleted[questIndex] |= questsCompleted[questIndex];
+        }
+    }
 }
