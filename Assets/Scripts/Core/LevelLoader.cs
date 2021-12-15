@@ -8,7 +8,8 @@ public class LevelLoader : MonoBehaviour
     public static LevelLoader instance = null;
 
     // maximum level that was reached
-    public int maxLevelId;
+    // public int maxLevelId;
+
     // current loaded level id
     public int currentLevelId;
 
@@ -17,6 +18,8 @@ public class LevelLoader : MonoBehaviour
     // cache last level that was played (for play button)
     private int _lastLevelPlayedID = 1;
     private bool _isMainMenu = false;
+
+    private PlayerData _playerSavedData;
 
     //Awake is always called before any Start functions
     void Awake()
@@ -77,22 +80,17 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLastLevelPlayed()
     {
-        LoadLevel(_lastLevelPlayedID, false);
+        LoadLevel(_lastLevelPlayedID);
     }
 
     public void LoadFirstScene()
     {
-        LoadLevel(0, false);
+        LoadLevel(0);
     }
 
-    public void LoadLevel(int levelID, bool doSaveData = true)
+    public void LoadLevel(int levelID)
     {
         SceneChangeCircle.instance.SceneEnds();
-
-        if (doSaveData)
-        {
-            SaveData(currentLevelID: levelID);
-        }
 
         _lastLevelPlayedID = levelID;
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
@@ -100,64 +98,47 @@ public class LevelLoader : MonoBehaviour
 
     public bool IsLevelUnlocked(int levelId)
     {
-        return (levelId <= maxLevelId);
+        return _playerSavedData.IsUnlocked(levelId);
+    }
+
+    public List<int> GetUnlockedLevels()
+    {
+        return _playerSavedData.GetUnlockedLevels();
     }
 
     public bool IsPreviousLevelAvailable()
     {
-        return currentLevelId > 1;
+        return (IsLevelUnlocked(currentLevelId - 1));
     }
 
     public bool IsNextLevelAvailable()
     {
-        return (currentLevelId < maxLevelId);
+        return (IsLevelUnlocked(currentLevelId + 1));
     }
 
-    private void UnlockLevel(int levelID)
+    private void UnlockLevel(int levelId)
     {
-        if (maxLevelId < levelID)
+        if (!IsLevelUnlocked(levelId))
         {
-            maxLevelId = levelID;
-            SaveData(maxLevelId: levelID);
+            _playerSavedData.Update(levelId, new LevelSaveData());
         }
     }
 
-    public void SaveData(int maxLevelId = -1, int currentLevelID = -1)
+    public void SaveData(int gemCount, bool isSideQuestComplete)
     {
-        if (maxLevelId < 0)
-        {
-            maxLevelId = this.maxLevelId;
-        }
-
-        if (currentLevelID < 0)
-        {
-            currentLevelID = this.currentLevelId;
-        }
-        DataSaver.SaveGameState(maxLevelId, currentLevelID);
-
+        LevelSaveData levelData = new LevelSaveData(gemCount, isSideQuestComplete);
+        DataSaver.SaveGameState(currentLevelId, levelData);
     }
 
-    public void ResetLastLevelPlayed()
-    {
-        SaveData(currentLevelId = 1);
-    }
 
     public void RetrieveGameState()
     {
-        PlayerData playerData = DataSaver.LoadGameState();
-
-        if (playerData != null)
-        {
-            maxLevelId = playerData.maxLevelId;
-            _lastLevelPlayedID = playerData.currentLevelId;
-        }
+        _playerSavedData = DataSaver.LoadGameState();
     }
 
     public void DeleteSavedData()
     {
         DataSaver.DeleteSavedData();
-        maxLevelId = 1;
-        _lastLevelPlayedID = 1;
     }
 
     private IEnumerator DelayLoadScene(int sceneBuildIndex, float seconds)

@@ -6,11 +6,24 @@ public class LevelSelectButton : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textComponent;
 
-    private int levelId;
+    private int _levelId;
+    public int levelId
+    {
+        get { return _levelId; }
+        set
+        {
+            _levelId = value;
+            SetText();
+        }
+    }
 
     void Start()
     {
         levelId = transform.GetSiblingIndex() + 1;
+    }
+
+    private void SetText()
+    {
         textComponent.text = levelId.ToString();
     }
 

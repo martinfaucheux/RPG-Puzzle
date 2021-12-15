@@ -43,10 +43,10 @@ public class LevelGridManager : MonoBehaviour
 
     private void InstantiateLevelButtons()
     {
-        int startIndex = Mathf.Max(1, transform.childCount);
-        for (int i = startIndex; i < LevelLoader.instance.maxLevelId; i++)
+        foreach (int levelId in LevelLoader.instance.GetUnlockedLevels())
         {
-            Instantiate(levelButtonPrefab, transform);
+            GameObject newGO = Instantiate(levelButtonPrefab, transform);
+            newGO.GetComponent<LevelSelectButton>().levelId = levelId;
         }
     }
 
