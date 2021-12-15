@@ -85,7 +85,7 @@ public class LevelLoader : MonoBehaviour
         LoadLevel(0, false);
     }
 
-    private void LoadLevel(int levelID, bool doSaveData = true)
+    public void LoadLevel(int levelID, bool doSaveData = true)
     {
         SceneChangeCircle.instance.SceneEnds();
 

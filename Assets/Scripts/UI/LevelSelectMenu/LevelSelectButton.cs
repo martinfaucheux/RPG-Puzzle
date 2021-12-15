@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class LevelSelectButton : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] TextMeshProUGUI textComponent;
+
+    private int levelId;
+
     void Start()
     {
-        
+        levelId = transform.GetSiblingIndex() + 1;
+        textComponent.text = levelId.ToString();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SelectLevel()
     {
-        
+        GetComponentInParent<LevelGridManager>().SelectLevel(levelId);
     }
+
 }
