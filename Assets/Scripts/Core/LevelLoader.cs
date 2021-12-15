@@ -12,7 +12,7 @@ public class LevelLoader : MonoBehaviour
 
     public float transitionDuration = 0.5f;
 
-    private PlayerData _playerSavedData;
+    public PlayerData playerSavedData;
 
     //Awake is always called before any Start functions
     void Awake()
@@ -89,12 +89,12 @@ public class LevelLoader : MonoBehaviour
 
     public bool IsLevelUnlocked(int levelId)
     {
-        return _playerSavedData.IsUnlocked(levelId);
+        return playerSavedData.IsUnlocked(levelId);
     }
 
     public List<int> GetUnlockedLevels()
     {
-        return _playerSavedData.GetUnlockedLevels();
+        return playerSavedData.GetUnlockedLevels();
     }
 
     public bool IsPreviousLevelAvailable()
@@ -109,28 +109,28 @@ public class LevelLoader : MonoBehaviour
 
     public void UnlockLevel(int levelId)
     {
-        _playerSavedData.Unlock(levelId);
+        playerSavedData.Unlock(levelId);
     }
 
     public void UnlockNextLevel()
     {
-        _playerSavedData.Unlock(currentLevelId + 1);
+        playerSavedData.Unlock(currentLevelId + 1);
     }
 
     public void AddGem(int gemId)
     {
-        _playerSavedData.AddGem(currentLevelId, gemId);
+        playerSavedData.AddGem(currentLevelId, gemId);
     }
 
     public void SaveData()
     {
-        DataSaver.SaveGameState(_playerSavedData);
+        DataSaver.SaveGameState(playerSavedData);
     }
 
 
     public void RetrieveGameState()
     {
-        _playerSavedData = DataSaver.LoadGameState();
+        playerSavedData = DataSaver.LoadGameState();
     }
 
     public void DeleteSavedData()

@@ -8,9 +8,12 @@ public class LevelGridManager : MonoBehaviour
 
     public GameObject levelButtonPrefab;
 
-    public Transform playButtonTransform;
+    public Transform gridContainerTransform;
+
+    public Transform[] noSelectHiddenTransforms;
 
     public TextMeshProUGUI levelTitleTextComponent;
+    public TextMeshProUGUI gemCountTextComponent;
 
     private int _selectedLevelId = 0;
 
@@ -35,15 +38,21 @@ public class LevelGridManager : MonoBehaviour
     private void UpdateUI()
     {
         bool isLevelSelected = (_selectedLevelId > 0);
-        playButtonTransform.gameObject.SetActive(isLevelSelected);
         levelTitleTextComponent.text = GetLevelTitle();
+        gemCountTextComponent.text = GetGemCountString();
+
+        // show / hide content of side menu
+        foreach (Transform transformToHide in noSelectHiddenTransforms)
+        {
+            transformToHide.gameObject.SetActive(isLevelSelected);
+        }
     }
 
     private void InstantiateLevelButtons()
     {
         foreach (int levelId in LevelLoader.instance.GetUnlockedLevels())
         {
-            GameObject newGO = Instantiate(levelButtonPrefab, transform);
+            GameObject newGO = Instantiate(levelButtonPrefab, gridContainerTransform);
             newGO.GetComponent<LevelSelectButton>().levelId = levelId;
         }
     }
@@ -55,5 +64,12 @@ public class LevelGridManager : MonoBehaviour
             return "";
         }
         return "Level " + _selectedLevelId.ToString();
+    }
+
+    private string GetGemCountString()
+    {
+        int maxGemCount = 1;
+        int gemCount = LevelLoader.instance.playerSavedData.GetCollectedGemCount(_selectedLevelId);
+        return gemCount + " / " + maxGemCount;
     }
 }

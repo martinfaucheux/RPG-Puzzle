@@ -59,6 +59,15 @@ public class PlayerData
     {
         return levelData.Keys.ToList();
     }
+
+    public int GetCollectedGemCount(int levelId)
+    {
+        if (!IsUnlocked(levelId))
+        {
+            return 0;
+        }
+        return levelData[levelId].gemsCollected.Where(x => x).Count();
+    }
 }
 
 [System.Serializable]
