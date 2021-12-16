@@ -39,7 +39,13 @@ public class LevelLoaderCustomInspector : Editor
         Dictionary<int, LevelSaveData> levelDict = new Dictionary<int, LevelSaveData>();
         foreach (LevelMetaData levelMetaData in t.levelCollection.levelList)
         {
-            bool[] gemsCollected = new List<bool>(levelMetaData.gemCount).ToArray();
+            List<bool> gemList = new List<bool>();
+            for (int i = 0; i < levelMetaData.gemCount; i++)
+            {
+                gemList.Add(false);
+            }
+
+            bool[] gemsCollected = gemList.ToArray();
             bool[] questsCompleted = new bool[] { false };
             levelDict[levelMetaData.sceneBuildIndex] = new LevelSaveData(gemsCollected, questsCompleted);
         }

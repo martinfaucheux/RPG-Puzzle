@@ -4,11 +4,11 @@ using UnityEngine;
 
 public abstract class Consumable : Item
 {
-    protected abstract void Consume(GameObject targetGameObject);
+    protected abstract void Consume(GameObject targetGameObject, int itemId);
 
-    public override void PickUp(GameObject pickerGameObject)
+    public override void PickUp(GameObject pickerGameObject, int itemId)
     {
-        Consume(pickerGameObject);
+        Consume(pickerGameObject, itemId);
         GameEvents.instance.UserItemTrigger(this);
     }
 }

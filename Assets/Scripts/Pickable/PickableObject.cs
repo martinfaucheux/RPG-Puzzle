@@ -6,6 +6,7 @@ public class PickableObject : ActivableObject
 {
 
     public Item item;
+    public int itemId;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,7 @@ public class PickableObject : ActivableObject
         if (item != null)
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            if(spriteRenderer != null)
+            if (spriteRenderer != null)
             {
                 spriteRenderer.sprite = item.sprite;
             }
@@ -33,7 +34,7 @@ public class PickableObject : ActivableObject
     {
         if (item.CanPickUp(sourceObject))
         {
-            item.OnPickUp(sourceObject);
+            item.OnPickUp(sourceObject, itemId);
             Destroy(gameObject, 0.05f); // delete the object shortly
         }
         return true;
