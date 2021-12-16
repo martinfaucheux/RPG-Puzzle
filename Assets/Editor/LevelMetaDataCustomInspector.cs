@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 [CustomEditor(typeof(LevelMetaDataCollection))]
 public class LevelMetaDataCollectionCustomInspector : Editor
@@ -25,7 +26,7 @@ public class LevelMetaDataCollectionCustomInspector : Editor
 
     public void BakeBuildIndices()
     {
-
+        // set build indices
         foreach (LevelMetaData levelMetaData in t.levelList)
         {
             string scenePath = string.Format(
@@ -43,6 +44,11 @@ public class LevelMetaDataCollectionCustomInspector : Editor
                 EditorUtility.SetDirty(levelMetaData);
             }
         }
+
+        // order metadata items per build index
+        t.levelList = t.levelList.OrderBy(x => x.sceneBuildIndex).ToList();
+        EditorUtility.SetDirty(t);
+
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }

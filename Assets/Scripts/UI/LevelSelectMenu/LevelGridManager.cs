@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class LevelGridManager : MonoBehaviour
 {
@@ -50,10 +51,12 @@ public class LevelGridManager : MonoBehaviour
 
     private void InstantiateLevelButtons()
     {
-        foreach (int levelId in LevelLoader.instance.GetUnlockedLevels())
+        foreach (LevelMetaData levelMeta in LevelLoader.instance.levelCollection.levelList)
         {
+            int levelId = levelMeta.sceneBuildIndex;
             GameObject newGO = Instantiate(levelButtonPrefab, gridContainerTransform);
             newGO.GetComponent<LevelSelectButton>().levelId = levelId;
+            newGO.GetComponent<Button>().interactable = LevelLoader.instance.IsLevelUnlocked(levelId);
         }
     }
 
