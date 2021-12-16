@@ -6,13 +6,10 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
     public static LevelLoader instance = null;
-
-    // current loaded level id
     public int currentLevelId;
-
     public float transitionDuration = 0.5f;
-
-    public PlayerData playerSavedData;
+    [HideInInspector] public PlayerData playerSavedData;
+    public LevelMetaDataCollection levelCollection;
 
     //Awake is always called before any Start functions
     void Awake()

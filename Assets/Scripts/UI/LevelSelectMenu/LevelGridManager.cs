@@ -68,8 +68,13 @@ public class LevelGridManager : MonoBehaviour
 
     private string GetGemCountString()
     {
-        int maxGemCount = 1;
+        if (_selectedLevelId <= 0)
+            return "";
+
+        LevelMetaDataCollection levelCollection = LevelLoader.instance.levelCollection;
+        LevelMetaData levelMetaData = levelCollection.GetLevelBySceneBuildIndex(_selectedLevelId);
+
         int gemCount = LevelLoader.instance.playerSavedData.GetCollectedGemCount(_selectedLevelId);
-        return gemCount + " / " + maxGemCount;
+        return gemCount + " / " + levelMetaData.gemCount;
     }
 }

@@ -8,16 +8,16 @@ public class LevelMetaDataCollection : ScriptableObject
 {
     public List<LevelMetaData> levelList;
 
-    public LevelMetaData GetLevelBySlug(string slug)
+    public LevelMetaData GetLevelBySceneBuildIndex(int sceneBuildIndex)
     {
         foreach (LevelMetaData levelMetaData in levelList)
         {
-            if (levelMetaData.slug == slug)
+            if (levelMetaData.sceneBuildIndex == sceneBuildIndex)
             {
                 return levelMetaData;
             }
         }
-        Debug.LogError("Level with slug does not exist: " + slug);
+        Debug.LogError("Level with build index does not exist: " + sceneBuildIndex);
         return null;
     }
 
