@@ -99,7 +99,7 @@ public class PlayerData
         {
             return false;
         }
-        return levelData[levelId].gemsCollected[questId];
+        return levelData[levelId].questsCompleted[questId];
     }
 }
 
