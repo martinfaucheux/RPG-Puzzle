@@ -15,7 +15,8 @@ public class LevelGridManager : MonoBehaviour
 
     public TextMeshProUGUI levelTitleTextComponent;
     public TextMeshProUGUI gemCountTextComponent;
-    public TextMeshProUGUI quest1TextComponent;
+
+    public TextMeshProUGUI[] questTextComponents;
 
     private int _selectedLevelId = 0;
 
@@ -40,16 +41,17 @@ public class LevelGridManager : MonoBehaviour
     private void UpdateUI()
     {
         bool isLevelSelected = (_selectedLevelId > 0);
+        LevelMetaData levelMetaData = null;
 
         if (isLevelSelected)
         {
             LevelMetaDataCollection levelCollection = LevelLoader.instance.levelCollection;
-            LevelMetaData levelMetaData = levelCollection.GetLevelBySceneBuildIndex(_selectedLevelId);
+            levelMetaData = levelCollection.GetLevelBySceneBuildIndex(_selectedLevelId);
 
             levelTitleTextComponent.text = GetLevelTitle();
             gemCountTextComponent.text = GetGemCountString(levelMetaData);
-            quest1TextComponent.text = GetQuestString(levelMetaData);
         }
+        UpdateQuestTexts(levelMetaData);
 
         // show / hide content of side menu
         foreach (Transform transformToHide in noSelectHiddenTransforms)
@@ -85,6 +87,39 @@ public class LevelGridManager : MonoBehaviour
 
         int gemCount = LevelLoader.instance.playerSavedData.GetCollectedGemCount(_selectedLevelId);
         return gemCount + " / " + levelMetaData.gemCount;
+    }
+
+    private void UpdateQuestTexts(LevelMetaData levelMetaData)
+    {
+        int questCount = 0;
+        if (levelMetaData != null)
+        {
+            questCount = levelMetaData.quests.Count;
+        }
+
+        for (int questIndex = 0; questIndex < questTextComponents.Length; questIndex++)
+        {
+            TextMeshProUGUI textComponent = questTextComponents[questIndex];
+            if (questIndex < questCount)
+            {
+                Quest quest = levelMetaData.quests[questIndex];
+                textComponent.gameObject.SetActive(true);
+
+                PlayerData playerData = LevelLoader.instance.playerSavedData;
+                bool isQuestCompleted = playerData.IsQuestCompleted(_selectedLevelId, questIndex);
+
+                string questText = quest.questName;
+                if (isQuestCompleted)
+                {
+                    questText = "<s>" + questText + "</s>";
+                }
+                textComponent.text = questText;
+            }
+            else
+            {
+                textComponent.gameObject.SetActive(false);
+            }
+        }
     }
 
     private string GetQuestString(LevelMetaData levelMetaData)

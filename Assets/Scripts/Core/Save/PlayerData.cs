@@ -92,6 +92,15 @@ public class PlayerData
         }
         return levelData[levelId].gemsCollected[gemId];
     }
+
+    public bool IsQuestCompleted(int levelId, int questId)
+    {
+        if (!IsUnlocked(levelId))
+        {
+            return false;
+        }
+        return levelData[levelId].gemsCollected[questId];
+    }
 }
 
 [System.Serializable]

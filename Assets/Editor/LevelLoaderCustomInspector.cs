@@ -44,9 +44,15 @@ public class LevelLoaderCustomInspector : Editor
             {
                 gemList.Add(false);
             }
-
             bool[] gemsCollected = gemList.ToArray();
-            bool[] questsCompleted = new bool[] { false };
+
+            List<bool> questList = new List<bool>();
+            for (int i = 0; i < levelMetaData.quests.Count; i++)
+            {
+                questList.Add(false);
+            }
+            bool[] questsCompleted = questList.ToArray();
+
             levelDict[levelMetaData.sceneBuildIndex] = new LevelSaveData(gemsCollected, questsCompleted);
         }
 
