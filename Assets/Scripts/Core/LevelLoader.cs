@@ -11,6 +11,8 @@ public class LevelLoader : MonoBehaviour
     [HideInInspector] public PlayerData playerSavedData;
     public LevelMetaDataCollection levelCollection;
 
+    public LevelMetaData levelMetaData { get; private set; }
+
     //Awake is always called before any Start functions
     void Awake()
     {
@@ -31,6 +33,7 @@ public class LevelLoader : MonoBehaviour
     void Start()
     {
         currentLevelId = SceneManager.GetActiveScene().buildIndex;
+        levelMetaData = levelCollection.GetLevelBySceneBuildIndex(currentLevelId);
 
         // trigger animation for start of level
         SceneChangeCircle.instance.SceneStarts();

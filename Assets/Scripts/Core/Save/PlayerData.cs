@@ -27,6 +27,12 @@ public class PlayerData
         })
     { }
 
+    public LevelSaveData this[int levelId]
+    {
+        get => levelData[levelId];
+        set => levelData[levelId] = value;
+    }
+
     public void Update(int levelId, bool[] gemsCollected, bool[] questCompleted)
     {
         if (IsUnlocked(levelId))
@@ -67,6 +73,15 @@ public class PlayerData
             return 0;
         }
         return levelData[levelId].gemsCollected.Where(x => x).Count();
+    }
+
+    public int GetCompletedQuestsCount(int levelId)
+    {
+        if (!IsUnlocked(levelId))
+        {
+            return 0;
+        }
+        return levelData[levelId].questsCompleted.Where(x => x).Count();
     }
 
     public bool IsGemCollected(int levelId, int gemId)

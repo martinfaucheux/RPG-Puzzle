@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    public Quest[] quests;
+    private List<Quest> quests { get { return LevelLoader.instance.levelMetaData.quests; } }
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +24,20 @@ public class QuestManager : MonoBehaviour
 
     public void CheckCompletion()
     {
-        foreach (Quest quest in quests)
+        PlayerData savedPlayerData = LevelLoader.instance.playerSavedData;
+        int levelId = LevelLoader.instance.currentLevelId;
+        bool[] completedQuests = savedPlayerData[levelId].questsCompleted;
+
+        for (int questIndex = 0; questIndex < quests.Count; questIndex++)
         {
+            Quest quest = quests[questIndex];
             bool isComplete = quest.CheckCompletion();
+
+            completedQuests[questIndex] |= isComplete;
+
             string str = "Quest '{0}' completed: {1}";
             Debug.Log(string.Format(str, quest.name, isComplete));
         }
+        DataSaver.SaveGameState(savedPlayerData);
     }
 }

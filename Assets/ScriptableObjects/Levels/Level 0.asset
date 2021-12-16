@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994944594e06ec14c90fc6e914d556e5, type: 3}
   m_Name: Level 0
   m_EditorClassIdentifier: 
-  slug: intro
   sceneName: Level 0 - Intro
   sceneBuildIndex: 1
   gemCount: 1
+  quests:
+  - {fileID: 11400000, guid: af7b92baea3f20e4aa5a4cbce057857f, type: 2}

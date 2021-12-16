@@ -15,6 +15,7 @@ public class LevelGridManager : MonoBehaviour
 
     public TextMeshProUGUI levelTitleTextComponent;
     public TextMeshProUGUI gemCountTextComponent;
+    public TextMeshProUGUI quest1TextComponent;
 
     private int _selectedLevelId = 0;
 
@@ -39,8 +40,16 @@ public class LevelGridManager : MonoBehaviour
     private void UpdateUI()
     {
         bool isLevelSelected = (_selectedLevelId > 0);
-        levelTitleTextComponent.text = GetLevelTitle();
-        gemCountTextComponent.text = GetGemCountString();
+
+        if (isLevelSelected)
+        {
+            LevelMetaDataCollection levelCollection = LevelLoader.instance.levelCollection;
+            LevelMetaData levelMetaData = levelCollection.GetLevelBySceneBuildIndex(_selectedLevelId);
+
+            levelTitleTextComponent.text = GetLevelTitle();
+            gemCountTextComponent.text = GetGemCountString(levelMetaData);
+            quest1TextComponent.text = GetQuestString(levelMetaData);
+        }
 
         // show / hide content of side menu
         foreach (Transform transformToHide in noSelectHiddenTransforms)
@@ -69,15 +78,21 @@ public class LevelGridManager : MonoBehaviour
         return "Level " + _selectedLevelId.ToString();
     }
 
-    private string GetGemCountString()
+    private string GetGemCountString(LevelMetaData levelMetaData)
     {
         if (_selectedLevelId <= 0)
             return "";
 
-        LevelMetaDataCollection levelCollection = LevelLoader.instance.levelCollection;
-        LevelMetaData levelMetaData = levelCollection.GetLevelBySceneBuildIndex(_selectedLevelId);
-
         int gemCount = LevelLoader.instance.playerSavedData.GetCollectedGemCount(_selectedLevelId);
         return gemCount + " / " + levelMetaData.gemCount;
+    }
+
+    private string GetQuestString(LevelMetaData levelMetaData)
+    {
+        if (_selectedLevelId <= 0 || levelMetaData.quests.Count == 0)
+            return "";
+
+        int questCount = LevelLoader.instance.playerSavedData.GetCompletedQuestsCount(_selectedLevelId);
+        return questCount + " / " + levelMetaData.quests.Count;
     }
 }
