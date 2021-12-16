@@ -25,11 +25,13 @@ public class Player : MovingObject
         PlayerController.OnGetCommand += TriggerMovement;
     }
 
-    private void OnDestroy(){
+    private void OnDestroy()
+    {
         PlayerController.OnGetCommand -= TriggerMovement;
     }
 
-    private void TriggerMovement(Direction direction){
+    private void TriggerMovement(Direction direction)
+    {
         if (
             IsReady()
             && GameManager.instance.playerCanMove
@@ -38,9 +40,21 @@ public class Player : MovingObject
             && !MenuController.instance.isOpen
             && !SkillMenu.instance.isShowing
             && (direction != Direction.IDLE)
-        ){
+        )
+        {
             AttemptMove(direction);
-        }       
+        }
+    }
+
+    protected override bool Move(Direction direction)
+    {
+        bool hasMoved = base.Move(direction);
+
+        // Vector2Int position = _matrixCollider.matrixPosition += direction.ToPos();
+
+        // player has already moved at this moment
+        GameEvents.instance.PlayerMoveTrigger(_matrixCollider.matrixPosition);
+        return hasMoved;
     }
 
 }

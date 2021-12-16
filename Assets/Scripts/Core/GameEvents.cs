@@ -20,6 +20,7 @@ public class GameEvents : MonoBehaviour
     public event Action<Item> onPickItem;
     public event Action<Item> onUseItem;
     public event Action<Health> onUnitDies;
+    public event Action<Vector2Int> onPlayerMove;
 
     # region Singleton
 
@@ -142,6 +143,14 @@ public class GameEvents : MonoBehaviour
         if (onUnitDies != null)
         {
             onUnitDies(healthComponent);
+        }
+    }
+
+    public void PlayerMoveTrigger(Vector2Int position)
+    {
+        if (onPlayerMove != null)
+        {
+            onPlayerMove(position);
         }
     }
 

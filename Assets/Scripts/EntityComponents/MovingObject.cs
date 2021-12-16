@@ -8,8 +8,8 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour
 {
     public LayerMask blockingLayer;
-    
-    private MatrixCollider _matrixCollider;
+
+    protected MatrixCollider _matrixCollider;
     private float _inverseMoveTime;
     private float _actionCoolDownTime;
 
@@ -45,9 +45,11 @@ public class MovingObject : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!_isReady) {
+        if (!_isReady)
+        {
             _actionCoolDownTime -= Time.deltaTime;
-            if (_actionCoolDownTime< 0){
+            if (_actionCoolDownTime < 0)
+            {
                 _isReady = true;
             }
         }
@@ -71,7 +73,8 @@ public class MovingObject : MonoBehaviour
         float sqrRemainingDistance = (transform.position - endPos).sqrMagnitude;
 
         _isMoving = true;
-        if(_spriteHolder != null & _spriteHolder.activeAnimator){
+        if (_spriteHolder != null & _spriteHolder.activeAnimator)
+        {
             _spriteHolder.activeAnimator.SetTrigger("bump");
         }
         while (sqrRemainingDistance > float.Epsilon)
@@ -91,7 +94,7 @@ public class MovingObject : MonoBehaviour
         _isMoving = false;
     }
 
-    protected bool Move(Direction direction)
+    protected virtual bool Move(Direction direction)
     {
         Face(direction);
 
@@ -133,7 +136,7 @@ public class MovingObject : MonoBehaviour
             {
                 canMove = activableObject.Activate(gameObject);
             }
-        }        
+        }
 
         // Check that direction is valid and that object is able to move
         if (_matrixCollider.IsValidDirection(direction) & canMove)
@@ -144,15 +147,18 @@ public class MovingObject : MonoBehaviour
     }
 
     // play OnLeave of current sitting Activable object
-    private void LeavePosition(Vector2Int previousPosition){
+    private void LeavePosition(Vector2Int previousPosition)
+    {
 
         List<GameObject> objectsAtPosition = CollisionMatrix.instance.GetObjectsAtPosition(previousPosition);
-        foreach(GameObject gameObject in objectsAtPosition){
+        foreach (GameObject gameObject in objectsAtPosition)
+        {
             ActivableObject leavingActivableObject = gameObject.GetComponent<ActivableObject>();
-            if (leavingActivableObject != null){
+            if (leavingActivableObject != null)
+            {
                 leavingActivableObject.OnLeave();
             }
-        }        
+        }
     }
 
     public void Face(Direction direction)

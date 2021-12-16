@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionMatrix: MonoBehaviour {
+public class CollisionMatrix : MonoBehaviour
+{
 
-    public enum Mode 
+    public enum Mode
     {
         TOPDOWN,
         ISOMETRIC
@@ -22,9 +23,8 @@ public class CollisionMatrix: MonoBehaviour {
     public GameObject borderWallPrefab;
     public GameObject GridUnitPrefab;
 
+    // TODO: use GenericGrid instead
     private List<MatrixCollider> colliderList = new List<MatrixCollider>();
-
-    
 
     //Awake is always called before any Start functions
     void Awake()
@@ -55,22 +55,23 @@ public class CollisionMatrix: MonoBehaviour {
 
 
     // get the first object found at the given position
-    public GameObject GetObjectAtPosition (Vector2Int matrixPosition)
+    public GameObject GetObjectAtPosition(Vector2Int matrixPosition)
     {
-        foreach (MatrixCollider collider in colliderList){
+        foreach (MatrixCollider collider in colliderList)
+        {
             if (collider.matrixPosition == matrixPosition)
             {
                 return collider.gameObject;
             }
         }
-
         return null;
     }
 
-    public List<GameObject> GetObjectsAtPosition (Vector2Int matrixPosition)
+    public List<GameObject> GetObjectsAtPosition(Vector2Int matrixPosition)
     {
-        List<GameObject> result  = new List<GameObject>();
-        foreach (MatrixCollider collider in colliderList){
+        List<GameObject> result = new List<GameObject>();
+        foreach (MatrixCollider collider in colliderList)
+        {
             if (collider.matrixPosition == matrixPosition)
             {
                 result.Add(collider.gameObject);
@@ -95,21 +96,24 @@ public class CollisionMatrix: MonoBehaviour {
         Vector3 realPos = transform.position - origin;
         float x = realPos.x;
         float y = (mode == Mode.TOPDOWN) ? realPos.y : realPos.z;
-        return new Vector2Int((int) x, (int) y);
+        return new Vector2Int((int)x, (int)y);
     }
 
     public void CenterOrigin()
     {
-        Vector3 newOrigin = - (Vector2) matrixSize / 2f;
-        if (mode == Mode.TOPDOWN){
+        Vector3 newOrigin = -(Vector2)matrixSize / 2f;
+        if (mode == Mode.TOPDOWN)
+        {
             origin = newOrigin;
         }
-        else {
+        else
+        {
             origin = new Vector3(newOrigin.x, 0, newOrigin.y);
         }
     }
 
-    public Vector3 GetRealWorldPosition(Vector2 matrixPos){
+    public Vector3 GetRealWorldPosition(Vector2 matrixPos)
+    {
         float x = matrixPos.x;
         float y = matrixPos.y;
         Vector3 realWorldPos;
@@ -117,19 +121,21 @@ public class CollisionMatrix: MonoBehaviour {
             realWorldPos = new Vector3(x, y, 0);
         else
             realWorldPos = new Vector3(x, 0, y);
-        
+
         return origin + realWorldPos;
     }
 
-    public Vector3 GetRealWorldVector(Direction direction){
-        
+    public Vector3 GetRealWorldVector(Direction direction)
+    {
+
         Vector2 pos = direction.ToPos();
 
-        if (mode == Mode.ISOMETRIC){
+        if (mode == Mode.ISOMETRIC)
+        {
             return new Vector3(pos.x, 0, pos.y);
         }
 
         return pos;
     }
-    
+
 }
