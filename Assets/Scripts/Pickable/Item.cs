@@ -8,16 +8,23 @@ public abstract class Item : ScriptableObject
 
     protected virtual bool _onlyForPlayer { get; } = false;
 
-    public void OnPickUp(GameObject pickerGameObject, int itemId)
+    protected PickableObject parentComponent;
+
+    public void OnPickUp(GameObject pickerGameObject)
     {
-        PickUp(pickerGameObject, itemId);
+        PickUp(pickerGameObject);
         GameEvents.instance.PickItemTrigger(this);
     }
 
-    public abstract void PickUp(GameObject pickerGameObject, int itemId);
+    public abstract void PickUp(GameObject pickerGameObject);
 
     public virtual bool CanPickUp(GameObject pickerGameObject)
     {
         return !_onlyForPlayer | (pickerGameObject.tag == "Player");
+    }
+
+    public virtual void Initialize(PickableObject parentComponent)
+    {
+        this.parentComponent = parentComponent;
     }
 }

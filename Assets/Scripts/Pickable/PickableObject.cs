@@ -15,6 +15,7 @@ public class PickableObject : ActivableObject
         {
             Debug.LogError("No item found");
         }
+        item.Initialize(this);
     }
 
     public void OnValidate()
@@ -34,7 +35,7 @@ public class PickableObject : ActivableObject
     {
         if (item.CanPickUp(sourceObject))
         {
-            item.OnPickUp(sourceObject, itemId);
+            item.OnPickUp(sourceObject);
             Destroy(gameObject, 0.05f); // delete the object shortly
         }
         return true;
