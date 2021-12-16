@@ -50,7 +50,7 @@ public class MatrixCollider : MonoBehaviour
     public Direction GetDirectionToOtherCollider(MatrixCollider otherCollider)
     {
         Vector2Int posDiff = otherCollider.matrixPosition - this.matrixPosition;
-        return Direction.GetDirection2ValueFromCoord(posDiff.x, posDiff.y);
+        return Direction.GetFromCoord(posDiff.x, posDiff.y);
     }
 
 

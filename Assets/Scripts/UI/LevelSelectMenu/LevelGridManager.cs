@@ -121,13 +121,4 @@ public class LevelGridManager : MonoBehaviour
             }
         }
     }
-
-    private string GetQuestString(LevelMetaData levelMetaData)
-    {
-        if (_selectedLevelId <= 0 || levelMetaData.quests.Count == 0)
-            return "";
-
-        int questCount = LevelLoader.instance.playerSavedData.GetCompletedQuestsCount(_selectedLevelId);
-        return questCount + " / " + levelMetaData.quests.Count;
-    }
 }

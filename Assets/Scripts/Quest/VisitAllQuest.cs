@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "WalkQuest", menuName = "Custom Objects / Quest / Walk Quest")]
-public class WalkQuest : Quest
+public class VisitAllQuest : Quest
 {
     private GenericGrid<int> visitedCells;
 

@@ -5,9 +5,11 @@ using UnityEngine;
 public class KeyPlayerController : PlayerController
 {
     private bool _rotateControl = false;
-    private void Start(){
+    private void Start()
+    {
         CollisionMatrix _collisionMatrix = CollisionMatrix.instance;
-        if (_collisionMatrix != null){
+        if (_collisionMatrix != null)
+        {
             _rotateControl = (_collisionMatrix.mode == CollisionMatrix.Mode.ISOMETRIC);
         }
     }
@@ -16,18 +18,21 @@ public class KeyPlayerController : PlayerController
         int horizontal = (int)(Input.GetAxisRaw("Horizontal"));
         int vertical = (int)(Input.GetAxisRaw("Vertical"));
 
-        if (_rotateControl){
+        if (_rotateControl)
+        {
             int tmpVert = vertical;
             vertical = -horizontal;
-            horizontal = tmpVert; 
+            horizontal = tmpVert;
         }
 
-        if ((vertical != 0) || (horizontal != 0)){
-            Direction direction = Direction.GetDirection2ValueFromCoord(horizontal, vertical);
+        if ((vertical != 0) || (horizontal != 0))
+        {
+            Direction direction = Direction.GetFromCoord(horizontal, vertical);
 
-            if (direction != Direction.IDLE) {
+            if (direction != Direction.IDLE)
+            {
                 TriggerMovement(direction);
-            }           
-        }       
+            }
+        }
     }
 }
