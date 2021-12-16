@@ -6,6 +6,7 @@ public class PickableObject : ActivableObject
 {
 
     public Item item;
+    public int itemId;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,7 @@ public class PickableObject : ActivableObject
         {
             Debug.LogError("No item found");
         }
+        item.Initialize(this);
     }
 
     public void OnValidate()
@@ -21,7 +23,7 @@ public class PickableObject : ActivableObject
         if (item != null)
         {
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-            if(spriteRenderer != null)
+            if (spriteRenderer != null)
             {
                 spriteRenderer.sprite = item.sprite;
             }

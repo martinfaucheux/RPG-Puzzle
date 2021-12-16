@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3611613658329471091}
   - component: {fileID: 3611613658329471090}
+  - component: {fileID: 5812576710549037817}
   m_Layer: 0
   m_Name: diamond
   m_TagString: Untagged
@@ -82,6 +83,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5812576710549037817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611613658329471088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74273dc3ca666844daefe0b8f88dea96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostColor: {r: 0.8235294, g: 0.7137255, b: 0.23921569, a: 0.6392157}
+  pickableObjectComponent: {fileID: 8284925426819618405}
 --- !u!1 &3611613659097909206
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 858637252dd75894e9a9130b18d00d22, type: 2}
+  itemId: 0
 --- !u!114 &5322638306357658739
 MonoBehaviour:
   m_ObjectHideFlags: 0

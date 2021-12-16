@@ -153,7 +153,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8192402
 MonoBehaviour:
@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33cf9fcc1d0f324aac3c9c7aff5566f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxLevelId: 1
   currentLevelId: 0
   transitionDuration: 0.5
 --- !u!1 &111678469
@@ -208,7 +207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 413.86734, y: 0}
+  m_AnchoredPosition: {x: 368.87457, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &111678471
@@ -256,8 +255,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8192402}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: LoadLastLevelPlayed
+        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
+        m_MethodName: LoadLevelSelectMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -601,7 +600,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 413.86734, y: 0}
+  m_AnchoredPosition: {x: 368.87457, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &265548041
@@ -1685,7 +1684,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1976144933}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: ToggleMainMenu
         m_Mode: 1
@@ -2444,7 +2443,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 413.86734, y: 0}
+  m_AnchoredPosition: {x: 368.87457, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1809879285
@@ -2491,7 +2490,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1976144933}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: ToggleOptionMenu
         m_Mode: 1
@@ -2655,7 +2654,7 @@ PrefabInstance:
     - target: {fileID: 7433631782384071153, guid: f8b90b6749b3eb04d8169de49137bc6b,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7433631782384071153, guid: f8b90b6749b3eb04d8169de49137bc6b,
         type: 3}
@@ -2927,11 +2926,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1976144931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1e3217e0a1502a4f8a3c9aa6ef92b56, type: 3}
+  m_Script: {fileID: 11500000, guid: 4a928ca08fde66344b018aefdf9c881f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuGO: {fileID: 890963432}
-  optionMenuGO: {fileID: 1998980191}
+  optionMenuGO: {fileID: 1809879283}
   backgroundGO: {fileID: 1961765530}
 --- !u!1 &1996071404
 GameObject:
@@ -2967,7 +2966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25.19249, y: 8.2285}
+  m_AnchoredPosition: {x: -25.192505, y: 8.228516}
   m_SizeDelta: {x: -186.5709, y: -208.8217}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1996071406
