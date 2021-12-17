@@ -22,6 +22,7 @@ public class WalkPatternQuest : Quest
     public override void Initialize()
     {
         base.Initialize();
+
         hasFailed = false;
         _walkCounter = 0;
         this._lastDirection = Direction.IDLE;
@@ -67,12 +68,11 @@ public class WalkPatternQuest : Quest
             {
                 hasFailed |= !(_lastDirection != currentDirection);
             }
-
-            _lastTwoPosition = _lastPosition;
-            _lastTwoDirection = _lastDirection;
-            _lastPosition = currentPosition;
-            _lastDirection = currentDirection;
         }
+        _lastTwoPosition = _lastPosition;
+        _lastTwoDirection = _lastDirection;
+        _lastPosition = currentPosition;
+        _lastDirection = currentDirection;
 
         if (hasFailed)
             Debug.LogWarning("Quest failed");
