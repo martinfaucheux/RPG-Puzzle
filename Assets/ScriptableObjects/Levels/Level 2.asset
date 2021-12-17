@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994944594e06ec14c90fc6e914d556e5, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  slug: two_enemies
   sceneName: Level 2 - Two enemies
   sceneBuildIndex: 3
   gemCount: 1
+  quests:
+  - {fileID: 11400000, guid: 3397aec04429a884fb774c32e97f7011, type: 2}

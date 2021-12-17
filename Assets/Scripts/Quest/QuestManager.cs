@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    private List<Quest> quests { get { return LevelLoader.instance.levelMetaData.quests; } }
+    private List<Quest> quests;
 
-    // Start is called before the first frame update
     void Start()
     {
-        foreach (Quest quest in quests)
+        quests = new List<Quest>();
+        foreach (Quest scriptableObject in LevelLoader.instance.levelMetaData.quests)
         {
+            Quest quest = Instantiate(scriptableObject);
+            // Quest quest = (Quest)ScriptableObject.CreateInstance(scriptableObject.GetType());
             quest.Initialize();
+            quests.Add(quest);
         }
 
         GameEvents.instance.onEndOfLevel += CheckCompletion;
