@@ -33,18 +33,6 @@ public class PlayerData
         set => levelData[levelId] = value;
     }
 
-    public void Update(int levelId, bool[] gemsCollected, bool[] questCompleted)
-    {
-        if (IsUnlocked(levelId))
-        {
-            levelData[levelId].Update(gemsCollected, questCompleted);
-        }
-        else
-        {
-            levelData[levelId] = new LevelSaveData(gemsCollected, questCompleted);
-        }
-    }
-
     public void Unlock(int levelId)
     {
         if (!IsUnlocked(levelId))
@@ -53,7 +41,14 @@ public class PlayerData
 
     public void AddGem(int levelId, int gemId)
     {
-        levelData[levelId].gemsCollected[gemId] = true;
+        Unlock(levelId);
+        levelData[levelId].AddGem(gemId);
+    }
+
+    public void AddQuest(int levelId, int questId)
+    {
+        Unlock(levelId);
+        levelData[levelId].AddQuest(questId);
     }
 
     public bool IsUnlocked(int levelId)
@@ -72,17 +67,9 @@ public class PlayerData
         {
             return 0;
         }
-        return levelData[levelId].gemsCollected.Where(x => x).Count();
+        return levelData[levelId].GetQuestCompleteCount();
     }
 
-    public int GetCompletedQuestsCount(int levelId)
-    {
-        if (!IsUnlocked(levelId))
-        {
-            return 0;
-        }
-        return levelData[levelId].questsCompleted.Where(x => x).Count();
-    }
 
     public bool IsGemCollected(int levelId, int gemId)
     {
@@ -90,7 +77,7 @@ public class PlayerData
         {
             return false;
         }
-        return levelData[levelId].gemsCollected[gemId];
+        return levelData[levelId].isGemCollected(gemId);
     }
 
     public bool IsQuestCompleted(int levelId, int questId)
@@ -99,37 +86,68 @@ public class PlayerData
         {
             return false;
         }
-        return levelData[levelId].questsCompleted[questId];
+        return levelData[levelId].isQuestCompleted(questId);
     }
 }
 
 [System.Serializable]
 public class LevelSaveData
 {
-    public bool[] gemsCollected;
-    public bool[] questsCompleted;
-
+    private Dictionary<int, bool> gemsCollected;
+    private Dictionary<int, bool> questsCompleted;
     public LevelSaveData(bool[] gemsCollected, bool[] questsCompleted)
     {
-        this.gemsCollected = gemsCollected;
-        this.questsCompleted = questsCompleted;
+        this.gemsCollected = new Dictionary<int, bool>();
+        this.questsCompleted = new Dictionary<int, bool>();
+
+        for (int i = 0; i < gemsCollected.Length; i++)
+        {
+            this.gemsCollected[i] = gemsCollected[i];
+        }
+
+        for (int i = 0; i < questsCompleted.Length; i++)
+        {
+            this.questsCompleted[i] = questsCompleted[i];
+        }
     }
 
-    public LevelSaveData() : this(
-        new bool[] { false }, new bool[] { false }
-    )
-    { }
-
-    public void Update(bool[] gemsCollected, bool[] questsCompleted)
+    public LevelSaveData()
     {
-        for (int gemIndex = 0; gemIndex < gemsCollected.Length; gemIndex++)
-        {
-            this.gemsCollected[gemIndex] |= gemsCollected[gemIndex];
-        }
-
-        for (int questIndex = 0; questIndex < questsCompleted.Length; questIndex++)
-        {
-            this.questsCompleted[questIndex] |= questsCompleted[questIndex];
-        }
+        this.gemsCollected = new Dictionary<int, bool>();
+        this.questsCompleted = new Dictionary<int, bool>();
     }
+
+    public bool isQuestCompleted(int questId)
+    {
+        if (questsCompleted.ContainsKey(questId))
+        {
+            return questsCompleted[questId];
+        }
+        return false;
+    }
+
+    public bool isGemCollected(int gemId)
+    {
+        if (gemsCollected.ContainsKey(gemId))
+        {
+            return gemsCollected[gemId];
+        }
+        return false;
+    }
+
+    public void AddGem(int gemId)
+    {
+        gemsCollected[gemId] = true;
+    }
+
+    public void AddQuest(int questId)
+    {
+        questsCompleted[questId] = true;
+    }
+
+    public int GetQuestCompleteCount()
+    {
+        return gemsCollected.Where(kv => kv.Value).Count();
+    }
+
 }

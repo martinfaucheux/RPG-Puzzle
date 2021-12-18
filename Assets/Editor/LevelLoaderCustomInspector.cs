@@ -36,6 +36,16 @@ public class LevelLoaderCustomInspector : Editor
 
     private void UnlockAllLevels()
     {
+        PlayerData playerSavedData = new PlayerData();
+        foreach (LevelMetaData levelMetaData in t.levelCollection.levelList)
+        {
+            playerSavedData.Unlock(levelMetaData.sceneBuildIndex);
+        }
+        DataSaver.SaveGameState(playerSavedData);
+    }
+
+    private void UnlockAllLevelsOLD()
+    {
         Dictionary<int, LevelSaveData> levelDict = new Dictionary<int, LevelSaveData>();
         foreach (LevelMetaData levelMetaData in t.levelCollection.levelList)
         {

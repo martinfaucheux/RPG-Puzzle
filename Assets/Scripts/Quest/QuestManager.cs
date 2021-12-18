@@ -29,14 +29,16 @@ public class QuestManager : MonoBehaviour
     {
         PlayerData savedPlayerData = LevelLoader.instance.playerSavedData;
         int levelId = LevelLoader.instance.currentLevelId;
-        bool[] completedQuests = savedPlayerData[levelId].questsCompleted;
 
         for (int questIndex = 0; questIndex < quests.Count; questIndex++)
         {
             Quest quest = quests[questIndex];
             bool isComplete = quest.CheckCompletion();
 
-            completedQuests[questIndex] |= isComplete;
+            if (isComplete)
+            {
+                savedPlayerData[levelId].AddQuest(questIndex);
+            }
 
             string str = "Quest '{0}' completed: {1}";
             Debug.Log(string.Format(str, quest.name, isComplete));
