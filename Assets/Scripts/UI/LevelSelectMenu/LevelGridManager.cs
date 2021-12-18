@@ -48,9 +48,9 @@ public class LevelGridManager : MonoBehaviour
             LevelMetaDataCollection levelCollection = LevelLoader.instance.levelCollection;
             levelMetaData = levelCollection.GetLevelBySceneBuildIndex(_selectedLevelId);
 
-            levelTitleTextComponent.text = GetLevelTitle();
             gemCountTextComponent.text = GetGemCountString(levelMetaData);
         }
+        levelTitleTextComponent.text = GetLevelTitle();
         UpdateQuestTexts(levelMetaData);
 
         // show / hide content of side menu

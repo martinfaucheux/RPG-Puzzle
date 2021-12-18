@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevelId: 0
   transitionDuration: 0.5
+  levelCollection: {fileID: 11400000, guid: dfd62ebf006d5db45b91f33e07f7d2e7, type: 2}
 --- !u!1 &111678469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,8 +1685,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1976144933}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: ToggleMainMenu
         m_Mode: 1
         m_Arguments:
@@ -2490,8 +2491,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 1976144933}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: ToggleOptionMenu
         m_Mode: 1
         m_Arguments:
@@ -2930,7 +2931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuGO: {fileID: 890963432}
-  optionMenuGO: {fileID: 1809879283}
+  optionMenuGO: {fileID: 1998980191}
   backgroundGO: {fileID: 1961765530}
 --- !u!1 &1996071404
 GameObject:
