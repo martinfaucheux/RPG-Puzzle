@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 public class LevelSelectButton : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textComponent;
+    [SerializeField] Image backgroundImage;
+    [SerializeField] Image reflectionImage;
 
     private int _levelId;
     public int levelId
@@ -31,5 +34,17 @@ public class LevelSelectButton : MonoBehaviour
     {
         GetComponentInParent<LevelGridManager>().SelectLevel(levelId);
     }
+
+    public void SetBackgroundColor(Color color)
+    {
+        backgroundImage.color = color;
+    }
+
+    public void SetReflectionColor(Color color)
+    {
+        reflectionImage.color = color;
+    }
+
+
 
 }

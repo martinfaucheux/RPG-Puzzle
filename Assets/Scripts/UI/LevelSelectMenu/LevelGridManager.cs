@@ -18,6 +18,11 @@ public class LevelGridManager : MonoBehaviour
 
     public TextMeshProUGUI[] questTextComponents;
 
+    public Color defaultButtonColor;
+    public Color defaultReflectionColor;
+    public Color allGemsCollectedColor;
+    public Color allQuestsCollectedColor;
+
     private int _selectedLevelId = 0;
 
     void Start()
@@ -66,7 +71,30 @@ public class LevelGridManager : MonoBehaviour
         {
             int levelId = levelMeta.sceneBuildIndex;
             GameObject newGO = Instantiate(levelButtonPrefab, gridContainerTransform);
-            newGO.GetComponent<LevelSelectButton>().levelId = levelId;
+
+            Color backgroundColor = defaultButtonColor;
+            Color reflectionColor = defaultReflectionColor;
+
+            int collectedGems = LevelLoader.instance.playerSavedData.GetCollectedGemCount(levelId);
+            int completedQuests = LevelLoader.instance.playerSavedData.GetCompletedQuestsCount(levelId);
+            if (collectedGems == levelMeta.gemCount)
+            {
+                if (completedQuests == levelMeta.quests.Count)
+                {
+                    backgroundColor = allQuestsCollectedColor;
+                    reflectionColor = Color.white;
+                }
+                else
+                {
+                    backgroundColor = allGemsCollectedColor;
+                    reflectionColor = Color.white;
+                }
+            }
+            LevelSelectButton selectButton = newGO.GetComponent<LevelSelectButton>();
+            selectButton.levelId = levelId;
+            selectButton.SetBackgroundColor(backgroundColor);
+            selectButton.SetReflectionColor(reflectionColor);
+
             newGO.GetComponent<Button>().interactable = LevelLoader.instance.IsLevelUnlocked(levelId);
         }
     }

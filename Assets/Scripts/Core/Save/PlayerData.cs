@@ -67,6 +67,15 @@ public class PlayerData
         {
             return 0;
         }
+        return levelData[levelId].GetCollectedGemsCount();
+    }
+
+    public int GetCompletedQuestsCount(int levelId)
+    {
+        if (!IsUnlocked(levelId))
+        {
+            return 0;
+        }
         return levelData[levelId].GetQuestCompleteCount();
     }
 
@@ -146,6 +155,11 @@ public class LevelSaveData
     }
 
     public int GetQuestCompleteCount()
+    {
+        return questsCompleted.Where(kv => kv.Value).Count();
+    }
+
+    public int GetCollectedGemsCount()
     {
         return gemsCollected.Where(kv => kv.Value).Count();
     }
