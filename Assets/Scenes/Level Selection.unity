@@ -2016,6 +2016,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1071358817}
   - component: {fileID: 1071358818}
+  - component: {fileID: 1071358819}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -2063,15 +2064,28 @@ MonoBehaviour:
   - {fileID: 76251272}
   - {fileID: 1041219066}
   - {fileID: 1066705196}
+  levelObjectiveList: {fileID: 1071358819}
+  defaultButtonColor: {r: 0.41176474, g: 0.41176474, b: 0.41176474, a: 1}
+  defaultReflectionColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
+  allGemsCollectedColor: {r: 0.5372549, g: 0.7411765, b: 0.9960785, a: 1}
+  allQuestsCollectedColor: {r: 0.9960785, g: 0.5921569, b: 0.21960786, a: 1}
+--- !u!114 &1071358819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071358816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b690531fa4079f42a899551fad3c13c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   levelTitleTextComponent: {fileID: 1280584919}
   gemCountTextComponent: {fileID: 1193891629}
   questTextComponents:
   - {fileID: 1820388371}
   - {fileID: 265445956}
-  defaultButtonColor: {r: 0.41176474, g: 0.41176474, b: 0.41176474, a: 1}
-  defaultReflectionColor: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
-  allGemsCollectedColor: {r: 0.5372549, g: 0.7411765, b: 0.9960785, a: 1}
-  allQuestsCollectedColor: {r: 0.9960785, g: 0.5921569, b: 0.21960786, a: 1}
 --- !u!1 &1193891627
 GameObject:
   m_ObjectHideFlags: 0

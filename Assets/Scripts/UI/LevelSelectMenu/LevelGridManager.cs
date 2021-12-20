@@ -12,11 +12,7 @@ public class LevelGridManager : MonoBehaviour
     public Transform gridContainerTransform;
 
     public Transform[] noSelectHiddenTransforms;
-
-    public TextMeshProUGUI levelTitleTextComponent;
-    public TextMeshProUGUI gemCountTextComponent;
-
-    public TextMeshProUGUI[] questTextComponents;
+    public LevelObjectiveList levelObjectiveList;
 
     public Color defaultButtonColor;
     public Color defaultReflectionColor;
@@ -34,6 +30,8 @@ public class LevelGridManager : MonoBehaviour
 
     public void SelectLevel(int levelId)
     {
+        levelObjectiveList.SetLevel(levelId);
+
         _selectedLevelId = levelId;
         UpdateUI();
     }
@@ -45,20 +43,8 @@ public class LevelGridManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        bool isLevelSelected = (_selectedLevelId > 0);
-        LevelMetaData levelMetaData = null;
-
-        if (isLevelSelected)
-        {
-            LevelMetaDataCollection levelCollection = LevelLoader.instance.levelCollection;
-            levelMetaData = levelCollection.GetLevelBySceneBuildIndex(_selectedLevelId);
-
-            gemCountTextComponent.text = GetGemCountString(levelMetaData);
-        }
-        levelTitleTextComponent.text = GetLevelTitle();
-        UpdateQuestTexts(levelMetaData);
-
         // show / hide content of side menu
+        bool isLevelSelected = (_selectedLevelId > 0);
         foreach (Transform transformToHide in noSelectHiddenTransforms)
         {
             transformToHide.gameObject.SetActive(isLevelSelected);
@@ -96,57 +82,6 @@ public class LevelGridManager : MonoBehaviour
             selectButton.SetReflectionColor(reflectionColor);
 
             selectButton.SetButtonActive(LevelLoader.instance.IsLevelUnlocked(levelId));
-        }
-    }
-
-    private string GetLevelTitle()
-    {
-        if (_selectedLevelId <= 0)
-        {
-            return "";
-        }
-        return "Level " + _selectedLevelId.ToString();
-    }
-
-    private string GetGemCountString(LevelMetaData levelMetaData)
-    {
-        if (_selectedLevelId <= 0)
-            return "";
-
-        int gemCount = LevelLoader.instance.playerSavedData.GetCollectedGemCount(_selectedLevelId);
-        return gemCount + " / " + levelMetaData.gemCount;
-    }
-
-    private void UpdateQuestTexts(LevelMetaData levelMetaData)
-    {
-        int questCount = 0;
-        if (levelMetaData != null)
-        {
-            questCount = levelMetaData.quests.Count;
-        }
-
-        for (int questIndex = 0; questIndex < questTextComponents.Length; questIndex++)
-        {
-            TextMeshProUGUI textComponent = questTextComponents[questIndex];
-            if (questIndex < questCount)
-            {
-                Quest quest = levelMetaData.quests[questIndex];
-                textComponent.gameObject.SetActive(true);
-
-                PlayerData playerData = LevelLoader.instance.playerSavedData;
-                bool isQuestCompleted = playerData.IsQuestCompleted(_selectedLevelId, questIndex);
-
-                string questText = quest.questName;
-                if (isQuestCompleted)
-                {
-                    questText = "<s>" + questText + "</s>";
-                }
-                textComponent.text = questText;
-            }
-            else
-            {
-                textComponent.gameObject.SetActive(false);
-            }
         }
     }
 }
