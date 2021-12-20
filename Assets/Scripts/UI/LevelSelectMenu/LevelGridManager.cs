@@ -95,7 +95,7 @@ public class LevelGridManager : MonoBehaviour
             selectButton.SetBackgroundColor(backgroundColor);
             selectButton.SetReflectionColor(reflectionColor);
 
-            newGO.GetComponent<Button>().interactable = LevelLoader.instance.IsLevelUnlocked(levelId);
+            selectButton.SetButtonActive(LevelLoader.instance.IsLevelUnlocked(levelId));
         }
     }
 

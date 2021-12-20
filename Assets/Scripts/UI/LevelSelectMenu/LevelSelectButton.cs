@@ -8,6 +8,8 @@ public class LevelSelectButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI textComponent;
     [SerializeField] Image backgroundImage;
     [SerializeField] Image reflectionImage;
+    [SerializeField] Button buttonComponent;
+    [SerializeField] float inactiveBgAlpha = 0.5f;
 
     private int _levelId;
     public int levelId
@@ -45,6 +47,13 @@ public class LevelSelectButton : MonoBehaviour
         reflectionImage.color = color;
     }
 
+    public void SetButtonActive(bool isActive)
+    {
+        buttonComponent.interactable = isActive;
+        reflectionImage.enabled = isActive;
 
-
+        Color bgColor = backgroundImage.color;
+        bgColor.a = isActive ? 1f : inactiveBgAlpha;
+        backgroundImage.color = bgColor;
+    }
 }
