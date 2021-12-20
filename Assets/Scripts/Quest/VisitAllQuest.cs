@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WalkQuest", menuName = "Custom Objects / Quest / Walk Quest")]
 public class VisitAllQuest : Quest
 {
+    public bool exact;
+    public int visitCount = 1;
     private GenericGrid<int> visitedCells;
 
     public override void Initialize()
@@ -30,10 +32,21 @@ public class VisitAllQuest : Quest
     {
         foreach (KeyValuePair<Vector2Int, int> item in visitedCells)
         {
-            if (item.Value != 1)
+            if (exact)
             {
-                return false;
+                if (item.Value != visitCount)
+                {
+                    return false;
+                }
             }
+            else
+            {
+                if (item.Value < visitCount)
+                {
+                    return false;
+                }
+            }
+
         }
         return true;
     }
