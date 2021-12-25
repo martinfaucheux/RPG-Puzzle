@@ -11,13 +11,13 @@ public class KeyCountUI : MonoBehaviour
     private Vector2 _visiblePos;
     private Vector2 _hiddenPos;
     private RectTransform _rectTransform;
-    
+
     private Inventory _inventory;
     private Text _textComponent;
 
     void Start()
     {
-        _rectTransform = (RectTransform) transform;
+        _rectTransform = (RectTransform)transform;
         _textComponent = GetComponentInChildren<Text>();
         _visiblePos = _rectTransform.anchoredPosition;
         _inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
@@ -30,68 +30,61 @@ public class KeyCountUI : MonoBehaviour
         GameEvents.instance.onUseItem += CheckUpdate;
     }
 
-    void OnDestroy(){
+    void OnDestroy()
+    {
         GameEvents.instance.onPickItem -= CheckUpdate;
         GameEvents.instance.onUseItem -= CheckUpdate;
     }
 
-    private void CheckUpdate(Item item){
-        if(item.GetType() == typeof(Key)){
+    private void CheckUpdate(Item item)
+    {
+        if (item.GetType() == typeof(Key))
+        {
 
             int newKeyCount = _inventory.keyCount;
 
-            if (_previousCount != newKeyCount){
+            if (_previousCount != newKeyCount)
+            {
                 UpdateKeyCountText(newKeyCount);
 
-                if (_previousCount == 0 && newKeyCount > 0){
+                if (_previousCount == 0 && newKeyCount > 0)
+                {
                     SlideIn();
                 }
 
-                else if (newKeyCount == 0 && _previousCount > 0){
+                else if (newKeyCount == 0 && _previousCount > 0)
+                {
                     SlideOut();
                 }
                 _previousCount = newKeyCount;
             }
-        }        
+        }
     }
 
-    private void UpdateKeyCountText(int newCount){
+    private void UpdateKeyCountText(int newCount)
+    {
         _textComponent.text = "x " + newCount.ToString();
     }
 
-    private void SlideIn(){
-        StartCoroutine(SlideCoroutine(_visiblePos));
+    private void SlideIn()
+    {
+        LeanTween.move(_rectTransform, _visiblePos, 0.2f);
     }
 
-    private void SlideOut(){
-        StartCoroutine(SlideCoroutine(_hiddenPos));
+    private void SlideOut()
+    {
+        LeanTween.move(_rectTransform, _hiddenPos, 0.2f);
     }
 
-    private IEnumerator SlideCoroutine(Vector2 endPos){
-
-        while((endPos - _rectTransform.anchoredPosition).magnitude > 0.1){
-            Vector2 directionVect = (endPos - _rectTransform.anchoredPosition).normalized;
-            Vector2 newPos = _rectTransform.anchoredPosition + directionVect * slideSpeed * Time.deltaTime;
-
-            _rectTransform.anchoredPosition = newPos;
-            yield return null;
-        }
-        _rectTransform.anchoredPosition = endPos;
-    }
-
-    private void SetHiddenPosition(){
-        RectTransform parentRectTransform = (RectTransform) transform.parent.transform;
+    private void SetHiddenPosition()
+    {
+        RectTransform parentRectTransform = (RectTransform)transform.parent.transform;
 
         // Not really sure about this part
-        
+
 
         float slideDistance = parentRectTransform.sizeDelta.x + distanceToEdge;
         _hiddenPos = _visiblePos + new Vector2(-slideDistance, 0f);
     }
 
-    private float GetDistanceToEdge(){
-        Vector3[] v = new Vector3[4];
-        _rectTransform.GetWorldCorners(v);
-        return v[0][0];
-    }
 }
