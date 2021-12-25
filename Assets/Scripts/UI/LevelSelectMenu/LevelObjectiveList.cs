@@ -9,11 +9,14 @@ public class LevelObjectiveList : MonoBehaviour
     public TextMeshProUGUI gemCountTextComponent;
 
     public TextMeshProUGUI[] questTextComponents;
+    public TextMeshProUGUI questSeprator;
+    private string _questSepratorText;
 
     private int _selectedLevelId;
 
     void Start()
     {
+        _questSepratorText = questSeprator.text;
         UpdateUI();
     }
 
@@ -66,6 +69,7 @@ public class LevelObjectiveList : MonoBehaviour
         {
             questCount = levelMetaData.quests.Count;
         }
+        questSeprator.text = (questCount > 0) ? _questSepratorText : "";
 
         for (int questIndex = 0; questIndex < questTextComponents.Length; questIndex++)
         {
