@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 994944594e06ec14c90fc6e914d556e5, type: 3}
   m_Name: Level 5
   m_EditorClassIdentifier: 
-  slug: intro_to_potions
   sceneName: Level 5 - Intro to potions
   sceneBuildIndex: 7
   gemCount: 1
+  quests:
+  - {fileID: 11400000, guid: 41940a985cadec14fab99e06e3b76cfb, type: 2}
