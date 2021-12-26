@@ -19,6 +19,12 @@ public class EndOfLevelObjectiveControllerUI : MonoBehaviour
 
     private void Show()
     {
+        StartCoroutine(ShowCoroutine());
+    }
+
+    private IEnumerator ShowCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
         int levelId = LevelLoader.instance.currentLevelId;
         goToSetActive.SetActive(true);
         levelObjectiveList.SetLevel(levelId);

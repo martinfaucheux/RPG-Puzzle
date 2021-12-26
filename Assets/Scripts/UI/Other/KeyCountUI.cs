@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class KeyCountUI : MonoBehaviour
 {
-    [SerializeField] float slideSpeed = 400;
+    [SerializeField] float slideDuration = 0.2f;
     [SerializeField] float distanceToEdge = 0;
     private int _previousCount = 0;
     private Vector2 _visiblePos;
@@ -68,12 +68,12 @@ public class KeyCountUI : MonoBehaviour
 
     private void SlideIn()
     {
-        LeanTween.move(_rectTransform, _visiblePos, 0.2f);
+        LeanTween.move(_rectTransform, _visiblePos, slideDuration);
     }
 
     private void SlideOut()
     {
-        LeanTween.move(_rectTransform, _hiddenPos, 0.2f);
+        LeanTween.move(_rectTransform, _hiddenPos, slideDuration);
     }
 
     private void SetHiddenPosition()
