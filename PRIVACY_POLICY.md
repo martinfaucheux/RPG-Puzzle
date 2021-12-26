@@ -1,3 +1,4 @@
+# World of Yar privacy policy
 Welcome to World of Yar!
 
 This is an open source game app developed by Martin Faucheux. The source code is available on GitHub under the MIT license; the app is also available on Google Play.
