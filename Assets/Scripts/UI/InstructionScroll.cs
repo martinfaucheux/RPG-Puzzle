@@ -6,14 +6,14 @@ using TMPro;
 
 public class InstructionScroll : MonoBehaviour
 {
+    [SerializeField] private float showDelay = 0.5f;
     [SerializeField] private bool showOnLevelLoaded;
-    [SerializeField] private TextMeshProUGUI textComponent;
 
     void Start()
     {
         if (showOnLevelLoaded)
         {
-            Show();
+            DelayShow();
         }
         else
         {
@@ -21,21 +21,27 @@ public class InstructionScroll : MonoBehaviour
         }
     }
 
-    public void Show()
+    public void DelayShow()
     {
-        foreach (Transform childTransform in transform)
-        {
-            transform.gameObject.SetActive(true);
-        }
-        GameManager.instance.isInstruction = true;
+        StartCoroutine(ShowCoroutine());
     }
+
     public void Hide()
     {
         foreach (Transform childTransform in transform)
         {
-            transform.gameObject.SetActive(false);
+            childTransform.gameObject.SetActive(false);
         }
         GameManager.instance.isInstruction = false;
     }
 
+    private IEnumerator ShowCoroutine()
+    {
+        GameManager.instance.isInstruction = true;
+        yield return new WaitForSecondsRealtime(showDelay);
+        foreach (Transform childTransform in transform)
+        {
+            childTransform.gameObject.SetActive(true);
+        }
+    }
 }
