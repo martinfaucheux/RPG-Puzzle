@@ -6,10 +6,15 @@ public class SkillMenu : ToggleMenu
 {
 
     public static SkillMenu instance;
-    
+
     #region Singleton
 
-    //Awake is always called before any Start functions
+    private bool canInteract
+    {
+        get { return !GameManager.instance.isInstruction; }
+    }
+
+    // Check singleton
     void Awake()
     {
         //Check if instance already exists
@@ -29,14 +34,19 @@ public class SkillMenu : ToggleMenu
 
     protected override void Hide()
     {
-        base.Hide();
-        GameEvents.instance.CloseSkillMenuTrigger();
+        if (canInteract)
+        {
+            base.Hide();
+            GameEvents.instance.CloseSkillMenuTrigger();
+        }
     }
 
     protected override void Show()
     {
-        base.Show();
-        GameEvents.instance.OpenSkillMenuTrigger();
+        if (canInteract)
+        {
+            base.Show();
+            GameEvents.instance.OpenSkillMenuTrigger();
+        }
     }
-
 }

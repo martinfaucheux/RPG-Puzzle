@@ -37,6 +37,7 @@ public class Player : MovingObject
             && GameManager.instance.playerCanMove
             && !GameManager.instance.isEndOfLevelScreen
             && !GameManager.instance.isGamePaused
+            && !GameManager.instance.isInstruction
             && !MenuController.instance.isOpen
             && !SkillMenu.instance.isShowing
             && (direction != Direction.IDLE)

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     public bool playerCanMove = false;
     public bool isGamePaused = false;
+    public bool isInstruction = false;
     public bool isEndOfLevelScreen = false;
     public bool isGameOverScreen = false;
 
@@ -35,12 +36,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     private void OnEndOfLevel()
     {
         isEndOfLevelScreen = true;
@@ -63,10 +58,13 @@ public class GameManager : MonoBehaviour
         {
             LevelLoader.instance.ReloadLevel();
         }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        else if (
+            Input.GetKeyDown(KeyCode.Escape)
+            && !isEndOfLevelScreen
+            && !isInstruction
+        )
         {
-            if (!isEndOfLevelScreen)
-                TogglePause();
+            TogglePause();
         }
     }
 
