@@ -8,7 +8,10 @@ public class InstructionScroll : MonoBehaviour
 {
     [SerializeField] private float showDelay = 0.5f;
     [SerializeField] private bool showOnLevelLoaded;
+    [SerializeField] private float scaleFactor = 1.1f;
+    [SerializeField] private float animationDuration = 0.1f;
 
+    [SerializeField] private Image scalingImageComponent;
     void Start()
     {
         if (showOnLevelLoaded)
@@ -43,5 +46,21 @@ public class InstructionScroll : MonoBehaviour
         {
             childTransform.gameObject.SetActive(true);
         }
+        BumpAnimation();
+    }
+
+
+
+    private void BumpAnimation()
+    {
+        Vector3 targetScale = scaleFactor * Vector3.one;
+
+        scalingImageComponent.transform.localScale = Vector3.zero;
+        LeanTween.scale(scalingImageComponent.gameObject, targetScale, animationDuration).setEaseOutCubic().setOnComplete(BumpAnimationAdjust);
+    }
+
+    private void BumpAnimationAdjust()
+    {
+        LeanTween.scale(scalingImageComponent.gameObject, Vector3.one, animationDuration * 0.25f).setOnComplete(BumpAnimationAdjust);
     }
 }
