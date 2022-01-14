@@ -9,6 +9,7 @@ public class LevelObjectiveListElement : MonoBehaviour
     [SerializeField] Color checkBoxCompleteColor;
     [SerializeField] Color checkBoxIncompleteColor;
     [SerializeField] TextMeshProUGUI questTextComponent;
+    [SerializeField] Image vImage;
     private string questText;
 
     public void SetContent(string questText, bool isComplete)
@@ -18,11 +19,19 @@ public class LevelObjectiveListElement : MonoBehaviour
         {
             checkBoxImage.color = checkBoxCompleteColor;
             questTextComponent.text = "<s>" + questText + "</s>";
+            if (vImage != null)
+            {
+                vImage.enabled = true;
+            }
         }
         else
         {
             checkBoxImage.color = checkBoxIncompleteColor;
             questTextComponent.text = questText;
+            if (vImage != null)
+            {
+                vImage.enabled = false;
+            }
         }
     }
 }
