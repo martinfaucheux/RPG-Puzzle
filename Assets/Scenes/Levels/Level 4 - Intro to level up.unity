@@ -1496,6 +1496,12 @@ Transform:
   m_Father: {fileID: 468066639}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &339817854 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3908623798067853846, guid: e48c429d14bdebe4c93232df91c4415a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1954781104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &344043790
 GameObject:
   m_ObjectHideFlags: 0
@@ -5296,6 +5302,166 @@ Transform:
   m_Father: {fileID: 468066639}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1022722721
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 339817854}
+    m_Modifications:
+    - target: {fileID: 4856849982483464170, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849982648715231, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849982689824032, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -909.8802
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849982689824032, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849982689824032, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849982689824034, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_text
+      value: Killing monster give you experience. Upon receiving 3 experience points,
+        you level up and gain 1 skill point you can spend clicking on the book icon.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849982689824045, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983096486168, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633104, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4856849983265633107, guid: b0f47d5177329de44b3a9d1e01d10885,
+        type: 3}
+      propertyPath: m_Name
+      value: Instruction Panel
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b0f47d5177329de44b3a9d1e01d10885, type: 3}
 --- !u!4 &1035626800 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7741439169816471044, guid: c09e7d874796a8d4bb74af095d61e782,
