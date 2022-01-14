@@ -10,8 +10,8 @@ public class InstructionScroll : MonoBehaviour
     [SerializeField] private bool showOnLevelLoaded;
     [SerializeField] private float scaleFactor = 1.1f;
     [SerializeField] private float animationDuration = 0.1f;
-
     [SerializeField] private Image scalingImageComponent;
+    private bool isShowing = false;
     void Start()
     {
         if (showOnLevelLoaded)
@@ -31,11 +31,15 @@ public class InstructionScroll : MonoBehaviour
 
     public void Hide()
     {
-        foreach (Transform childTransform in transform)
+        if (isShowing)
         {
-            childTransform.gameObject.SetActive(false);
+            foreach (Transform childTransform in transform)
+            {
+                childTransform.gameObject.SetActive(false);
+            }
+            GameManager.instance.isInstruction = false;
+            isShowing = false;
         }
-        GameManager.instance.isInstruction = false;
     }
 
     private IEnumerator ShowCoroutine()
@@ -62,5 +66,6 @@ public class InstructionScroll : MonoBehaviour
     private void BumpAnimationAdjust()
     {
         LeanTween.scale(scalingImageComponent.gameObject, Vector3.one, animationDuration * 0.25f).setOnComplete(BumpAnimationAdjust);
+        isShowing = true;
     }
 }
