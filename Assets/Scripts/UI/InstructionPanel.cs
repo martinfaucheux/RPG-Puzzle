@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class InstructionScroll : MonoBehaviour
+public class InstructionPanel : MonoBehaviour
 {
     [SerializeField] private float showDelay = 0.5f;
     [SerializeField] private bool showOnLevelLoaded;
