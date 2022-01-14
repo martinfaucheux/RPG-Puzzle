@@ -8,7 +8,7 @@ public class LevelObjectiveList : MonoBehaviour
     public TextMeshProUGUI levelTitleTextComponent;
     public TextMeshProUGUI gemCountTextComponent;
 
-    public TextMeshProUGUI[] questTextComponents;
+    public LevelObjectiveListElement[] objectiveElements;
     public TextMeshProUGUI questSeprator;
     private string _questSepratorText;
 
@@ -71,27 +71,21 @@ public class LevelObjectiveList : MonoBehaviour
         }
         questSeprator.text = (questCount > 0) ? _questSepratorText : "";
 
-        for (int questIndex = 0; questIndex < questTextComponents.Length; questIndex++)
+        for (int questIndex = 0; questIndex < objectiveElements.Length; questIndex++)
         {
-            TextMeshProUGUI textComponent = questTextComponents[questIndex];
+            LevelObjectiveListElement objectiveElement = objectiveElements[questIndex];
             if (questIndex < questCount)
             {
                 Quest quest = levelMetaData.quests[questIndex];
-                textComponent.gameObject.SetActive(true);
+                objectiveElement.gameObject.SetActive(true);
 
                 PlayerData playerData = LevelLoader.instance.playerSavedData;
                 bool isQuestCompleted = playerData.IsQuestCompleted(_selectedLevelId, questIndex);
-
-                string questText = quest.questName;
-                if (isQuestCompleted)
-                {
-                    questText = "<s>" + questText + "</s>";
-                }
-                textComponent.text = questText;
+                objectiveElement.SetContent(quest.questName, isQuestCompleted);
             }
             else
             {
-                textComponent.gameObject.SetActive(false);
+                objectiveElement.gameObject.SetActive(false);
             }
         }
     }
