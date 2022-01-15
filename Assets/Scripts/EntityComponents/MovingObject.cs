@@ -8,6 +8,7 @@ using UnityEngine;
 public class MovingObject : MonoBehaviour
 {
     public LayerMask blockingLayer;
+    [SerializeField] string paceSoundName;
 
     protected MatrixCollider _matrixCollider;
     private float _inverseMoveTime;
@@ -107,6 +108,12 @@ public class MovingObject : MonoBehaviour
         Vector3 realPosEnd = realPosStart + CollisionMatrix.instance.GetRealWorldVector(direction);
 
         StartCoroutine(SmoothMovement(realPosEnd));
+
+        // play sound
+        if (paceSoundName.Length > 0)
+        {
+            AudioManager.instance.Play(paceSoundName);
+        }
 
         // return True if we successfuly move
         return true;
