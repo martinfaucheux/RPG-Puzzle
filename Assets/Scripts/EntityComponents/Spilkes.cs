@@ -5,6 +5,7 @@ using UnityEngine;
 public class Spilkes : ActivableObject
 {
     public int damage = 1;
+    [SerializeField] string soundName;
 
     // return true if source object can move after activation
     public override bool Activate(GameObject sourceObject = null)
@@ -13,6 +14,7 @@ public class Spilkes : ActivableObject
         if (healthComponent != null)
         {
             healthComponent.TakeDamage(damage);
+            AudioManager.instance.Play(soundName);
         }
         return true;
     }

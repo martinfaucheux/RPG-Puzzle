@@ -1,19 +1,23 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Attack : MonoBehaviour {
+public class Attack : MonoBehaviour
+{
 
     private float attackAnimationAmplitude = 0.3f;
 
-    public int attackPoints{
-        get {return _attackPoints;}
-        private set{
+    public int attackPoints
+    {
+        get { return _attackPoints; }
+        private set
+        {
             _attackPoints = value;
             GameEvents.instance.AttackChangeTrigger(GetInstanceID());
         }
     }
     [SerializeField] private int _attackPoints;
     public AttackAnimation attackAnimComponent;
+    [SerializeField] string attackSoundName;
 
     private Experience _expComponent;
     private Health _healthComponent;
@@ -23,7 +27,8 @@ public class Attack : MonoBehaviour {
     private SpriteHolder _spriteHolder;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         _expComponent = GetComponent<Experience>();
         _healthComponent = GetComponent<Health>();
         _animator = GetComponent<Animator>();
@@ -55,6 +60,9 @@ public class Attack : MonoBehaviour {
         // face direction then animate attack
         AnimateAttack(directionToOpponent);
 
+        // Play sound
+        AudioManager.instance.Play(attackSoundName);
+
         opponentHealth.TakeDamage(attackPoints);
 
         if (opponentHealth.isDead)
@@ -63,14 +71,14 @@ public class Attack : MonoBehaviour {
             {
                 _expComponent.GainExp(opponentHealth.expRewardPoints);
             }
-        } 
+        }
     }
 
     // damage each other with other entity
     public void Fight(Health opponentHealth, Attack opponentAttack)
     {
         // Player always attack last
-        if(opponentHealth.gameObject.tag == "Player")
+        if (opponentHealth.gameObject.tag == "Player")
         {
             // Force this to face player
             FaceOpponent(opponentAttack._matrixCollider);
@@ -94,16 +102,19 @@ public class Attack : MonoBehaviour {
     // animate the attack
     private void AnimateAttack(Direction direction = null)
     {
-        if (_spriteHolder != null){
+        if (_spriteHolder != null)
+        {
             _spriteHolder.FaceDirection(direction);
         }
         // if sprite holder is provided, the dash animation can be played
-        if(_spriteHolder != null && direction != null) {
+        if (_spriteHolder != null && direction != null)
+        {
             float animationDuration = GameManager.instance.actionDuration;
             _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
         }
         // TODO: use pooling to loose reference to AttackAnimation component
-        if(attackAnimComponent != null){
+        if (attackAnimComponent != null)
+        {
             attackAnimComponent.Trigger(transform.position, direction);
         }
     }
@@ -127,7 +138,8 @@ public class Attack : MonoBehaviour {
     }
 
     // TODO: fix object pooling
-    private IEnumerator AnimateSlice(Direction direction){
+    private IEnumerator AnimateSlice(Direction direction)
+    {
         GameObject attackEffectObject = ObjectPool.GetPool("attack").GetPooledObject();
         attackEffectObject.transform.position = transform.position;
         attackEffectObject.gameObject.SetActive(true);

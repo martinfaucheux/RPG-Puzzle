@@ -1752,7 +1752,7 @@ MonoBehaviour:
   blockingLayer:
     serializedVersion: 2
     m_Bits: 0
-  paceSoundName: Bubble
+  paceSoundName: Pace
 --- !u!114 &4513580360118921167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1798,6 +1798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackPoints: 1
   attackAnimComponent: {fileID: 1657235518229366471}
+  attackSoundName: Sword
 --- !u!114 &4513580360118921153
 MonoBehaviour:
   m_ObjectHideFlags: 0

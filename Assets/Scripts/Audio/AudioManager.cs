@@ -1,5 +1,5 @@
 
-using System.Collections.Generic; 
+using System.Collections.Generic;
 using UnityEngine.Audio;
 using UnityEngine;
 
@@ -17,32 +17,43 @@ public class AudioManager : MonoBehaviour
 
         if (keepThroughScenes)
             DontDestroyOnLoad(gameObject);
-        
+
         InitializeAudioSources();
     }
 
-    private void InitializeAudioSources(){
+    private void InitializeAudioSources()
+    {
         _soundDict = new Dictionary<string, Sound>();
-        foreach(Sound sound in sounds){
+        foreach (Sound sound in sounds)
+        {
             sound.source = gameObject.AddComponent<AudioSource>();
             _soundDict.Add(sound.name, sound);
         }
     }
 
-    public void Play(string soundName){
-        if(_soundDict.ContainsKey(soundName)){
-            _soundDict[soundName].Play();
-        }
-        else{
-            Debug.LogError("Unknown sound: " + soundName);
+    public void Play(string soundName)
+    {
+        if (soundName.Length > 0)
+        {
+            if (_soundDict.ContainsKey(soundName))
+            {
+                _soundDict[soundName].Play();
+            }
+            else
+            {
+                Debug.LogError("Unknown sound: " + soundName);
+            }
         }
     }
 
-    private void CheckSingleton(){
-        if(instance == null){
+    private void CheckSingleton()
+    {
+        if (instance == null)
+        {
             instance = this;
         }
-        else{
+        else
+        {
             Destroy(gameObject);
             return;
         }

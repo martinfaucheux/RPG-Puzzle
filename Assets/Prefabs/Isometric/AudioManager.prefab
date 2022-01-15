@@ -59,10 +59,31 @@ MonoBehaviour:
     randomizePitch: 0
     loop: 0
     playOnStart: 0
-  - name: Bubble
+  - name: Pace
     audioClip: {fileID: 8300000, guid: b71fa536366e1c3479829cdb5362d16d, type: 3}
-    volume: 0.272
+    volume: 0.235
     pitch: 0.83
     randomizePitch: 0.1
+    loop: 0
+    playOnStart: 0
+  - name: Key
+    audioClip: {fileID: 8300000, guid: 2bbe7b954da06a745b60d41fb2e730a3, type: 3}
+    volume: 0.568
+    pitch: 1
+    randomizePitch: 0
+    loop: 0
+    playOnStart: 0
+  - name: Bramble
+    audioClip: {fileID: 8300000, guid: 7a9fb2cdfffbe8049872cae7c037c87c, type: 3}
+    volume: 0.639
+    pitch: 1.15
+    randomizePitch: 0.16
+    loop: 0
+    playOnStart: 0
+  - name: Sword
+    audioClip: {fileID: 8300000, guid: 631413031e3206649a50fad25ac48aff, type: 3}
+    volume: 0.738
+    pitch: 0.93
+    randomizePitch: 0.16
     loop: 0
     playOnStart: 0
