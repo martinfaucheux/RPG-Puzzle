@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3611613658329471091}
   - component: {fileID: 3611613658329471090}
   m_Layer: 0
-  m_Name: diamond
+  m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50,7 +50,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 31fa16ade87744b4fae8118e5d6e23d8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -196,6 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 11099928fca94814887b6952f5ab2cf6, type: 2}
+  itemId: 0
 --- !u!114 &5322638306357658739
 MonoBehaviour:
   m_ObjectHideFlags: 0
