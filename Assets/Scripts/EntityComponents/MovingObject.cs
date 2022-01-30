@@ -112,7 +112,7 @@ public class MovingObject : MonoBehaviour
         // play sound
         if (paceSoundName.Length > 0)
         {
-            AudioManager.instance.Play(paceSoundName);
+            AudioManager.instance?.Play(paceSoundName);
         }
 
         // return True if we successfuly move

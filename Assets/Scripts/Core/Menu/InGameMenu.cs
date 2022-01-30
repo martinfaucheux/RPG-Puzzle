@@ -11,7 +11,8 @@ public class InGameMenu : MainMenu
     public GameObject previousLevelButtonGO;
     public Text titleTextComponent;
 
-    public override void Start(){
+    public override void Start()
+    {
 
         base.Start();
 
@@ -19,16 +20,20 @@ public class InGameMenu : MainMenu
         LevelLoader.instance.RetrieveGameState();
     }
 
-    public void TriggerMenu(){
-        if (_isOpen){
+    public void TriggerMenu()
+    {
+        if (_isOpen)
+        {
             CloseMenu();
         }
-        else{
+        else
+        {
             OpenMenu();
         }
     }
 
-    public void OpenMenu(){
+    public void OpenMenu()
+    {
         SetTittle();
         SetPreviousLevelButtonState();
         SetNextLevelButtonState();
@@ -38,28 +43,38 @@ public class InGameMenu : MainMenu
         _isOpen = true;
     }
 
-    public void CloseMenu(){
+    public void CloseMenu()
+    {
         mainMenuGO.SetActive(false);
         backgroundGO.SetActive(false);
         _isOpen = false;
-        
-        if(optionMenuGO != null)
+
+        if (optionMenuGO != null)
             optionMenuGO?.SetActive(false);
-        
+
     }
 
-    private void SetTittle(){
+    private void SetTittle()
+    {
         string text = "Level " + LevelLoader.instance.currentLevelId.ToString();
         titleTextComponent.text = text;
     }
 
-    private void SetPreviousLevelButtonState(){
-        bool hasNextLevel = LevelLoader.instance.IsPreviousLevelAvailable();
-        previousLevelButtonGO.SetActive(hasNextLevel);
+    private void SetPreviousLevelButtonState()
+    {
+        if (previousLevelButtonGO != null)
+        {
+            bool hasNextLevel = LevelLoader.instance.IsPreviousLevelAvailable();
+            previousLevelButtonGO.SetActive(hasNextLevel);
+        }
     }
 
-    private void SetNextLevelButtonState(){
-        bool hasNextLevel = LevelLoader.instance.IsNextLevelAvailable();
-        nextLevelButtonGO.SetActive(hasNextLevel);
+    private void SetNextLevelButtonState()
+    {
+        if (nextLevelButtonGO)
+        {
+            bool hasNextLevel = LevelLoader.instance.IsNextLevelAvailable();
+            nextLevelButtonGO.SetActive(hasNextLevel);
+        }
     }
 }
