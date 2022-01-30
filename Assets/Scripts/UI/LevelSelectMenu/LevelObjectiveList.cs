@@ -81,7 +81,12 @@ public class LevelObjectiveList : MonoBehaviour
 
                 PlayerData playerData = LevelLoader.instance.playerSavedData;
                 bool isQuestCompleted = playerData.IsQuestCompleted(_selectedLevelId, questIndex);
-                objectiveElement.SetContent(quest.questName, isQuestCompleted);
+                bool isQuestNewlyCompleted = false;
+                if (QuestManager.instance != null)
+                {
+                    isQuestNewlyCompleted = QuestManager.instance.IsNewlyCompleted(questIndex);
+                }
+                objectiveElement.SetContent(quest.questName, isQuestCompleted, isQuestNewlyCompleted);
             }
             else
             {
