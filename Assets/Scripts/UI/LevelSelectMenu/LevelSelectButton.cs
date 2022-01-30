@@ -39,7 +39,10 @@ public class LevelSelectButton : MonoBehaviour
 
     public void SetBackgroundColor(Color color)
     {
-        backgroundImage.color = color;
+        // backgroundImage.color = color;
+        ColorBlock colorBlock = buttonComponent.colors;
+        colorBlock.normalColor = color;
+        buttonComponent.colors = colorBlock;
     }
 
     public void SetReflectionColor(Color color)
