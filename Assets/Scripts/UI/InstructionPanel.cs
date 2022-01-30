@@ -6,6 +6,7 @@ using TMPro;
 
 public class InstructionPanel : MonoBehaviour
 {
+    [SerializeField] private string instructionName;
     [SerializeField] private float showDelay = 0.5f;
     [SerializeField] private bool showOnLevelLoaded;
     [SerializeField] private float scaleFactor = 1.1f;
@@ -26,7 +27,25 @@ public class InstructionPanel : MonoBehaviour
 
     public void DelayShow()
     {
-        StartCoroutine(ShowCoroutine());
+        if (!LevelLoader.instance.playerSavedData.HasSeenInstruction(instructionName))
+        {
+
+            StartCoroutine(ShowCoroutine());
+        }
+    }
+
+    public void Read()
+    {
+        if (instructionName.Length > 0)
+        {
+            LevelLoader.instance.playerSavedData.AddSeenInstruction(instructionName);
+            LevelLoader.instance.SaveData();
+            Hide();
+        }
+        else
+        {
+            Debug.LogError("Set name for instruction");
+        }
     }
 
     public void Hide()

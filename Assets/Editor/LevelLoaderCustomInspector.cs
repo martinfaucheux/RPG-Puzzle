@@ -66,7 +66,7 @@ public class LevelLoaderCustomInspector : Editor
             levelDict[levelMetaData.sceneBuildIndex] = new LevelSaveData(gemsCollected, questsCompleted);
         }
 
-        PlayerData playerSavedData = new PlayerData(levelDict);
+        PlayerData playerSavedData = new PlayerData(levelDict, new Dictionary<string, bool>());
         DataSaver.SaveGameState(playerSavedData);
     }
 }

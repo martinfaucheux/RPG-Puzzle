@@ -43,6 +43,6 @@ public class QuestManager : MonoBehaviour
             string str = "Quest '{0}' completed: {1}";
             Debug.Log(string.Format(str, quest.name, isComplete));
         }
-        DataSaver.SaveGameState(savedPlayerData);
+        LevelLoader.instance.SaveData();
     }
 }

@@ -8,23 +8,24 @@ public class PlayerData
 {
 
     Dictionary<int, LevelSaveData> levelData;
+    Dictionary<string, bool> seenInstructions;
 
-    // public int maxUnlockedLevel
-    // {
-    //     get; private set;
-    // }
 
-    public PlayerData(Dictionary<int, LevelSaveData> levelData)
+    public PlayerData(
+        Dictionary<int, LevelSaveData> levelData,
+        Dictionary<string, bool> seenInstructions
+    )
     {
         this.levelData = levelData;
-        // maxUnlockedLevel = levelData.Keys.Max();
+        this.seenInstructions = seenInstructions;
     }
 
     public PlayerData() :
-        this(new Dictionary<int, LevelSaveData>(){
+        this(
             // default PlayerData has first level unlocked
-            {1, new LevelSaveData()}
-        })
+            new Dictionary<int, LevelSaveData>() { { 1, new LevelSaveData() } },
+            new Dictionary<string, bool>()
+        )
     { }
 
     public LevelSaveData this[int levelId]
@@ -97,6 +98,16 @@ public class PlayerData
         }
         return levelData[levelId].isQuestCompleted(questId);
     }
+
+    public void AddSeenInstruction(string instructionName)
+    {
+        if (!seenInstructions.ContainsKey(instructionName))
+        {
+            seenInstructions[instructionName] = true;
+        }
+    }
+
+    public bool HasSeenInstruction(string instructionName) => seenInstructions.ContainsKey(instructionName);
 }
 
 [System.Serializable]
