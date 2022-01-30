@@ -15,6 +15,9 @@ public class AudioManager : MonoBehaviour
     {
         CheckSingleton();
 
+        // detach parent
+        transform.parent = null;
+
         if (keepThroughScenes)
             DontDestroyOnLoad(gameObject);
 
