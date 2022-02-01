@@ -6,6 +6,7 @@ using UnityEngine;
 public class KillQuest : Quest
 {
     public int remainingEnemyCount = 0;
+    public string specificEntityName;
 
     public override bool CheckCompletion()
     {
@@ -14,6 +15,24 @@ public class KillQuest : Quest
 
     private int GetEnemyRemainingCount()
     {
-        return GameObject.FindObjectsOfType<Health>().Length - 1;
+        int enemyCount = 0;
+
+        Fighter[] enemyComponents = GameObject.FindObjectsOfType<Fighter>();
+
+        if (specificEntityName.Length == 0)
+        {
+            enemyCount = enemyComponents.Length;
+        }
+        else
+        {
+            foreach (Fighter enemyComponent in enemyComponents)
+            {
+                if (enemyComponent.GetComponent<EntityInspector>().entityName == specificEntityName)
+                {
+                    enemyCount++;
+                }
+            }
+        }
+        return enemyCount;
     }
 }
