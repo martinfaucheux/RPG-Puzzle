@@ -10,10 +10,10 @@ public class KillQuest : Quest
 
     public override bool CheckCompletion()
     {
-        return GetEnemyRemainingCount() == remainingEnemyCount;
+        return GetRemainingEnemyCount() == remainingEnemyCount;
     }
 
-    private int GetEnemyRemainingCount()
+    private int GetRemainingEnemyCount()
     {
         int enemyCount = 0;
 

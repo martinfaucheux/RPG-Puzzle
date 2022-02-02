@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 994944594e06ec14c90fc6e914d556e5, type: 3}
-  m_Name: Level 6
+  m_Script: {fileID: 11500000, guid: bec8229839bfed64cb0fef42fcdc09ce, type: 3}
+  m_Name: Keep1PotionQuest
   m_EditorClassIdentifier: 
-  sceneName: Level 6 - Level up right time
-  sceneBuildIndex: 10
-  gemCount: 1
-  quests:
-  - {fileID: 11400000, guid: ee5999a19ec593744b5cae281291a6f2, type: 2}
+  questName: Use only one potion
+  remainingItemCount: 1
+  item: {fileID: 11400000, guid: 8bb2d34e6178f72489b04189d9b2a31c, type: 2}
