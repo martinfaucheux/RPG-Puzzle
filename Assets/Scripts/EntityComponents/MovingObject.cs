@@ -124,20 +124,13 @@ public class MovingObject : MonoBehaviour
         // start cooldown for action
         SetNotReady();
 
-        GameObject collidingObject = _matrixCollider.GetObjectInDirection(direction);
+        MatrixCollider otherCollider = _matrixCollider.GetObjectInDirection(direction);
         bool canMove = true;
 
-        if (collidingObject != null)
+        if (otherCollider != null)
         {
-            MatrixCollider otherCollider = collidingObject.GetComponent<MatrixCollider>();
-            ActivableObject activableObject = collidingObject.GetComponent<ActivableObject>();
+            ActivableObject activableObject = otherCollider.GetComponent<ActivableObject>();
             canMove = !otherCollider.IsBlocking;
-
-            if (otherCollider == null)
-            {
-                Debug.LogError(otherCollider.ToString() + ": colliding but no collider found");
-                return;
-            }
 
             if (activableObject != null)
             {
@@ -157,10 +150,10 @@ public class MovingObject : MonoBehaviour
     private void LeavePosition(Vector2Int previousPosition)
     {
 
-        List<GameObject> objectsAtPosition = CollisionMatrix.instance.GetObjectsAtPosition(previousPosition);
-        foreach (GameObject gameObject in objectsAtPosition)
+        List<MatrixCollider> collidersAtPosition = CollisionMatrix.instance.GetObjectsAtPosition(previousPosition);
+        foreach (MatrixCollider matrixCollider in collidersAtPosition)
         {
-            ActivableObject leavingActivableObject = gameObject.GetComponent<ActivableObject>();
+            ActivableObject leavingActivableObject = matrixCollider.GetComponent<ActivableObject>();
             if (leavingActivableObject != null)
             {
                 leavingActivableObject.OnLeave();

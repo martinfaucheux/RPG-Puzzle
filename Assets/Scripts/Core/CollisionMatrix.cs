@@ -55,26 +55,26 @@ public class CollisionMatrix : MonoBehaviour
 
 
     // get the first object found at the given position
-    public GameObject GetObjectAtPosition(Vector2Int matrixPosition)
+    public MatrixCollider GetObjectAtPosition(Vector2Int matrixPosition)
     {
         foreach (MatrixCollider collider in colliderList)
         {
             if (collider.matrixPosition == matrixPosition)
             {
-                return collider.gameObject;
+                return collider;
             }
         }
         return null;
     }
 
-    public List<GameObject> GetObjectsAtPosition(Vector2Int matrixPosition)
+    public List<MatrixCollider> GetObjectsAtPosition(Vector2Int matrixPosition)
     {
-        List<GameObject> result = new List<GameObject>();
+        List<MatrixCollider> result = new List<MatrixCollider>();
         foreach (MatrixCollider collider in colliderList)
         {
             if (collider.matrixPosition == matrixPosition)
             {
-                result.Add(collider.gameObject);
+                result.Add(collider);
             }
         }
         return result;

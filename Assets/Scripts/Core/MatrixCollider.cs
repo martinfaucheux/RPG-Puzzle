@@ -34,7 +34,7 @@ public class MatrixCollider : MonoBehaviour
         return _collisionMatrix.IsValidPosition(futureMatrixPosition);
     }
 
-    public GameObject GetObjectInDirection(Direction direction)
+    public MatrixCollider GetObjectInDirection(Direction direction)
     {
         Vector2Int positionToCheck = matrixPosition + direction.ToPos();
 
