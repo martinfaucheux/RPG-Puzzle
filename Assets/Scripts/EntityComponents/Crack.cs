@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Crack : ActivableObject
 {
-    private bool isWalkable = true;
+    public bool isWalkable
+    {
+        get; private set;
+    } = true;
 
     public Sprite activatedSprite;
 
@@ -16,13 +19,15 @@ public class Crack : ActivableObject
 
     public override void OnLeave()
     {
-        if(isWalkable){
+        if (isWalkable)
+        {
             isWalkable = false;
             UpdateSprite();
         }
     }
 
-    private void UpdateSprite(){
+    private void UpdateSprite()
+    {
         SpriteRenderer spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         spriteRenderer.sprite = activatedSprite;
     }
