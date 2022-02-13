@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using UnityEngine.EventSystems;
 public class SkillSelectorUI : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI skillNameTextComponent;
@@ -11,59 +11,117 @@ public class SkillSelectorUI : MonoBehaviour
     [SerializeField] string defaultDescription;
     [SerializeField] Button unlockSkillButton;
     [SerializeField] TextMeshProUGUI buttonText;
+    List<SkillSlotUI> _skillSlots = new List<SkillSlotUI>();
 
-    private Skill _selectedSkill;
+    private SkillSlotUI _selectedSkillSlot;
+    private EventSystem _eventSystem;
 
-
-    void Start(){
-        ClearSkill();
+    private Skill _selectedSkill
+    {
+        get
+        {
+            if (_selectedSkillSlot != null)
+                return _selectedSkillSlot.skill;
+            return null;
+        }
     }
 
-    public void SelectSkill(Skill skill){
-        _selectedSkill = skill;
-        skillNameTextComponent.text = skill.skillName;
-        skillDescriptionTextComponent.text = skill.skillDescription;
-        UpdateUI(skill);
+
+    void Start()
+    {
+        UpdateUI();
+        GameEvents.instance.onCloseSkillMenu += UnselectSkill;
+        _eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
 
-    public void ClearSkill(){
-        skillNameTextComponent.text = "";
-        skillDescriptionTextComponent.text = defaultDescription;
+    void OnDestrot()
+    {
+        GameEvents.instance.onCloseSkillMenu -= UnselectSkill;
+    }
+
+    public void Register(SkillSlotUI skillSlot)
+    {
+        _skillSlots.Add(skillSlot);
+    }
+
+    public void Toggle(SkillSlotUI skillSlot)
+    {
+        // called when a skill button is clicked
+        if (skillSlot == _selectedSkillSlot)
+        {
+            // TODO: update buttons color
+            _selectedSkillSlot = null;
+            _eventSystem.SetSelectedGameObject(null);
+        }
+        else
+        {
+            // TODO: update buttons color
+            _selectedSkillSlot = skillSlot;
+            _selectedSkillSlot.SetButtonSelect();
+        }
         UpdateUI();
     }
 
-    public void UnlockSkill(){
+    private void UnselectSkill()
+    {
+        _selectedSkillSlot = null;
+        UpdateUI();
+    }
+
+    public void UnlockSelectedSkill()
+    {
         bool result = SkillManager.instance.Unlock(_selectedSkill);
-        if (!result){
+        if (!result)
+        {
             SkillCounterWizzer.instance?.Wizz();
         }
-        UpdateUI(_selectedSkill);
+        UpdateUI();
     }
 
-
-    private void UpdateUI(Skill skill){
-        SetButtonInteractable(skill);
-        SetButtonText(skill);
+    private void UpdateUI()
+    {
+        SetSkillText();
+        SetUnlockButtonInteractable();
+        SetButtonText();
     }
-    private void UpdateUI() => UpdateUI(null);
 
-    private void SetButtonInteractable(Skill skill){
+    private void SetUnlockButtonInteractable()
+    {
+        // TODO: doesn't work all the time
         bool interactable = false;
 
-        if(skill != null){
+        if (_selectedSkill != null)
+        {
             interactable = (
-                !SkillManager.instance.IsUnlocked(skill)
+                !SkillManager.instance.IsUnlocked(_selectedSkill)
                 && SkillManager.instance.skillPoints > 0
             );
         }
         unlockSkillButton.interactable = interactable;
     }
 
-    private void SetButtonText(Skill skill){
+    private void SetButtonText()
+    {
         string text = "Unlock";
-        if(skill != null && SkillManager.instance.IsUnlocked(skill)){
+        if (_selectedSkill != null && SkillManager.instance.IsUnlocked(_selectedSkill))
+        {
             text = "Unlocked!";
         }
         buttonText.text = text;
+    }
+
+    private void SetSkillText()
+    {
+        string skillName = "";
+        string skillDescription = "";
+        if (_selectedSkill != null)
+        {
+            skillName = _selectedSkill.skillName;
+            skillDescription = _selectedSkill.skillDescription;
+
+        }
+        skillNameTextComponent.text = skillName;
+        skillDescriptionTextComponent.text = skillDescription;
+
     }
 }
