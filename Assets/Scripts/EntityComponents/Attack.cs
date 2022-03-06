@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class Attack : MonoBehaviour
@@ -137,10 +137,9 @@ public class Attack : MonoBehaviour
         return null;
     }
 
-    // TODO: fix object pooling
     private IEnumerator AnimateSlice(Direction direction)
     {
-        GameObject attackEffectObject = ObjectPool.GetPool("attack").GetPooledObject();
+        GameObject attackEffectObject = GameObjectPool.instance.GetOrCreate("AttackAnimation");
         attackEffectObject.transform.position = transform.position;
         attackEffectObject.gameObject.SetActive(true);
         attackEffectObject.GetComponent<Animator>().SetTrigger("attack");
