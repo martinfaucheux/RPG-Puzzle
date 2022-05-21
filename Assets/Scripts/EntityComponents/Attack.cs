@@ -121,10 +121,11 @@ public class Attack : MonoBehaviour
 
     private void FaceOpponent(MatrixCollider opponentCollider)
     {
+        // TODO: GetDirectionToOppenent doesn't give the right result
         Direction faceDirection = GetDirectionToOppenent(opponentCollider);
         if (faceDirection != null & _movingObject != null)
         {
-            _movingObject.Face(faceDirection);
+            _spriteHolder.FaceDirection(faceDirection);
         }
     }
 

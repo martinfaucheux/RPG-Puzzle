@@ -161,22 +161,11 @@ public class MovingObject : MonoBehaviour
         }
     }
 
-    public void Face(Direction direction)
+    private void Face(Direction direction)
     {
         if (_spriteHolder != null)
         {
             _spriteHolder.FaceDirection(direction);
-        }
-        else if (_spriteRenderer != null)
-        {
-            if (direction == Direction.RIGHT)
-            {
-                _spriteRenderer.flipX = false;
-            }
-            else if (direction == Direction.LEFT)
-            {
-                _spriteRenderer.flipX = true;
-            }
         }
     }
 }
