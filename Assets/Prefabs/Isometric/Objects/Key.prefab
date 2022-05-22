@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3611613659097909225}
   - component: {fileID: 3946198430402980672}
   - component: {fileID: 1882202569}
+  - component: {fileID: 4381812600116693707}
   m_Layer: 0
   m_Name: SpriteHolder
   m_TagString: Untagged
@@ -149,6 +150,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4381812600116693707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3611613659097909206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a55cdf34e9bc7348ae6b0bfc00434db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8953833336809043528
 GameObject:
   m_ObjectHideFlags: 0
