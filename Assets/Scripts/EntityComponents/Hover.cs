@@ -18,7 +18,6 @@ public class Hover : MonoBehaviour
         if (randomize)
         {
             _randomness = Random.Range(0f, hoverPerdiod);
-            Debug.Log("randomness: " + _randomness.ToString());
         }
     }
 

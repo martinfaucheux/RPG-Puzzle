@@ -21,7 +21,7 @@ public class OverHeadHealth : MonoBehaviour
         }
 
         _healthComponent = GetComponentInParent<Health>();
-        if(_healthComponent == null)
+        if (_healthComponent == null)
         {
             Debug.LogError(gameObject.ToString() + ": Cannot find Health Component in parents");
         }
@@ -63,7 +63,7 @@ public class OverHeadHealth : MonoBehaviour
     public void Hide()
     {
         // for each image in the list disable it
-        foreach(Image image in _imageList)
+        foreach (Image image in _imageList)
         {
             image.enabled = false;
         }
@@ -80,7 +80,7 @@ public class OverHeadHealth : MonoBehaviour
         isShowing = true;
     }
 
-    private void OnHealthChange(int healthID)
+    private void OnHealthChange(int healthID, int initValue, int finalValue)
     {
         if (healthID == _healthComponent.GetInstanceID())
         {
@@ -90,7 +90,7 @@ public class OverHeadHealth : MonoBehaviour
 
     private void UpdateUI()
     {
-        float healthPercentage = (float) _healthComponent.CurrentHealthPoints / (float) _healthComponent.MaxHealthPoints;
+        float healthPercentage = (float)_healthComponent.CurrentHealthPoints / (float)_healthComponent.MaxHealthPoints;
 
         float barMaxWidth = healthBarRectTransform.sizeDelta.x;
         float fillWidth = barMaxWidth * healthPercentage;

@@ -1701,6 +1701,7 @@ GameObject:
   - component: {fileID: 6291834941455025608}
   - component: {fileID: 6291834942543316733}
   - component: {fileID: 21339646}
+  - component: {fileID: 4073468832547930164}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1881,6 +1882,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flashDuration: 0.2
   materialPropertyName: _FlashIntensity
+--- !u!114 &4073468832547930164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513580360118921162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2a69b3954c21c42978a8196cb90f6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _healthComponent: {fileID: 4513580360118921167}
+  _defaultTextColor: {r: 0.8117648, g: 0, b: 0.3647059, a: 1}
+  showNoDamage: 0
+  showHealing: 1
+  _healColor: {r: 0.27058825, g: 0.7803922, b: 0.5372549, a: 1}
 --- !u!1 &5119206596168098058
 GameObject:
   m_ObjectHideFlags: 0

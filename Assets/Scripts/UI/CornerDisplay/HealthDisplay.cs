@@ -30,9 +30,9 @@ public class HealthDisplay : UIBarDisplay
         base.Start();
     }
 
-    private void OnPlayerHealthChange(int healthID)
+    private void OnPlayerHealthChange(int healthID, int initValue, int finalValue)
     {
-        if(healthID == _healthComponent.GetInstanceID())
+        if (healthID == _healthComponent.GetInstanceID())
         {
             UpdateUI();
         }
@@ -53,7 +53,7 @@ public class HealthDisplay : UIBarDisplay
         HeartUI[] heartComponents = imageContainerTransform.GetComponentsInChildren<HeartUI>();
         int imageCount = heartComponents.Length;
 
-        for(int i=0; i < imageCount; i++)
+        for (int i = 0; i < imageCount; i++)
         {
             if (i < _healthComponent.CurrentHealthPoints)
                 heartComponents[i].SetToFull();

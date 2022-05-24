@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Health : MonoBehaviour {
-
+public class Health : MonoBehaviour
+{
     // public int maxHealthPoints;
     public int CurrentHealthPoints
     {
         get { return _currentHealth; }
-        set {
+        set
+        {
+            int initValue = _currentHealth;
             _currentHealth = value;
-            GameEvents.instance.HealthChangeTrigger(GetInstanceID());
+            GameEvents.instance.HealthChangeTrigger(GetInstanceID(), initValue, value);
         }
     }
 
@@ -19,8 +21,9 @@ public class Health : MonoBehaviour {
         get { return _maxHealthPoints; }
         set
         {
+            int initValue = _currentHealth;
             _maxHealthPoints = value;
-            GameEvents.instance.HealthChangeTrigger(GetInstanceID());
+            GameEvents.instance.HealthChangeTrigger(GetInstanceID(), initValue, value);
         }
     }
 
@@ -32,18 +35,19 @@ public class Health : MonoBehaviour {
     [SerializeField] int _currentHealth;
     [SerializeField] int _maxHealthPoints;
     private SpriteFlasher _spriteFlasher;
-    
+
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
 
         CurrentHealthPoints = MaxHealthPoints;
         _spriteFlasher = GetComponent<SpriteFlasher>();
-	}
+    }
 
     public float GetHealthPercentage()
     {
-        return (float) CurrentHealthPoints / (float) MaxHealthPoints;
+        return (float)CurrentHealthPoints / (float)MaxHealthPoints;
     }
 
     public void TakeDamage(int damagePoints)
@@ -55,14 +59,16 @@ public class Health : MonoBehaviour {
 
         CurrentHealthPoints = newValue;
 
-        if (tag == "Player"){
+        if (tag == "Player")
+        {
+            // TODO: use HealthChange event instead
             GameEvents.instance.PlayerGetDamage();
         }
 
-        if (damagePoints > 0 && _spriteFlasher != null){
+        if (damagePoints > 0 && _spriteFlasher != null)
+        {
             _spriteFlasher.Flash();
         }
-
 
         if (CurrentHealthPoints <= 0)
         {
@@ -103,6 +109,6 @@ public class Health : MonoBehaviour {
         {
             GameManager.instance.GameOver();
         }
-        
+
     }
 }

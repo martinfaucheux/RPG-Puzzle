@@ -40,7 +40,6 @@ public class ExpBall : MonoBehaviour
 
     private void OnComplete()
     {
-        // Destroy(gameObject);
         gameObject.SetActive(false);
     }
 

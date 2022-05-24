@@ -6,7 +6,7 @@ public class GameEvents : MonoBehaviour
     public static GameEvents instance = null;
 
     public event Action onEnterLevelUp;
-    public event Action<int> onHealthChange;
+    public event Action<int, int, int> onHealthChange;
     public event Action<int> onAttackChange;
     public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
@@ -50,11 +50,11 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public void HealthChangeTrigger(int healthID)
+    public void HealthChangeTrigger(int healthID, int initValue, int finalValue)
     {
         if (onHealthChange != null)
         {
-            onHealthChange(healthID);
+            onHealthChange(healthID, initValue, finalValue);
         }
     }
 
