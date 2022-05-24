@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DamageNumberSpawner : MonoBehaviour
 {
-    // TODO: make this non static
     static float minRadius = 0.5f;
     static float maxRadius = 0.5f;
     [SerializeField] Health _healthComponent;
@@ -14,9 +13,8 @@ public class DamageNumberSpawner : MonoBehaviour
     [SerializeField] bool showHealing = false;
     [SerializeField] Color _healColor = Color.white;
 
+    private bool isPlayer { get { return gameObject.tag == "Player"; } }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         GameEvents.instance.onHealthChange += OnHealthChange;
@@ -32,14 +30,16 @@ public class DamageNumberSpawner : MonoBehaviour
         if (instanceId == _healthComponent.GetInstanceID())
         {
             int healthDiff = finalValue - initValue;
+            if (
+                (healthDiff == 0 & !showNoDamage)
+                | (healthDiff > 0 & !showHealing)
 
-            if (healthDiff == 0 & !showNoDamage)
+            )
             {
                 return;
             }
 
             Color textColor = _defaultTextColor;
-
             string damageText = Mathf.Abs(healthDiff).ToString();
             if (showHealing)
             {
@@ -51,14 +51,9 @@ public class DamageNumberSpawner : MonoBehaviour
                 }
                 damageText = sign + damageText;
             }
-            else if (healthDiff > 0)
-            {
-                return;
-            }
             Spawn(damageText, GetSpawnPosition(_healthComponent.transform.position), textColor);
         }
     }
-
 
     private void Spawn(string damageText, Vector3 spawnPosition, Color textColor)
     {
@@ -77,15 +72,20 @@ public class DamageNumberSpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition(Vector3 entityPosition)
     {
+        float angle;
+        if (isPlayer)
+        {
+            angle = Random.Range(0.75f * Mathf.PI, 1.25f * Mathf.PI);
+        }
+        else
+        {
+            angle = Random.Range(-0.25f * Mathf.PI, 0.25f * Mathf.PI);
+        }
+
         float radius = Random.Range(minRadius, maxRadius);
-        float angle = Random.Range(0, Mathf.PI);
         Vector3 offset = radius * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 1f);
 
         return entityPosition + Constant.camAngle * offset;
 
     }
-
-
-
-
 }

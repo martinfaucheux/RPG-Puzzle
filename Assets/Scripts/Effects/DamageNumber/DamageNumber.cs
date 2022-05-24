@@ -30,7 +30,6 @@ public class DamageNumber : MonoBehaviour
         LeanTween.scale(gameObject, 1.2f * Vector3.one, popDuration).setLoopPingPong(1).setOnComplete(FadeAway);
 
         // Make a bump animation on the camera y axis
-        // TODO: make it a constant
         Vector3 upVect = bumpHeight * (Constant.camAngle * Vector2.up);
         LeanTween.move(gameObject, gameObject.transform.position + upVect, popDuration).setLoopPingPong(1);
 

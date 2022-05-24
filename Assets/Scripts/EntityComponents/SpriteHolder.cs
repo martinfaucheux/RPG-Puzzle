@@ -33,27 +33,34 @@ public class SpriteHolder : MonoBehaviour
 
     public void FaceDirection(Direction direction)
     {
-        if (_hasUniqueSprite & flipForFacing){
+        if (_hasUniqueSprite & flipForFacing)
+        {
             FlipSprite(direction);
         }
-        else if (!_hasUniqueSprite){
-            foreach(GameObject go in GetSpriteGameObjects()){
-                if (go != null){
+        else if (!_hasUniqueSprite)
+        {
+            foreach (GameObject go in GetSpriteGameObjects())
+            {
+                if (go != null)
+                {
                     go.SetActive(false);
                 }
             }
             GameObject spriteGO = GetSpriteGOForDirection(direction);
-            if (spriteGO != null){
+            if (spriteGO != null)
+            {
                 spriteGO.SetActive(true);
                 Animator childAnimator = spriteGO.GetComponent<Animator>();
-                if (childAnimator != null){
+                if (childAnimator != null)
+                {
                     activeAnimator = childAnimator;
                 }
             }
         }
     }
 
-    private void FlipSprite(Direction direction){
+    private void FlipSprite(Direction direction)
+    {
         if (direction == Direction.RIGHT)
         {
             Vector3 scale = spriteHolderTransform.localScale;
@@ -73,15 +80,15 @@ public class SpriteHolder : MonoBehaviour
     public void BumpOrderLayer(int slide)
     // TODO: this should go to another component. Used only in GameOverMask FadeIn method
     {
-        foreach(SpriteRenderer spriteRenderer in _spriteRenderers)
+        foreach (SpriteRenderer spriteRenderer in _spriteRenderers)
         {
             int newSortingOrder = spriteRenderer.sortingOrder + slide;
             spriteRenderer.sortingOrder = newSortingOrder;
         }
     }
 
-    public void Randomize(bool allowFlipX=true, bool allowFlipY=true, bool allowRotate=true)
-    // TODO: this should to to another component
+    public void Randomize(bool allowFlipX = true, bool allowFlipY = true, bool allowRotate = true)
+    // TODO: this should go to another component
     {
         Vector3 scale = spriteHolderTransform.localScale;
         float scaleX = scale.x;
@@ -114,7 +121,8 @@ public class SpriteHolder : MonoBehaviour
         Direction direction,
         float animatonAmplitude = 0.3f,
         float animationDuration = 0.2f
-    ){
+    )
+    {
         StartCoroutine(AttackMoveSpriteCoroutine(direction, animatonAmplitude, animationDuration));
     }
 
@@ -122,7 +130,8 @@ public class SpriteHolder : MonoBehaviour
         Direction direction,
         float amplitude,
         float moveDuration
-    ){
+    )
+    {
         //Vector3 initPos = spriteHolderTransform.position;
         Vector3 initPos = transform.position;
         Vector3 vectDiff = CollisionMatrix.instance.GetRealWorldVector(direction);
@@ -130,7 +139,7 @@ public class SpriteHolder : MonoBehaviour
         float moveHalfDuration = moveDuration / 2;
 
         float timeSinceStart = 0f;
-        while(timeSinceStart < moveHalfDuration)
+        while (timeSinceStart < moveHalfDuration)
         {
             float percentMovement = timeSinceStart / moveHalfDuration;
             Vector3 newPos = initPos + percentMovement * (targetPos - initPos);
@@ -154,27 +163,30 @@ public class SpriteHolder : MonoBehaviour
         spriteHolderTransform.position = initPos;
     }
 
-    private void DiscoverSpriteGameObjects(){
+    private void DiscoverSpriteGameObjects()
+    {
         foreach (Transform childTransform in spriteHolderTransform)
         {
-            if(childTransform.name.StartsWith(_spriteGOMarker)){
+            if (childTransform.name.StartsWith(_spriteGOMarker))
+            {
                 string transformName = childTransform.name.Replace(_spriteGOMarker, "");
 
-                switch(transformName){
-                case "NW":
-                    _sgoNW = childTransform.gameObject;
-                    break;
-                case "NE":
-                    _sgoNE = childTransform.gameObject;
-                    break;
-                case "SE":
-                    _sgoSE = childTransform.gameObject;
-                    break;
-                case "SW":
-                    _sgoSW = childTransform.gameObject;
-                    break;
-                default:
-                    break;
+                switch (transformName)
+                {
+                    case "NW":
+                        _sgoNW = childTransform.gameObject;
+                        break;
+                    case "NE":
+                        _sgoNE = childTransform.gameObject;
+                        break;
+                    case "SE":
+                        _sgoSE = childTransform.gameObject;
+                        break;
+                    case "SW":
+                        _sgoSW = childTransform.gameObject;
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -183,19 +195,23 @@ public class SpriteHolder : MonoBehaviour
             & _sgoNE != null
             & _sgoSW != null
             & _sgoSE != null
-        ){
+        )
+        {
             _hasUniqueSprite = false;
         }
     }
 
-    private GameObject[] GetSpriteGameObjects(){
+    private GameObject[] GetSpriteGameObjects()
+    {
         return new GameObject[]{
             _sgoNW, _sgoNE, _sgoSW, _sgoSE
         };
     }
 
-    private GameObject GetSpriteGOForDirection(Direction direction){
-        switch (direction.SpriteDirection){
+    private GameObject GetSpriteGOForDirection(Direction direction)
+    {
+        switch (direction.SpriteDirection)
+        {
             case "NW":
                 return _sgoNW;
             case "NE":
@@ -205,7 +221,7 @@ public class SpriteHolder : MonoBehaviour
             case "SW":
                 return _sgoSW;
             default:
-                return null; 
+                return null;
         }
     }
 }

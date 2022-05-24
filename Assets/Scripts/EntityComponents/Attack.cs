@@ -112,7 +112,7 @@ public class Attack : MonoBehaviour
             float animationDuration = GameManager.instance.actionDuration;
             _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
         }
-        // TODO: use pooling to loose reference to AttackAnimation component
+        // TODO: use pooling to lose reference to AttackAnimation component
         if (attackAnimComponent != null)
         {
             attackAnimComponent.Trigger(transform.position, direction);
@@ -121,7 +121,6 @@ public class Attack : MonoBehaviour
 
     private void FaceOpponent(MatrixCollider opponentCollider)
     {
-        // TODO: GetDirectionToOppenent doesn't give the right result
         Direction faceDirection = GetDirectionToOppenent(opponentCollider);
         if (faceDirection != null & _movingObject != null)
         {

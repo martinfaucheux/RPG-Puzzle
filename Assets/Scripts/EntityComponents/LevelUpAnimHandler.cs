@@ -18,13 +18,6 @@ public class LevelUpAnimHandler : MonoBehaviour
         initFloatingTextPos = floatingTextComponent.transform.localPosition;
     }
 
-    void Update()
-    {
-        // TODO: This is for debugging. Remove this.
-        if (Input.GetKeyDown(KeyCode.P))
-            AnimateLevelUp();
-    }
-
     public void AnimateLevelUp()
     {
         spriteFlasher.Flash();
