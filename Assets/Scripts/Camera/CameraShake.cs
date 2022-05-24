@@ -15,6 +15,7 @@ public class CameraShake : MonoBehaviour
     private bool _isShaking = false;
     private Vector3 _initPos;
     private Quaternion _initRotation;
+    private int _playerInstanceId;
 
     void Awake()
     {
@@ -33,9 +34,36 @@ public class CameraShake : MonoBehaviour
 
     private void Start()
     {
+        GameObject playerGo = GameObject.FindGameObjectWithTag("Player");
+        if (playerGo != null)
+        {
+            _playerInstanceId = playerGo.GetComponent<Health>().GetInstanceID();
+        }
+
+
         _initPos = transform.position;
         _initRotation = transform.rotation;
-        GameEvents.instance.onPlayerGetDamage += Shake;
+        GameEvents.instance.onHealthChange += OnHealthChange;
+        GameEvents.instance.onEnterLevelUp += Shake;
+    }
+
+    void OnDestroy()
+    {
+        GameEvents.instance.onHealthChange -= OnHealthChange;
+        GameEvents.instance.onEnterLevelUp -= Shake;
+    }
+
+    private void OnHealthChange(int instanceId, int initValue, int targetValue)
+    {
+        if (
+            // only for player
+            instanceId == _playerInstanceId
+            // only damage (no healing)
+            & targetValue < initValue
+        )
+        {
+            Shake();
+        }
     }
 
     // private void Update()
@@ -56,7 +84,7 @@ public class CameraShake : MonoBehaviour
         if (!_isShaking)
         {
             StartCoroutine(ShakeCoroutine(duration, magnitude, iterations));
-        
+
             if (defaultShakeAngle > 0f)
             {
                 StartCoroutine(ShakeRotationCoroutine(duration, defaultShakeAngle, iterations));
@@ -68,14 +96,15 @@ public class CameraShake : MonoBehaviour
     {
         _isShaking = true;
 
-        float timeSinceStart= 0f;
-        float timeSinceIteration= 0f;
+        float timeSinceStart = 0f;
+        float timeSinceIteration = 0f;
 
-        for(int i=0; i < iterations; i++){
+        for (int i = 0; i < iterations; i++)
+        {
 
             Vector3 unitVector = GetRandomUnitVector(magnitude);
 
-            while(timeSinceIteration < duration)
+            while (timeSinceIteration < duration)
             {
                 timeSinceIteration = timeSinceStart - (i * duration);
 
@@ -96,7 +125,8 @@ public class CameraShake : MonoBehaviour
     private IEnumerator ShakeRotationCoroutine(float duration, float maxAngle, int occurences)
     {
 
-        for(int i=0; i < occurences; i++){
+        for (int i = 0; i < occurences; i++)
+        {
 
             maxAngle = GetRandomAngle(maxAngle);
             transform.Rotate(new Vector3(0f, 0f, maxAngle));
@@ -104,7 +134,7 @@ public class CameraShake : MonoBehaviour
             float timeSinceIteration = 0f;
             while (timeSinceIteration < duration)
             {
-                float diffAngle = - maxAngle * (Time.deltaTime / duration);
+                float diffAngle = -maxAngle * (Time.deltaTime / duration);
                 transform.Rotate(new Vector3(0f, 0f, diffAngle));
 
                 timeSinceIteration += Time.deltaTime;
@@ -115,13 +145,15 @@ public class CameraShake : MonoBehaviour
         transform.rotation = _initRotation;
     }
 
-    private static Vector3 GetRandomUnitVector(float magnitude){
+    private static Vector3 GetRandomUnitVector(float magnitude)
+    {
         Vector2 _unitVector = Random.insideUnitCircle;
         _unitVector.Normalize();
-        return (Vector3) _unitVector;
+        return (Vector3)_unitVector;
     }
 
-    private static float GetRandomAngle(float angle){
+    private static float GetRandomAngle(float angle)
+    {
         return (Random.value > 0.5f) ? angle : -angle;
     }
 }
