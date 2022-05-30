@@ -23,8 +23,6 @@ public class PlayerTurnActor : TurnActor
     {
         if (
             TurnManager.instance.isReady
-            // TODO: is it useful?
-            & movingObject.IsReady()
             & GameManager.instance.playerCanMove
             & !GameManager.instance.isEndOfLevelScreen
             & !GameManager.instance.isGamePaused
