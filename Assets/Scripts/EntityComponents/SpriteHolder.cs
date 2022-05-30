@@ -224,4 +224,12 @@ public class SpriteHolder : MonoBehaviour
                 return null;
         }
     }
+
+    public void HideSprites()
+    {
+        foreach (GameObject spriteGameObjects in GetSpriteGameObjects())
+        {
+            spriteGameObjects.SetActive(false);
+        }
+    }
 }

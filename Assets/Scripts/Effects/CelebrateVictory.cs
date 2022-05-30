@@ -4,37 +4,32 @@ using UnityEngine;
 
 public class CelebrateVictory : MonoBehaviour
 {
+    [SerializeField] SpriteRenderer knightSpriteRender;
+    [SerializeField] SpriteRenderer diamondSpriteRender;
+    [SerializeField] SpriteHolder spriteHolder;
 
     void Start()
     {
         GameEvents.instance.onEndOfLevel += Trigger;
     }
 
-    void OnDestroy(){
+    void OnDestroy()
+    {
         GameEvents.instance.onEndOfLevel -= Trigger;
     }
 
-    private void Trigger(){
+    private void Trigger()
+    {
         StartCoroutine(TriggerCouroutine());
     }
 
-    private IEnumerator TriggerCouroutine(){
-        
-        // wait for next frame to make sure the final animator is enabled
-        yield return null;
-
-        Animator activeAnimator = GetComponentInParent<SpriteHolder>().activeAnimator;
-        activeAnimator.SetBool("celebrate", true);
-
-        // replace the different sprite parts by the unique "celebrate" sprite
-        // at the end of movement
+    private IEnumerator TriggerCouroutine()
+    {
+        // wait for movement to finish
         yield return new WaitForSeconds(GameManager.instance.actionDuration);
-        while (!activeAnimator.GetCurrentAnimatorStateInfo(0).IsName("Celebrate")){
-            yield return null;
-        }
-        foreach(Transform childTransform in activeAnimator.transform){
-            childTransform.gameObject.SetActive(false);
-        }
-        GetComponent<SpriteRenderer>().enabled = true;
+
+        spriteHolder.HideSprites();
+        knightSpriteRender.enabled = true;
+        diamondSpriteRender.enabled = true;
     }
 }
