@@ -1,12 +1,12 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : ActivableObject
 {
     // return true if source object can move after activation
-    public override bool Activate(GameObject sourceObject = null)
+    public override IEnumerator Activate(GameObject sourceObject)
     {
+        allowMovement = false;
         Inventory inventoryComponent = sourceObject.GetComponent<Inventory>();
         if (inventoryComponent != null)
         {
@@ -16,12 +16,12 @@ public class Door : ActivableObject
                 Debug.Log("Player unlocked a door with a key");
 
                 // TODO: move this at the right place
-                GameEvents.instance.UserItemTrigger((Key) ScriptableObject.CreateInstance(typeof(Key)));
+                GameEvents.instance.UserItemTrigger((Key)ScriptableObject.CreateInstance(typeof(Key)));
 
+                allowMovement = true;
                 Destroy(this.gameObject, 0.05f);
-                return true;
             }
         }
-        return false;
+        yield return allowMovement;
     }
 }

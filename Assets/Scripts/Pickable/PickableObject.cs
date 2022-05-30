@@ -31,13 +31,14 @@ public class PickableObject : ActivableObject
     }
 
     // return true if source object can move after activation
-    public override bool Activate(GameObject sourceObject = null)
+    public override IEnumerator Activate(GameObject sourceObject)
     {
         if (item.CanPickUp(sourceObject))
         {
             item.OnPickUp(sourceObject);
-            Destroy(gameObject, 0.05f); // delete the object shortly
+            Destroy(gameObject, 0.05f); // delete the object shortly after
         }
-        return true;
+        allowMovement = true;
+        yield return allowMovement;
     }
 }

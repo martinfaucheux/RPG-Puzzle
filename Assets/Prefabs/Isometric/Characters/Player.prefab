@@ -1692,7 +1692,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4513580360118921160}
   - component: {fileID: 4513580360118921164}
-  - component: {fileID: 4513580360118921165}
   - component: {fileID: 4513580360118921167}
   - component: {fileID: 4513580360118921166}
   - component: {fileID: 4513580360118921155}
@@ -1702,6 +1701,8 @@ GameObject:
   - component: {fileID: 6291834942543316733}
   - component: {fileID: 21339646}
   - component: {fileID: 4073468832547930164}
+  - component: {fileID: 810018853486447506}
+  - component: {fileID: 7113799416812331494}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1738,22 +1739,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   matrixPosition: {x: 0, y: 0}
   IsBlocking: 0
---- !u!114 &4513580360118921165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4513580360118921162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2306cae2380a4140b3a09758e72f1e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blockingLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  paceSoundName: Pace
 --- !u!114 &4513580360118921167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1899,6 +1884,35 @@ MonoBehaviour:
   showNoDamage: 0
   showHealing: 1
   _healColor: {r: 0.27058825, g: 0.7803922, b: 0.5372549, a: 1}
+--- !u!114 &810018853486447506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513580360118921162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bdd3571d14c15c42bb814e7397428a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  paceSoundName: Pace
+--- !u!114 &7113799416812331494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4513580360118921162}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b732108d8c45c1e469548e6ce25fbc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingObject: {fileID: 810018853486447506}
 --- !u!1 &5119206596168098058
 GameObject:
   m_ObjectHideFlags: 0

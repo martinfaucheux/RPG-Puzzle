@@ -2,26 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivableObject : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class ActivableObject : MonoBehaviour
+{
+    public bool allowMovement { get; protected set; } = true;
 
     // return true if source object can move after activation
-    public virtual bool Activate(GameObject sourceObject = null) {
+    public virtual IEnumerator Activate(GameObject sourceObject)
+    {
         Debug.Log(gameObject.ToString() + ": Activated");
-        return true;
+        allowMovement = true;
+        yield return allowMovement;
     }
 
-	// function that will be ran once the player exit the case
-	public virtual void OnLeave(){
-		return;
-	}
+    // function that will be ran once the player exit the case
+    public virtual void OnLeave()
+    {
+        return;
+    }
 }

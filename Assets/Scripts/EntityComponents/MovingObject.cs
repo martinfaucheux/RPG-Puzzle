@@ -95,9 +95,9 @@ public class MovingObject : MonoBehaviour
         _isMoving = false;
     }
 
-    protected virtual bool Move(Direction direction)
+    protected virtual IEnumerator Move(Direction direction)
     {
-        Face(direction);
+        _spriteHolder.FaceDirection(direction);
 
         // update collider position
         _matrixCollider.matrixPosition += direction.ToPos();
@@ -107,19 +107,16 @@ public class MovingObject : MonoBehaviour
         // need to use a CollisionMatrix method instead
         Vector3 realPosEnd = realPosStart + CollisionMatrix.instance.GetRealWorldVector(direction);
 
-        StartCoroutine(SmoothMovement(realPosEnd));
-
         // play sound
         if (paceSoundName.Length > 0)
         {
             AudioManager.instance?.Play(paceSoundName);
         }
 
-        // return True if we successfuly move
-        return true;
+        yield return StartCoroutine(SmoothMovement(realPosEnd));
     }
 
-    protected virtual void AttemptMove(Direction direction)
+    public virtual IEnumerator AttemptMove(Direction direction)
     {
         // start cooldown for action
         SetNotReady();
@@ -134,7 +131,8 @@ public class MovingObject : MonoBehaviour
 
             if (activableObject != null)
             {
-                canMove = activableObject.Activate(gameObject);
+                yield return StartCoroutine(activableObject.Activate(gameObject));
+                canMove = activableObject.allowMovement;
             }
         }
 
@@ -142,7 +140,7 @@ public class MovingObject : MonoBehaviour
         if (_matrixCollider.IsValidDirection(direction) & canMove)
         {
             LeavePosition(_matrixCollider.matrixPosition);
-            Move(direction);
+            yield return StartCoroutine(Move(direction));
         }
     }
 
@@ -158,14 +156,6 @@ public class MovingObject : MonoBehaviour
             {
                 leavingActivableObject.OnLeave();
             }
-        }
-    }
-
-    private void Face(Direction direction)
-    {
-        if (_spriteHolder != null)
-        {
-            _spriteHolder.FaceDirection(direction);
         }
     }
 }

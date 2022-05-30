@@ -268,7 +268,7 @@ MonoBehaviour:
   expRewardPoints: 1
   isDead: 0
   _currentHealth: 0
-  _maxHealthPoints: 2
+  _maxHealthPoints: 3
 --- !u!114 &868061431883986106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,6 +379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthComponent: {fileID: 868061431883986100}
   _defaultTextColor: {r: 1, g: 1, b: 1, a: 1}
+  showNoDamage: 1
   showHealing: 0
   _healColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &868061431907806339

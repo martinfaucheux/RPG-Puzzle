@@ -47,15 +47,12 @@ public class Player : MovingObject
         }
     }
 
-    protected override bool Move(Direction direction)
+    protected override IEnumerator Move(Direction direction)
     {
-        bool hasMoved = base.Move(direction);
-
-        // Vector2Int position = _matrixCollider.matrixPosition += direction.ToPos();
+        yield return StartCoroutine(base.Move(direction));
 
         // player has already moved at this moment
         GameEvents.instance.PlayerMoveTrigger(_matrixCollider.matrixPosition);
-        return hasMoved;
     }
 
 }
