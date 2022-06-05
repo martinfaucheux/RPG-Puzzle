@@ -2,31 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class MovingObject : MonoBehaviour
 {
-    public LayerMask blockingLayer;
     [SerializeField] string paceSoundName;
 
     protected MatrixCollider _matrixCollider;
-    private float _inverseMoveTime;
-    private float _actionCoolDownTime;
-
-    // the object can perform an action
-    private bool _isReady = false;
 
     // the object is currently moving
-    private bool _isMoving = false;
+    public bool isMoving { get; private set; } = false;
 
-    private Animator _animator;
-
-    // needed for face function
-    private SpriteRenderer _spriteRenderer;
+    // Needed to play the bump animation
     private SpriteHolder _spriteHolder;
-
-
 
     // Use this for initialization
     protected virtual void Start()
@@ -36,68 +22,14 @@ public class MovingObject : MonoBehaviour
         {
             Debug.LogError(this.gameObject.ToString() + ": MatrixCollider not found");
         }
-
-        _inverseMoveTime = 1f / GameManager.instance.actionDuration;
-
-        _animator = GetComponent<Animator>();
         _spriteHolder = GetComponent<SpriteHolder>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    protected virtual void Update()
+
+
+    protected virtual IEnumerator Move(Direction direction)
     {
-        if (!_isReady)
-        {
-            _actionCoolDownTime -= Time.deltaTime;
-            if (_actionCoolDownTime < 0)
-            {
-                _isReady = true;
-            }
-        }
-    }
-
-    public bool IsReady()
-    {
-        return _isReady & !_isMoving;
-    }
-
-    private void SetNotReady()
-    {
-        _actionCoolDownTime = GameManager.instance.actionDuration;
-        _isReady = false;
-    }
-
-    protected IEnumerator SmoothMovement(Vector3 endPos)
-    {
-        // sqr for the remaining distance
-        // = distance between the current position and the end position
-        float sqrRemainingDistance = (transform.position - endPos).sqrMagnitude;
-
-        _isMoving = true;
-        if (_spriteHolder != null & _spriteHolder.activeAnimator)
-        {
-            _spriteHolder.activeAnimator.SetTrigger("bump");
-        }
-        while (sqrRemainingDistance > float.Epsilon)
-        {
-            // move the rigidbody moveUnits units toward the end position
-            float moveUnits = _inverseMoveTime * Time.deltaTime;
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, endPos, moveUnits);
-            transform.position = newPosition;
-            sqrRemainingDistance = (transform.position - endPos).sqrMagnitude;
-            // wait for a frame before reevalue the conditions of the loop
-            yield return null;
-
-        }
-
-        // set at the correct place at the end
-        transform.position = endPos;
-        _isMoving = false;
-    }
-
-    protected virtual bool Move(Direction direction)
-    {
-        Face(direction);
+        _spriteHolder.FaceDirection(direction);
 
         // update collider position
         _matrixCollider.matrixPosition += direction.ToPos();
@@ -107,23 +39,38 @@ public class MovingObject : MonoBehaviour
         // need to use a CollisionMatrix method instead
         Vector3 realPosEnd = realPosStart + CollisionMatrix.instance.GetRealWorldVector(direction);
 
-        StartCoroutine(SmoothMovement(realPosEnd));
-
         // play sound
         if (paceSoundName.Length > 0)
         {
             AudioManager.instance?.Play(paceSoundName);
         }
 
-        // return True if we successfuly move
-        return true;
+        yield return StartCoroutine(SmoothMovement(realPosEnd));
+
+        if (gameObject.tag == "Player")
+        {
+            GameEvents.instance.PlayerMoveTrigger(_matrixCollider.matrixPosition);
+        }
     }
 
-    protected virtual void AttemptMove(Direction direction)
+    protected IEnumerator SmoothMovement(Vector3 targetPos)
     {
-        // start cooldown for action
-        SetNotReady();
+        isMoving = true;
+        if (_spriteHolder != null & _spriteHolder.activeAnimator)
+        {
+            _spriteHolder.activeAnimator.SetTrigger("bump");
+        }
+        LTDescr ltAnimation = LeanTween.move(gameObject, targetPos, GameManager.instance.actionDuration);
+        while (LeanTween.isTweening(ltAnimation.id))
+        {
+            yield return null;
+        }
+        transform.position = targetPos;
+        isMoving = false;
+    }
 
+    public virtual IEnumerator AttemptMove(Direction direction)
+    {
         MatrixCollider otherCollider = _matrixCollider.GetObjectInDirection(direction);
         bool canMove = true;
 
@@ -134,7 +81,8 @@ public class MovingObject : MonoBehaviour
 
             if (activableObject != null)
             {
-                canMove = activableObject.Activate(gameObject);
+                yield return StartCoroutine(activableObject.Activate(gameObject));
+                canMove = activableObject.allowMovement;
             }
         }
 
@@ -142,7 +90,7 @@ public class MovingObject : MonoBehaviour
         if (_matrixCollider.IsValidDirection(direction) & canMove)
         {
             LeavePosition(_matrixCollider.matrixPosition);
-            Move(direction);
+            yield return StartCoroutine(Move(direction));
         }
     }
 
@@ -158,14 +106,6 @@ public class MovingObject : MonoBehaviour
             {
                 leavingActivableObject.OnLeave();
             }
-        }
-    }
-
-    private void Face(Direction direction)
-    {
-        if (_spriteHolder != null)
-        {
-            _spriteHolder.FaceDirection(direction);
         }
     }
 }

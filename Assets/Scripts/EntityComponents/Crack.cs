@@ -12,9 +12,10 @@ public class Crack : ActivableObject
     public Sprite activatedSprite;
 
     // return true if source object can move after activation
-    public override bool Activate(GameObject sourceObject = null)
+    public override IEnumerator Activate(GameObject sourceObject)
     {
-        return isWalkable;
+        allowMovement = isWalkable;
+        yield return allowMovement;
     }
 
     public override void OnLeave()

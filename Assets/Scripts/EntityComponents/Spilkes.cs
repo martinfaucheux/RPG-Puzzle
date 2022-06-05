@@ -8,7 +8,7 @@ public class Spilkes : ActivableObject
     [SerializeField] string soundName;
 
     // return true if source object can move after activation
-    public override bool Activate(GameObject sourceObject = null)
+    public override IEnumerator Activate(GameObject sourceObject = null)
     {
         Health healthComponent = sourceObject.GetComponent<Health>();
         if (healthComponent != null)
@@ -16,6 +16,7 @@ public class Spilkes : ActivableObject
             healthComponent.TakeDamage(damage);
             AudioManager.instance.Play(soundName);
         }
-        return true;
+        allowMovement = true;
+        yield return allowMovement;
     }
 }

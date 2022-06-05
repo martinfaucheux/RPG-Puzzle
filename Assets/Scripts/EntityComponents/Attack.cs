@@ -22,7 +22,6 @@ public class Attack : MonoBehaviour
     private Experience _expComponent;
     private Health _healthComponent;
     private Animator _animator;
-    private MovingObject _movingObject;
     private MatrixCollider _matrixCollider;
     private SpriteHolder _spriteHolder;
 
@@ -32,7 +31,6 @@ public class Attack : MonoBehaviour
         _expComponent = GetComponent<Experience>();
         _healthComponent = GetComponent<Health>();
         _animator = GetComponent<Animator>();
-        _movingObject = GetComponent<MovingObject>();
         _matrixCollider = GetComponent<MatrixCollider>();
         _spriteHolder = GetComponent<SpriteHolder>();
 
@@ -74,31 +72,6 @@ public class Attack : MonoBehaviour
         }
     }
 
-    // damage each other with other entity
-    public void Fight(Health opponentHealth, Attack opponentAttack)
-    {
-        // Player always attack last
-        if (opponentHealth.gameObject.tag == "Player")
-        {
-            // Force this to face player
-            FaceOpponent(opponentAttack._matrixCollider);
-
-            // this attacks first
-            this.Damage(opponentHealth);
-
-            // opponent attacks then
-            opponentAttack.Damage(this._healthComponent);
-        }
-        else
-        {
-            // oponents attacks first
-            opponentAttack.Damage(this._healthComponent);
-
-            // this attacks then
-            this.Damage(opponentHealth);
-        }
-    }
-
     // animate the attack
     private void AnimateAttack(Direction direction = null)
     {
@@ -122,7 +95,7 @@ public class Attack : MonoBehaviour
     private void FaceOpponent(MatrixCollider opponentCollider)
     {
         Direction faceDirection = GetDirectionToOppenent(opponentCollider);
-        if (faceDirection != null & _movingObject != null)
+        if (faceDirection != null & _spriteHolder != null)
         {
             _spriteHolder.FaceDirection(faceDirection);
         }
