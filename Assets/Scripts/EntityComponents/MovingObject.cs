@@ -46,6 +46,11 @@ public class MovingObject : MonoBehaviour
         }
 
         yield return StartCoroutine(SmoothMovement(realPosEnd));
+
+        if (gameObject.tag == "Player")
+        {
+            GameEvents.instance.PlayerMoveTrigger(_matrixCollider.matrixPosition);
+        }
     }
 
     protected IEnumerator SmoothMovement(Vector3 targetPos)
