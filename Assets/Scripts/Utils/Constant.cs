@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class Constant
 {
-    public static readonly Quaternion camAngle = Quaternion.Euler(33f, 45f, 0f);
+    public static readonly Quaternion camAngle = Quaternion.Euler(30f, 45f, 0f);
 }
