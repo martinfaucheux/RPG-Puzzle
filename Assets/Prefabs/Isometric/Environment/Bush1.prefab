@@ -23,14 +23,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8593272769450880640}
-  m_LocalRotation: {x: 0.26239592, y: 0.36692443, z: -0.108687945, w: 0.885834}
+  m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8593272769699718819}
   m_Father: {fileID: 8593272771008641964}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 33, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!1 &8593272769699718816
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 8593272771008641966}
   - component: {fileID: 8593272771008641967}
   m_Layer: 0
-  m_Name: Bush
+  m_Name: Bush1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,9 +159,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteHolderTransform: {fileID: 8593272769450880643}
-  hoverEnabled: 0
-  hoverAmplitude: 0.1
-  hoverPerdiod: 6
+  flipForFacing: 0
+  activeAnimator: {fileID: 0}
 --- !u!114 &8593272771008641967
 MonoBehaviour:
   m_ObjectHideFlags: 0
