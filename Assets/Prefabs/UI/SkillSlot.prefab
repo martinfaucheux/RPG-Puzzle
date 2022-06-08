@@ -87,6 +87,8 @@ GameObject:
   - component: {fileID: 1126730614265047748}
   - component: {fileID: 6543002405672083821}
   - component: {fileID: 8516251620999815117}
+  - component: {fileID: 2655567544695006423}
+  - component: {fileID: 7176238321877195576}
   - component: {fileID: 1565779146663059502}
   - component: {fileID: 7728044597830802708}
   m_Layer: 5
@@ -143,6 +145,7 @@ MonoBehaviour:
   _skillIconImage: {fileID: 1126730614197171755}
   _canvasGroup: {fileID: 7728044597830802708}
   _button: {fileID: 8516251620999815117}
+  _selectOnEnableUI: {fileID: 7176238321877195576}
 --- !u!114 &8516251620999815117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,10 +189,25 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5998157636399512520}
   m_OnClick:
     m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2655567544695006423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126730614265047770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c2e5ab6f93a184a9f7bc72a1e88ba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onSelectEvent:
+    m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6543002405672083821}
         m_TargetAssemblyTypeName: SkillSlotUI, Assembly-CSharp
-        m_MethodName: OnClick
+        m_MethodName: OnSkillSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -199,6 +217,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7176238321877195576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126730614265047770}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776a5a00e532394488c7c0a90d9765f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.001
 --- !u!114 &1565779146663059502
 MonoBehaviour:
   m_ObjectHideFlags: 0

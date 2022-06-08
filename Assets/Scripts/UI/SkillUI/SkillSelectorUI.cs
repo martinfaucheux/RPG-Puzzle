@@ -14,7 +14,6 @@ public class SkillSelectorUI : MonoBehaviour
     List<SkillSlotUI> _skillSlots = new List<SkillSlotUI>();
 
     private SkillSlotUI _selectedSkillSlot;
-    private EventSystem _eventSystem;
 
     private Skill _selectedSkill
     {
@@ -31,7 +30,6 @@ public class SkillSelectorUI : MonoBehaviour
     {
         UpdateUI();
         GameEvents.instance.onCloseSkillMenu += UnselectSkill;
-        _eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
     }
 
     void OnDestrot()
@@ -51,7 +49,7 @@ public class SkillSelectorUI : MonoBehaviour
         {
             // TODO: update buttons color
             _selectedSkillSlot = null;
-            _eventSystem.SetSelectedGameObject(null);
+            //  EventSystem.current.SetSelectedGameObject(null);
         }
         else
         {
