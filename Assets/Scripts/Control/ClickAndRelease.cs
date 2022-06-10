@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// <summary>
+// Implement `PerformAction` to handle the action when the user clicks then releases on the object.
+// </summary>
 public abstract class ClickAndRelease : MonoBehaviour
 {
     [SerializeField] int buttonId = 0;
@@ -11,20 +14,24 @@ public abstract class ClickAndRelease : MonoBehaviour
     // whether the current object has been clicked on
     private bool _isClicked = false;
 
-    void Update(){
+    void Update()
+    {
 
         // mark as clicked
         if (Input.GetMouseButtonDown(buttonId))
         {
-            if(_isHovered && !_isClicked){
+            if (_isHovered && !_isClicked)
+            {
                 _isClicked = true;
             }
         }
 
         // perform action if the object is still hovered
         // while button is released
-        if (Input.GetMouseButtonUp(buttonId)){
-            if(_isHovered && _isClicked){
+        if (Input.GetMouseButtonUp(buttonId))
+        {
+            if (_isHovered && _isClicked)
+            {
                 PerformAction();
             }
             // unclick
@@ -32,11 +39,13 @@ public abstract class ClickAndRelease : MonoBehaviour
         }
     }
 
-    void OnMouseEnter(){
+    void OnMouseEnter()
+    {
         _isHovered = true;
     }
 
-    void OnMouseExit(){
+    void OnMouseExit()
+    {
         _isHovered = false;
     }
 
