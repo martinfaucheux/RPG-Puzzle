@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// <summary>
+// Initialize the skill set for the current level
+// TODO: need to take the skill list from SkillManager
+// or ScriptableObject
+// </summary>
 public class SkillInitializer : MonoBehaviour
 {
     [SerializeField] Skill[] skills;
+    [SerializeField] SkillButtonUI[] _skillSlots;
 
-    private SkillSlotUI[] _skillSlots;
-    private SkillSelectorUI _skillSelector;
+
 
     void Start()
     {
-        _skillSlots = SkillMenu.instance.GetComponentsInChildren<SkillSlotUI>(true);
-        _skillSelector = SkillMenu.instance.GetComponentInChildren<SkillSelectorUI>(true);
         PopulateSkills();
     }
 
@@ -20,7 +24,7 @@ public class SkillInitializer : MonoBehaviour
     {
         for (int i = 0; i < skills.Length; i++)
         {
-            _skillSlots[i].Initialize(skills[i], _skillSelector);
+            _skillSlots[i].Initialize(skills[i]);
         }
     }
 }

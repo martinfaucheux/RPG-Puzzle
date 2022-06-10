@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillSlotUI : MonoBehaviour
+
+// DEPRECATED
+
+public class SkillSlotUIOld : MonoBehaviour
 {
     public Skill skill { get; private set; }
-    private SkillSelectorUI skillSelectorUI;
+    private SkillSelectorUIOld skillSelectorUI;
     [SerializeField] Image _skillIconImage;
     [SerializeField] CanvasGroup _canvasGroup;
     [SerializeField] Button _button;
@@ -18,7 +21,7 @@ public class SkillSlotUI : MonoBehaviour
         GameEvents.instance.onSkillEnabled += OnUnlockSkill;
     }
 
-    public void Initialize(Skill skill, SkillSelectorUI skillSelectorUI)
+    public void Initialize(Skill skill, SkillSelectorUIOld skillSelectorUI)
     {
         this.skill = skill;
         this.skillSelectorUI = skillSelectorUI;

@@ -4,16 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-public class SkillSelectorUI : MonoBehaviour
+
+// DEPRECATED
+
+
+public class SkillSelectorUIOld : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI skillNameTextComponent;
     [SerializeField] TextMeshProUGUI skillDescriptionTextComponent;
     [SerializeField] string defaultDescription;
     [SerializeField] Button unlockSkillButton;
     [SerializeField] TextMeshProUGUI buttonText;
-    List<SkillSlotUI> _skillSlots = new List<SkillSlotUI>();
+    List<SkillSlotUIOld> _skillSlots = new List<SkillSlotUIOld>();
 
-    private SkillSlotUI _selectedSkillSlot;
+    private SkillSlotUIOld _selectedSkillSlot;
     private EventSystem _eventSystem;
 
     private Skill _selectedSkill
@@ -39,12 +43,12 @@ public class SkillSelectorUI : MonoBehaviour
         GameEvents.instance.onCloseSkillMenu -= UnselectSkill;
     }
 
-    public void Register(SkillSlotUI skillSlot)
+    public void Register(SkillSlotUIOld skillSlot)
     {
         _skillSlots.Add(skillSlot);
     }
 
-    public void Toggle(SkillSlotUI skillSlot)
+    public void Toggle(SkillSlotUIOld skillSlot)
     {
         // called when a skill button is clicked
         if (skillSlot == _selectedSkillSlot)
