@@ -2,31 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityInspector : ClickAndRelease
+[RequireComponent(typeof(Collider2D))]
+public class EntityInspector : MonoBehaviour
 {
     public string entityName;
 
-    // handle Health, Attack
-    private Attack _attackComponent;
-    private Health _healthComponent;
+    [TextArea]
+    public string description;
 
-    void Start()
+
+    private bool canShow
     {
-        _attackComponent = GetComponent<Attack>();
-        _healthComponent = GetComponent<Health>();
+        get
+        {
+            return !GameManager.instance.isGamePaused
+            && !SkillMenu.instance.isShowing;
+        }
     }
 
-    protected override void PerformAction()
+    void OnMouseEnter()
     {
-        
-        // block interaction if any menu is open
-        if (
-            !GameManager.instance.isGamePaused
-            && !SkillMenu.instance.isShowing
-            && !MenuController.instance.isOpen
-        ){
-            MenuController.instance.AttachObject(gameObject);
-            MenuController.instance.InstantShowMenu();
+        if (canShow)
+        {
+            ContextMenuController.instance.Show(gameObject);
         }
+    }
+
+    void OnMouseExit()
+    {
+        ContextMenuController.instance.Hide();
     }
 }

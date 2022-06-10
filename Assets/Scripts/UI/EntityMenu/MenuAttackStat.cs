@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class MenuAttackStat : UIEntityComponent
 {
-    public Text menuAttackText;
+    public TextMeshProUGUI menuAttackText;
     private Attack _attackComponent;
 
     public override void AttachObject(GameObject attachedObject)
     {
         base.AttachObject(attachedObject);
         _attackComponent = attachedObject.GetComponent<Attack>();
+        if (_attackComponent == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
         UpdateUI();
     }
 

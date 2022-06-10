@@ -3,16 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-public class MenuEntityName : UIEntityComponent
+
+public class MenuDescription : UIEntityComponent
 {
-    public TextMeshProUGUI entityNameText;
+    [SerializeField] TextMeshProUGUI entityDescriptionText;
 
     private EntityInspector _entityInspectorComponent;
+
+    protected override void Start()
+    {
+        base.Start();
+        entityDescriptionText.text = "";
+    }
 
     public override void AttachObject(GameObject attachedObject)
     {
         base.AttachObject(attachedObject);
         _entityInspectorComponent = attachedObject.GetComponent<EntityInspector>();
+        if (_entityInspectorComponent.description == "")
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            gameObject.SetActive(true);
+        }
         UpdateUI();
     }
 
@@ -20,7 +36,7 @@ public class MenuEntityName : UIEntityComponent
     {
         if (IsReady())
         {
-            entityNameText.text = _entityInspectorComponent.entityName;
+            entityDescriptionText.text = _entityInspectorComponent.description;
         }
     }
 

@@ -9,6 +9,7 @@ public class MenuHealthContainer : UIEntityComponent
     public Sprite fullHeartSprite;
     public Sprite emptyHeartSprite;
     private Health _healthComponent;
+    [SerializeField] Transform heartContainer;
 
     protected override void Start()
     {
@@ -19,36 +20,47 @@ public class MenuHealthContainer : UIEntityComponent
     {
         base.AttachObject(attachedObject);
         _healthComponent = attachedObject.GetComponent<Health>();
+        if (_healthComponent == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        else
+        {
+            gameObject.SetActive(true);
+
+        }
         UpdateUI();
     }
-
-    // TODO: implement case of more than 3 health -> need to instantiate new images
-    // don't forget to call SetHidableComponents or add them manually
 
     public override void UpdateUI()
     {
         // instantiate missing images
-        int missingImageCount = _healthComponent.MaxHealthPoints - transform.childCount;
-        for(int i = 0; i < missingImageCount; i++){
-            GameObject newGameObject = Instantiate(transform.GetChild(0).gameObject);
-            newGameObject.transform.SetParent(transform);
-            MenuController.instance.RegisterHiddableComponent(newGameObject.GetComponent<Image>());
+        int missingImageCount = _healthComponent.MaxHealthPoints - heartContainer.childCount;
+        for (int i = 0; i < missingImageCount; i++)
+        {
+            GameObject newGameObject = Instantiate(heartContainer.GetChild(0).gameObject);
+            newGameObject.transform.SetParent(heartContainer);
+        }
 
-        }       
+        if (IsReady())
+        {
+            for (int i = 0; i < heartContainer.childCount; i++)
+            {
+                GameObject childGameObject = heartContainer.GetChild(i).gameObject;
 
-        if(IsReady()){
-            for(int i = 0; i < transform.childCount; i++){
-                GameObject childGameObject = transform.GetChild(i).gameObject;
-
-                if (i < _healthComponent.CurrentHealthPoints){
+                if (i < _healthComponent.CurrentHealthPoints)
+                {
                     childGameObject.SetActive(true);
                     childGameObject.GetComponent<Image>().sprite = fullHeartSprite;
                 }
-                else if (i < _healthComponent.MaxHealthPoints){
+                else if (i < _healthComponent.MaxHealthPoints)
+                {
                     childGameObject.SetActive(true);
                     childGameObject.GetComponent<Image>().sprite = emptyHeartSprite;
                 }
-                else{
+                else
+                {
                     childGameObject.SetActive(false);
                 }
             }
