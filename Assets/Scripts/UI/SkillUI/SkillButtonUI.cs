@@ -12,23 +12,23 @@ public class SkillButtonUI : MonoBehaviour
     [SerializeField] Image _bgImage;
     [SerializeField] Button _button;
     [SerializeField] CanvasGroup _canvasGroup;
-
-
+    [SerializeField] EntityInspector _entityInspector;
 
     private Skill skill;
 
     void Start()
     {
-        SetColor();
+        _entityInspector.SetName(skill.skillName);
+        UpdateUI();
 
-        GameEvents.instance.onSkillEnabled += SetColor;
-        GameEvents.instance.onEnterLevelUp += SetColor;
+        GameEvents.instance.onSkillEnabled += UpdateUI;
+        GameEvents.instance.onEnterLevelUp += UpdateUI;
     }
 
     void OnDestroy()
     {
-        GameEvents.instance.onSkillEnabled -= SetColor;
-        GameEvents.instance.onEnterLevelUp -= SetColor;
+        GameEvents.instance.onSkillEnabled -= UpdateUI;
+        GameEvents.instance.onEnterLevelUp -= UpdateUI;
     }
 
     private bool isUnlocked
@@ -59,12 +59,30 @@ public class SkillButtonUI : MonoBehaviour
         SkillManager.instance.Unlock(skill);
     }
 
-    private void SetColor(Skill skill_) => SetColor();
+    private void UpdateUI(Skill skill_) => UpdateUI();
 
-    private void SetColor()
+    private void UpdateUI()
     {
         _bgImage.color = isUnlocked ? _unlockedColor : _lockedColor;
         _canvasGroup.alpha = (isUnlocked || isSkillPointAvailable) ? 1f : _unavailableAlpha;
         _button.interactable = !isUnlocked;
+        SetEntityInspectorDescription();
+    }
+
+    private void SetEntityInspectorDescription()
+    {
+        string description = skill.skillDescription;
+        if (!isUnlocked)
+        {
+            if (isSkillPointAvailable)
+            {
+                description += "\n<i>Click to unlock</i>";
+            }
+            else
+            {
+                description += "\n<i>No skill point to spend</i>";
+            }
+        }
+        _entityInspector.SetDescription(description);
     }
 }

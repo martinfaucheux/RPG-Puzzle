@@ -1992,8 +1992,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361409b6d344f5546b6792eb83fcb345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonId: 0
   entityName: Knight
+  description: 
+  _health: {fileID: 4513580360118921167}
+  _attack: {fileID: 4513580360118921155}
 --- !u!61 &4513580360118921152
 BoxCollider2D:
   m_ObjectHideFlags: 0

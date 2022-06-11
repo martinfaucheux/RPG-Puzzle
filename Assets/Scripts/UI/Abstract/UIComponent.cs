@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// TODO: make this DEPRECATED
+
 public abstract class UIComponent : MonoBehaviour
 {
     public static List<UIComponent> registeredUIComponents;

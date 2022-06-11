@@ -472,8 +472,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361409b6d344f5546b6792eb83fcb345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonId: 0
   entityName: Snail
+  description: 
+  _health: {fileID: 6251587325624568233}
+  _attack: {fileID: 6251587325624568231}
 --- !u!61 &6251587325624568229
 BoxCollider2D:
   m_ObjectHideFlags: 0

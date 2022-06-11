@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 679876442706761065}
   - component: {fileID: 2333397140725837543}
+  - component: {fileID: 7108368570549491863}
   - component: {fileID: 6725692765708438843}
   - component: {fileID: 3806943753852313033}
   - component: {fileID: 3612166190340522859}
@@ -61,6 +62,21 @@ MonoBehaviour:
   _bgImage: {fileID: 2031451270168383888}
   _button: {fileID: 6725692765708438843}
   _canvasGroup: {fileID: 3612166190340522859}
+  _entityInspector: {fileID: 7108368570549491863}
+--- !u!114 &7108368570549491863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494994274470167039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 361409b6d344f5546b6792eb83fcb345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entityName: 
+  description: 
 --- !u!114 &6725692765708438843
 MonoBehaviour:
   m_ObjectHideFlags: 0
