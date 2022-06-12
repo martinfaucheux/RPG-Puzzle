@@ -56,14 +56,14 @@ public class InstructionPanel : MonoBehaviour
             {
                 childTransform.gameObject.SetActive(false);
             }
-            GameManager.instance.isInstruction = false;
+            StateManager.instance.SetState(GameState.PLAY);
             isShowing = false;
         }
     }
 
     private IEnumerator ShowCoroutine()
     {
-        GameManager.instance.isInstruction = true;
+        StateManager.instance.SetState(GameState.INSTRUCTION);
         yield return new WaitForSecondsRealtime(showDelay);
         foreach (Transform childTransform in transform)
         {

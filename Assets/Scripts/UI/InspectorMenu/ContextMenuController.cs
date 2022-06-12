@@ -67,20 +67,4 @@ public class ContextMenuController : MonoBehaviour
         );
 
     }
-
-    private bool CanToggleMenu()
-    {
-        // TODO: use game state instead
-        GameManager gm = GameManager.instance;
-        return (
-            !(
-                gm.isGamePaused)
-                || gm.isEndOfLevelScreen
-                || gm.isGameOverScreen
-                || gm.isGameOverScreen
-            );
-    }
-
-
-
 }

@@ -13,7 +13,6 @@ public class LevelLoader : MonoBehaviour
 
     public LevelMetaData levelMetaData { get; private set; }
 
-    //Awake is always called before any Start functions
     void Awake()
     {
         //Check if instance already exists
@@ -29,7 +28,6 @@ public class LevelLoader : MonoBehaviour
             Destroy(gameObject);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         currentLevelId = SceneManager.GetActiveScene().buildIndex;
@@ -38,10 +36,7 @@ public class LevelLoader : MonoBehaviour
         // trigger animation for start of level
         SceneChangeCircle.instance.SceneStarts();
 
-        if (GameManager.instance != null)
-        {
-            GameManager.instance.BlockPlayer(transitionDuration);
-        }
+        StartCoroutine(SetPlayState());
     }
 
     public void LoadNextLevel()
@@ -65,13 +60,12 @@ public class LevelLoader : MonoBehaviour
 
     public void ReloadLevel()
     {
-        // prevent action from player
-        GameManager.instance.playerCanMove = false;
         LoadLevel(currentLevelId);
     }
 
     public void LoadLevel(int levelID)
     {
+        StateManager.instance.SetState(GameState.TRANSITION);
         SceneChangeCircle.instance.SceneEnds();
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
     }
@@ -149,5 +143,11 @@ public class LevelLoader : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    private IEnumerator SetPlayState()
+    {
+        yield return new WaitForSecondsRealtime(transitionDuration);
+        StateManager.instance.SetState(GameState.PLAY);
     }
 }

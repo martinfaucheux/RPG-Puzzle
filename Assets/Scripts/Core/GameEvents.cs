@@ -22,6 +22,9 @@ public class GameEvents : MonoBehaviour
     public event Action<Health> onUnitDies;
     public event Action<Vector2Int> onPlayerMove;
 
+    public event Action<GameState> onEnterState;
+    public event Action<GameState> onExitState;
+
     # region Singleton
 
     //Awake is always called before any Start functions
@@ -151,6 +154,22 @@ public class GameEvents : MonoBehaviour
         if (onPlayerMove != null)
         {
             onPlayerMove(position);
+        }
+    }
+
+    public void EnterStateTrigger(GameState state)
+    {
+        if (onEnterState != null)
+        {
+            onEnterState(state);
+        }
+    }
+
+    public void ExitStateTrigger(GameState state)
+    {
+        if (onExitState != null)
+        {
+            onExitState(state);
         }
     }
 
