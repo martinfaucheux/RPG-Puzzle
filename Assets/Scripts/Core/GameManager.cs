@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
                     ExitPause();
                 }
                 break;
-            case "END_LEVEL":
+            case "WIN":
                 if (ControlUtils.GetAnyButArrowKeyDown())
                 {
                     LevelLoader.instance.UnlockNextLevel();
@@ -66,24 +66,12 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         Debug.Log("You win.");
-        StateManager.instance.SetState(GameState.END_LEVEL);
+        StateManager.instance.SetState(GameState.WIN);
     }
 
     public void GameOver()
     {
         StateManager.instance.SetState(GameState.GAME_OVER);
-    }
-
-    private void TogglePause()
-    {
-        if (StateManager.instance.currentGameState == GameState.PLAY)
-        {
-            EnterPause();
-        }
-        else if (StateManager.instance.currentGameState == GameState.PAUSE)
-        {
-            ExitPause();
-        }
     }
 
     public void EnterPause()
@@ -101,5 +89,4 @@ public class GameManager : MonoBehaviour
         InGameMenu menu = (InGameMenu)MainMenu.instance;
         menu.CloseMenu();
     }
-
 }

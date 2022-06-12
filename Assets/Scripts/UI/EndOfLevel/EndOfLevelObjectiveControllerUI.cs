@@ -19,7 +19,7 @@ public class EndOfLevelObjectiveControllerUI : MonoBehaviour
 
     private void OnEnterState(GameState state)
     {
-        if (state == GameState.END_LEVEL)
+        if (state == GameState.WIN)
         {
             Show();
         }
