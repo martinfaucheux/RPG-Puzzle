@@ -63,6 +63,7 @@ MonoBehaviour:
   _button: {fileID: 6725692765708438843}
   _canvasGroup: {fileID: 3612166190340522859}
   _entityInspector: {fileID: 7108368570549491863}
+  _availableMaterial: {fileID: 2100000, guid: 59d0664be4f51e74bb06dc5f5a396aee, type: 2}
 --- !u!114 &7108368570549491863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77,6 +78,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityName: 
   description: 
+  _health: {fileID: 0}
+  _attack: {fileID: 0}
 --- !u!114 &6725692765708438843
 MonoBehaviour:
   m_ObjectHideFlags: 0

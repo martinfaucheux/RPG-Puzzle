@@ -13,6 +13,7 @@ public class SkillButtonUI : MonoBehaviour
     [SerializeField] Button _button;
     [SerializeField] CanvasGroup _canvasGroup;
     [SerializeField] EntityInspector _entityInspector;
+    [SerializeField] Material _availableMaterial;
 
     private Skill skill;
 
@@ -66,6 +67,10 @@ public class SkillButtonUI : MonoBehaviour
         _bgImage.color = isUnlocked ? _unlockedColor : _lockedColor;
         _canvasGroup.alpha = (isUnlocked || isSkillPointAvailable) ? 1f : _unavailableAlpha;
         _button.interactable = !isUnlocked;
+
+        Material material = (!isUnlocked && isSkillPointAvailable) ? _availableMaterial : null;
+        _bgImage.material = material;
+        _iconImage.material = material;
         SetEntityInspectorDescription();
     }
 
