@@ -72,7 +72,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         StateManager.instance.SetState(GameState.GAME_OVER);
-        GameEvents.instance.GameOverTrigger();
     }
 
     private void TogglePause()

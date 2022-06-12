@@ -18,7 +18,20 @@ public class GameOverMask : MonoBehaviour
         _playerSpriteHolder = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteHolder>();
         _maskSpriteRenderer = GetComponent<SpriteRenderer>();
 
-        GameEvents.instance.onGameOver += FadeIn;
+        GameEvents.instance.onEnterState += OnEnterState;
+    }
+
+    void OnDestroy()
+    {
+        GameEvents.instance.onEnterState -= OnEnterState;
+    }
+
+    private void OnEnterState(GameState state)
+    {
+        if (state == GameState.GAME_OVER)
+        {
+            FadeIn();
+        }
     }
 
     public void FadeIn()
@@ -32,7 +45,7 @@ public class GameOverMask : MonoBehaviour
         float timeSinceStart = 0f;
         Color spriteColor = _maskSpriteRenderer.color;
 
-        while(timeSinceStart < fadeDuration)
+        while (timeSinceStart < fadeDuration)
         {
             float alphaValue = timeSinceStart / fadeDuration;
             spriteColor.a = alphaValue;
@@ -45,9 +58,4 @@ public class GameOverMask : MonoBehaviour
         spriteColor.a = 1;
         _maskSpriteRenderer.color = spriteColor;
     }
-
-    void OnDestroy(){
-        GameEvents.instance.onGameOver -= FadeIn;
-    }
-
 }

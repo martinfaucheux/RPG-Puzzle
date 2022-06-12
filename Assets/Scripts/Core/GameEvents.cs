@@ -11,8 +11,6 @@ public class GameEvents : MonoBehaviour
     // TODO: use healthChange instead
     public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
-    public event Action onGameOver;
-
     public event Action<Skill> onSkillEnabled;
 
     public event Action<Item> onPickItem;
@@ -80,14 +78,6 @@ public class GameEvents : MonoBehaviour
         if (onPlayerExperienceChange != null)
         {
             onPlayerExperienceChange();
-        }
-    }
-
-    public void GameOverTrigger()
-    {
-        if (onGameOver != null)
-        {
-            onGameOver();
         }
     }
 
