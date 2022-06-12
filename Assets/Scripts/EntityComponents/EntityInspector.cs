@@ -1,32 +1,63 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class EntityInspector : ClickAndRelease
+public class EntityInspector : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public string entityName;
+    [SerializeField] string entityName;
+    [TextArea]
+    [SerializeField] string description;
+    [SerializeField] Health _health;
+    [SerializeField] Attack _attack;
+    private float timeBeforeShow = 0.2f;
+    private float _hoverDuration = -1;
 
-    // handle Health, Attack
-    private Attack _attackComponent;
-    private Health _healthComponent;
+    public string GetName() => entityName;
+    public string SetName(string value) => entityName = value;
+    public string SetDescription(string value) => description = value;
 
-    void Start()
+    private bool canShow { get { return !GameManager.instance.isGamePaused; } }
+
+    void Update()
     {
-        _attackComponent = GetComponent<Attack>();
-        _healthComponent = GetComponent<Health>();
+        if (_hoverDuration >= 0)
+        {
+            _hoverDuration += Time.deltaTime;
+            if (_hoverDuration > timeBeforeShow)
+            {
+                _hoverDuration = -1;
+                InspectorData inspectorData = new InspectorData(entityName, description, _health, _attack);
+                ContextMenuController.instance.Show(gameObject, inspectorData);
+            }
+        }
     }
 
-    protected override void PerformAction()
+    void OnMouseEnter()
     {
-        
-        // block interaction if any menu is open
-        if (
-            !GameManager.instance.isGamePaused
-            && !SkillMenu.instance.isShowing
-            && !MenuController.instance.isOpen
-        ){
-            MenuController.instance.AttachObject(gameObject);
-            MenuController.instance.InstantShowMenu();
+        if (canShow)
+        {
+            _hoverDuration = 0;
         }
+    }
+
+    void OnMouseExit()
+    {
+        _hoverDuration = -1;
+        ContextMenuController.instance.Hide();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (canShow)
+        {
+            _hoverDuration = 0;
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        _hoverDuration = -1;
+        ContextMenuController.instance.Hide();
     }
 }

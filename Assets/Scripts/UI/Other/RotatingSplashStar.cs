@@ -16,7 +16,7 @@ public class RotatingSplashStar : MonoBehaviour
         Hide();
 
         GameEvents.instance.onEnterLevelUp += UpdateState;
-        GameEvents.instance.onSkillEnabled += UpdateState;  
+        GameEvents.instance.onSkillEnabled += UpdateState;
 
         // avoid splash image showing after spending all points in skill menu      
         GameEvents.instance.onCloseSkillMenu += UpdateState;
@@ -24,7 +24,8 @@ public class RotatingSplashStar : MonoBehaviour
 
     void Update()
     {
-        if (isShowing){
+        if (isShowing)
+        {
             _rectTransform.RotateAround(_rectTransform.position, Vector3.forward, rotationSpeed * Time.deltaTime);
         }
     }
@@ -32,27 +33,33 @@ public class RotatingSplashStar : MonoBehaviour
     // be compliant with event signature 
     private void UpdateState(Skill _) => UpdateState();
 
-    private void UpdateState(){
+    private void UpdateState()
+    {
         int skillPoints = SkillManager.instance.skillPoints;
-        if (skillPoints > 0 && !SkillMenu.instance.isShowing){
+        if (skillPoints > 0)
+        {
             Show();
         }
-        else if (skillPoints == 0){
+        else if (skillPoints == 0)
+        {
             Hide();
         }
     }
 
-    private void Show(){
+    private void Show()
+    {
         _image.enabled = true;
         isShowing = true;
     }
 
-    private void Hide(){
+    private void Hide()
+    {
         _image.enabled = false;
         isShowing = false;
     }
 
-    void OnDestroy(){
+    void OnDestroy()
+    {
         GameEvents.instance.onEnterLevelUp -= UpdateState;
         GameEvents.instance.onSkillEnabled -= UpdateState;
     }

@@ -27,8 +27,6 @@ public class PlayerTurnActor : TurnActor
             & !GameManager.instance.isEndOfLevelScreen
             & !GameManager.instance.isGamePaused
             & !GameManager.instance.isInstruction
-            & !MenuController.instance.isOpen
-            & !SkillMenu.instance.isShowing
             & (direction != Direction.IDLE)
         )
         {

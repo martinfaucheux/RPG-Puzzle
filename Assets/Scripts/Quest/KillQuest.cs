@@ -27,7 +27,7 @@ public class KillQuest : Quest
         {
             foreach (Fighter enemyComponent in enemyComponents)
             {
-                if (enemyComponent.GetComponent<EntityInspector>().entityName == specificEntityName)
+                if (enemyComponent.GetComponent<EntityInspector>().GetName() == specificEntityName)
                 {
                     enemyCount++;
                 }

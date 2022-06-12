@@ -9,14 +9,14 @@ public class SkillManager : MonoBehaviour
 
     [SerializeField] private int _skillPoint;
 
-    public int skillPoints {
-        get {return _skillPoint;}
-        private set {_skillPoint = value;}
+    public int skillPoints
+    {
+        get { return _skillPoint; }
+        private set { _skillPoint = value; }
     }
 
     private Dictionary<Skill, bool> _unlockedSkills;
 
-    //Awake is always called before any Start functions
     void Awake()
     {
         //Check if instance already exists
@@ -35,16 +35,20 @@ public class SkillManager : MonoBehaviour
         GameEvents.instance.onEnterLevelUp += AddSkillPoint;
     }
 
-    public void RegisterSkill (Skill skill){
+    public void RegisterSkill(Skill skill)
+    {
         _unlockedSkills.Add(skill, false);
     }
 
-    public void AddSkillPoint(){
+    public void AddSkillPoint()
+    {
         skillPoints += 1;
     }
 
-    public bool Unlock(Skill skill){
-        if (skillPoints > 0){
+    public bool Unlock(Skill skill)
+    {
+        if (skillPoints > 0)
+        {
             skillPoints -= 1;
 
             _unlockedSkills[skill] = true;
@@ -58,7 +62,8 @@ public class SkillManager : MonoBehaviour
         return false;
     }
 
-    public bool IsUnlocked(Skill skill){
+    public bool IsUnlocked(Skill skill)
+    {
         return _unlockedSkills[skill];
     }
 }

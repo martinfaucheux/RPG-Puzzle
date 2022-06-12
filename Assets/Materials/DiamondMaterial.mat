@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ReflectShaderMaterial
+  m_Name: DiamondMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 9068da063ce60a240b1dfdeada83b10e,
     type: 3}
   m_ShaderKeywords: 
@@ -42,6 +42,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_49af7ec6149448ce86a290489cd9ee32: 1
-    - Vector1_54e642c0017e4bb2a4956e61985c1725: 5
+    - Vector1_54e642c0017e4bb2a4956e61985c1725: 10
+    - Vector1_9daf160a0efd4e3e9ab79fea8dec5c8d: 0.5
+    - _Random: 0
     m_Colors: []
   m_BuildTextureStacks: []
