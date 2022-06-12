@@ -15,7 +15,7 @@ public class SkillPointUpdater : MonoBehaviour
     public string displayPrefix;
     void Start()
     {
-        GameEvents.instance.onEnterLevelUp += UpdateSkillPointCounter;
+        GameEvents.instance.onLevelUp += UpdateSkillPointCounter;
         GameEvents.instance.onSkillEnabled += UpdateSkillPointCounter;
     }
 
@@ -63,7 +63,7 @@ public class SkillPointUpdater : MonoBehaviour
 
     void OnDestroy()
     {
-        GameEvents.instance.onEnterLevelUp -= UpdateSkillPointCounter;
+        GameEvents.instance.onLevelUp -= UpdateSkillPointCounter;
         GameEvents.instance.onSkillEnabled -= UpdateSkillPointCounter;
     }
 }

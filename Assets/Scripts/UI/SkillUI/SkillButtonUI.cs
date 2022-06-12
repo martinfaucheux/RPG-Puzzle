@@ -23,13 +23,13 @@ public class SkillButtonUI : MonoBehaviour
         UpdateUI();
 
         GameEvents.instance.onSkillEnabled += UpdateUI;
-        GameEvents.instance.onEnterLevelUp += UpdateUI;
+        GameEvents.instance.onLevelUp += UpdateUI;
     }
 
     void OnDestroy()
     {
         GameEvents.instance.onSkillEnabled -= UpdateUI;
-        GameEvents.instance.onEnterLevelUp -= UpdateUI;
+        GameEvents.instance.onLevelUp -= UpdateUI;
     }
 
     private bool isUnlocked

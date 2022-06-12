@@ -5,7 +5,7 @@ public class GameEvents : MonoBehaviour
 {
     public static GameEvents instance = null;
 
-    public event Action onEnterLevelUp;
+    public event Action onLevelUp;
     public event Action<int, int, int> onHealthChange;
     public event Action<int> onAttackChange;
     public event Action onPlayerGetDamage;
@@ -45,11 +45,11 @@ public class GameEvents : MonoBehaviour
 
     # endregion
 
-    public void LevelUpEnterTrigger()
+    public void LevelUpTrigger()
     {
-        if (onEnterLevelUp != null)
+        if (onLevelUp != null)
         {
-            onEnterLevelUp();
+            onLevelUp();
         }
     }
 

@@ -14,7 +14,7 @@ public class LevelUpAnimHandler : MonoBehaviour
 
     void Start()
     {
-        GameEvents.instance.onEnterLevelUp += AnimateLevelUp;
+        GameEvents.instance.onLevelUp += AnimateLevelUp;
         initFloatingTextPos = floatingTextComponent.transform.localPosition;
     }
 

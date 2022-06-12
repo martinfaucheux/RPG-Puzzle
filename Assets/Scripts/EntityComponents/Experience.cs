@@ -43,7 +43,7 @@ public class Experience : MonoBehaviour
         currentExpPoints -= GetTargetExpForLevel(currentLevel);
         currentLevel++;
         targetExpPoints = GetTargetExpForLevel(currentLevel);
-        GameEvents.instance.LevelUpEnterTrigger();
+        GameEvents.instance.LevelUpTrigger();
     }
 
     public static int GetTargetExpForLevel(int level)
