@@ -50,8 +50,8 @@ public class ExpBallSpawner : MonoBehaviour
 
         GameObject newGo = GameObjectPool.instance.GetOrCreate("ExpBall");
         ExpBall expBallComponent = newGo.GetComponent<ExpBall>();
-        expBallComponent.ResetState();
         newGo.transform.SetParent(canvas.transform);
+        expBallComponent.ResetState();
         ((RectTransform)newGo.transform).anchoredPosition = canvasPosition;
 
         expBallComponent.Tween(endPos);

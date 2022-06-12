@@ -7,6 +7,7 @@ public class ExpBall : MonoBehaviour
 
     [SerializeField] Image _imageComponent;
 
+
     public void Tween(Vector3 endPosition)
     {
         TweenLinear(endPosition);
@@ -43,29 +44,4 @@ public class ExpBall : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // private Vector3[] GetBezierPoints()
-    // {
-    //     // Vector3[] bezierPoints = new Vector3[]{
-    //     //     new Vector3(0f,0f,0f),
-    //     //     new Vector3(1f,0f,0f),
-    //     //     new Vector3(1f,0f,0f),
-    //     //     new Vector3(1f,1f,0f)
-    //     // };
-
-    //     float magnitude = (transform.position - endPos).magnitude;
-
-    //     return new Vector3[]{
-    //         transform.position,
-    //         new Vector3(1f, 0f, 0f) * magnitude,
-    //         new Vector3(1f, 0f, 0f) * magnitude,
-    //         endPos,
-    //     };
-    // }
-
-    // private void TweenBezier()
-    // {
-
-    //     LTBezierPath ltPath = new LTBezierPath(GetBezierPoints());
-    //     LeanTween.move(gameObject, ltPath, transitionDuration).setOrientToPath2d(true).setEaseOutQuint();
-    // }
 }
