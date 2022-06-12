@@ -59,12 +59,6 @@ public class Health : MonoBehaviour
 
         CurrentHealthPoints = newValue;
 
-        if (tag == "Player")
-        {
-            // TODO: use HealthChange event instead
-            GameEvents.instance.PlayerGetDamage();
-        }
-
         if (damagePoints > 0 && _spriteFlasher != null)
         {
             _spriteFlasher.Flash();

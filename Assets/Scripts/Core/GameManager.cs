@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class GameManager : MonoBehaviour
     [Tooltip("time for basic action (e.g. moving)")]
     public float actionDuration = 0.1f;
     public bool playerCanMove { get { return StateManager.instance.currentGameState == GameState.PLAY; } }
+
+    private static GameState[] forbiddenReloadState = new GameState[] {
+        GameState.PAUSE, GameState.TRANSITION
+    };
+
 
     #region Singleton
 
@@ -32,16 +38,21 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (!(forbiddenReloadState.Contains(StateManager.instance.currentGameState)))
+            {
+                LevelLoader.instance.ReloadLevel();
+                return;
+            }
+        }
+
         switch (StateManager.instance.currentGameState.Name)
         {
             case "PLAY":
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
                     EnterPause();
-                }
-                else if (Input.GetKeyDown(KeyCode.R))
-                {
-                    LevelLoader.instance.ReloadLevel();
                 }
                 break;
             case "PAUSE":
