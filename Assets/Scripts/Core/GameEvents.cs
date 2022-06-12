@@ -8,16 +8,12 @@ public class GameEvents : MonoBehaviour
     public event Action onLevelUp;
     public event Action<int, int, int> onHealthChange;
     public event Action<int> onAttackChange;
-    // TODO: use healthChange instead
-    public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
     public event Action<Skill> onSkillEnabled;
-
     public event Action<Item> onPickItem;
     public event Action<Item> onUseItem;
     public event Action<Health> onUnitDies;
     public event Action<Vector2Int> onPlayerMove;
-
     public event Action<GameState> onEnterState;
     public event Action<GameState> onExitState;
 
@@ -62,14 +58,6 @@ public class GameEvents : MonoBehaviour
         if (onAttackChange != null)
         {
             onAttackChange(attackID);
-        }
-    }
-
-    public void PlayerGetDamage()
-    {
-        if (onPlayerGetDamage != null)
-        {
-            onPlayerGetDamage();
         }
     }
 
