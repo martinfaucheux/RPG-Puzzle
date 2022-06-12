@@ -37,6 +37,16 @@ public class LevelSelectButton : MonoBehaviour
         GetComponentInParent<LevelGridManager>().SelectLevel(levelId);
     }
 
+    public void UnselectLevel()
+    {
+        GetComponentInParent<LevelGridManager>().SelectLevel(0);
+    }
+
+    public void LoadSelectedLevel()
+    {
+        GetComponentInParent<LevelGridManager>().LoadSelectedLevel();
+    }
+
     public void SetBackgroundColor(Color color)
     {
         // backgroundImage.color = color;

@@ -18,6 +18,9 @@ public class LevelGridManager : MonoBehaviour
     public Color defaultReflectionColor;
     public Color allGemsCollectedColor;
     public Color allQuestsCollectedColor;
+    [SerializeField] CanvasGroup _descriptionCanvasGroup;
+
+    private LTDescr _animation;
 
     private int _selectedLevelId = 0;
 
@@ -45,10 +48,17 @@ public class LevelGridManager : MonoBehaviour
     {
         // show / hide content of side menu
         bool isLevelSelected = (_selectedLevelId > 0);
-        foreach (Transform transformToHide in noSelectHiddenTransforms)
+
+        if (_animation != null)
         {
-            transformToHide.gameObject.SetActive(isLevelSelected);
+            LeanTween.cancel(_animation.id);
         }
+        _animation = LeanTween.value(
+            gameObject, v => _descriptionCanvasGroup.alpha = v,
+            _descriptionCanvasGroup.alpha,
+            isLevelSelected ? 1 : 0,
+            0.1f
+        ).setDelay(0.2f);
     }
 
     private void InstantiateLevelButtons()
