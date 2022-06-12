@@ -21,6 +21,9 @@ public class CollisionMatrix : MonoBehaviour
     public bool showSceneBounds = true;
     public Color sceneBoundsColor;
     public GameObject borderWallPrefab;
+    [Tooltip("If true, place the tiles in a checkboard manner")]
+    public bool checkerBoard;
+    [Tooltip("Prefab to be instanciated for each cell")]
     public GameObject GridUnitPrefab;
 
     // TODO: use GenericGrid instead

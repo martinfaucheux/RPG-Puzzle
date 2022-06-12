@@ -9,7 +9,8 @@ public class CollisionMatrixCustomInspector : Editor
 
     private CollisionMatrix t;
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         t = target as CollisionMatrix;
         SceneView.duringSceneGui -= OnScene;
         SceneView.duringSceneGui += OnScene;
@@ -23,15 +24,17 @@ public class CollisionMatrixCustomInspector : Editor
         }
     }
 
-    private void DrawMatrixBounds(){
-        
+    private void DrawMatrixBounds()
+    {
+
         Vector3 origin = t.origin - Vector3.one * 0.5f;
         Vector3[] verts;
         float matrixWidth = t.matrixSize.x;
         float matrixHeight = t.matrixSize.y;
 
         // ISOMETRIC
-        if (t.mode == CollisionMatrix.Mode.ISOMETRIC){
+        if (t.mode == CollisionMatrix.Mode.ISOMETRIC)
+        {
             verts = new Vector3[]
             {
             new Vector3(origin.x, 0, origin.z),
@@ -41,8 +44,9 @@ public class CollisionMatrixCustomInspector : Editor
             };
         }
         // TOP DOWN
-        else {
-            verts= new Vector3[]
+        else
+        {
+            verts = new Vector3[]
             {
             new Vector3(origin.x, origin.y),
             new Vector3(origin.x, origin.y + matrixHeight),
@@ -91,8 +95,8 @@ public class CollisionMatrixCustomInspector : Editor
         }
     }
 
-// [MenuItem("Custom/Build Border Walls")]
-public void BuildBorderWalls()
+    // [MenuItem("Custom/Build Border Walls")]
+    public void BuildBorderWalls()
     {
         GameObject borderWallsGO = GetBorderGO();
 
@@ -101,7 +105,7 @@ public void BuildBorderWalls()
 
         Vector3 origin = t.origin;
 
-        foreach (float xPos in new float[] {-1f, matrixWidth})
+        foreach (float xPos in new float[] { -1f, matrixWidth })
         {
             for (float yPos = -1f; yPos <= matrixHeight; yPos += 1f)
             {
@@ -146,17 +150,19 @@ public void BuildBorderWalls()
     }
 
     // add anotation to make it show in top menu
-    [MenuItem ("Tools/Realign entities on grid" )]
-    private static void RealignTransformsOnGrids(){
+    [MenuItem("Tools/Realign entities on grid")]
+    private static void RealignTransformsOnGrids()
+    {
 
         float gridPace = 0.5f;
 
         Debug.Log("Realign all transforms on the grid");
 
         MatrixCollider[] colliders = FindObjectsOfType<MatrixCollider>();
-        foreach(MatrixCollider collider in colliders){
+        foreach (MatrixCollider collider in colliders)
+        {
             Vector3 initPos = collider.transform.position;
-            Vector3 newPos =  new Vector3(
+            Vector3 newPos = new Vector3(
                 Mathf.Round(initPos.x / gridPace) * gridPace,
                 0f,
                 Mathf.Round(initPos.z / gridPace) * gridPace
@@ -165,13 +171,20 @@ public void BuildBorderWalls()
         }
     }
 
-    private void InstantiateGrid(){
+    private void InstantiateGrid()
+    {
 
         Vector3 constantVect = 1 * new Vector3(1, -0.82f, 1);
-        GameObject gridContainer = GetOrInstiateEmpty("Grid");
+        GameObject gridContainer = GetOrInstiateEmpty("Grid", true);
 
-        for(float x = 0; x < t.matrixSize.x; x++){
-            for(float y = 0; y < t.matrixSize.y; y++){
+        for (float x = 0; x < t.matrixSize.x; x++)
+        {
+            for (float y = 0; y < t.matrixSize.y; y++)
+            {
+                if (t.checkerBoard && (x + y) % 2 == 0)
+                {
+                    continue;
+                }
                 Vector3 position = t.GetRealWorldPosition(new Vector2(x, y));
                 GameObject gridUnitGO = Instantiate(t.GridUnitPrefab, position + constantVect, Quaternion.identity);
                 gridUnitGO.transform.SetParent(gridContainer.transform);
@@ -179,19 +192,25 @@ public void BuildBorderWalls()
         }
     }
 
-    private static GameObject GetOrInstiateEmpty(string gameObjectName) => GetOrInstiateEmpty(gameObjectName, Vector3.zero);
+    private static GameObject GetOrInstiateEmpty(string gameObjectName, bool destroy = false) => GetOrInstiateEmpty(gameObjectName, Vector3.zero, destroy);
 
-    private static GameObject GetOrInstiateEmpty(string gameObjectName, Vector3 position){
-        GameObject newGameObject = GameObject.Find(gameObjectName);
-
-        
-
-        if (newGameObject == null)
+    private static GameObject GetOrInstiateEmpty(string gameObjectName, Vector3 position, bool destroy = false)
+    {
+        GameObject existingGameObject = GameObject.Find(gameObjectName);
+        if (existingGameObject != null)
         {
-            Debug.Log("could not find " + gameObjectName + ", instantiate it");
-            newGameObject = new GameObject(gameObjectName);
-            newGameObject.transform.position = position;
+            if (!destroy)
+            {
+                return existingGameObject;
+            }
+            else
+            {
+                DestroyImmediate(existingGameObject);
+            }
         }
+
+        GameObject newGameObject = new GameObject(gameObjectName);
+        newGameObject.transform.position = position;
         return newGameObject;
     }
 }
