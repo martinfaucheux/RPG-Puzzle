@@ -14,8 +14,6 @@ public class GameEvents : MonoBehaviour
     public event Action onGameOver;
 
     public event Action<Skill> onSkillEnabled;
-    public event Action onOpenSkillMenu;
-    public event Action onCloseSkillMenu;
 
     public event Action<Item> onPickItem;
     public event Action<Item> onUseItem;
@@ -114,22 +112,6 @@ public class GameEvents : MonoBehaviour
         if (onUseItem != null)
         {
             onUseItem(item);
-        }
-    }
-
-    public void OpenSkillMenuTrigger()
-    {
-        if (onOpenSkillMenu != null)
-        {
-            onOpenSkillMenu();
-        }
-    }
-
-    public void CloseSkillMenuTrigger()
-    {
-        if (onCloseSkillMenu != null)
-        {
-            onCloseSkillMenu();
         }
     }
 

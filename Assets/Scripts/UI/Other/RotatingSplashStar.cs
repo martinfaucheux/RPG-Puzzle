@@ -17,9 +17,6 @@ public class RotatingSplashStar : MonoBehaviour
 
         GameEvents.instance.onLevelUp += UpdateState;
         GameEvents.instance.onSkillEnabled += UpdateState;
-
-        // avoid splash image showing after spending all points in skill menu      
-        GameEvents.instance.onCloseSkillMenu += UpdateState;
     }
 
     void Update()
