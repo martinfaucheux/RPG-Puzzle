@@ -67,7 +67,6 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("You win.");
         StateManager.instance.SetState(GameState.END_LEVEL);
-        GameEvents.instance.EndOfLevelTrigger();
     }
 
     public void GameOver()

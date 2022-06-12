@@ -37,12 +37,20 @@ public class QuestManager : MonoBehaviour
             _quests.Add(quest);
         }
         InitializeQuestState();
-        GameEvents.instance.onEndOfLevel += CheckCompletion;
+        GameEvents.instance.onEnterState += OnEnterState;
     }
 
     void OnDestroy()
     {
-        GameEvents.instance.onEndOfLevel -= CheckCompletion;
+        GameEvents.instance.onEnterState -= OnEnterState;
+    }
+
+    private void OnEnterState(GameState state)
+    {
+        if (state == GameState.END_LEVEL)
+        {
+            CheckCompletion();
+        }
     }
 
     public bool IsNewlyCompleted(int questId)

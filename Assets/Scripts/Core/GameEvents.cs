@@ -8,9 +8,9 @@ public class GameEvents : MonoBehaviour
     public event Action onLevelUp;
     public event Action<int, int, int> onHealthChange;
     public event Action<int> onAttackChange;
+    // TODO: use healthChange instead
     public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
-    public event Action onEndOfLevel;
     public event Action onGameOver;
 
     public event Action<Skill> onSkillEnabled;
@@ -82,14 +82,6 @@ public class GameEvents : MonoBehaviour
         if (onPlayerExperienceChange != null)
         {
             onPlayerExperienceChange();
-        }
-    }
-
-    public void EndOfLevelTrigger()
-    {
-        if (onEndOfLevel != null)
-        {
-            onEndOfLevel();
         }
     }
 

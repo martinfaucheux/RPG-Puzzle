@@ -21,7 +21,20 @@ public class RosaceMask : MonoBehaviour
         EnableComponents(false);
 
         // listen to the event
-        GameEvents.instance.onEndOfLevel += Show;
+        GameEvents.instance.onEnterState += OnEnterState;
+    }
+
+    void OnDestroy()
+    {
+        GameEvents.instance.onEnterState -= OnEnterState;
+    }
+
+    private void OnEnterState(GameState state)
+    {
+        if (state == GameState.END_LEVEL)
+        {
+            Show();
+        }
     }
 
     void Update()
@@ -33,7 +46,7 @@ public class RosaceMask : MonoBehaviour
     {
         // no longer needed as translation is already applied by CameraTranslation script
         // transform.position = _playerCollider.GetRealPos();
-        
+
         StartCoroutine(ResizeRosace());
         isShowing = true;
     }

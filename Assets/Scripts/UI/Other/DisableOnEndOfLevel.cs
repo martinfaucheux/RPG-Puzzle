@@ -6,16 +6,19 @@ public class DisableOnEndOfLevel : MonoBehaviour
 {
     void Start()
     {
-        GameEvents.instance.onEndOfLevel += Trigger;
+        GameEvents.instance.onEnterState += OnEnterState;
     }
 
     void OnDestroy()
     {
-        GameEvents.instance.onEndOfLevel -= Trigger;
+        GameEvents.instance.onEnterState -= OnEnterState;
     }
 
-    private void Trigger()
+    private void OnEnterState(GameState state)
     {
-        gameObject.SetActive(false);
+        if (state == GameState.END_LEVEL)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
