@@ -246,7 +246,6 @@ GameObject:
   - component: {fileID: 111678470}
   - component: {fileID: 111678473}
   - component: {fileID: 111678471}
-  - component: {fileID: 111678472}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Reward Button
@@ -332,20 +331,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &111678472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 111678469}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3923e63703033fc41824cfc361647189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angle: 3
-  period: 3
 --- !u!222 &111678473
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -665,7 +650,6 @@ GameObject:
   - component: {fileID: 265548040}
   - component: {fileID: 265548043}
   - component: {fileID: 265548041}
-  - component: {fileID: 265548042}
   m_Layer: 5
   m_Name: Exit Button
   m_TagString: Reward Button
@@ -751,20 +735,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &265548042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265548039}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3923e63703033fc41824cfc361647189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angle: 3
-  period: 3
 --- !u!222 &265548043
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2806,7 +2776,6 @@ GameObject:
   - component: {fileID: 1809879284}
   - component: {fileID: 1809879287}
   - component: {fileID: 1809879285}
-  - component: {fileID: 1809879286}
   m_Layer: 5
   m_Name: Option Button
   m_TagString: Reward Button
@@ -2892,20 +2861,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1809879286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1809879283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3923e63703033fc41824cfc361647189, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  angle: 3
-  period: 3
 --- !u!222 &1809879287
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -44,13 +44,13 @@ public class CameraShake : MonoBehaviour
         _initPos = transform.position;
         _initRotation = transform.rotation;
         GameEvents.instance.onHealthChange += OnHealthChange;
-        GameEvents.instance.onEnterLevelUp += Shake;
+        GameEvents.instance.onLevelUp += Shake;
     }
 
     void OnDestroy()
     {
         GameEvents.instance.onHealthChange -= OnHealthChange;
-        GameEvents.instance.onEnterLevelUp -= Shake;
+        GameEvents.instance.onLevelUp -= Shake;
     }
 
     private void OnHealthChange(int instanceId, int initValue, int targetValue)

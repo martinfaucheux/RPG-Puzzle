@@ -23,8 +23,24 @@ public class CameraTransition : MonoBehaviour
         _playerTransform = playerGO.GetComponent<Transform>();
 
         // listen to the event
-        GameEvents.instance.onGameOver += SlowTargetPlayer;
-        GameEvents.instance.onEndOfLevel += TargetPlayer;
+        GameEvents.instance.onEnterState += OnEnterState;
+    }
+
+    void OnDestroy()
+    {
+        GameEvents.instance.onEnterState -= OnEnterState;
+    }
+
+    private void OnEnterState(GameState state)
+    {
+        if (state == GameState.WIN)
+        {
+            TargetPlayer();
+        }
+        else if (state == GameState.GAME_OVER)
+        {
+            SlowTargetPlayer();
+        }
     }
 
     private void TargetPlayer()
@@ -78,14 +94,14 @@ public class CameraTransition : MonoBehaviour
         Vector3 initPos = transform.position;
         Vector3 targetPos3d;
         Vector3 newPos;
-        
+
         float timeSinceStart = 0f;
 
         isMoving = true;
         while (timeSinceStart < transitionTime)
         {
             targetPos3d = targetTransform.position;
-            
+
             newPos = initPos + (targetPos3d - initPos) * (timeSinceStart / transitionTime);
             transform.position = newPos;
 

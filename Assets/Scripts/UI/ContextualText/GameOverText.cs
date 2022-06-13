@@ -4,11 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GameOverText : BlinkingText
 {
-    void Start(){
-        GameEvents.instance.onGameOver += DelayShow;
+    void Start()
+    {
+        GameEvents.instance.onEnterState += OnEnterState;
     }
 
-    void OnDestroy(){
-        GameEvents.instance.onGameOver -= DelayShow;
+    void OnDestroy()
+    {
+        GameEvents.instance.onEnterState -= OnEnterState;
+    }
+
+    private void OnEnterState(GameState state)
+    {
+        if (state == GameState.GAME_OVER)
+        {
+            DelayShow();
+        }
     }
 }

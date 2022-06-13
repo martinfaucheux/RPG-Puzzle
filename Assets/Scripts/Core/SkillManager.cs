@@ -32,7 +32,7 @@ public class SkillManager : MonoBehaviour
             Destroy(gameObject);
 
         _unlockedSkills = new Dictionary<Skill, bool>();
-        GameEvents.instance.onEnterLevelUp += AddSkillPoint;
+        GameEvents.instance.onLevelUp += AddSkillPoint;
     }
 
     public void RegisterSkill(Skill skill)

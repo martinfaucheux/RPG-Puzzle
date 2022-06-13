@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShowText: MonoBehaviour
+public class ShowText : MonoBehaviour
 {
     //public enum EventType
     //{
@@ -17,7 +17,7 @@ public class ShowText: MonoBehaviour
 
     public bool animateEnterText = true;
     public float heightScreenRatio = 0.75f;
- 
+
     public Text textComponent;
     public bool isShowing = false;
 
@@ -27,31 +27,36 @@ public class ShowText: MonoBehaviour
     private RectTransform _rectTransform;
 
 
-    protected virtual void Start() {
-
+    protected virtual void Start()
+    {
         _rectTransform = GetComponent<RectTransform>();
         SetPosition();
 
-        // listen to the event
-        GameEvents.instance.onEndOfLevel += ShowEndOfLevel;
-        GameEvents.instance.onGameOver += ShowGameOver;
+        GameEvents.instance.onEnterState += OnEnterState;
 
         textComponent = GetComponent<Text>();
         if (textComponent == null)
             Debug.LogError(gameObject.ToString() + ": No Text component found");
     }
 
-    public void ShowEndOfLevel()
+    void OnDestroy()
     {
-        Show(endOfLevelText);
+        GameEvents.instance.onEnterState -= OnEnterState;
     }
 
-    public void ShowGameOver()
+    private void OnEnterState(GameState state)
     {
-        Show(darkColor, gameOverText, 3f);
+        if (state == GameState.WIN)
+        {
+            Show(endOfLevelText);
+        }
+        else if (state == GameState.GAME_OVER)
+        {
+            Show(darkColor, gameOverText, 3f);
+        }
     }
 
-    public void Show(Color color, string text = "", float speed=0.5f)
+    public void Show(Color color, string text = "", float speed = 0.5f)
     {
         textComponent.enabled = true;
         textComponent.text = text;
@@ -76,14 +81,15 @@ public class ShowText: MonoBehaviour
         isShowing = false;
     }
 
-    private void SetPosition(){
+    private void SetPosition()
+    {
         // set the position at 75% of the screen
         float screenHeight = GetComponentInParent<Canvas>().GetComponent<RectTransform>().rect.height;
 
         float y = screenHeight * (heightScreenRatio - 0.5f);
 
         _rectTransform.anchoredPosition = new Vector3(0f, y, 0f);
-    }   
+    }
 
     private IEnumerator EnterTextAnimation(Vector3 enterPos, float animationDuration)
     {

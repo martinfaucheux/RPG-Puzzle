@@ -23,11 +23,8 @@ public class PlayerTurnActor : TurnActor
     {
         if (
             TurnManager.instance.isReady
-            & GameManager.instance.playerCanMove
-            & !GameManager.instance.isEndOfLevelScreen
-            & !GameManager.instance.isGamePaused
-            & !GameManager.instance.isInstruction
-            & (direction != Direction.IDLE)
+            && GameManager.instance.playerCanMove
+            && (direction != Direction.IDLE)
         )
         {
             // Set the player command for the upcoming turn

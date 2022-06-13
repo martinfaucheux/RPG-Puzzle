@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+// <summary>
+// Show the level related information
+// used in both level selection and end-level recap
+// </summary>
 public class LevelObjectiveList : MonoBehaviour
 {
     public TextMeshProUGUI levelTitleTextComponent;

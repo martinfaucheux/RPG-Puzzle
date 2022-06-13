@@ -9,12 +9,20 @@ public class EndOfLevelObjectiveControllerUI : MonoBehaviour
 
     void Start()
     {
-        GameEvents.instance.onEndOfLevel += Show;
+        GameEvents.instance.onEnterState += OnEnterState;
     }
 
     void OnDestroy()
     {
-        GameEvents.instance.onEndOfLevel -= Show;
+        GameEvents.instance.onEnterState -= OnEnterState;
+    }
+
+    private void OnEnterState(GameState state)
+    {
+        if (state == GameState.WIN)
+        {
+            Show();
+        }
     }
 
     private void Show()

@@ -5,22 +5,17 @@ public class GameEvents : MonoBehaviour
 {
     public static GameEvents instance = null;
 
-    public event Action onEnterLevelUp;
+    public event Action onLevelUp;
     public event Action<int, int, int> onHealthChange;
     public event Action<int> onAttackChange;
-    public event Action onPlayerGetDamage;
     public event Action onPlayerExperienceChange;
-    public event Action onEndOfLevel;
-    public event Action onGameOver;
-
     public event Action<Skill> onSkillEnabled;
-    public event Action onOpenSkillMenu;
-    public event Action onCloseSkillMenu;
-
     public event Action<Item> onPickItem;
     public event Action<Item> onUseItem;
     public event Action<Health> onUnitDies;
     public event Action<Vector2Int> onPlayerMove;
+    public event Action<GameState> onEnterState;
+    public event Action<GameState> onExitState;
 
     # region Singleton
 
@@ -42,11 +37,11 @@ public class GameEvents : MonoBehaviour
 
     # endregion
 
-    public void LevelUpEnterTrigger()
+    public void LevelUpTrigger()
     {
-        if (onEnterLevelUp != null)
+        if (onLevelUp != null)
         {
-            onEnterLevelUp();
+            onLevelUp();
         }
     }
 
@@ -66,35 +61,11 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public void PlayerGetDamage()
-    {
-        if (onPlayerGetDamage != null)
-        {
-            onPlayerGetDamage();
-        }
-    }
-
     public void PlayerExperienceChangeTrigger()
     {
         if (onPlayerExperienceChange != null)
         {
             onPlayerExperienceChange();
-        }
-    }
-
-    public void EndOfLevelTrigger()
-    {
-        if (onEndOfLevel != null)
-        {
-            onEndOfLevel();
-        }
-    }
-
-    public void GameOverTrigger()
-    {
-        if (onGameOver != null)
-        {
-            onGameOver();
         }
     }
 
@@ -122,22 +93,6 @@ public class GameEvents : MonoBehaviour
         }
     }
 
-    public void OpenSkillMenuTrigger()
-    {
-        if (onOpenSkillMenu != null)
-        {
-            onOpenSkillMenu();
-        }
-    }
-
-    public void CloseSkillMenuTrigger()
-    {
-        if (onCloseSkillMenu != null)
-        {
-            onCloseSkillMenu();
-        }
-    }
-
     public void UnitDiesTrigger(Health healthComponent)
     {
         if (onUnitDies != null)
@@ -151,6 +106,22 @@ public class GameEvents : MonoBehaviour
         if (onPlayerMove != null)
         {
             onPlayerMove(position);
+        }
+    }
+
+    public void EnterStateTrigger(GameState state)
+    {
+        if (onEnterState != null)
+        {
+            onEnterState(state);
+        }
+    }
+
+    public void ExitStateTrigger(GameState state)
+    {
+        if (onExitState != null)
+        {
+            onExitState(state);
         }
     }
 

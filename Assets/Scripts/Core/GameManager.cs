@@ -1,22 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance = null;
-    // time for basic action (e.g. moving)
-    public float actionDuration = 0.1f;
 
-    public bool playerCanMove = false;
-    public bool isGamePaused = false;
-    public bool isInstruction = false;
-    public bool isEndOfLevelScreen = false;
-    public bool isGameOverScreen = false;
+    [Tooltip("time for basic action (e.g. moving)")]
+    public float actionDuration = 0.1f;
+    public bool playerCanMove { get { return StateManager.instance.currentGameState == GameState.PLAY; } }
+
+    private static GameState[] forbiddenReloadState = new GameState[] {
+        GameState.PAUSE, GameState.TRANSITION
+    };
+
 
     #region Singleton
 
-    //Awake is always called before any Start functions
     void Awake()
     {
         //Check if instance already exists
@@ -31,81 +32,62 @@ public class GameManager : MonoBehaviour
             //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
             Destroy(gameObject);
 
-        GameEvents.instance.onEndOfLevel += OnEndOfLevel;
     }
 
     #endregion
 
-    private void OnEndOfLevel()
-    {
-        isEndOfLevelScreen = true;
-    }
-
     private void Update()
     {
-        if (isEndOfLevelScreen)
+        if (Input.GetKeyDown(KeyCode.R))
         {
-            if (GetAnyButArrowKeyDown())
+            if (!(forbiddenReloadState.Contains(StateManager.instance.currentGameState)))
             {
-                isEndOfLevelScreen = false;
-                // move to next scene
-                LevelLoader.instance.UnlockNextLevel();
-                LevelLoader.instance.SaveData();
-                LevelLoader.instance.LoadLevelSelectMenu();
+                LevelLoader.instance.ReloadLevel();
+                return;
             }
         }
-        else if (Input.GetKeyDown(KeyCode.R))
+
+        switch (StateManager.instance.currentGameState.Name)
         {
-            LevelLoader.instance.ReloadLevel();
-        }
-        else if (
-            Input.GetKeyDown(KeyCode.Escape)
-            && !isEndOfLevelScreen
-            && !isInstruction
-        )
-        {
-            TogglePause();
+            case "PLAY":
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    EnterPause();
+                }
+                break;
+            case "PAUSE":
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    ExitPause();
+                }
+                break;
+            case "WIN":
+                if (ControlUtils.GetAnyButArrowKeyDown())
+                {
+                    LevelLoader.instance.UnlockNextLevel();
+                    LevelLoader.instance.SaveData();
+                    LevelLoader.instance.LoadLevelSelectMenu();
+                }
+                break;
+            default:
+                break;
         }
     }
 
     public void Win()
     {
         Debug.Log("You win.");
-        GameEvents.instance.EndOfLevelTrigger();
+        StateManager.instance.SetState(GameState.WIN);
     }
 
     public void GameOver()
     {
-        isGameOverScreen = true;
-        BlockPlayer();
-        GameEvents.instance.GameOverTrigger();
-    }
-
-    public void BlockPlayer(float unblockAfter = 0f)
-    {
-        playerCanMove = false;
-
-        if (unblockAfter > 0f)
-        {
-            StartCoroutine(EnableMoveAfter(unblockAfter));
-        }
-    }
-
-    private void TogglePause()
-    {
-        if (isGamePaused)
-        {
-            ExitPause();
-        }
-        else
-        {
-            EnterPause();
-        }
+        StateManager.instance.SetState(GameState.GAME_OVER);
     }
 
     public void EnterPause()
     {
-        isGamePaused = true;
+        StateManager.instance.SetState(GameState.PAUSE);
         Chrono.instance.isCounting = false;
         InGameMenu menu = (InGameMenu)MainMenu.instance;
         menu.OpenMenu();
@@ -113,37 +95,9 @@ public class GameManager : MonoBehaviour
 
     public void ExitPause()
     {
-        isGamePaused = false;
+        StateManager.instance.SetState(GameState.PLAY);
         Chrono.instance.isCounting = true;
         InGameMenu menu = (InGameMenu)MainMenu.instance;
         menu.CloseMenu();
-    }
-
-    private IEnumerator EnableMoveAfter(float seconds)
-    {
-
-        yield return new WaitForSeconds(seconds);
-        playerCanMove = true;
-    }
-
-    private static bool GetAnyButArrowKeyDown()
-    {
-
-        List<KeyCode> keyCodeList = new List<KeyCode>(){
-            KeyCode.UpArrow,
-            KeyCode.DownArrow,
-            KeyCode.RightArrow,
-            KeyCode.LeftArrow,
-        };
-
-        foreach (KeyCode keyCode in keyCodeList)
-        {
-            if (Input.GetKeyDown(keyCode))
-            {
-                return false;
-            }
-        }
-
-        return Input.anyKeyDown;
     }
 }

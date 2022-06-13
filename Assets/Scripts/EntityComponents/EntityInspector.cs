@@ -17,7 +17,7 @@ public class EntityInspector : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public string SetName(string value) => entityName = value;
     public string SetDescription(string value) => description = value;
 
-    private bool canShow { get { return !GameManager.instance.isGamePaused; } }
+    private bool canShow { get { return StateManager.instance.currentGameState == GameState.PLAY; } }
 
     void Update()
     {
