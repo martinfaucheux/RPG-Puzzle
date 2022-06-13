@@ -65,7 +65,7 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadLevel(int levelID)
     {
-        StateManager.instance.SetState(GameState.TRANSITION);
+        StateManager.instance?.SetState(GameState.TRANSITION);
         SceneChangeCircle.instance.SceneEnds();
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
     }
@@ -148,6 +148,6 @@ public class LevelLoader : MonoBehaviour
     private IEnumerator SetPlayState()
     {
         yield return new WaitForSecondsRealtime(transitionDuration);
-        StateManager.instance.SetState(GameState.PLAY);
+        StateManager.instance?.SetState(GameState.PLAY);
     }
 }
