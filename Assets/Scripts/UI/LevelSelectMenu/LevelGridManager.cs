@@ -11,7 +11,6 @@ public class LevelGridManager : MonoBehaviour
 
     public Transform gridContainerTransform;
 
-    public Transform[] noSelectHiddenTransforms;
     public LevelObjectiveList levelObjectiveList;
 
     public Color defaultButtonColor;
@@ -26,6 +25,7 @@ public class LevelGridManager : MonoBehaviour
 
     void Start()
     {
+        _descriptionCanvasGroup.alpha = 0f;
         LevelLoader.instance.RetrieveGameState();
         InstantiateLevelButtons();
         UpdateUI();
@@ -33,7 +33,10 @@ public class LevelGridManager : MonoBehaviour
 
     public void SelectLevel(int levelId)
     {
-        levelObjectiveList.SetLevel(levelId);
+        // only update side panel if level has changed
+        // prevent glitching UI
+        if (levelId > 0)
+            levelObjectiveList.SetLevel(levelId);
 
         _selectedLevelId = levelId;
         UpdateUI();
