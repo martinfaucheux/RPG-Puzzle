@@ -1782,10 +1782,10 @@ RectTransform:
   m_Father: {fileID: 5425261326794468610}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 84.03369, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 47.688652, y: -42.016846}
+  m_SizeDelta: {x: 0, y: 84.03369}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5257123977749453612
 CanvasRenderer:
@@ -3581,7 +3581,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 88.92969, y: 0}
+  m_SizeDelta: {x: 95.1753, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4886235395791002026
 CanvasRenderer:
@@ -5970,7 +5970,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 88.92969, y: 0}
+  m_SizeDelta: {x: 95.1753, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &775924492229519018
 CanvasRenderer:
@@ -6544,10 +6544,10 @@ RectTransform:
   m_Father: {fileID: 5460097386161536495}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 83.333694, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 107.33954, y: -41.666847}
+  m_SizeDelta: {x: 0, y: 83.333694}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3088595566735625929
 CanvasRenderer:
@@ -6948,7 +6948,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 88.92969, y: 0}
+  m_SizeDelta: {x: 95.1753, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2409407560491269567
 CanvasRenderer:
@@ -7042,7 +7042,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 88.92969, y: 0}
+  m_SizeDelta: {x: 95.1753, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &630656837495964192
 CanvasRenderer:
@@ -7786,11 +7786,11 @@ GameObject:
   - component: {fileID: 9116858907165850389}
   - component: {fileID: 1168790280060267103}
   - component: {fileID: 4139031786036428525}
-  - component: {fileID: 8190824923383471933}
   - component: {fileID: 310162959948623987}
   - component: {fileID: 5037475082332997349}
   - component: {fileID: 4993645479378911412}
   - component: {fileID: 7635638041901651588}
+  - component: {fileID: 6699270917397144745}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7830,11 +7830,6 @@ MonoBehaviour:
   mode: 1
   showSceneBounds: 0
   sceneBoundsColor: {r: 0.65882355, g: 0, b: 0.03608219, a: 0.12156863}
-  borderWallPrefab: {fileID: 1258740270245563069, guid: 5be27123320dc5346941ea45ef66ca29,
-    type: 3}
-  checkerBoard: 1
-  GridUnitPrefab: {fileID: 8050147594917073159, guid: 07200c2eea32b20419f16ca4868e38ae,
-    type: 3}
 --- !u!114 &8952932252850200166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7928,35 +7923,6 @@ MonoBehaviour:
   detectSwipeOnlyAfterRelease: 0
   minDistanceForSwipe: 20
   angleOfGrid: -45
---- !u!114 &8190824923383471933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8952932252850200187}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1be7de1c6a87bd34380e90ed900e200d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shakeDetectionThreshold: 3
-  minShakeTimeInterval: 0.7
-  onShakeEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8953418106182982073}
-        m_TargetAssemblyTypeName: LevelLoader, Assembly-CSharp
-        m_MethodName: ReloadLevel
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &310162959948623987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8013,6 +7979,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f193a513c10abe4aa607bcfc6669353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6699270917397144745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8952932252850200187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca0d909735fcb04681e75a616b71a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  borderWallPrefab: {fileID: 7741439169816471045, guid: c09e7d874796a8d4bb74af095d61e782,
+    type: 3}
+  checkerBoard: 1
+  gridUnitPrefab: {fileID: 8050147594917073159, guid: 07200c2eea32b20419f16ca4868e38ae,
+    type: 3}
+  BorderRibbonPrefab: {fileID: 1698074925261163941, guid: d5d3ee0035e2e894fb49506892c81acc,
+    type: 3}
 --- !u!1 &8953418107967555471
 GameObject:
   m_ObjectHideFlags: 0
@@ -8642,7 +8627,7 @@ PrefabInstance:
     - target: {fileID: 224713868952098794, guid: 48affeafdad9e1048bc585e3712699aa,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 88.92969
+      value: 95.1753
       objectReference: {fileID: 0}
     - target: {fileID: 224713868952098794, guid: 48affeafdad9e1048bc585e3712699aa,
         type: 3}
@@ -8781,7 +8766,7 @@ PrefabInstance:
     - target: {fileID: 224713868952098794, guid: 48affeafdad9e1048bc585e3712699aa,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 88.92969
+      value: 95.1753
       objectReference: {fileID: 0}
     - target: {fileID: 224713868952098794, guid: 48affeafdad9e1048bc585e3712699aa,
         type: 3}
@@ -8905,7 +8890,7 @@ PrefabInstance:
     - target: {fileID: 224713868952098794, guid: 48affeafdad9e1048bc585e3712699aa,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 88.92969
+      value: 95.1753
       objectReference: {fileID: 0}
     - target: {fileID: 224713868952098794, guid: 48affeafdad9e1048bc585e3712699aa,
         type: 3}
