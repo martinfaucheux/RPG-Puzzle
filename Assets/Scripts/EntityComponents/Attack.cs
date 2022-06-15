@@ -75,6 +75,7 @@ public class Attack : MonoBehaviour
         {
             if (_expComponent != null && !_healthComponent.isDead)
             {
+                ExpBallSpawner.instance?.Spawn(transform.position);
                 _expComponent.GainExp(opponentHealth.expRewardPoints);
             }
         }
