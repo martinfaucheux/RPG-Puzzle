@@ -157,13 +157,16 @@ public class EnvironmentDrawerCustomInspector : Editor
 
 
             Vector3 dirVect = to3d(dirVect2d);
-            Vector3 pos = (0.3f + 0.5f * distance) * dirVect - new Vector3(0.5f, 0f, 0.5f);
+            Vector3 pos = (t.ribbonOffset + 0.5f * distance) * dirVect - new Vector3(0.5f, 0f, 0.5f);
 
             Quaternion rotation = Quaternion.Euler(90f, 0, angle);
 
-            GameObject ribbonGO = Instantiate(t.BorderRibbonPrefab, pos, rotation, container);
+            GameObject ribbonGO = (GameObject)PrefabUtility.InstantiatePrefab(t.borderRibbonPrefab);
+            ribbonGO.transform.SetParent(container);
+            ribbonGO.transform.position = pos;
+            ribbonGO.transform.rotation = rotation;
             SpriteRenderer spriteRenderer = ribbonGO.GetComponent<SpriteRenderer>();
-            spriteRenderer.size = new Vector2(0.5f, 0.5f + borderSize);
+            spriteRenderer.size = new Vector2(0.5f, 1 + borderSize);
         }
     }
 
@@ -182,21 +185,6 @@ public class EnvironmentDrawerCustomInspector : Editor
         float yMin = yBorderMin - t.maxDecorationDistance;
         float yMax = yBorderMax + t.maxDecorationDistance;
 
-
-        // Vector3[] verts = new Vector3[]{
-        //     new Vector3(xMin, 0, yMin),
-        //     new Vector3(xMin, 0, yMax),
-        //     new Vector3(xMax, 0, yMax),
-        //     new Vector3(xMax, 0, yMin)
-        // };
-
-        // Handles.DrawSolidRectangleWithOutline(
-        //     verts,
-        //     matrix.sceneBoundsColor,
-        //     new Color(0, 0, 0, 1)
-        // );
-
-
         for (float x = xMin; x <= xMax; x++)
         {
             for (float y = yMin; y <= yMax; y++)
@@ -213,12 +201,9 @@ public class EnvironmentDrawerCustomInspector : Editor
                     continue;
 
                 int prefabIndex = Random.Range(0, t.decorationPrefabs.Length);
-                GameObject decoGO = Instantiate(
-                    t.decorationPrefabs[prefabIndex],
-                    new Vector3(x, 0f, y),
-                    Quaternion.identity,
-                    container
-                );
+                GameObject decoGO = (GameObject)PrefabUtility.InstantiatePrefab(t.decorationPrefabs[prefabIndex]);
+                decoGO.transform.SetParent(container);
+                decoGO.transform.position = new Vector3(x, 0f, y);
                 CleanGameObject(decoGO);
             }
         }
@@ -226,15 +211,20 @@ public class EnvironmentDrawerCustomInspector : Editor
 
     private static void CleanGameObject(GameObject gameObject)
     {
-        MatrixCollider collider = gameObject.GetComponent<MatrixCollider>();
-        if (collider != null)
+        MatrixCollider matrixCollider = gameObject.GetComponent<MatrixCollider>();
+        if (matrixCollider != null)
         {
-            DestroyImmediate(collider);
+            DestroyImmediate(matrixCollider);
         }
         EntityInspector inspector = gameObject.GetComponent<EntityInspector>();
         if (inspector != null)
         {
             DestroyImmediate(inspector);
+        }
+        BoxCollider2D collider = gameObject.GetComponent<BoxCollider2D>();
+        if (collider != null)
+        {
+            DestroyImmediate(collider);
         }
     }
 
