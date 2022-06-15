@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Attack))]
 public class Fighter : ActivableObject
 {
+    [SerializeField] bool _fightBack = true;
 
     private Health _health;
     private Attack _attack;
@@ -37,21 +38,25 @@ public class Fighter : ActivableObject
         Health opponentHealth = sourceObject.GetComponent<Health>();
         Attack opponentAttack = sourceObject.GetComponent<Attack>();
 
-        if (opponentHealth != null & opponentAttack != null)
+        if (
+            opponentHealth != null
+            && opponentAttack != null
+            && !opponentAttack.isExhausted
+        )
         {
-
-            // this face opponent
-            Direction directionToOpponent = _matrixCollider.GetDirectionToOtherCollider(opponentCollider);
-            _spriteHolder.FaceDirection(directionToOpponent);
-
             // opponent deals damage to this
             opponentAttack.Damage(_health);
+
             // wait for animation to complete
             yield return new WaitForSeconds(GameManager.instance.actionDuration);
 
             // if this is not dead, deal back damage
-            if (!_health.isDead)
+            if (!_health.isDead && _fightBack)
             {
+                // face oponent 
+                Direction directionToOpponent = _matrixCollider.GetDirectionToOtherCollider(opponentCollider);
+                _spriteHolder.FaceDirection(directionToOpponent);
+
                 _attack.Damage(opponentHealth);
                 // wait for animation to complete
                 yield return new WaitForSeconds(GameManager.instance.actionDuration);

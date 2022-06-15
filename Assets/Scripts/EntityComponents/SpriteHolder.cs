@@ -33,6 +33,9 @@ public class SpriteHolder : MonoBehaviour
 
     public void FaceDirection(Direction direction)
     {
+        if (direction == Direction.IDLE)
+            return;
+
         if (_hasUniqueSprite & flipForFacing)
         {
             FlipSprite(direction);

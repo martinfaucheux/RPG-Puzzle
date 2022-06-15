@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MovingObject : MonoBehaviour
 {
+    public Direction faceDirection { get; private set; } = Direction.IDLE;
+    [Tooltip("Specify the initial direction to adopt")]
+    [SerializeField] string _baseDirection;
     [SerializeField] string paceSoundName;
 
     protected MatrixCollider _matrixCollider;
@@ -11,8 +14,21 @@ public class MovingObject : MonoBehaviour
     // the object is currently moving
     public bool isMoving { get; private set; } = false;
 
+
     // Needed to play the bump animation
     private SpriteHolder _spriteHolder;
+
+    private Animator _animator
+    {
+        get
+        {
+            if (_spriteHolder != null)
+                return _spriteHolder.activeAnimator;
+            else
+                return null;
+        }
+    }
+
 
     // Use this for initialization
     protected virtual void Start()
@@ -23,12 +39,17 @@ public class MovingObject : MonoBehaviour
             Debug.LogError(this.gameObject.ToString() + ": MatrixCollider not found");
         }
         _spriteHolder = GetComponent<SpriteHolder>();
+
+        if (_baseDirection != "")
+        {
+            faceDirection = Direction.FromString(_baseDirection);
+        }
+        _spriteHolder.FaceDirection(faceDirection);
     }
-
-
 
     protected virtual IEnumerator Move(Direction direction)
     {
+        faceDirection = direction;
         _spriteHolder.FaceDirection(direction);
 
         // update collider position
@@ -56,9 +77,9 @@ public class MovingObject : MonoBehaviour
     protected IEnumerator SmoothMovement(Vector3 targetPos)
     {
         isMoving = true;
-        if (_spriteHolder != null & _spriteHolder.activeAnimator)
+        if (_animator != null && AnimatorUtils.HasParameter(_animator, "bump"))
         {
-            _spriteHolder.activeAnimator.SetTrigger("bump");
+            _animator.SetTrigger("bump");
         }
         LTDescr ltAnimation = LeanTween.move(gameObject, targetPos, GameManager.instance.actionDuration);
         while (LeanTween.isTweening(ltAnimation.id))
@@ -71,14 +92,15 @@ public class MovingObject : MonoBehaviour
 
     public virtual IEnumerator AttemptMove(Direction direction)
     {
-        MatrixCollider otherCollider = _matrixCollider.GetObjectInDirection(direction);
-        bool canMove = true;
+        if (!IsDirectionAllowed(direction))
+            yield break;
 
+        bool canMove = true;
+        MatrixCollider otherCollider = _matrixCollider.GetObjectInDirection(direction);
         if (otherCollider != null)
         {
+            // this collider can't be blocking
             ActivableObject activableObject = otherCollider.GetComponent<ActivableObject>();
-            canMove = !otherCollider.IsBlocking;
-
             if (activableObject != null)
             {
                 yield return StartCoroutine(activableObject.Activate(gameObject));
@@ -86,12 +108,25 @@ public class MovingObject : MonoBehaviour
             }
         }
 
-        // Check that direction is valid and that object is able to move
-        if (_matrixCollider.IsValidDirection(direction) & canMove)
+        // if activable object allows movement
+        if (canMove)
         {
             LeavePosition(_matrixCollider.matrixPosition);
             yield return StartCoroutine(Move(direction));
         }
+    }
+
+    // <summary>
+    // check that the direction is valid for interaction
+    // ie is matrix-inbound and doesn't have a blocking collider
+    // </summary>
+    public bool IsDirectionAllowed(Direction direction)
+    {
+        if (!_matrixCollider.IsValidDirection(direction))
+            return false;
+
+        MatrixCollider collider = _matrixCollider.GetObjectInDirection(direction);
+        return (collider == null) || (!collider.IsBlocking);
     }
 
     // play OnLeave of current sitting Activable object

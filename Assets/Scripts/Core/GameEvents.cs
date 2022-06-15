@@ -16,6 +16,8 @@ public class GameEvents : MonoBehaviour
     public event Action<Vector2Int> onPlayerMove;
     public event Action<GameState> onEnterState;
     public event Action<GameState> onExitState;
+    public event Action onTurnStart;
+    public event Action onTurnEnd;
 
     # region Singleton
 
@@ -122,6 +124,21 @@ public class GameEvents : MonoBehaviour
         if (onExitState != null)
         {
             onExitState(state);
+        }
+    }
+
+    public void TurnStartTrigger()
+    {
+        if (onTurnStart != null)
+        {
+            onTurnStart();
+        }
+    }
+    public void TurnEndTrigger()
+    {
+        if (onTurnEnd != null)
+        {
+            onTurnEnd();
         }
     }
 

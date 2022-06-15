@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-
     private float attackAnimationAmplitude = 0.3f;
 
     public int attackPoints
@@ -15,10 +14,11 @@ public class Attack : MonoBehaviour
             GameEvents.instance.AttackChangeTrigger(GetInstanceID());
         }
     }
+    // is exhausted means that the unit already attacked during this turn
+    public bool isExhausted { get; private set; } = false;
     [SerializeField] private int _attackPoints;
     public AttackAnimation attackAnimComponent;
     [SerializeField] string attackSoundName;
-
     private Experience _expComponent;
     private Health _healthComponent;
     private Animator _animator;
@@ -38,7 +38,15 @@ public class Attack : MonoBehaviour
         {
             Debug.Log(gameObject + ": no Health component found");
         }
+        GameEvents.instance.onTurnStart += RecoverExhaust;
     }
+
+    void OnDestroy()
+    {
+        GameEvents.instance.onTurnStart -= RecoverExhaust;
+    }
+
+    private void RecoverExhaust() => isExhausted = false;
 
     public void AddAttackPoint(int attackPoint = 1)
     {
@@ -70,6 +78,9 @@ public class Attack : MonoBehaviour
                 _expComponent.GainExp(opponentHealth.expRewardPoints);
             }
         }
+
+        // mark as exhausted. It won't be able to damage before next turn
+        isExhausted = true;
     }
 
     // animate the attack

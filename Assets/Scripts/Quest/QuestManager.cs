@@ -29,13 +29,19 @@ public class QuestManager : MonoBehaviour
     {
         _quests = new List<Quest>();
         _initQuestState = new List<bool>();
-        foreach (Quest scriptableObject in LevelLoader.instance.levelMetaData.quests)
+        if (LevelLoader.instance.levelMetaData != null)
         {
-            Quest quest = Instantiate(scriptableObject);
-            // Quest quest = (Quest)ScriptableObject.CreateInstance(scriptableObject.GetType());
-            quest.Initialize();
-            _quests.Add(quest);
+            foreach (Quest scriptableObject in LevelLoader.instance.levelMetaData.quests)
+            {
+                Quest quest = Instantiate(scriptableObject);
+                // Quest quest = (Quest)ScriptableObject.CreateInstance(scriptableObject.GetType());
+                quest.Initialize();
+                _quests.Add(quest);
+            }
         }
+        else
+            Debug.LogWarning("No level Metadata found");
+
         InitializeQuestState();
         GameEvents.instance.onEnterState += OnEnterState;
     }
