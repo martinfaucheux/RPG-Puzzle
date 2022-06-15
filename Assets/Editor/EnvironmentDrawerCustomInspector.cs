@@ -118,9 +118,9 @@ public class EnvironmentDrawerCustomInspector : Editor
                 {
                     continue;
                 }
-
                 Vector3 position = matrix.GetRealWorldPosition(new Vector2(x, y));
-                GameObject gridUnitGO = Instantiate(t.gridUnitPrefab, position + constantVect, Quaternion.identity);
+                GameObject gridUnitGO = PrefabUtility.InstantiatePrefab(t.gridUnitPrefab) as GameObject;
+                gridUnitGO.transform.position = position;
                 gridUnitGO.transform.SetParent(gridContainer.transform);
             }
         }
