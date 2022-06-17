@@ -6,7 +6,7 @@ public class MatrixCollider : MonoBehaviour
 {
 
     public Vector2Int matrixPosition;
-    public bool IsBlocking = false;
+    public bool isBlocking = false;
 
     private CollisionMatrix _collisionMatrix;
 

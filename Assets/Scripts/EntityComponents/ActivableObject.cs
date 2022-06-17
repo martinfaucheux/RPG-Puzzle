@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivableObject : MonoBehaviour
+public abstract class ActivableObject : MonoBehaviour
 {
-    public bool allowMovement { get; protected set; } = true;
+    protected MatrixCollider _matrixCollider;
+    protected virtual void Start()
+    {
+        _matrixCollider = GetComponent<MatrixCollider>();
+    }
+
+    public virtual bool CheckAllowInteraction(GameObject sourceObject)
+    {
+        return !_matrixCollider.isBlocking;
+    }
+
+    public abstract bool CheckAllowMovement(GameObject sourceObject);
 
     // return true if source object can move after activation
-    public virtual IEnumerator Activate(GameObject sourceObject)
-    {
-        Debug.Log(gameObject.ToString() + ": Activated");
-        allowMovement = true;
-        yield return allowMovement;
-    }
+    public virtual IEnumerator Activate(GameObject sourceObject) { yield return null; }
 
     // function that will be ran once the player exit the case
-    public virtual void OnLeave()
-    {
-        return;
-    }
+    public virtual void OnLeave() { }
 }

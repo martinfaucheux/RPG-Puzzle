@@ -41,7 +41,7 @@ public class WallQuest : Quest
                 {
                     Vector2Int position = matrixPosition + new Vector2Int(x, y);
                     MatrixCollider adjacentCollider = CollisionMatrix.instance.GetObjectAtPosition(position);
-                    if (adjacentCollider != null && adjacentCollider.IsBlocking)
+                    if (adjacentCollider != null && adjacentCollider.isBlocking)
                     {
                         return true;
                     }

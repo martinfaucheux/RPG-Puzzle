@@ -3,25 +3,32 @@ using UnityEngine;
 
 public class Door : ActivableObject
 {
+    public override bool CheckAllowInteraction(GameObject sourceObject)
+    {
+        Inventory inventory = sourceObject.GetComponent<Inventory>();
+        return inventory != null && inventory.keyCount > 0;
+    }
+
+    public override bool CheckAllowMovement(GameObject sourceObject)
+    {
+        return true;
+    }
+
     // return true if source object can move after activation
     public override IEnumerator Activate(GameObject sourceObject)
     {
-        allowMovement = false;
-        Inventory inventoryComponent = sourceObject.GetComponent<Inventory>();
-        if (inventoryComponent != null)
+        Inventory inventory = sourceObject.GetComponent<Inventory>();
+        if (inventory != null && inventory.keyCount > 0)
         {
-            bool hasKey = inventoryComponent.UseKey();
-            if (hasKey)
-            {
-                Debug.Log("Player unlocked a door with a key");
+            inventory.UseKey();
 
-                // TODO: move this at the right place
-                GameEvents.instance.UserItemTrigger((Key)ScriptableObject.CreateInstance(typeof(Key)));
+            // TODO: move this at the right place
+            GameEvents.instance.UserItemTrigger((Key)ScriptableObject.CreateInstance(typeof(Key)));
+            Destroy(this.gameObject, 0.05f);
 
-                allowMovement = true;
-                Destroy(this.gameObject, 0.05f);
-            }
         }
-        yield return allowMovement;
+        yield return null;
     }
+
+
 }

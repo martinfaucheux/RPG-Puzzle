@@ -10,12 +10,12 @@ public class WardenTurnActor : TurnActor
     {
         Direction direction = movingObject.faceDirection;
         // try to move toward face direction
-        if (movingObject.IsDirectionAllowed(direction))
+        if (movingObject.IsInteractionAllowed(direction))
         {
             yield return StartCoroutine(movingObject.AttemptMove(direction));
         }
         // else try opposite direction
-        else if (movingObject.IsDirectionAllowed(direction.Opposite()))
+        else if (movingObject.IsInteractionAllowed(direction.Opposite()))
         {
             yield return StartCoroutine(movingObject.AttemptMove(direction.Opposite()));
         }

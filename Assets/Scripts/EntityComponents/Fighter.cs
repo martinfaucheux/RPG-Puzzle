@@ -10,20 +10,25 @@ public class Fighter : ActivableObject
 
     private Health _health;
     private Attack _attack;
-    private MatrixCollider _matrixCollider;
     private SpriteHolder _spriteHolder;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _health = GetComponent<Health>();
         _attack = GetComponent<Attack>();
-        _matrixCollider = GetComponent<MatrixCollider>();
         _spriteHolder = GetComponent<SpriteHolder>();
 
         if (_health == null)
         {
             Debug.LogError(gameObject.ToString() + ": no Health component found");
         }
+    }
+
+    public override bool CheckAllowMovement(GameObject sourceObject)
+    {
+        // fighter always blocks movement
+        return false;
     }
 
     public override IEnumerator Activate(GameObject sourceObject)
@@ -62,7 +67,6 @@ public class Fighter : ActivableObject
                 yield return new WaitForSeconds(GameManager.instance.actionDuration);
             }
         }
-        allowMovement = false;
-        yield return allowMovement;
+        yield return null;
     }
 }
