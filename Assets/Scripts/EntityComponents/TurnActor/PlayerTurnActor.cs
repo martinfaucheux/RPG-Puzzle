@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerTurnActor : TurnActor
 {
-    [SerializeField] MovingObject movingObject;
     private Direction nextCommand;
 
     protected override void Start()
@@ -27,11 +26,15 @@ public class PlayerTurnActor : TurnActor
             && (direction != Direction.IDLE)
         )
         {
-            // Set the player command for the upcoming turn
-            SetCommand(direction);
+            if (movingObject.IsInteractionAllowed(direction))
+            {
 
-            // Start turn
-            TurnManager.instance.DoTurn();
+                // Set the player command for the upcoming turn
+                SetCommand(direction);
+
+                // Start turn
+                TurnManager.instance.DoTurn();
+            }
         }
     }
 

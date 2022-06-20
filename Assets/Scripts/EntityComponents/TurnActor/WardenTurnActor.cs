@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WardenTurnActor : TurnActor
 {
-    [SerializeField] MovingObject movingObject;
-
     public override IEnumerator DoTurn()
     {
         Direction direction = movingObject.faceDirection;
