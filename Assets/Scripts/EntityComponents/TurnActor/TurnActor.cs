@@ -8,7 +8,11 @@ public abstract class TurnActor : MonoBehaviour
     [SerializeField] int _priority;
     [SerializeField] protected MovingObject movingObject;
 
-    public int GetPriority() => _priority;
+    public int GetPriority()
+    {
+        return 100 * _priority + transform.GetSiblingIndex();
+    }
+
     protected virtual void Start()
     {
         if (movingObject == null)
@@ -18,7 +22,7 @@ public abstract class TurnActor : MonoBehaviour
     }
     protected virtual void OnDestroy()
     {
-        TurnManager.instance.Remove(this);
+        // TurnManager.instance.Remove(this);
     }
     public abstract IEnumerator DoTurn();
 }

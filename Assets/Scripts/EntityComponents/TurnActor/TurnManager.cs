@@ -23,7 +23,7 @@ public class TurnManager : SingletoneBase<TurnManager>
         GameEvents.instance.TurnStartTrigger();
         foreach (TurnActor actor in _actors)
         {
-            if (!_stopRequest)
+            if (actor != null && !_stopRequest)
             {
                 yield return StartCoroutine(actor.DoTurn());
             }
