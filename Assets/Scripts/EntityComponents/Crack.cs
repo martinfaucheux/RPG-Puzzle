@@ -17,11 +17,6 @@ public class Crack : ActivableObject
         return isWalkable;
     }
 
-    public override bool CheckAllowMovement(GameObject sourceObject)
-    {
-        return isWalkable;
-    }
-
     public override void OnLeave()
     {
         if (isWalkable)

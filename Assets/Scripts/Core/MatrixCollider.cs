@@ -34,16 +34,13 @@ public class MatrixCollider : MonoBehaviour
         return _collisionMatrix.IsValidPosition(futureMatrixPosition);
     }
 
-    public MatrixCollider GetObjectInDirection(Direction direction)
+    public List<MatrixCollider> GetObjectsInDirection(Direction direction)
     {
         Vector2Int positionToCheck = matrixPosition + direction.ToPos();
-
         if (!_collisionMatrix.IsValidPosition(positionToCheck))
-        {
-            return null;
-        }
+            return new List<MatrixCollider>();
 
-        return _collisionMatrix.GetObjectAtPosition(positionToCheck);
+        return _collisionMatrix.GetObjectsAtPosition(positionToCheck);
     }
 
 
@@ -52,6 +49,4 @@ public class MatrixCollider : MonoBehaviour
         Vector2Int posDiff = otherCollider.matrixPosition - this.matrixPosition;
         return Direction.GetFromCoord(posDiff.x, posDiff.y);
     }
-
-
 }

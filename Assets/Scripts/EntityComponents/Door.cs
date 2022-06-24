@@ -9,13 +9,8 @@ public class Door : ActivableObject
         return inventory != null && inventory.keyCount > 0;
     }
 
-    public override bool CheckAllowMovement(GameObject sourceObject)
-    {
-        return true;
-    }
-
     // return true if source object can move after activation
-    public override IEnumerator Activate(GameObject sourceObject)
+    public override IEnumerator OnInteract(GameObject sourceObject)
     {
         Inventory inventory = sourceObject.GetComponent<Inventory>();
         if (inventory != null && inventory.keyCount > 0)

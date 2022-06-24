@@ -13,7 +13,7 @@ public class Spilkes : ActivableObject
     }
 
     // return true if source object can move after activation
-    public override IEnumerator Activate(GameObject sourceObject = null)
+    public override IEnumerator OnEnter(GameObject sourceObject = null)
     {
         Health healthComponent = sourceObject.GetComponent<Health>();
         if (healthComponent != null)

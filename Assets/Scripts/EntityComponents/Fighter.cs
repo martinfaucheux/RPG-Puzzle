@@ -31,7 +31,7 @@ public class Fighter : ActivableObject
         return false;
     }
 
-    public override IEnumerator Activate(GameObject sourceObject)
+    public override IEnumerator OnInteract(GameObject sourceObject)
     {
         if (sourceObject == null)
         {

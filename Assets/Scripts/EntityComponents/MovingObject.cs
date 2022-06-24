@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MovingObject : MonoBehaviour
 {
@@ -94,26 +95,36 @@ public class MovingObject : MonoBehaviour
         if (!_matrixCollider.IsValidDirection(direction))
             yield break;
 
-        MatrixCollider collider = _matrixCollider.GetObjectInDirection(direction);
-        ActivableObject activableObject = null;
-        if (collider != null)
-            activableObject = collider.GetComponent<ActivableObject>();
+        List<MatrixCollider> colliders = _matrixCollider.GetObjectsInDirection(direction);
 
         // check if the interaction is valid
-        // TODO: if not skip turn
-        if (!IsInteractionAllowed(collider, activableObject))
+        if (!colliders.All(c => IsInteractionAllowed(c)))
             yield break;
 
-        // if activable object allows movement
-        if (activableObject == null || activableObject.CheckAllowMovement(gameObject))
+        List<ActivableObject> sortedActivables = new List<ActivableObject>();
+        foreach (MatrixCollider collider in colliders)
         {
-            LeavePosition(_matrixCollider.matrixPosition);
-            yield return StartCoroutine(Move(direction));
+            ActivableObject activableObject = collider.GetComponent<ActivableObject>();
+            if (activableObject != null)
+                sortedActivables.Add(activableObject);
         }
+        sortedActivables = sortedActivables.OrderBy(a => a.interactionPriority).ToList();
 
-        if (activableObject != null)
+        foreach (ActivableObject activableObject in sortedActivables)
+            yield return StartCoroutine(activableObject.OnInteract(gameObject));
+
+        if (sortedActivables.All(act => act.CheckAllowMovement(gameObject)))
         {
-            yield return StartCoroutine(activableObject.Activate(gameObject));
+            // Leave position
+            foreach (ActivableObject activableObject in sortedActivables)
+                LeavePosition(_matrixCollider.matrixPosition);
+
+            // Move object
+            yield return StartCoroutine(Move(direction));
+
+            // Enter activable object
+            foreach (ActivableObject activableObject in sortedActivables)
+                yield return StartCoroutine(activableObject.OnEnter(gameObject));
         }
     }
 
@@ -121,8 +132,9 @@ public class MovingObject : MonoBehaviour
     // check that the direction is valid for interaction
     // if not, the turn should be skipped
     // </summary>
-    private bool IsInteractionAllowed(MatrixCollider collider, ActivableObject activableObject)
+    private bool IsInteractionAllowed(MatrixCollider collider)
     {
+        ActivableObject activableObject = collider.GetComponent<ActivableObject>();
         if (activableObject != null)
             return activableObject.CheckAllowInteraction(gameObject);
 
@@ -141,13 +153,8 @@ public class MovingObject : MonoBehaviour
         if (!_matrixCollider.IsValidDirection(direction))
             return false;
 
-        MatrixCollider collider = _matrixCollider.GetObjectInDirection(direction);
-        ActivableObject activableObject = null;
-        if (collider != null)
-            activableObject = collider.GetComponent<ActivableObject>();
-
-        // check if the interaction is valid
-        return IsInteractionAllowed(collider, activableObject);
+        List<MatrixCollider> colliders = _matrixCollider.GetObjectsInDirection(direction);
+        return colliders.All(c => IsInteractionAllowed(c));
     }
 
     // play OnLeave of current sitting Activable object

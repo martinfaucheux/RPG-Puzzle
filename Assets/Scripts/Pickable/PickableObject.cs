@@ -36,7 +36,7 @@ public class PickableObject : ActivableObject
     }
 
     // return true if source object can move after activation
-    public override IEnumerator Activate(GameObject sourceObject)
+    public override IEnumerator OnEnter(GameObject sourceObject)
     {
         if (item.CanPickUp(sourceObject))
         {
