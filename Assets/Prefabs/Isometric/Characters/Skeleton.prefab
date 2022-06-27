@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matrixPosition: {x: 0, y: 0}
-  IsBlocking: 0
+  isBlocking: 0
 --- !u!114 &868061431883986100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,6 +352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d316ed24bffbfbd4caf87648ba6cda36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <interactionPriority>k__BackingField: 5
+  _fightBack: 1
 --- !u!114 &6346052547927227681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _healthComponent: {fileID: 868061431883986100}
   _defaultTextColor: {r: 1, g: 1, b: 1, a: 1}
-  showNoDamage: 1
+  showNoDamage: 0
   showHealing: 0
   _healColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &881736868416429686
