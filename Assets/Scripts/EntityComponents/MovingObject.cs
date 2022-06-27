@@ -116,8 +116,7 @@ public class MovingObject : MonoBehaviour
         if (sortedActivables.All(act => act.CheckAllowMovement(gameObject)))
         {
             // Leave position
-            foreach (ActivableObject activableObject in sortedActivables)
-                LeavePosition(_matrixCollider.matrixPosition);
+            LeavePosition(_matrixCollider.matrixPosition);
 
             // Move object
             yield return StartCoroutine(Move(direction));
