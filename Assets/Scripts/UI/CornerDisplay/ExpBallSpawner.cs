@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExpBallSpawner : MonoBehaviour
+public class ExpBallSpawner : SingletoneBase<ExpBallSpawner>
 {
     [SerializeField] Transform targetTransform;
     [SerializeField] Canvas canvas;
@@ -15,13 +15,6 @@ public class ExpBallSpawner : MonoBehaviour
     {
         _camera = Camera.main;
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        GameEvents.instance.onUnitDies += Spawn;
-    }
-
-    void OnDestroy()
-    {
-        GameEvents.instance.onUnitDies -= Spawn;
     }
 
     void Update()
@@ -32,17 +25,17 @@ public class ExpBallSpawner : MonoBehaviour
         }
     }
 
-    private void Spawn()
+    public void Spawn()
     {
         Spawn(_playerTransform.position);
     }
 
-    private void Spawn(MonoBehaviour component)
+    public void Spawn(MonoBehaviour component)
     {
         Spawn(component.transform.position);
     }
 
-    private GameObject Spawn(Vector3 worldPosition)
+    public GameObject Spawn(Vector3 worldPosition)
     {
 
         Vector2 canvasPosition = GetCanvasPosition(worldPosition);

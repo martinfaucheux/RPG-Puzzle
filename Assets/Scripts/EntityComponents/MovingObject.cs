@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MovingObject : MonoBehaviour
 {
+    public Direction faceDirection { get; private set; } = Direction.IDLE;
+    [Tooltip("Specify the initial direction to adopt")]
+    [SerializeField] string _baseDirection;
     [SerializeField] string paceSoundName;
 
     protected MatrixCollider _matrixCollider;
@@ -14,6 +18,18 @@ public class MovingObject : MonoBehaviour
     // Needed to play the bump animation
     private SpriteHolder _spriteHolder;
 
+    private Animator _animator
+    {
+        get
+        {
+            if (_spriteHolder != null)
+                return _spriteHolder.activeAnimator;
+            else
+                return null;
+        }
+    }
+
+
     // Use this for initialization
     protected virtual void Start()
     {
@@ -23,12 +39,16 @@ public class MovingObject : MonoBehaviour
             Debug.LogError(this.gameObject.ToString() + ": MatrixCollider not found");
         }
         _spriteHolder = GetComponent<SpriteHolder>();
+
+        if (_baseDirection != "")
+            faceDirection = Direction.FromString(_baseDirection);
+
+        _spriteHolder.FaceDirection(faceDirection);
     }
-
-
 
     protected virtual IEnumerator Move(Direction direction)
     {
+        faceDirection = direction;
         _spriteHolder.FaceDirection(direction);
 
         // update collider position
@@ -56,9 +76,9 @@ public class MovingObject : MonoBehaviour
     protected IEnumerator SmoothMovement(Vector3 targetPos)
     {
         isMoving = true;
-        if (_spriteHolder != null & _spriteHolder.activeAnimator)
+        if (_animator != null && AnimatorUtils.HasParameter(_animator, "bump"))
         {
-            _spriteHolder.activeAnimator.SetTrigger("bump");
+            _animator.SetTrigger("bump");
         }
         LTDescr ltAnimation = LeanTween.move(gameObject, targetPos, GameManager.instance.actionDuration);
         while (LeanTween.isTweening(ltAnimation.id))
@@ -71,27 +91,69 @@ public class MovingObject : MonoBehaviour
 
     public virtual IEnumerator AttemptMove(Direction direction)
     {
-        MatrixCollider otherCollider = _matrixCollider.GetObjectInDirection(direction);
-        bool canMove = true;
+        // check movement is within matrix
+        if (!_matrixCollider.IsValidDirection(direction))
+            yield break;
 
-        if (otherCollider != null)
+        List<MatrixCollider> colliders = _matrixCollider.GetObjectsInDirection(direction);
+
+        // check if the interaction is valid
+        if (!colliders.All(c => IsInteractionAllowed(c)))
+            yield break;
+
+        List<ActivableObject> sortedActivables = new List<ActivableObject>();
+        foreach (MatrixCollider collider in colliders)
         {
-            ActivableObject activableObject = otherCollider.GetComponent<ActivableObject>();
-            canMove = !otherCollider.IsBlocking;
-
+            ActivableObject activableObject = collider.GetComponent<ActivableObject>();
             if (activableObject != null)
-            {
-                yield return StartCoroutine(activableObject.Activate(gameObject));
-                canMove = activableObject.allowMovement;
-            }
+                sortedActivables.Add(activableObject);
         }
+        sortedActivables = sortedActivables.OrderBy(a => a.interactionPriority).ToList();
 
-        // Check that direction is valid and that object is able to move
-        if (_matrixCollider.IsValidDirection(direction) & canMove)
+        foreach (ActivableObject activableObject in sortedActivables)
+            yield return StartCoroutine(activableObject.OnInteract(gameObject));
+
+        if (sortedActivables.All(act => act.CheckAllowMovement(gameObject)))
         {
+            // Leave position
             LeavePosition(_matrixCollider.matrixPosition);
+
+            // Move object
             yield return StartCoroutine(Move(direction));
+
+            // Enter activable object
+            foreach (ActivableObject activableObject in sortedActivables)
+                yield return StartCoroutine(activableObject.OnEnter(gameObject));
         }
+    }
+
+    // <summary>
+    // check that the direction is valid for interaction
+    // if not, the turn should be skipped
+    // </summary>
+    private bool IsInteractionAllowed(MatrixCollider collider)
+    {
+        ActivableObject activableObject = collider.GetComponent<ActivableObject>();
+        if (activableObject != null)
+            return activableObject.CheckAllowInteraction(gameObject);
+
+        if (collider != null)
+            return !collider.isBlocking;
+
+        return true;
+    }
+
+    // <summary>
+    // Should be used by other components
+    // </summary>
+    public bool IsInteractionAllowed(Direction direction)
+    {
+        // check movement is within matrix
+        if (!_matrixCollider.IsValidDirection(direction))
+            return false;
+
+        List<MatrixCollider> colliders = _matrixCollider.GetObjectsInDirection(direction);
+        return colliders.All(c => IsInteractionAllowed(c));
     }
 
     // play OnLeave of current sitting Activable object

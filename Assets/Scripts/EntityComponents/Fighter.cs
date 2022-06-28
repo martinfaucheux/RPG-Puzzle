@@ -6,17 +6,17 @@ using UnityEngine;
 [RequireComponent(typeof(Attack))]
 public class Fighter : ActivableObject
 {
+    [SerializeField] bool _fightBack = true;
 
     private Health _health;
     private Attack _attack;
-    private MatrixCollider _matrixCollider;
     private SpriteHolder _spriteHolder;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         _health = GetComponent<Health>();
         _attack = GetComponent<Attack>();
-        _matrixCollider = GetComponent<MatrixCollider>();
         _spriteHolder = GetComponent<SpriteHolder>();
 
         if (_health == null)
@@ -25,7 +25,13 @@ public class Fighter : ActivableObject
         }
     }
 
-    public override IEnumerator Activate(GameObject sourceObject)
+    public override bool CheckAllowMovement(GameObject sourceObject)
+    {
+        // fighter always blocks movement
+        return false;
+    }
+
+    public override IEnumerator OnInteract(GameObject sourceObject)
     {
         if (sourceObject == null)
         {
@@ -37,27 +43,30 @@ public class Fighter : ActivableObject
         Health opponentHealth = sourceObject.GetComponent<Health>();
         Attack opponentAttack = sourceObject.GetComponent<Attack>();
 
-        if (opponentHealth != null & opponentAttack != null)
+        if (
+            opponentHealth != null
+            && opponentAttack != null
+            && !opponentAttack.isExhausted
+        )
         {
-
-            // this face opponent
-            Direction directionToOpponent = _matrixCollider.GetDirectionToOtherCollider(opponentCollider);
-            _spriteHolder.FaceDirection(directionToOpponent);
-
             // opponent deals damage to this
             opponentAttack.Damage(_health);
+
             // wait for animation to complete
             yield return new WaitForSeconds(GameManager.instance.actionDuration);
 
             // if this is not dead, deal back damage
-            if (!_health.isDead)
+            if (!_health.isDead && _fightBack)
             {
+                // face oponent 
+                Direction directionToOpponent = _matrixCollider.GetDirectionToOtherCollider(opponentCollider);
+                _spriteHolder.FaceDirection(directionToOpponent);
+
                 _attack.Damage(opponentHealth);
                 // wait for animation to complete
                 yield return new WaitForSeconds(GameManager.instance.actionDuration);
             }
         }
-        allowMovement = false;
-        yield return allowMovement;
+        yield return null;
     }
 }

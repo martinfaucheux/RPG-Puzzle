@@ -9,13 +9,18 @@ public class PickableObject : ActivableObject
     public int itemId;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         if (item == null)
-        {
             Debug.LogError("No item found");
-        }
-        item.Initialize(this);
+        else
+            item.Initialize(this);
+    }
+
+    public override bool CheckAllowMovement(GameObject sourceObject)
+    {
+        return true;
     }
 
     public void OnValidate()
@@ -31,14 +36,13 @@ public class PickableObject : ActivableObject
     }
 
     // return true if source object can move after activation
-    public override IEnumerator Activate(GameObject sourceObject)
+    public override IEnumerator OnEnter(GameObject sourceObject)
     {
         if (item.CanPickUp(sourceObject))
         {
             item.OnPickUp(sourceObject);
             Destroy(gameObject, 0.05f); // delete the object shortly after
         }
-        allowMovement = true;
-        yield return allowMovement;
+        yield return null;
     }
 }

@@ -74,4 +74,15 @@ public class Direction : Enumeration
                 return Direction.IDLE;
         }
     }
+
+    public static Direction FromString(string strDir)
+    {
+        foreach (Direction direction in GetAll<Direction>())
+        {
+            if (strDir == direction.ToString())
+                return direction;
+        }
+        Debug.LogError("Invalid Direction value: " + strDir);
+        return Direction.IDLE;
+    }
 }

@@ -5,26 +5,9 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
 
-    public int keyCount = 0;
+    public int keyCount { get; private set; } = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void AddKey()
-    {
-        Debug.Log("Player Picked up a new key");
-        keyCount += 1;
-    }
-
+    public void AddKey() => keyCount++;
     public bool UseKey()
     {
         if (keyCount > 0)
@@ -32,8 +15,7 @@ public class Inventory : MonoBehaviour
             keyCount--;
             return true;
         }
+        Debug.LogError("Tried to use unexisting key");
         return false;
     }
-
-
 }

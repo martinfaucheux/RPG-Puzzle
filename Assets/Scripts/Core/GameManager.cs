@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        TurnManager.instance.StopTurn();
         StateManager.instance.SetState(GameState.GAME_OVER);
     }
 

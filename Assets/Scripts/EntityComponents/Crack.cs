@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Crack : ActivableObject
 {
+    public Sprite activatedSprite;
+
+    // this needs to be available for quests
     public bool isWalkable
     {
         get; private set;
     } = true;
 
-    public Sprite activatedSprite;
-
-    // return true if source object can move after activation
-    public override IEnumerator Activate(GameObject sourceObject)
+    public override bool CheckAllowInteraction(GameObject sourceObject)
     {
-        allowMovement = isWalkable;
-        yield return allowMovement;
+        return isWalkable;
     }
 
     public override void OnLeave()

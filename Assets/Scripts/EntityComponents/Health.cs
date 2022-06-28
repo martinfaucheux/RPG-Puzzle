@@ -15,7 +15,6 @@ public class Health : MonoBehaviour
             GameEvents.instance.HealthChangeTrigger(GetInstanceID(), initValue, value);
         }
     }
-
     public int MaxHealthPoints
     {
         get { return _maxHealthPoints; }
@@ -28,19 +27,14 @@ public class Health : MonoBehaviour
     }
 
     public int expRewardPoints = 1;
-
-
     public bool isDead = false;
-
     [SerializeField] int _currentHealth;
     [SerializeField] int _maxHealthPoints;
     private SpriteFlasher _spriteFlasher;
 
-
     // Use this for initialization
     void Start()
     {
-
         CurrentHealthPoints = MaxHealthPoints;
         _spriteFlasher = GetComponent<SpriteFlasher>();
     }
@@ -92,10 +86,9 @@ public class Health : MonoBehaviour
         isDead = true;
         Debug.Log(gameObject.ToString() + " is dead");
 
-        // TODO: play animation here
-
         if (tag != "Player")
         {
+            // TODO: disable collider
             GameEvents.instance.UnitDiesTrigger(this);
             Destroy(gameObject);
         }
