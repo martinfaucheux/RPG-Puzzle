@@ -31,12 +31,16 @@ public class Health : MonoBehaviour
     [SerializeField] int _currentHealth;
     [SerializeField] int _maxHealthPoints;
     private SpriteFlasher _spriteFlasher;
+    private SpriteHolder _spriteHolder;
+    private Animator _animator { get { return _spriteHolder!.activeAnimator; } }
+    private static string DIE_ANIMATION = "die";
 
     // Use this for initialization
     void Start()
     {
         CurrentHealthPoints = MaxHealthPoints;
         _spriteFlasher = GetComponent<SpriteFlasher>();
+        _spriteHolder = GetComponent<SpriteHolder>();
     }
 
     public float GetHealthPercentage()
@@ -85,6 +89,12 @@ public class Health : MonoBehaviour
     {
         isDead = true;
         Debug.Log(gameObject.ToString() + " is dead");
+
+        if (_animator != null && AnimatorUtils.HasParameter(_animator, DIE_ANIMATION))
+        {
+            _spriteHolder.FaceDirection(Direction.DOWN);
+            _animator.SetTrigger(DIE_ANIMATION);
+        }
 
         if (tag != "Player")
         {
