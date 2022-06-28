@@ -18,6 +18,8 @@ public class MovingObject : MonoBehaviour
     // Needed to play the bump animation
     private SpriteHolder _spriteHolder;
 
+    private static string MOVE_ANIMATION = "bump";
+
     private Animator _animator
     {
         get
@@ -76,10 +78,9 @@ public class MovingObject : MonoBehaviour
     protected IEnumerator SmoothMovement(Vector3 targetPos)
     {
         isMoving = true;
-        if (_animator != null && AnimatorUtils.HasParameter(_animator, "bump"))
-        {
-            _animator.SetTrigger("bump");
-        }
+        if (_animator != null && AnimatorUtils.HasParameter(_animator, MOVE_ANIMATION))
+            _animator.SetTrigger(MOVE_ANIMATION);
+
         LTDescr ltAnimation = LeanTween.move(gameObject, targetPos, GameManager.instance.actionDuration);
         while (LeanTween.isTweening(ltAnimation.id))
         {

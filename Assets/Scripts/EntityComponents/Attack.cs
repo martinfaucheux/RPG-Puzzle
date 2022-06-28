@@ -21,16 +21,16 @@ public class Attack : MonoBehaviour
     [SerializeField] string attackSoundName;
     private Experience _expComponent;
     private Health _healthComponent;
-    private Animator _animator;
     private MatrixCollider _matrixCollider;
     private SpriteHolder _spriteHolder;
+
+    private Animator _animator { get { return _spriteHolder!.activeAnimator; } }
 
     // Use this for initialization
     void Start()
     {
         _expComponent = GetComponent<Experience>();
         _healthComponent = GetComponent<Health>();
-        _animator = GetComponent<Animator>();
         _matrixCollider = GetComponent<MatrixCollider>();
         _spriteHolder = GetComponent<SpriteHolder>();
 
@@ -91,12 +91,19 @@ public class Attack : MonoBehaviour
         {
             _spriteHolder.FaceDirection(direction);
         }
-        // if sprite holder is provided, the dash animation can be played
-        if (_spriteHolder != null && direction != null)
+        if (_spriteHolder != null)
         {
-            float animationDuration = GameManager.instance.actionDuration;
-            _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
+            if (direction != null)
+            {
+                // if sprite holder is provided, the dash animation can be played
+                float animationDuration = GameManager.instance.actionDuration;
+                _spriteHolder.AttackMoveSprite(direction, attackAnimationAmplitude, animationDuration);
+            }
+            if (_animator != null && AnimatorUtils.HasParameter(_animator, "attack"))
+                _animator.SetTrigger("attack");
+
         }
+
         // TODO: use pooling to lose reference to AttackAnimation component
         if (attackAnimComponent != null)
         {
