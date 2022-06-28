@@ -59,6 +59,7 @@ jobs:
 
   buildWebGL:
     needs: testRunner
+    if: github.ref == 'refs/heads/main'
     name: Build for WebGL 🖥️
     runs-on: ubuntu-latest
     strategy:
@@ -103,6 +104,7 @@ jobs:
 
   buildWindows:
     needs: testRunner
+    if: github.ref == 'refs/heads/main'
     name: Build for Windows 🖥️
     runs-on: ubuntu-latest
     strategy:
@@ -146,6 +148,7 @@ jobs:
           path: build/StandaloneWindows64
 #  buildAndroid:
 #    needs: testRunner
+#    if: github.ref == 'refs/heads/main'
 #    name: Build for Android 📱
 #    runs-on: ubuntu-latest
 #    strategy:
@@ -191,6 +194,7 @@ jobs:
 #
 #  deployPages:
 #    needs: buildWebGL
+#    if: github.ref == 'refs/heads/main'
 #    name: Deploy to Github Pages 🚀
 #    runs-on: ubuntu-latest
 #    steps:
