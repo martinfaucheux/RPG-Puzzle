@@ -77,9 +77,8 @@ public class MovingObject : MonoBehaviour
     {
         isMoving = true;
         if (_animator != null && AnimatorUtils.HasParameter(_animator, "bump"))
-        {
             _animator.SetTrigger("bump");
-        }
+
         LTDescr ltAnimation = LeanTween.move(gameObject, targetPos, GameManager.instance.actionDuration);
         while (LeanTween.isTweening(ltAnimation.id))
         {
