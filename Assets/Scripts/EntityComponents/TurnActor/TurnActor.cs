@@ -6,7 +6,8 @@ public abstract class TurnActor : MonoBehaviour
 {
     [Tooltip("Defines the order of execution of turn. 0 if the highest priority.")]
     [SerializeField] int _priority;
-    [SerializeField] protected MovingObject movingObject;
+    [field: SerializeField]
+    public MovingObject movingObject { get; private set; }
 
     public int GetPriority()
     {
@@ -16,7 +17,11 @@ public abstract class TurnActor : MonoBehaviour
     protected virtual void Start()
     {
         if (movingObject == null)
+            movingObject = GetComponent<MovingObject>();
+        if (movingObject == null)
             Debug.LogError("TurnActor: movingObject is null");
+        else
+            Debug.LogWarning("TurnActor: movingObject not set in inspector");
 
         TurnManager.instance.Add(this);
     }

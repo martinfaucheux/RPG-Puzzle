@@ -15,23 +15,23 @@ public class KeyPlayerController : PlayerController
     }
     private void Update()
     {
-        int horizontal = (int)(Input.GetAxisRaw("Horizontal"));
-        int vertical = (int)(Input.GetAxisRaw("Vertical"));
-
-        if (_rotateControl)
+        if (ControlUtils.GetArrowKeyDown())
         {
-            int tmpVert = vertical;
-            vertical = -horizontal;
-            horizontal = tmpVert;
-        }
+            int horizontal = (int)(Input.GetAxisRaw("Horizontal"));
+            int vertical = (int)(Input.GetAxisRaw("Vertical"));
 
-        if ((vertical != 0) || (horizontal != 0))
-        {
-            Direction direction = Direction.GetFromCoord(horizontal, vertical);
-
-            if (direction != Direction.IDLE)
+            if (_rotateControl)
             {
-                TriggerMovement(direction);
+                int tmpVert = vertical;
+                vertical = -horizontal;
+                horizontal = tmpVert;
+            }
+
+            if ((vertical != 0) || (horizontal != 0))
+            {
+                Direction direction = Direction.GetFromCoord(horizontal, vertical);
+                if (direction != Direction.IDLE)
+                    TriggerMovement(direction);
             }
         }
     }
