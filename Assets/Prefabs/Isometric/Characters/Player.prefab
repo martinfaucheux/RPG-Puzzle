@@ -1934,7 +1934,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matrixPosition: {x: 0, y: 0}
-  IsBlocking: 0
+  isBlocking: 0
 --- !u!114 &4513580360118921167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1993,6 +1993,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d316ed24bffbfbd4caf87648ba6cda36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <interactionPriority>k__BackingField: 5
   _fightBack: 0
 --- !u!114 &4513580360118921153
 MonoBehaviour:
@@ -2063,7 +2064,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a2f2f9514247246bc8e1a0ddf92c11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyCount: 0
 --- !u!114 &21339646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2122,7 +2122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _priority: 0
-  movingObject: {fileID: 810018853486447506}
+  <movingObject>k__BackingField: {fileID: 810018853486447506}
 --- !u!1 &4742081517852225608
 GameObject:
   m_ObjectHideFlags: 0
