@@ -34,7 +34,8 @@ public class LevelLoader : MonoBehaviour
         levelMetaData = levelCollection.GetLevelBySceneBuildIndex(currentLevelId);
 
         // trigger animation for start of level
-        SceneChangeCircle.instance.SceneStarts();
+        // TODO: make this happen through events
+        SceneChangeCircle.instance?.SceneStarts();
 
         StartCoroutine(SetPlayState());
     }
@@ -66,7 +67,8 @@ public class LevelLoader : MonoBehaviour
     public void LoadLevel(int levelID)
     {
         StateManager.instance?.SetState(GameState.TRANSITION);
-        SceneChangeCircle.instance.SceneEnds();
+        // TODO: make this happen through events
+        SceneChangeCircle.instance?.SceneEnds();
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
     }
 
