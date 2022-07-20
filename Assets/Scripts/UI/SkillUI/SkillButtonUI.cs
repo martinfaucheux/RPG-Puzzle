@@ -6,16 +6,20 @@ using UnityEngine.UI;
 public class SkillButtonUI : MonoBehaviour
 {
     [SerializeField] float _unavailableAlpha = 0.5f;
+    [SerializeField] float _highlightDuration = 4f;
+    [SerializeField] float _highlightPeriod = 8f;
     [SerializeField] Color _unlockedColor;
     [SerializeField] Color _lockedColor;
     [SerializeField] Image _iconImage;
     [SerializeField] Image _bgImage;
+    [SerializeField] Image _highlightImage;
     [SerializeField] Button _button;
     [SerializeField] CanvasGroup _canvasGroup;
     [SerializeField] EntityInspector _entityInspector;
     [SerializeField] Material _availableMaterial;
 
     private Skill skill;
+    private float _lastShineTime;
 
     void Start()
     {
@@ -30,6 +34,14 @@ public class SkillButtonUI : MonoBehaviour
     {
         GameEvents.instance.onSkillEnabled -= UpdateUI;
         GameEvents.instance.onLevelUp -= UpdateUI;
+    }
+
+    void Update()
+    {
+        if (Time.time - _lastShineTime > _highlightPeriod)
+        {
+            Shine();
+        }
     }
 
     private bool isUnlocked
@@ -66,6 +78,7 @@ public class SkillButtonUI : MonoBehaviour
     private void UpdateUI()
     {
         _bgImage.color = isUnlocked ? _unlockedColor : _lockedColor;
+        _highlightImage.enabled = isSkillPointAvailable && !isUnlocked;
         _canvasGroup.alpha = (isUnlocked || isSkillPointAvailable) ? 1f : _unavailableAlpha;
         _button.interactable = !isUnlocked;
 
@@ -73,6 +86,7 @@ public class SkillButtonUI : MonoBehaviour
         _bgImage.material = material;
         _iconImage.material = material;
         SetEntityInspectorDescription();
+        Shine();
     }
 
     private void SetEntityInspectorDescription()
@@ -90,5 +104,20 @@ public class SkillButtonUI : MonoBehaviour
             }
         }
         _entityInspector.SetDescription(description);
+    }
+
+    public void Shine()
+    {
+        _lastShineTime = Time.time;
+
+        // reset state
+        LeanTween.cancel(_highlightImage.gameObject);
+        _highlightImage.transform.localScale = Vector3.one;
+        _highlightImage.color = Color.white;
+
+        float scaleFactor = 0.5f;
+        Vector3 targetScale = Vector3.one + scaleFactor * new Vector3(1f, 1f, 0f);
+        LeanTween.scale(_highlightImage.gameObject, targetScale, _highlightDuration).setEase(LeanTweenType.easeOutCubic);
+        LeanTween.alpha((RectTransform)_highlightImage.transform, 0f, _highlightDuration).setEase(LeanTweenType.easeInCubic);
     }
 }
