@@ -14,12 +14,12 @@ public class CommandListener : MonoBehaviour
 
     void Start()
     {
-        PlayerController.OnGetCommand += SetNextCommand;
+        PlayInputManager.OnGetCommand += SetNextCommand;
     }
 
     void OnDestroy()
     {
-        PlayerController.OnGetCommand -= SetNextCommand;
+        PlayInputManager.OnGetCommand -= SetNextCommand;
     }
 
     public void SetNextCommand(Direction command)

@@ -66,14 +66,6 @@ public class CameraShake : MonoBehaviour
         }
     }
 
-    // private void Update()
-    // {
-    //     if (Input.GetKeyDown(KeyCode.Space))
-    //     {
-    //         Shake();
-    //     }
-    // }
-
     public void Shake()
     {
         Shake(defaultShakeDuration, defaultShakeMagnitude, defaultShakeIterations);

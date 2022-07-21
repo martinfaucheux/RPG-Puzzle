@@ -48,15 +48,18 @@ public class Direction : Enumeration
         return value;
     }
 
-    public static Direction GetFromCoord(Vector2Int coord)
+    public static Direction GetFromCoord(float horizontal, float vertical)
     {
-        return GetFromCoord(coord.x, coord.y);
+        // Debug.Log((int)horizontal);
+        // Debug.Log((int)vertical);
+        return GetFromCoord((int)horizontal, (int)vertical);
     }
 
-    public Vector2Int ToPos()
-    {
-        return new Vector2Int(_xValue, _yValue);
-    }
+    public static Direction GetFromCoord(Vector2 coord) => GetFromCoord(coord.x, coord.y);
+
+    public static Direction GetFromCoord(Vector2Int coord) => GetFromCoord(coord.x, coord.y);
+
+    public Vector2Int ToPos() => new Vector2Int(_xValue, _yValue);
 
     public Direction Opposite()
     {
