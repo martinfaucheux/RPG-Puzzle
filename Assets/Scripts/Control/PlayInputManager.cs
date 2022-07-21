@@ -47,12 +47,10 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
         {
             Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
             inputVector = Quaternion.Euler(0, 0, directionalInputRotation) * inputVector;
-            Debug.Log(inputVector);
 
             if (inputVector != Vector2.zero)
             {
                 Direction direction = Direction.GetFromCoord(Vector2Int.RoundToInt(inputVector));
-                Debug.Log(direction);
                 OnGetCommand(direction);
             }
         }
