@@ -35,19 +35,6 @@ public class ExpDisplay : UIBarDisplay
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    private void Update(){
-        if(Input.GetKeyDown(KeyCode.T)){
-
-            //Vector3 newPos = GetWorldPosition();
-
-            // Vector3 newPos = Camera.main.ScreenToWorldPoint(_rectTransform.transform.position);
-
-            Vector3 newPos = GetBoxWorldPosition(0);
-
-            Instantiate(expBallPrefab, newPos, Quaternion.identity);
-        }
-    }
-
     private void OnPlayerExperienceChange()
     {
         UpdateUI();
@@ -80,12 +67,14 @@ public class ExpDisplay : UIBarDisplay
         }
     }
 
-    public void SpawnExpBall(Transform spawnTransform, int previousExpPoints){
+    public void SpawnExpBall(Transform spawnTransform, int previousExpPoints)
+    {
         Vector3 targetPos = GetBoxWorldPosition(previousExpPoints);
         Instantiate(expBallPrefab, spawnTransform);
     }
 
-    public Vector3 GetBoxWorldPosition(int index){
+    public Vector3 GetBoxWorldPosition(int index)
+    {
         ExpUI[] expUIComponents = imageContainerTransform.GetComponentsInChildren<ExpUI>();
         ExpUI expUIComponent = expUIComponents[index];
 

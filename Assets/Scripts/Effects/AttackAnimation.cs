@@ -6,10 +6,10 @@ public class AttackAnimation : MonoBehaviour
 {
 
     public float rotationDuration = 0.2f;
-    public Transform spritePivotTransform;    
+    public Transform spritePivotTransform;
 
     // TODO: deprecated
-    public Transform maskPivotTransform;    
+    public Transform maskPivotTransform;
     // public Quaternion UpAngle;
     // public Quaternion RightAngle;
     // public Quaternion DownAngle;
@@ -18,46 +18,33 @@ public class AttackAnimation : MonoBehaviour
     private bool _isAnimPlaying = false;
     private Animator _animator;
 
-    private void Start(){
+    private void Start()
+    {
         _initAngle = maskPivotTransform.rotation;
         _animator = GetComponent<Animator>();
     }
 
-    private void Update(){
-        if(Input.GetKeyDown(KeyCode.Keypad7)){
-            Trigger(transform.position, Direction.UP);
-        }
-        if(Input.GetKeyDown(KeyCode.Keypad9)){
-            Trigger(transform.position, Direction.RIGHT);
-        }
-        if(Input.GetKeyDown(KeyCode.Keypad3)){
-            Trigger(transform.position, Direction.DOWN);
-        }
-        if(Input.GetKeyDown(KeyCode.Keypad1)){
-            Trigger(transform.position, Direction.LEFT);
-        }
-        
-
-    }
-
-    public void Trigger(Vector3 position, Direction direction){
-        if (!_isAnimPlaying){
+    public void Trigger(Vector3 position, Direction direction)
+    {
+        if (!_isAnimPlaying)
+        {
             // Quaternion angle = GetAngleForDirection(direction);
             // transform.rotation = angle;
             Pivot(direction);
 
             _isAnimPlaying = true;
-            
+
             _animator.SetTrigger("attack");
-            
+
             _isAnimPlaying = false;
             // TODO: remove this
             // RotateMask();
         }
-        
+
     }
 
-    private void Pivot(Direction direction){
+    private void Pivot(Direction direction)
+    {
         Vector2 vect = direction.ToPos();
         Vector3 vectDirection = new Vector3(vect.x, 0, vect.y);
         spritePivotTransform.rotation = Quaternion.LookRotation(vectDirection);
@@ -73,15 +60,18 @@ public class AttackAnimation : MonoBehaviour
     //     }
     // }
 
-    private void RotateMask(){
-            StartCoroutine(RotateMaskCoroutine());
+    private void RotateMask()
+    {
+        StartCoroutine(RotateMaskCoroutine());
     }
 
-    private IEnumerator RotateMaskCoroutine(){
+    private IEnumerator RotateMaskCoroutine()
+    {
         float timeSinceStart = 0f;
-        
 
-        while (timeSinceStart < rotationDuration){
+
+        while (timeSinceStart < rotationDuration)
+        {
             float deltaTime = Time.deltaTime;
             float angle = 360 * deltaTime / rotationDuration;
             maskPivotTransform.RotateAround(maskPivotTransform.position, transform.forward, angle);
