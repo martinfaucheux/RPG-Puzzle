@@ -13,6 +13,7 @@ public class KeyPlayerController : PlayerController
             _rotateControl = (_collisionMatrix.mode == CollisionMatrix.Mode.ISOMETRIC);
         }
     }
+#if ENABLE_LEGACY_INPUT_MANAGER 
     private void Update()
     {
         if (ControlUtils.GetArrowKeyDown())
@@ -35,4 +36,5 @@ public class KeyPlayerController : PlayerController
             }
         }
     }
+#endif
 }

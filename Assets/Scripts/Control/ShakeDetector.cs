@@ -20,15 +20,17 @@ public class ShakeDetector : MonoBehaviour
         sqrShakeDetectionThreshold = Mathf.Pow(shakeDetectionThreshold, 2);
     }
 
-
+#if ENABLE_LEGACY_INPUT_MANAGER 
     void Update()
     {
         if (
             Input.acceleration.sqrMagnitude >= sqrShakeDetectionThreshold
             && Time.unscaledTime >= timeSinceLastShake + minShakeTimeInterval
-        ){
+        )
+        {
             onShakeEvent.Invoke();
             timeSinceLastShake = Time.unscaledTime;
         }
     }
+#endif
 }

@@ -15,6 +15,7 @@ public class SwipePlayerController : PlayerController
     [SerializeField]
     private float angleOfGrid = -45f;
 
+#if ENABLE_LEGACY_INPUT_MANAGER 
     private void Update()
     {
         foreach (Touch touch in Input.touches)
@@ -38,6 +39,7 @@ public class SwipePlayerController : PlayerController
             }
         }
     }
+#endif
 
     private void DetectSwipe()
     {
@@ -53,22 +55,26 @@ public class SwipePlayerController : PlayerController
         return (fingerDownPosition - fingerUpPosition).magnitude >= minDistanceForSwipe;
     }
 
-    private Direction GetDirection(Vector2 swipeVector){
+    private Direction GetDirection(Vector2 swipeVector)
+    {
 
-        if(angleOfGrid != 0){
-            swipeVector = Quaternion.Euler(0f,0f, angleOfGrid) * swipeVector;
+        if (angleOfGrid != 0)
+        {
+            swipeVector = Quaternion.Euler(0f, 0f, angleOfGrid) * swipeVector;
         }
 
         float x = swipeVector.x;
         float y = swipeVector.y;
-        if (Mathf.Abs(x) > Mathf.Abs(y)){
+        if (Mathf.Abs(x) > Mathf.Abs(y))
+        {
             if (x > 0f)
                 return Direction.RIGHT;
             else
                 return Direction.LEFT;
         }
-        else{
-           if (y > 0f)
+        else
+        {
+            if (y > 0f)
                 return Direction.UP;
             else
                 return Direction.DOWN;

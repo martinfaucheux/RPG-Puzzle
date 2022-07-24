@@ -40,13 +40,7 @@ public class OverHeadHealth : MonoBehaviour
         Hide();
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Toggle();
-        }
-    }
+    // TODO: To Enable
 
     public void Toggle()
     {

@@ -14,8 +14,11 @@ public abstract class ClickAndRelease : MonoBehaviour
     // whether the current object has been clicked on
     private bool _isClicked = false;
 
+#if ENABLE_LEGACY_INPUT_MANAGER 
+
     void Update()
     {
+
 
         // mark as clicked
         if (Input.GetMouseButtonDown(buttonId))
@@ -38,6 +41,8 @@ public abstract class ClickAndRelease : MonoBehaviour
             _isClicked = false;
         }
     }
+
+#endif
 
     void OnMouseEnter()
     {
