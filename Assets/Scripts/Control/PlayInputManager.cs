@@ -27,6 +27,9 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
         playerInputActions.Player.Pause.performed += EnterPause;
         playerInputActions.Player.Restart.performed += Restart;
         playerInputActions.Player.Continue.performed += EnterPostWin;
+        playerInputActions.Player.UnlockSkill1.performed += UnlockSkill;
+        playerInputActions.Player.UnlockSkill2.performed += UnlockSkill;
+        playerInputActions.Player.UnlockSkill3.performed += UnlockSkill;
 
         // from UI mode
         playerInputActions.UI.Exit.performed += ExitPause;
@@ -60,5 +63,28 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
     void ExitPause(InputAction.CallbackContext context) => GameManager.instance.ExitPause();
     void Restart(InputAction.CallbackContext context) => GameManager.instance.Restart();
     void EnterPostWin(InputAction.CallbackContext context) => GameManager.instance.EnterPostWin();
+    void UnlockSkill(InputAction.CallbackContext context)
+    {
+        if (StateManager.instance.currentGameState == GameState.PLAY)
+        {
 
+            int skillId = 0;
+            switch (context.action.name)
+            {
+                case "UnlockSkill1":
+                    skillId = 0;
+                    break;
+                case "UnlockSkill2":
+                    skillId = 1;
+                    break;
+                case "UnlockSkill3":
+                    skillId = 2;
+                    break;
+                default:
+                    Debug.LogError("Unknown skill id");
+                    break;
+            }
+            SkillManager.instance.Unlock(skillId);
+        }
+    }
 }
