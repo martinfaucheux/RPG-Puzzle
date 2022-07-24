@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class ShakeDetector : MonoBehaviour
 {
@@ -20,13 +21,13 @@ public class ShakeDetector : MonoBehaviour
         sqrShakeDetectionThreshold = Mathf.Pow(shakeDetectionThreshold, 2);
     }
 
-
     void Update()
     {
         if (
-            Input.acceleration.sqrMagnitude >= sqrShakeDetectionThreshold
+            Accelerometer.current.acceleration.ReadValue().sqrMagnitude >= sqrShakeDetectionThreshold
             && Time.unscaledTime >= timeSinceLastShake + minShakeTimeInterval
-        ){
+        )
+        {
             onShakeEvent.Invoke();
             timeSinceLastShake = Time.unscaledTime;
         }

@@ -17,14 +17,6 @@ public class ExpBallSpawner : SingletoneBase<ExpBallSpawner>
         _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            Spawn();
-        }
-    }
-
     public void Spawn()
     {
         Spawn(_playerTransform.position);

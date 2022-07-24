@@ -9,6 +9,7 @@ public class PressButtonAction : MonoBehaviour
     [SerializeField] bool anyKey;
     [SerializeField] UnityEvent onEscapePressedEvent;
 
+#if ENABLE_LEGACY_INPUT_MANAGER 
     void Update()
     {
         if (
@@ -19,4 +20,5 @@ public class PressButtonAction : MonoBehaviour
             onEscapePressedEvent.Invoke();
         }
     }
+#endif
 }

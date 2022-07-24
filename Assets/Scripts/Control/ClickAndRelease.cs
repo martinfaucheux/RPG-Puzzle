@@ -7,6 +7,8 @@ using UnityEngine;
 // </summary>
 public abstract class ClickAndRelease : MonoBehaviour
 {
+#if ENABLE_LEGACY_INPUT_MANAGER 
+
     [SerializeField] int buttonId = 0;
 
     // whether the current object is currently hovered
@@ -14,8 +16,10 @@ public abstract class ClickAndRelease : MonoBehaviour
     // whether the current object has been clicked on
     private bool _isClicked = false;
 
+
     void Update()
     {
+
 
         // mark as clicked
         if (Input.GetMouseButtonDown(buttonId))
@@ -39,6 +43,7 @@ public abstract class ClickAndRelease : MonoBehaviour
         }
     }
 
+
     void OnMouseEnter()
     {
         _isHovered = true;
@@ -51,5 +56,6 @@ public abstract class ClickAndRelease : MonoBehaviour
 
     // to be overriden
     protected abstract void PerformAction();
+#endif
 
 }

@@ -36,41 +36,11 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    private void Update()
+    public void Restart()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!(forbiddenReloadState.Contains(StateManager.instance.currentGameState)))
         {
-            if (!(forbiddenReloadState.Contains(StateManager.instance.currentGameState)))
-            {
-                LevelLoader.instance.ReloadLevel();
-                return;
-            }
-        }
-
-        switch (StateManager.instance.currentGameState.Name)
-        {
-            case "PLAY":
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    EnterPause();
-                }
-                break;
-            case "PAUSE":
-                if (Input.GetKeyDown(KeyCode.Escape))
-                {
-                    ExitPause();
-                }
-                break;
-            case "WIN":
-                if (ControlUtils.GetAnyButArrowKeyDown())
-                {
-                    LevelLoader.instance.UnlockNextLevel();
-                    LevelLoader.instance.SaveData();
-                    LevelLoader.instance.LoadLevelSelectMenu();
-                }
-                break;
-            default:
-                break;
+            LevelLoader.instance.ReloadLevel();
         }
     }
 
@@ -88,17 +58,35 @@ public class GameManager : MonoBehaviour
 
     public void EnterPause()
     {
-        StateManager.instance.SetState(GameState.PAUSE);
-        Chrono.instance.isCounting = false;
-        InGameMenu menu = (InGameMenu)MainMenu.instance;
-        menu.OpenMenu();
+        if (StateManager.instance.currentGameState == GameState.PLAY)
+        {
+            StateManager.instance.SetState(GameState.PAUSE);
+            PlayInputManager.instance.SwitchCurrentActionMap("UI");
+            Chrono.instance.isCounting = false;
+            InGameMenu menu = (InGameMenu)MainMenu.instance;
+            menu.OpenMenu();
+        }
     }
 
     public void ExitPause()
     {
-        StateManager.instance.SetState(GameState.PLAY);
-        Chrono.instance.isCounting = true;
-        InGameMenu menu = (InGameMenu)MainMenu.instance;
-        menu.CloseMenu();
+        if (StateManager.instance.currentGameState == GameState.PAUSE)
+        {
+            StateManager.instance.SetState(GameState.PLAY);
+            PlayInputManager.instance.SwitchCurrentActionMap("Player");
+            Chrono.instance.isCounting = true;
+            InGameMenu menu = (InGameMenu)MainMenu.instance;
+            menu.CloseMenu();
+        }
+    }
+
+    public void EnterPostWin()
+    {
+        if (StateManager.instance.currentGameState == GameState.WIN)
+        {
+            LevelLoader.instance.UnlockNextLevel();
+            LevelLoader.instance.SaveData();
+            LevelLoader.instance.LoadLevelSelectMenu();
+        }
     }
 }
