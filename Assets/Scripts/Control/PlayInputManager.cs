@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
-
+using System.Linq;
 
 public class PlayInputManager : SingletoneBase<PlayInputManager>
 {
@@ -11,25 +11,33 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
     [SerializeField] float directionalInputRotation = -90f;
     private PlayerInputActions playerInputActions;
     private Dictionary<string, InputActionMap> _inputActionmaps;
-
+    public InputAction[] skillInputActions { get; private set; }
     protected override void Awake()
     {
         base.Awake();
         playerInputActions = new PlayerInputActions();
+        PlayerInputActions.PlayerActions playerActions = playerInputActions.Player;
+
         _inputActionmaps = new Dictionary<string, InputActionMap>();
         _inputActionmaps["Player"] = playerInputActions.Player;
         _inputActionmaps["UI"] = playerInputActions.UI;
 
+        skillInputActions = new InputAction[]{
+            playerActions.UnlockSkill1,
+            playerActions.UnlockSkill2,
+            playerActions.UnlockSkill3,
+        };
+
         playerInputActions.Player.Enable();
 
         // from Play mode
-        playerInputActions.Player.Movement.performed += ProcessMovement;
-        playerInputActions.Player.Pause.performed += EnterPause;
-        playerInputActions.Player.Restart.performed += Restart;
-        playerInputActions.Player.Continue.performed += EnterPostWin;
-        playerInputActions.Player.UnlockSkill1.performed += UnlockSkill;
-        playerInputActions.Player.UnlockSkill2.performed += UnlockSkill;
-        playerInputActions.Player.UnlockSkill3.performed += UnlockSkill;
+        playerActions.Movement.performed += ProcessMovement;
+        playerActions.Pause.performed += EnterPause;
+        playerActions.Restart.performed += Restart;
+        playerActions.Continue.performed += EnterPostWin;
+        playerActions.UnlockSkill1.performed += UnlockSkill;
+        playerActions.UnlockSkill2.performed += UnlockSkill;
+        playerActions.UnlockSkill3.performed += UnlockSkill;
 
         // from UI mode
         playerInputActions.UI.Exit.performed += ExitPause;
@@ -87,4 +95,11 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
             SkillManager.instance.Unlock(skillId);
         }
     }
+
+    public string GetBindingPath(InputAction inputAction)
+    {
+        string path = inputAction.bindings[0].path;
+        return path.Split('/').Last();
+    }
+    public string GetSkillBindingPath(int skillId) => GetBindingPath(skillInputActions[skillId]);
 }
