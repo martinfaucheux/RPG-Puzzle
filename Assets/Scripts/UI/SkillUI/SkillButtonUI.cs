@@ -10,6 +10,7 @@ public class SkillButtonUI : MonoBehaviour
     [SerializeField] float _highlightPeriod = 8f;
     [SerializeField] Color _unlockedColor;
     [SerializeField] Color _lockedColor;
+    [SerializeField] Color _inspectorShortcutColor;
     [SerializeField] Image _iconImage;
     [SerializeField] Image _bgImage;
     [SerializeField] Image _highlightImage;
@@ -21,9 +22,13 @@ public class SkillButtonUI : MonoBehaviour
     private Skill skill;
     private float _lastShineTime;
 
+    public int skillId { get { return transform.GetSiblingIndex(); } }
+
+    private static string[] _shortcuts = new string[] { "&", "é", "\"" };
+
     void Start()
     {
-        _entityInspector.SetName(skill.skillName);
+        SetEntityInspectorName();
         UpdateUI();
 
         GameEvents.instance.onSkillEnabled += UpdateUI;
@@ -87,6 +92,14 @@ public class SkillButtonUI : MonoBehaviour
         _iconImage.material = material;
         SetEntityInspectorDescription();
         Shine();
+    }
+
+    private void SetEntityInspectorName()
+    {
+        string shortcut = PlayInputManager.instance.GetSkillBindingPath(skillId);
+        string colorHex = ColorUtility.ToHtmlStringRGB(_inspectorShortcutColor);
+        string inspectorName = $"{skill.skillName} <#{colorHex}>[{shortcut}]";
+        _entityInspector.SetName(inspectorName);
     }
 
     private void SetEntityInspectorDescription()

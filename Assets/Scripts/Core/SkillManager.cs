@@ -16,6 +16,8 @@ public class SkillManager : MonoBehaviour
     }
 
     private Dictionary<Skill, bool> _unlockedSkills;
+    // Allow to access skill by id
+    private List<Skill> _skills;
 
     void Awake()
     {
@@ -32,18 +34,18 @@ public class SkillManager : MonoBehaviour
             Destroy(gameObject);
 
         _unlockedSkills = new Dictionary<Skill, bool>();
+        _skills = new List<Skill>();
         GameEvents.instance.onLevelUp += AddSkillPoint;
     }
 
     public void RegisterSkill(Skill skill)
     {
         _unlockedSkills.Add(skill, false);
+        _skills.Add(skill);
     }
 
-    public void AddSkillPoint()
-    {
-        skillPoints += 1;
-    }
+    public void AddSkillPoint() => skillPoints += 1;
+
 
     public bool Unlock(Skill skill)
     {
@@ -62,8 +64,8 @@ public class SkillManager : MonoBehaviour
         return false;
     }
 
-    public bool IsUnlocked(Skill skill)
-    {
-        return _unlockedSkills[skill];
-    }
+    public bool Unlock(int skillId) => Unlock(_skills[skillId]);
+
+    public bool IsUnlocked(Skill skill) => _unlockedSkills[skill];
+
 }

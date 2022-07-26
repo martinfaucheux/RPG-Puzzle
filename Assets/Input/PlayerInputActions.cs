@@ -49,6 +49,30 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""UnlockSkill1"",
+                    ""type"": ""Button"",
+                    ""id"": ""d8858740-27c2-4fc4-9cc4-ac6d0afa258f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""UnlockSkill2"",
+                    ""type"": ""Button"",
+                    ""id"": ""25b37a69-fbc6-4a94-8fc3-2d29aa0efb7e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""UnlockSkill3"",
+                    ""type"": ""Button"",
+                    ""id"": ""3fcf911f-6a0c-4066-8915-e7cad4b64c96"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -194,6 +218,39 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""Continue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be688573-b865-40c2-b183-fa39c15c7b22"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""UnlockSkill1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc6fe23d-e1b3-4722-822d-c4ddf6f57214"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""UnlockSkill2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""951fa73e-a7a5-4b74-8fdf-861fc20c6bf8"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""UnlockSkill3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -264,6 +321,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Player_Restart = m_Player.FindAction("Restart", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
         m_Player_Continue = m_Player.FindAction("Continue", throwIfNotFound: true);
+        m_Player_UnlockSkill1 = m_Player.FindAction("UnlockSkill1", throwIfNotFound: true);
+        m_Player_UnlockSkill2 = m_Player.FindAction("UnlockSkill2", throwIfNotFound: true);
+        m_Player_UnlockSkill3 = m_Player.FindAction("UnlockSkill3", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
@@ -321,6 +381,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Restart;
     private readonly InputAction m_Player_Pause;
     private readonly InputAction m_Player_Continue;
+    private readonly InputAction m_Player_UnlockSkill1;
+    private readonly InputAction m_Player_UnlockSkill2;
+    private readonly InputAction m_Player_UnlockSkill3;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -329,6 +392,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @Restart => m_Wrapper.m_Player_Restart;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
         public InputAction @Continue => m_Wrapper.m_Player_Continue;
+        public InputAction @UnlockSkill1 => m_Wrapper.m_Player_UnlockSkill1;
+        public InputAction @UnlockSkill2 => m_Wrapper.m_Player_UnlockSkill2;
+        public InputAction @UnlockSkill3 => m_Wrapper.m_Player_UnlockSkill3;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -350,6 +416,15 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Continue.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
                 @Continue.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
                 @Continue.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnContinue;
+                @UnlockSkill1.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill1;
+                @UnlockSkill1.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill1;
+                @UnlockSkill1.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill1;
+                @UnlockSkill2.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill2;
+                @UnlockSkill2.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill2;
+                @UnlockSkill2.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill2;
+                @UnlockSkill3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill3;
+                @UnlockSkill3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill3;
+                @UnlockSkill3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill3;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -366,6 +441,15 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Continue.started += instance.OnContinue;
                 @Continue.performed += instance.OnContinue;
                 @Continue.canceled += instance.OnContinue;
+                @UnlockSkill1.started += instance.OnUnlockSkill1;
+                @UnlockSkill1.performed += instance.OnUnlockSkill1;
+                @UnlockSkill1.canceled += instance.OnUnlockSkill1;
+                @UnlockSkill2.started += instance.OnUnlockSkill2;
+                @UnlockSkill2.performed += instance.OnUnlockSkill2;
+                @UnlockSkill2.canceled += instance.OnUnlockSkill2;
+                @UnlockSkill3.started += instance.OnUnlockSkill3;
+                @UnlockSkill3.performed += instance.OnUnlockSkill3;
+                @UnlockSkill3.canceled += instance.OnUnlockSkill3;
             }
         }
     }
@@ -426,6 +510,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnRestart(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
         void OnContinue(InputAction.CallbackContext context);
+        void OnUnlockSkill1(InputAction.CallbackContext context);
+        void OnUnlockSkill2(InputAction.CallbackContext context);
+        void OnUnlockSkill3(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

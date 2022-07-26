@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
+
 public class LevelSelectButton : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI textComponent;
@@ -25,6 +27,10 @@ public class LevelSelectButton : MonoBehaviour
     void Start()
     {
         levelId = transform.GetSiblingIndex() + 1;
+        if (levelId == 1)
+        {
+            StartCoroutine(SelectCoroutine());
+        }
     }
 
     private void SetText()
@@ -68,5 +74,13 @@ public class LevelSelectButton : MonoBehaviour
         Color bgColor = backgroundImage.color;
         bgColor.a = isActive ? 1f : inactiveBgAlpha;
         backgroundImage.color = bgColor;
+    }
+
+    private IEnumerator SelectCoroutine()
+    {
+        // yield return new WaitForSeconds(delay);
+        yield return new WaitForSeconds(0.05f);
+        EventSystem.current.SetSelectedGameObject(gameObject);
+
     }
 }

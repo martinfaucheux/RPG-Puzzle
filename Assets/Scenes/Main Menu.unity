@@ -246,6 +246,7 @@ GameObject:
   - component: {fileID: 111678470}
   - component: {fileID: 111678473}
   - component: {fileID: 111678471}
+  - component: {fileID: 111678472}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Reward Button
@@ -331,6 +332,19 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &111678472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111678469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32103063d04a37e4c9891c8c1eb4962b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.05
 --- !u!222 &111678473
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2406,6 +2420,7 @@ GameObject:
   - component: {fileID: 1422883357}
   - component: {fileID: 1422883362}
   - component: {fileID: 1422883360}
+  - component: {fileID: 1422883358}
   m_Layer: 5
   m_Name: Reset Button
   m_TagString: Reward Button
@@ -2435,6 +2450,19 @@ RectTransform:
   m_AnchoredPosition: {x: 286.77795, y: -538.49084}
   m_SizeDelta: {x: 573.5559, y: 217.64722}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1422883358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422883356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32103063d04a37e4c9891c8c1eb4962b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.05
 --- !u!114 &1422883360
 MonoBehaviour:
   m_ObjectHideFlags: 0
