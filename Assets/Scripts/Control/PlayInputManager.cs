@@ -9,7 +9,7 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
     public static event Action<Direction> OnGetCommand = delegate { };
     [SerializeField] PlayerInput playerInput;
     [SerializeField] float directionalInputRotation = -90f;
-    private PlayerInputActions playerInputActions;
+    public PlayerInputActions playerInputActions { get; private set; }
     private Dictionary<string, InputActionMap> _inputActionmaps;
     public InputAction[] skillInputActions { get; private set; }
     protected override void Awake()

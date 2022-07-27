@@ -273,6 +273,14 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AnyKey"",
+                    ""type"": ""Button"",
+                    ""id"": ""befcfdf7-4baf-4f86-8a59-5bc0a9c9f946"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -295,6 +303,28 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d67e76c-ae2c-4c47-949f-34c86a029c38"",
+                    ""path"": ""*/{PrimaryTrigger}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AnyKey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""085ec479-955a-45e1-9371-a8aa437d675b"",
+                    ""path"": ""<Keyboard>/anyKey"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""AnyKey"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -328,6 +358,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
         m_UI_Confirm = m_UI.FindAction("Confirm", throwIfNotFound: true);
+        m_UI_AnyKey = m_UI.FindAction("AnyKey", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -460,12 +491,14 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private IUIActions m_UIActionsCallbackInterface;
     private readonly InputAction m_UI_Exit;
     private readonly InputAction m_UI_Confirm;
+    private readonly InputAction m_UI_AnyKey;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
         public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Exit => m_Wrapper.m_UI_Exit;
         public InputAction @Confirm => m_Wrapper.m_UI_Confirm;
+        public InputAction @AnyKey => m_Wrapper.m_UI_AnyKey;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -481,6 +514,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Confirm.started -= m_Wrapper.m_UIActionsCallbackInterface.OnConfirm;
                 @Confirm.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnConfirm;
                 @Confirm.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnConfirm;
+                @AnyKey.started -= m_Wrapper.m_UIActionsCallbackInterface.OnAnyKey;
+                @AnyKey.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnAnyKey;
+                @AnyKey.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnAnyKey;
             }
             m_Wrapper.m_UIActionsCallbackInterface = instance;
             if (instance != null)
@@ -491,6 +527,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @Confirm.started += instance.OnConfirm;
                 @Confirm.performed += instance.OnConfirm;
                 @Confirm.canceled += instance.OnConfirm;
+                @AnyKey.started += instance.OnAnyKey;
+                @AnyKey.performed += instance.OnAnyKey;
+                @AnyKey.canceled += instance.OnAnyKey;
             }
         }
     }
@@ -518,5 +557,6 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     {
         void OnExit(InputAction.CallbackContext context);
         void OnConfirm(InputAction.CallbackContext context);
+        void OnAnyKey(InputAction.CallbackContext context);
     }
 }

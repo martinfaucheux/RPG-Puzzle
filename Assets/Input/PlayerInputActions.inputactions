@@ -260,6 +260,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "AnyKey",
+                    "type": "Button",
+                    "id": "befcfdf7-4baf-4f86-8a59-5bc0a9c9f946",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -282,6 +290,28 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "Confirm",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d67e76c-ae2c-4c47-949f-34c86a029c38",
+                    "path": "*/{PrimaryTrigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "AnyKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "085ec479-955a-45e1-9371-a8aa437d675b",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "AnyKey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

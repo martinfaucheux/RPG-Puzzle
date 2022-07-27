@@ -55,8 +55,6 @@ public class ContextMenuController : MonoBehaviour
         isOpen = false;
     }
 
-
-
     private LTDescr Fade(float targetValue)
     {
         return LeanTween.value(
@@ -65,6 +63,5 @@ public class ContextMenuController : MonoBehaviour
             targetValue,
             fadeDuration
         );
-
     }
 }
