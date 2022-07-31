@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 8280915587691023916}
   - component: {fileID: 5572791770085229277}
   - component: {fileID: 2806293100464621483}
+  - component: {fileID: 5603776057490520444}
   - component: {fileID: 2806293100464621482}
   m_Layer: 0
   m_Name: Wanderer
@@ -780,6 +781,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _baseDirection: DOWN
   paceSoundName: 
+  _paceAnimator: {fileID: 5603776057490520444}
+--- !u!114 &5603776057490520444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2806293100464621489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e55c8355bce0194687e9aca5aef2e79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animationParameterName: bump
+  _stateName: 
+  _animationParts: 1
 --- !u!114 &2806293100464621482
 MonoBehaviour:
   m_ObjectHideFlags: 0

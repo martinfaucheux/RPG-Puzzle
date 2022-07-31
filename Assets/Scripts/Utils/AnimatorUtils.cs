@@ -13,4 +13,14 @@ public static class AnimatorUtils
         }
         return false;
     }
+
+    public static AnimatorControllerParameter GetParameter(Animator animator, string paramName)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName)
+                return param;
+        }
+        return null;
+    }
 }

@@ -22,6 +22,7 @@ public class SpriteHolder : MonoBehaviour
     private void Awake()
     {
         spriteHolderTransform = transform.Find(spriteHolderName);
+        activeAnimator = GetComponentInChildren<Animator>(false);
     }
 
     private void Start()

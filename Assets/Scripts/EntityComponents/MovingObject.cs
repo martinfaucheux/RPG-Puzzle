@@ -9,7 +9,7 @@ public class MovingObject : MonoBehaviour
     [Tooltip("Specify the initial direction to adopt")]
     [SerializeField] string _baseDirection;
     [SerializeField] string paceSoundName;
-
+    [SerializeField] PaceAnimator _paceAnimator;
     protected MatrixCollider _matrixCollider;
 
     // the object is currently moving
@@ -17,8 +17,7 @@ public class MovingObject : MonoBehaviour
 
     // Needed to play the bump animation
     private SpriteHolder _spriteHolder;
-
-    private static string MOVE_ANIMATION = "bump";
+    private AnimatorControllerParameter _animationParameter;
 
     private Animator _animator
     {
@@ -37,9 +36,8 @@ public class MovingObject : MonoBehaviour
     {
         _matrixCollider = GetComponent<MatrixCollider>();
         if (_matrixCollider == null)
-        {
             Debug.LogError(this.gameObject.ToString() + ": MatrixCollider not found");
-        }
+
         _spriteHolder = GetComponent<SpriteHolder>();
 
         if (_baseDirection != "")
@@ -78,14 +76,15 @@ public class MovingObject : MonoBehaviour
     protected IEnumerator SmoothMovement(Vector3 targetPos)
     {
         isMoving = true;
-        if (_animator != null && AnimatorUtils.HasParameter(_animator, MOVE_ANIMATION))
-            _animator.SetTrigger(MOVE_ANIMATION);
+        _paceAnimator.StartPace();
 
         LTDescr ltAnimation = LeanTween.move(gameObject, targetPos, GameManager.instance.actionDuration);
         while (LeanTween.isTweening(ltAnimation.id))
         {
             yield return null;
         }
+        _paceAnimator.EndPace();
+
         transform.position = targetPos;
         isMoving = false;
     }
