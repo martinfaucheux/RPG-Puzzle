@@ -931,6 +931,7 @@ MonoBehaviour:
   imageContainerTransform: {fileID: 458892733217197241}
   defaultUIElementPrefab: {fileID: 1440336099715514, guid: 48affeafdad9e1048bc585e3712699aa,
     type: 3}
+  _shaker: {fileID: 981907328554731036}
 --- !u!114 &981907328554731036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,7 +944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8563c8ddfc0d6c64d9b44d078c294491, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amplitude: 10
+  amplitude: 5
   duration: 0.5
   period: 0.2
   delay: 0
