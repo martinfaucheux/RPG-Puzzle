@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// TODO: to be DEPRECATED
+
 public class GameOverMaskUI : MonoBehaviour
 {
 

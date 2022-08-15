@@ -12,7 +12,6 @@ public class GameEvents : MonoBehaviour
     public event Action<Skill> onSkillEnabled;
     public event Action<Item> onPickItem;
     public event Action<Item> onUseItem;
-    public event Action<Health> onUnitDies;
     public event Action<Vector2Int> onPlayerMove;
     public event Action<GameState> onEnterState;
     public event Action<GameState> onExitState;
@@ -92,14 +91,6 @@ public class GameEvents : MonoBehaviour
         if (onUseItem != null)
         {
             onUseItem(item);
-        }
-    }
-
-    public void UnitDiesTrigger(Health healthComponent)
-    {
-        if (onUnitDies != null)
-        {
-            onUnitDies(healthComponent);
         }
     }
 

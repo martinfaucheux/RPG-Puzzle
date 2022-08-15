@@ -99,7 +99,6 @@ public class Health : MonoBehaviour
         if (tag != "Player")
         {
             // TODO: disable collider
-            GameEvents.instance.UnitDiesTrigger(this);
             Destroy(gameObject);
         }
         else

@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ShowText : MonoBehaviour
 {
-    //public enum EventType
-    //{
-    //    LevelUp,
-    //    EndOfLevel
-    //}
-    //public EventType eventType;
-
     public string endOfLevelText = "Level Complete";
     public string gameOverText = "Game Over";
 
     public bool animateEnterText = true;
     public float heightScreenRatio = 0.75f;
 
-    public Text textComponent;
+    public TextMeshProUGUI textComponent;
     public bool isShowing = false;
 
     public Color lightColor;
@@ -34,7 +28,7 @@ public class ShowText : MonoBehaviour
 
         GameEvents.instance.onEnterState += OnEnterState;
 
-        textComponent = GetComponent<Text>();
+        textComponent = GetComponent<TextMeshProUGUI>();
         if (textComponent == null)
             Debug.LogError(gameObject.ToString() + ": No Text component found");
     }
@@ -52,7 +46,7 @@ public class ShowText : MonoBehaviour
         }
         else if (state == GameState.GAME_OVER)
         {
-            Show(darkColor, gameOverText, 3f);
+            Show(gameOverText, 3f);
         }
     }
 
