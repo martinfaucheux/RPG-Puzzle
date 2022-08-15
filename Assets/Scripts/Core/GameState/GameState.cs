@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
 public class GameState : Enumeration
 {
     public static GameState PLAY = new GameState(0, nameof(PLAY));
@@ -13,4 +15,16 @@ public class GameState : Enumeration
 
     public GameState(int id, string name) : base(id, name) { }
 
+
+    public static GameState GetByName(string name)
+    {
+        foreach (GameState gameState in GetAll<GameState>())
+        {
+            if (gameState.Name == name)
+            {
+                return gameState;
+            }
+        }
+        throw new Exception("GameState not found");
+    }
 }

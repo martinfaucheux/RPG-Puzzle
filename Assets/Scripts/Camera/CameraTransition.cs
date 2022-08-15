@@ -37,10 +37,6 @@ public class CameraTransition : MonoBehaviour
         {
             TargetPlayer();
         }
-        else if (state == GameState.GAME_OVER)
-        {
-            SlowTargetPlayer();
-        }
     }
 
     private void TargetPlayer()

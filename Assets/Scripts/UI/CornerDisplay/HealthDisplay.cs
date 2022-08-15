@@ -5,7 +5,11 @@ using UnityEngine;
 public class HealthDisplay : UIBarDisplay
 {
     public static HealthDisplay instance = null;
+
+    [SerializeField] ShakeUI _shaker;
     private Health _healthComponent;
+    private int _previousHealth;
+
 
     //Awake is always called before any Start functions
     void Awake()
@@ -33,9 +37,7 @@ public class HealthDisplay : UIBarDisplay
     private void OnPlayerHealthChange(int healthID, int initValue, int finalValue)
     {
         if (healthID == _healthComponent.GetInstanceID())
-        {
             UpdateUI();
-        }
     }
 
     protected override int GetNewImageCount()
@@ -64,5 +66,9 @@ public class HealthDisplay : UIBarDisplay
             else
                 heartComponents[i].Hide();
         }
+
+        if (_healthComponent.CurrentHealthPoints < _previousHealth)
+            _shaker.Shake();
+        _previousHealth = _healthComponent.CurrentHealthPoints;
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class BlinkingText : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class BlinkingText : MonoBehaviour
     [Tooltip("Time after which we show the text")]
     public float showDelay = 1f;
     private bool _isShowing = false;
-    private Text _textComponent;
+    private TextMeshProUGUI _textComponent;
 
     // time at which we start showing the text
     private float _showTime = 0f;
@@ -18,7 +19,8 @@ public class BlinkingText : MonoBehaviour
     void Update()
     {
         // once enabled periodically fade in the "Press R to restart" text
-        if(_isShowing){
+        if (_isShowing)
+        {
             Color color = _textComponent.color;
             float timeOffset = Time.time - _showTime;
             color.a = (1f - Mathf.Cos(timeOffset * 2f * Mathf.PI / textFadePeriod)) / 2f;
@@ -26,12 +28,14 @@ public class BlinkingText : MonoBehaviour
         }
     }
 
-    protected void DelayShow(){
+    protected void DelayShow()
+    {
         StartCoroutine(ShowCoroutine());
     }
 
-    private IEnumerator ShowCoroutine(){
-        _textComponent = GetComponent<Text>();
+    private IEnumerator ShowCoroutine()
+    {
+        _textComponent = GetComponent<TextMeshProUGUI>();
         // wait for specified time before showing
         yield return new WaitForSeconds(showDelay);
         _showTime = Time.time;
