@@ -59,7 +59,7 @@ jobs:
 
   buildWebGL:
     needs: testRunner
-    if: github.ref == 'refs/heads/main'
+    # if: github.ref == 'refs/heads/main'
     name: Build for WebGL 🖥️
     runs-on: ubuntu-latest
     strategy:
