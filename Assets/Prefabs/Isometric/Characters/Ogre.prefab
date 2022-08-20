@@ -1046,7 +1046,6 @@ GameObject:
   - component: {fileID: 2806293100464621497}
   - component: {fileID: 2806293100464621495}
   - component: {fileID: 2806293100464621494}
-  - component: {fileID: 2806293100464621493}
   - component: {fileID: 2806293100464621492}
   - component: {fileID: 2806293100464621490}
   - component: {fileID: 8280915587691023916}
@@ -1054,8 +1053,9 @@ GameObject:
   - component: {fileID: 2806293100464621483}
   - component: {fileID: 5603776057490520444}
   - component: {fileID: 2806293100464621482}
+  - component: {fileID: 6663643539306798599}
   m_Layer: 0
-  m_Name: Wanderer
+  m_Name: Ogre
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1133,36 +1133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 361409b6d344f5546b6792eb83fcb345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityName: Skeletton
+  entityName: Ogre
   description: 
   _health: {fileID: 2806293100464621497}
   _attack: {fileID: 2806293100464621495}
---- !u!61 &2806293100464621493
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2806293100464621489}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.042617798, y: 0.37846208}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.6940341, y: 0.80970526}
-  m_EdgeRadius: 0
 --- !u!114 &2806293100464621492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1265,6 +1239,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _priority: 1
   <movingObject>k__BackingField: {fileID: 2806293100464621483}
+--- !u!136 &6663643539306798599
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2806293100464621489}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1.0236932
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.2505358, z: 0}
 --- !u!1 &3181862958956330569
 GameObject:
   m_ObjectHideFlags: 0

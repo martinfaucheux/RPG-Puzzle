@@ -157,8 +157,8 @@ GameObject:
   - component: {fileID: 8284925426819618405}
   - component: {fileID: 5322638306357658739}
   - component: {fileID: 3611613658793798496}
-  - component: {fileID: -5657053134637015827}
   - component: {fileID: 947369477059790165}
+  - component: {fileID: 8286585476302978262}
   m_Layer: 0
   m_Name: WinDiamond
   m_TagString: Untagged
@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb3b719822bc704f86722440f5ae481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <interactionPriority>k__BackingField: 5
   item: {fileID: 11400000, guid: 858637252dd75894e9a9130b18d00d22, type: 2}
   itemId: 0
 --- !u!114 &5322638306357658739
@@ -208,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matrixPosition: {x: 0, y: 0}
-  IsBlocking: 0
+  isBlocking: 0
 --- !u!114 &3611613658793798496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,32 +225,6 @@ MonoBehaviour:
   spriteHolderTransform: {fileID: 0}
   flipForFacing: 0
   activeAnimator: {fileID: 0}
---- !u!61 &-5657053134637015827
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8953833336809043528}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &947369477059790165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,3 +241,17 @@ MonoBehaviour:
   description: Collect me
   _health: {fileID: 0}
   _attack: {fileID: 0}
+--- !u!136 &8286585476302978262
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8953833336809043528}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.30540395, z: 0}
