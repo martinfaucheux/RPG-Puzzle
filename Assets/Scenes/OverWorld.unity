@@ -2561,7 +2561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1503443848
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2629,8 +2629,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7.97
-  m_fontSizeBase: 7.97
+  m_fontSize: 7.53
+  m_fontSizeBase: 7.53
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4949,7 +4949,7 @@ MonoBehaviour:
   mode: 1
   sceneBoundsColor: {r: 0.65882355, g: 0, b: 0.03608219, a: 0.12156863}
   showSceneBounds: 0
-  emptyAllowInteraction: 0
+  <emptyAllowInteraction>k__BackingField: 1
 --- !u!4 &7590090858292564288
 Transform:
   m_ObjectHideFlags: 0
@@ -7424,6 +7424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8050147596167778474}
   - component: {fileID: 8050147596167778476}
+  - component: {fileID: 8050147596167778477}
   m_Layer: 12
   m_Name: LevelSelectTile
   m_TagString: Untagged
@@ -7445,6 +7446,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   matrixPosition: {x: 0, y: 0}
   isBlocking: 0
+--- !u!114 &8050147596167778477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8050147596167778475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1e161361d63d2a438820cd62c4c18df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <interactionPriority>k__BackingField: 5
+  _levelData: {fileID: 11400000, guid: b7403f237719b404b94aa77bcac97655, type: 2}
+  _textComponent: {fileID: 0}
+  _levelObjectiveList: {fileID: 276255371}
 --- !u!1 &8050147596174771050
 GameObject:
   m_ObjectHideFlags: 0

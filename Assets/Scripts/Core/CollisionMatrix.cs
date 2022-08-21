@@ -92,10 +92,11 @@ public class CollisionMatrix : MonoBehaviour
 
         return ((x >= 0) & (y >= 0) & (x < xMax) & (y < yMax));
     }
+    public Vector2Int GetMatrixPos(Transform transform) => GetMatrixPos(transform.position);
 
-    public Vector2Int GetMatrixPos(Transform transform)
+    public Vector2Int GetMatrixPos(Vector3 realWorldPosition)
     {
-        Vector3 realPos = transform.position - origin;
+        Vector3 realPos = realWorldPosition - origin;
         float x = realPos.x;
         float y = (mode == Mode.TOPDOWN) ? realPos.y : realPos.z;
         return new Vector2Int((int)x, (int)y);
