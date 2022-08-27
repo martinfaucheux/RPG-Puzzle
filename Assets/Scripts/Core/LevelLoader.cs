@@ -45,6 +45,9 @@ public class LevelLoader : SingletoneBase<LevelLoader>
         // TODO: make this happen through events
         SceneChangeCircle.instance?.SceneEnds();
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
+
+        if (IsLevelId(currentLevelId))
+            SaveManager.instance.SaveLastLevelPlayed(currentLevelId);
     }
     public void ReloadLevel() => LoadLevel(currentLevelId);
 
