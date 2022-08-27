@@ -69,7 +69,7 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
     void EnterPause(InputAction.CallbackContext context) => GameManager.instance.EnterPause();
     void ExitPause(InputAction.CallbackContext context) => GameManager.instance.ExitPause();
     void Restart(InputAction.CallbackContext context) => GameManager.instance.Restart();
-    void EnterPostWin(InputAction.CallbackContext context) => GameManager.instance.EnterPostWin();
+    void EnterPostWin(InputAction.CallbackContext context) => GameManager.instance.ContinueToLevelSelect();
     void UnlockSkill(InputAction.CallbackContext context)
     {
         if (StateManager.instance.currentGameState == GameState.PLAY)

@@ -7,7 +7,7 @@ public class WinDiamond : Consumable
 {
     protected override void Consume(GameObject targetGameObject)
     {
-        LevelLoader.instance.AddGem(parentComponent.itemId);
+        ProgressManager.instance.AddGem(parentComponent.itemId);
         GameManager.instance.Win();
     }
 }

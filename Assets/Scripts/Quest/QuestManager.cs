@@ -2,28 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestManager : MonoBehaviour
+public class QuestManager : SingletoneBase<QuestManager>
 {
-    public static QuestManager instance;
-
     private List<Quest> _quests;
-
     private List<bool> _initQuestState;
-
-    void Awake()
-    {
-        //Check if instance already exists
-        if (instance == null)
-
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
-            Destroy(gameObject);
-    }
+    private int _levelId { get => LevelLoader.instance.currentLevelId; }
 
     void Start()
     {
@@ -62,7 +45,7 @@ public class QuestManager : MonoBehaviour
     public bool IsNewlyCompleted(int questId)
     {
         return (
-            LevelLoader.instance.playerSavedData.IsQuestCompleted(LevelLoader.instance.currentLevelId, questId)
+             SaveManager.instance.IsQuestCompleted(_levelId, questId)
             && !_initQuestState[questId]
         );
     }
@@ -71,28 +54,23 @@ public class QuestManager : MonoBehaviour
     {
         for (int questId = 0; questId < _quests.Count; questId++)
         {
-            _initQuestState.Add(LevelLoader.instance.playerSavedData.IsQuestCompleted(LevelLoader.instance.currentLevelId, questId));
+            bool IsQuestCompleted = SaveManager.instance.IsQuestCompleted(_levelId, questId);
+            _initQuestState.Add(IsQuestCompleted);
         }
     }
 
     private void CheckCompletion()
     {
-        PlayerData savedPlayerData = LevelLoader.instance.playerSavedData;
-        int levelId = LevelLoader.instance.currentLevelId;
-
         for (int questIndex = 0; questIndex < _quests.Count; questIndex++)
         {
             Quest quest = _quests[questIndex];
             bool isComplete = quest.CheckCompletion();
 
             if (isComplete)
-            {
-                savedPlayerData[levelId].AddQuest(questIndex);
-            }
+                ProgressManager.instance.AddQuest(questIndex);
 
             string str = "Quest '{0}' completed: {1}";
             Debug.Log(string.Format(str, quest.name, isComplete));
         }
-        LevelLoader.instance.SaveData();
     }
 }

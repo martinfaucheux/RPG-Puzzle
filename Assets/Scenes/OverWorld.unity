@@ -1656,6 +1656,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _levelObjectiveList: {fileID: 276255371}
   firstTile: {fileID: 49856764}
+  _playerMatrixCollider: {fileID: 716046663}
+  _levelCollection: {fileID: 11400000, guid: dfd62ebf006d5db45b91f33e07f7d2e7, type: 2}
 --- !u!1 &281867249
 GameObject:
   m_ObjectHideFlags: 0
@@ -7061,7 +7063,6 @@ MonoBehaviour:
   _levelSelectTilePrefab: {fileID: 94275964637305063, guid: 8e24b31ebbd6dc040829b517fe319072,
     type: 3}
   _levelObjectiveList: {fileID: 276255371}
-  _playerMatrixCollider: {fileID: 716046663}
   _levelSelectManager: {fileID: 276255372}
 --- !u!4 &1596244586
 Transform:
@@ -11688,6 +11689,7 @@ GameObject:
   - component: {fileID: 7566809810073815971}
   - component: {fileID: 8992207712064619357}
   - component: {fileID: 5315679651856511344}
+  - component: {fileID: 7566809810073815973}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11720,6 +11722,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionDuration: 0.2
+--- !u!114 &7566809810073815973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7566809810073815970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fce376eb809f58f44a7ba42aa4f7eaf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7566809810073815993
 MonoBehaviour:
   m_ObjectHideFlags: 0

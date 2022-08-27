@@ -20,15 +20,18 @@ public class LevelLoaderCustomInspector : Editor
         // Show default inspector property editor
         DrawDefaultInspector();
 
+        // TODO: move this to SaveManager custom inspector
 
         if (GUILayout.Button("Delete Saved State"))
         {
-            t.DeleteSavedData();
+            Debug.LogError("Move this to SaveManager");
+            // t.DeleteSavedData();
         }
 
         if (GUILayout.Button("Unlock all levels"))
         {
-            UnlockAllLevels();
+            Debug.LogError("Move this to SaveManager");
+            // UnlockAllLevels();
         }
 
 
@@ -46,7 +49,7 @@ public class LevelLoaderCustomInspector : Editor
 
     private void UnlockAllLevelsOLD()
     {
-        Dictionary<int, LevelSaveData> levelDict = new Dictionary<int, LevelSaveData>();
+        Dictionary<int, LevelProgressData> levelDict = new Dictionary<int, LevelProgressData>();
         foreach (LevelMetaData levelMetaData in t.levelCollection.levelList)
         {
             List<bool> gemList = new List<bool>();
@@ -63,7 +66,7 @@ public class LevelLoaderCustomInspector : Editor
             }
             bool[] questsCompleted = questList.ToArray();
 
-            levelDict[levelMetaData.sceneBuildIndex] = new LevelSaveData(gemsCollected, questsCompleted);
+            levelDict[levelMetaData.sceneBuildIndex] = new LevelProgressData(gemsCollected, questsCompleted);
         }
 
         PlayerData playerSavedData = new PlayerData(levelDict, new Dictionary<string, bool>());

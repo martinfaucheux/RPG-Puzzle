@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletoneBase<GameManager>
 {
-    public static GameManager instance = null;
-
     [Tooltip("time for basic action (e.g. moving)")]
     public float actionDuration = 0.1f;
     public bool playerCanMove { get { return GameManager.allowMovementState.Contains(StateManager.instance.currentGameState); } }
@@ -18,27 +16,6 @@ public class GameManager : MonoBehaviour
     public static readonly GameState[] allowMovementState = new GameState[] {
         GameState.PLAY, GameState.LEVEL_SELECT
     };
-
-
-    #region Singleton
-
-    void Awake()
-    {
-        //Check if instance already exists
-        if (instance == null)
-
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
-            Destroy(gameObject);
-
-    }
-
-    #endregion
 
     public void Restart()
     {
@@ -82,18 +59,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EnterPostWin()
+    public void ContinueToLevelSelect()
     {
         if (StateManager.instance.currentGameState == GameState.WIN)
         {
-            LevelMetaData levelData = LevelLoader.instance.levelMetaData;
-            foreach (int levelId in levelData.unlockLevels)
-            {
-                Debug.Log("Unlock level " + levelId.ToString());
-                LevelLoader.instance.UnlockLevel(levelId);
-            }
+            List<int> unlockLevels = LevelLoader.instance.levelMetaData.unlockLevels;
 
-            LevelLoader.instance.SaveData();
+            ProgressManager.instance.Save(); // Save progress of the current level
+            SaveManager.instance.UnlockLevels(unlockLevels);
             LevelLoader.instance.LoadLevelSelectMenu();
         }
     }

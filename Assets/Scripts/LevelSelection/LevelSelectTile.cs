@@ -22,7 +22,7 @@ public class LevelSelectTile : ActivableObject
     {
         base.Start();
 
-        _isUnlocked = LevelLoader.instance.IsLevelUnlocked(levelData.sceneBuildIndex);
+        _isUnlocked = SaveManager.instance.IsLevelUnlocked(levelData.sceneBuildIndex);
         _spriteRenderer.color = GetColor();
     }
 
@@ -46,10 +46,9 @@ public class LevelSelectTile : ActivableObject
     private Color GetColor()
     {
         int levelId = levelData.sceneBuildIndex;
-        PlayerData playerData = LevelLoader.instance.playerSavedData;
 
-        int collectedGems = playerData.GetCollectedGemCount(levelId);
-        int completedQuests = playerData.GetCompletedQuestsCount(levelId);
+        int collectedGems = SaveManager.instance.GetCollectedGemCount(levelId);
+        int completedQuests = SaveManager.instance.GetCompletedQuestsCount(levelId);
 
         if (!_isUnlocked)
             return _lockedColor;

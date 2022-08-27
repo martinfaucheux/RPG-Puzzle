@@ -15,9 +15,6 @@ public class InGameMenu : MainMenu
     {
 
         base.Start();
-
-        // retrieve data from player.data
-        LevelLoader.instance.RetrieveGameState();
     }
 
     public void TriggerMenu()
@@ -64,7 +61,9 @@ public class InGameMenu : MainMenu
     {
         if (previousLevelButtonGO != null)
         {
-            bool hasNextLevel = LevelLoader.instance.IsPreviousLevelAvailable();
+            bool hasNextLevel = SaveManager.instance.IsLevelUnlocked(
+                LevelLoader.instance.currentLevelId - 1
+            );
             previousLevelButtonGO.SetActive(hasNextLevel);
         }
     }
@@ -73,7 +72,9 @@ public class InGameMenu : MainMenu
     {
         if (nextLevelButtonGO)
         {
-            bool hasNextLevel = LevelLoader.instance.IsNextLevelAvailable();
+            bool hasNextLevel = SaveManager.instance.IsLevelUnlocked(
+                LevelLoader.instance.currentLevelId + 1
+            );
             nextLevelButtonGO.SetActive(hasNextLevel);
         }
     }

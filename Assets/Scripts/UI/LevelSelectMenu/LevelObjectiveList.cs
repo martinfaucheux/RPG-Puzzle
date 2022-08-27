@@ -62,7 +62,7 @@ public class LevelObjectiveList : MonoBehaviour
         if (_selectedLevelId <= 0)
             return "";
 
-        int gemCount = LevelLoader.instance.playerSavedData.GetCollectedGemCount(_selectedLevelId);
+        int gemCount = SaveManager.instance.GetCollectedGemCount(_selectedLevelId);
         return gemCount + " / " + levelMetaData.gemCount;
     }
 
@@ -83,8 +83,7 @@ public class LevelObjectiveList : MonoBehaviour
                 Quest quest = levelMetaData.quests[questIndex];
                 objectiveElement.gameObject.SetActive(true);
 
-                PlayerData playerData = LevelLoader.instance.playerSavedData;
-                bool isQuestCompleted = playerData.IsQuestCompleted(_selectedLevelId, questIndex);
+                bool isQuestCompleted = SaveManager.instance.IsQuestCompleted(_selectedLevelId, questIndex);
                 bool isQuestNewlyCompleted = false;
                 if (QuestManager.instance != null)
                 {

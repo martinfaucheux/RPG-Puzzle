@@ -9,6 +9,8 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
     [SerializeField] LevelObjectiveList _levelObjectiveList;
     PlayerInputActions _playerInputActions;
     public LevelSelectTile firstTile;
+    [SerializeField] MatrixCollider _playerMatrixCollider;
+    [SerializeField] LevelMetaDataCollection _levelCollection;
 
 
     protected override void Awake()
@@ -20,14 +22,20 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
         _playerInputActions = new PlayerInputActions();
         _playerInputActions.Player.Enable();
         _playerInputActions.Player.Confirm.performed += LoadSelectedLevel;
-
-        // This must be done early to make sure tiles are assigned the right color
-        LevelLoader.instance.RetrieveGameState();
     }
 
     void Start()
     {
-        SelectLevel(firstTile.levelData.sceneBuildIndex);
+        int levelId = SaveManager.instance.lastPlayedLevel;
+        // if levelId is not a valid level, resort to the first levelId
+        if (!LevelLoader.IsLevelId(levelId))
+            levelId = firstTile.levelData.sceneBuildIndex;
+
+        LevelMetaData levelData = _levelCollection.GetLevelBySceneBuildIndex(levelId);
+        Vector3 realWordPosition = GetRealWorldPosition(levelData.overWorldPostion);
+
+        PlacePlayer(realWordPosition);
+        SelectLevel(levelId);
     }
 
     void OnDestroy()
@@ -47,5 +55,20 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
     {
         if (StateManager.instance.currentGameState == GameState.LEVEL_SELECT)
             LoadSelectedLevel();
+    }
+
+    public static Vector3 GetRealWorldPosition(Vector2Int overWorldPos)
+    {
+        Vector2Int argVect = new Vector2Int(
+            overWorldPos.x,
+            CollisionMatrix.instance.matrixSize.y - 1 - overWorldPos.y
+        );
+        return CollisionMatrix.instance.GetRealWorldPosition(argVect);
+    }
+
+    public void PlacePlayer(Vector3 realWorldPosition)
+    {
+        _playerMatrixCollider.transform.position = realWorldPosition;
+        _playerMatrixCollider.SyncPosition();
     }
 }

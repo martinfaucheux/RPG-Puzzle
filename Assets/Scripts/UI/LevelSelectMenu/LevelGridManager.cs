@@ -30,7 +30,6 @@ public class LevelGridManager : MonoBehaviour
     void Start()
     {
         _descriptionCanvasGroup.alpha = 0f;
-        LevelLoader.instance.RetrieveGameState();
         InstantiateLevelButtons();
         UpdateUI();
     }
@@ -78,8 +77,8 @@ public class LevelGridManager : MonoBehaviour
             Color backgroundColor = defaultButtonColor;
             Color reflectionColor = defaultReflectionColor;
 
-            int collectedGems = LevelLoader.instance.playerSavedData.GetCollectedGemCount(levelId);
-            int completedQuests = LevelLoader.instance.playerSavedData.GetCompletedQuestsCount(levelId);
+            int collectedGems = SaveManager.instance.GetCollectedGemCount(levelId);
+            int completedQuests = SaveManager.instance.GetCompletedQuestsCount(levelId);
             if (collectedGems == levelMeta.gemCount)
             {
                 if (completedQuests == levelMeta.quests.Count)
@@ -98,7 +97,7 @@ public class LevelGridManager : MonoBehaviour
             selectButton.SetBackgroundColor(backgroundColor);
             selectButton.SetReflectionColor(reflectionColor);
 
-            selectButton.SetButtonActive(LevelLoader.instance.IsLevelUnlocked(levelId));
+            selectButton.SetButtonActive(SaveManager.instance.IsLevelUnlocked(levelId));
         }
     }
 }
