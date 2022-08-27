@@ -20,11 +20,13 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
         _playerInputActions = new PlayerInputActions();
         _playerInputActions.Player.Enable();
         _playerInputActions.Player.Confirm.performed += LoadSelectedLevel;
+
+        // This must be done early to make sure tiles are assigned the right color
+        LevelLoader.instance.RetrieveGameState();
     }
 
     void Start()
     {
-        LevelLoader.instance.RetrieveGameState();
         SelectLevel(firstTile.levelData.sceneBuildIndex);
     }
 

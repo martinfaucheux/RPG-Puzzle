@@ -48,11 +48,10 @@ public class LevelSelectTile : ActivableObject
         int levelId = levelData.sceneBuildIndex;
         PlayerData playerData = LevelLoader.instance.playerSavedData;
 
-        bool isUnlocked = playerData.IsUnlocked(levelId);
         int collectedGems = playerData.GetCollectedGemCount(levelId);
         int completedQuests = playerData.GetCompletedQuestsCount(levelId);
 
-        if (!isUnlocked)
+        if (!_isUnlocked)
             return _lockedColor;
 
         if (collectedGems == levelData.gemCount)
