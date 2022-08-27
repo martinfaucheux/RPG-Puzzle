@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class LevelSelectTileInitializer : MonoBehaviour
 {
-    [SerializeField] LevelMetaDataCollection _levelCollection;
-    [SerializeField] GameObject _levelSelectTilePrefab;
-    [SerializeField] LevelObjectiveList _levelObjectiveList;
-    [SerializeField] LevelSelectManager _levelSelectManager;
-    private GenericGrid<LevelMetaData> _levelGrid;
+    public LevelMetaDataCollection levelCollection;
+    public GameObject levelSelectTilePrefab;
+    public LevelObjectiveList levelObjectiveList;
+    public LevelSelectManager levelSelectManager;
+    public GenericGrid<LevelMetaData> levelGrid;
 
     void Start()
     {
-        _levelGrid = _levelCollection.GetLevelGrid();
+        levelGrid = levelCollection.GetLevelGrid();
     }
 
     public void InstantiateTiles()
     {
         bool isFirstTile = true;
-        foreach (LevelMetaData levelData in _levelCollection.levelList)
+        foreach (LevelMetaData levelData in levelCollection.levelList)
         {
             Vector3 realWordPosition = LevelSelectManager.GetRealWorldPosition(levelData.overWorldPostion);
             GameObject newObj = Instantiate(
-                _levelSelectTilePrefab,
+                levelSelectTilePrefab,
                 realWordPosition,
                 Quaternion.identity,
                 transform
@@ -33,8 +33,8 @@ public class LevelSelectTileInitializer : MonoBehaviour
 
             if (isFirstTile)
             {
-                _levelSelectManager.PlacePlayer(realWordPosition);
-                _levelSelectManager.firstTile = levelSelectTile;
+                levelSelectManager.PlacePlayer(realWordPosition);
+                levelSelectManager.firstTile = levelSelectTile;
                 isFirstTile = false;
             }
         }

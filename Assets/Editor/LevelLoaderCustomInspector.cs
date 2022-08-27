@@ -25,13 +25,13 @@ public class LevelLoaderCustomInspector : Editor
         if (GUILayout.Button("Delete Saved State"))
         {
             Debug.LogError("Move this to SaveManager");
-            // t.DeleteSavedData();
+            t.GetComponent<SaveManager>().DeleteSavedData();
         }
 
         if (GUILayout.Button("Unlock all levels"))
         {
             Debug.LogError("Move this to SaveManager");
-            // UnlockAllLevels();
+            UnlockAllLevels();
         }
 
 
