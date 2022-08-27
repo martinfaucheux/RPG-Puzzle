@@ -27,14 +27,10 @@ public class LevelMetaDataCollectionCustomInspector : Editor
         DrawDefaultInspector();
 
         if (GUILayout.Button("Bake build indices"))
-        {
             BakeBuildIndices();
-        }
 
         if (GUILayout.Button("Update OverWorld Positions"))
-        {
             UpdateOverWorldPositions();
-        }
     }
 
     private void BakeBuildIndices()
@@ -66,6 +62,25 @@ public class LevelMetaDataCollectionCustomInspector : Editor
         AssetDatabase.Refresh();
     }
 
+    private void UpdateOverWorldPositions()
+    {
+        GenericGrid<string> stringGrid = ReadLevelGrid();
+        GenericGrid<LevelMetaData> levelGrid = ConvertToLevelMetaData(stringGrid);
+
+        foreach (KeyValuePair<Vector2Int, LevelMetaData> kvp in levelGrid)
+        {
+            LevelMetaData levelMetaData = kvp.Value;
+            Vector2Int overWorldPosition = kvp.Key;
+
+            levelMetaData.overWorldPostion = overWorldPosition;
+            List<LevelMetaData> neighbors = levelGrid.GetNeighbors(overWorldPosition);
+            levelMetaData.unlockLevels = neighbors.Select(x => x.sceneBuildIndex).ToList();
+
+            // Save asset
+            EditorUtility.SetDirty(levelMetaData);
+        }
+    }
+
     private GenericGrid<string> ReadLevelGrid()
     {
         string filePath = Application.dataPath + t.csvFilePath;
@@ -89,19 +104,6 @@ public class LevelMetaDataCollectionCustomInspector : Editor
             }
         }
         return grid;
-    }
-
-    private void UpdateOverWorldPositions()
-    {
-        GenericGrid<string> stringGrid = ReadLevelGrid();
-        GenericGrid<LevelMetaData> levelGrid = ConvertToLevelMetaData(stringGrid);
-
-        foreach (KeyValuePair<Vector2Int, LevelMetaData> kvp in levelGrid)
-        {
-            LevelMetaData levelMetaData = kvp.Value;
-            levelMetaData.overWorldPostion = kvp.Key;
-            EditorUtility.SetDirty(levelMetaData);
-        }
     }
 
     private string ClearLevelId(string levelId)

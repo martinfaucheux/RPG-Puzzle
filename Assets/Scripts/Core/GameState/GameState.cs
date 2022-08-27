@@ -12,6 +12,7 @@ public class GameState : Enumeration
     public static GameState WIN = new GameState(3, nameof(WIN));
     public static GameState TRANSITION = new GameState(4, nameof(TRANSITION));
     public static GameState INSTRUCTION = new GameState(5, nameof(INSTRUCTION));
+    public static GameState LEVEL_SELECT = new GameState(0, nameof(LEVEL_SELECT));
 
     public GameState(int id, string name) : base(id, name) { }
 
@@ -21,9 +22,7 @@ public class GameState : Enumeration
         foreach (GameState gameState in GetAll<GameState>())
         {
             if (gameState.Name == name)
-            {
                 return gameState;
-            }
         }
         throw new Exception("GameState not found");
     }

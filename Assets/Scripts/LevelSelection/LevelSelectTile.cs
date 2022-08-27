@@ -5,32 +5,64 @@ using TMPro;
 
 public class LevelSelectTile : ActivableObject
 {
-    [SerializeField] LevelMetaData _levelData;
+
+    [field: SerializeField]
+    public LevelMetaData levelData { get; private set; }
     [SerializeField] TextMeshPro _textComponent;
     [SerializeField] SpriteRenderer _spriteRenderer;
 
-    // TODO: use events to update levelObjectiveList
-    private LevelObjectiveList _levelObjectiveList;
+    [SerializeField] Color _lockedColor;
+    [SerializeField] Color _availableColor;
+    [SerializeField] Color _gemsCollectedColor;
+    [SerializeField] Color _questsCompletedColor;
+
     private bool _isUnlocked;
 
-    public void Initialize(LevelMetaData levelData, LevelObjectiveList levelObjectiveList, Color color)
+    protected override void Start()
     {
-        _levelData = levelData;
-        _textComponent.text = _levelData.sceneBuildIndex.ToString();
-        _levelObjectiveList = levelObjectiveList;
-        _spriteRenderer.color = color;
+        base.Start();
 
-        _isUnlocked = LevelLoader.instance.playerSavedData.IsUnlocked(levelData.sceneBuildIndex);
+        _isUnlocked = LevelLoader.instance.IsLevelUnlocked(levelData.sceneBuildIndex);
+        _spriteRenderer.color = GetColor();
     }
 
-    public override bool CheckAllowInteraction(GameObject sourceObject)
+    public void SetLevelMetaData(LevelMetaData levelData)
     {
-        return _isUnlocked;
+        this.levelData = levelData;
+        _textComponent.text = levelData.sceneBuildIndex.ToString();
     }
+
+    public override bool CheckAllowInteraction(GameObject sourceObject) => _isUnlocked;
 
     public override IEnumerator OnEnter(GameObject sourceObject)
     {
-        _levelObjectiveList.SetLevel(_levelData.sceneBuildIndex);
+        SelectLevel();
         yield return null;
+    }
+
+    public void SelectLevel() => LevelSelectManager.instance.SelectLevel(levelData.sceneBuildIndex);
+
+
+    private Color GetColor()
+    {
+        int levelId = levelData.sceneBuildIndex;
+        PlayerData playerData = LevelLoader.instance.playerSavedData;
+
+        bool isUnlocked = playerData.IsUnlocked(levelId);
+        int collectedGems = playerData.GetCollectedGemCount(levelId);
+        int completedQuests = playerData.GetCompletedQuestsCount(levelId);
+
+        if (!isUnlocked)
+            return _lockedColor;
+
+        if (collectedGems == levelData.gemCount)
+        {
+            if (completedQuests == levelData.quests.Count)
+                return _questsCompletedColor;
+            else
+                return _gemsCollectedColor;
+        }
+        else
+            return _availableColor;
     }
 }

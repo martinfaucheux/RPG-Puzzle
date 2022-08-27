@@ -9,10 +9,14 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("time for basic action (e.g. moving)")]
     public float actionDuration = 0.1f;
-    public bool playerCanMove { get { return StateManager.instance.currentGameState == GameState.PLAY; } }
+    public bool playerCanMove { get { return GameManager.allowMovementState.Contains(StateManager.instance.currentGameState); } }
 
     private static GameState[] forbiddenReloadState = new GameState[] {
-        GameState.PAUSE, GameState.TRANSITION
+        GameState.PAUSE, GameState.TRANSITION, GameState.LEVEL_SELECT
+    };
+
+    public static readonly GameState[] allowMovementState = new GameState[] {
+        GameState.PLAY, GameState.LEVEL_SELECT
     };
 
 
@@ -39,9 +43,8 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         if (!(forbiddenReloadState.Contains(StateManager.instance.currentGameState)))
-        {
             LevelLoader.instance.ReloadLevel();
-        }
+
     }
 
     public void Win()
@@ -84,7 +87,13 @@ public class GameManager : MonoBehaviour
     {
         if (StateManager.instance.currentGameState == GameState.WIN)
         {
-            LevelLoader.instance.UnlockNextLevel();
+            LevelMetaData levelData = LevelLoader.instance.levelMetaData;
+            foreach (int levelId in levelData.unlockLevels)
+            {
+                Debug.Log("Unlock level " + levelId.ToString());
+                LevelLoader.instance.UnlockLevel(levelId);
+            }
+
             LevelLoader.instance.SaveData();
             LevelLoader.instance.LoadLevelSelectMenu();
         }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionMatrix : MonoBehaviour
+[ExecuteInEditMode]
+public class CollisionMatrix : SingletoneBase<CollisionMatrix>
 {
 
     public enum Mode
@@ -10,9 +11,6 @@ public class CollisionMatrix : MonoBehaviour
         TOPDOWN,
         ISOMETRIC
     }
-
-    //Static instance of GameManager which allows it to be accessed by any other script.
-    public static CollisionMatrix instance = null;
 
     public Vector2Int matrixSize;
     public Vector3 origin;
@@ -27,23 +25,6 @@ public class CollisionMatrix : MonoBehaviour
 
     // TODO: use GenericGrid instead
     private List<MatrixCollider> _colliderList = new List<MatrixCollider>();
-
-    //Awake is always called before any Start functions
-    void Awake()
-    {
-        //Check if instance already exists
-        if (instance == null)
-
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
-            Destroy(gameObject);
-
-    }
 
     public void AddCollider(MatrixCollider collider)
     {

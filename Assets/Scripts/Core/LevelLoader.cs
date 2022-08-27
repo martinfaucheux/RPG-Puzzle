@@ -13,6 +13,8 @@ public class LevelLoader : MonoBehaviour
 
     public LevelMetaData levelMetaData { get; private set; }
 
+    private int _levelSelectId { get { return SceneManager.sceneCountInBuildSettings - 1; } }
+
     void Awake()
     {
         //Check if instance already exists
@@ -37,7 +39,7 @@ public class LevelLoader : MonoBehaviour
         // TODO: make this happen through events
         SceneChangeCircle.instance?.SceneStarts();
 
-        StartCoroutine(SetPlayState());
+        StartCoroutine(SetState());
     }
 
     public void LoadNextLevel()
@@ -54,14 +56,7 @@ public class LevelLoader : MonoBehaviour
     public void LoadPreviousLevel()
     {
         if (currentLevelId > 0)
-        {
             LoadLevel(currentLevelId - 1);
-        }
-    }
-
-    public void ReloadLevel()
-    {
-        LoadLevel(currentLevelId);
     }
 
     public void LoadLevel(int levelID)
@@ -71,68 +66,31 @@ public class LevelLoader : MonoBehaviour
         SceneChangeCircle.instance?.SceneEnds();
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
     }
+    public void ReloadLevel() => LoadLevel(currentLevelId);
 
-    public void LoadFirstScene()
-    {
-        LoadLevel(0);
-    }
+    public void LoadFirstScene() => LoadLevel(0);
 
-    public void LoadLevelSelectMenu()
-    {
-        int sceneId = SceneManager.sceneCountInBuildSettings - 1;
-        LoadLevel(sceneId);
-    }
+    public void LoadLevelSelectMenu() => LoadLevel(_levelSelectId);
 
-    public bool IsLevelUnlocked(int levelId)
-    {
-        return playerSavedData.IsUnlocked(levelId);
-    }
+    public bool IsLevelUnlocked(int levelId) => playerSavedData.IsUnlocked(levelId);
 
-    public List<int> GetUnlockedLevels()
-    {
-        return playerSavedData.GetUnlockedLevels();
-    }
+    public List<int> GetUnlockedLevels() => playerSavedData.GetUnlockedLevels();
 
-    public bool IsPreviousLevelAvailable()
-    {
-        return (IsLevelUnlocked(currentLevelId - 1));
-    }
+    public bool IsPreviousLevelAvailable() => (IsLevelUnlocked(currentLevelId - 1));
 
-    public bool IsNextLevelAvailable()
-    {
-        return (IsLevelUnlocked(currentLevelId + 1));
-    }
+    public bool IsNextLevelAvailable() => (IsLevelUnlocked(currentLevelId + 1));
 
-    public void UnlockLevel(int levelId)
-    {
-        playerSavedData.Unlock(levelId);
-    }
+    public void UnlockLevel(int levelId) => playerSavedData.Unlock(levelId);
 
-    public void UnlockNextLevel()
-    {
-        playerSavedData.Unlock(currentLevelId + 1);
-    }
+    public void UnlockNextLevel() => playerSavedData.Unlock(currentLevelId + 1);
 
-    public void AddGem(int gemId)
-    {
-        playerSavedData.AddGem(currentLevelId, gemId);
-    }
+    public void AddGem(int gemId) => playerSavedData.AddGem(currentLevelId, gemId);
 
-    public void SaveData()
-    {
-        DataSaver.SaveGameState(playerSavedData);
-    }
+    public void SaveData() => DataSaver.SaveGameState(playerSavedData);
 
+    public void RetrieveGameState() => playerSavedData = DataSaver.LoadGameState();
 
-    public void RetrieveGameState()
-    {
-        playerSavedData = DataSaver.LoadGameState();
-    }
-
-    public void DeleteSavedData()
-    {
-        DataSaver.DeleteSavedData();
-    }
+    public void DeleteSavedData() => DataSaver.DeleteSavedData();
 
     private IEnumerator DelayLoadScene(int sceneBuildIndex, float seconds)
     {
@@ -141,15 +99,12 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene(sceneBuildIndex);
     }
 
+    public void Quit() => Application.Quit();
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-    private IEnumerator SetPlayState()
+    private IEnumerator SetState()
     {
         yield return new WaitForSecondsRealtime(transitionDuration);
-        StateManager.instance?.SetState(GameState.PLAY);
+        GameState gameState = currentLevelId == _levelSelectId ? GameState.LEVEL_SELECT : GameState.PLAY;
+        StateManager.instance?.SetState(gameState);
     }
 }

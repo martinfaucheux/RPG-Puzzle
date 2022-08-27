@@ -73,6 +73,14 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Confirm"",
+                    ""type"": ""Button"",
+                    ""id"": ""533eaa09-fefb-4272-8e75-f3405192557e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -251,6 +259,17 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                     ""action"": ""UnlockSkill3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa0b35e3-041c-4378-a950-7b91b7a375e9"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Confirm"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -354,6 +373,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         m_Player_UnlockSkill1 = m_Player.FindAction("UnlockSkill1", throwIfNotFound: true);
         m_Player_UnlockSkill2 = m_Player.FindAction("UnlockSkill2", throwIfNotFound: true);
         m_Player_UnlockSkill3 = m_Player.FindAction("UnlockSkill3", throwIfNotFound: true);
+        m_Player_Confirm = m_Player.FindAction("Confirm", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Exit = m_UI.FindAction("Exit", throwIfNotFound: true);
@@ -415,6 +435,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_UnlockSkill1;
     private readonly InputAction m_Player_UnlockSkill2;
     private readonly InputAction m_Player_UnlockSkill3;
+    private readonly InputAction m_Player_Confirm;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -426,6 +447,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         public InputAction @UnlockSkill1 => m_Wrapper.m_Player_UnlockSkill1;
         public InputAction @UnlockSkill2 => m_Wrapper.m_Player_UnlockSkill2;
         public InputAction @UnlockSkill3 => m_Wrapper.m_Player_UnlockSkill3;
+        public InputAction @Confirm => m_Wrapper.m_Player_Confirm;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -456,6 +478,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @UnlockSkill3.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill3;
                 @UnlockSkill3.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill3;
                 @UnlockSkill3.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnlockSkill3;
+                @Confirm.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
+                @Confirm.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
+                @Confirm.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnConfirm;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -481,6 +506,9 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
                 @UnlockSkill3.started += instance.OnUnlockSkill3;
                 @UnlockSkill3.performed += instance.OnUnlockSkill3;
                 @UnlockSkill3.canceled += instance.OnUnlockSkill3;
+                @Confirm.started += instance.OnConfirm;
+                @Confirm.performed += instance.OnConfirm;
+                @Confirm.canceled += instance.OnConfirm;
             }
         }
     }
@@ -552,6 +580,7 @@ public class @PlayerInputActions : IInputActionCollection, IDisposable
         void OnUnlockSkill1(InputAction.CallbackContext context);
         void OnUnlockSkill2(InputAction.CallbackContext context);
         void OnUnlockSkill3(InputAction.CallbackContext context);
+        void OnConfirm(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -4,6 +4,10 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+// <summary>
+// This is the old menu using UI
+// </summary>
+
 public class LevelGridManager : MonoBehaviour
 {
 
