@@ -19,7 +19,6 @@ public class HealthPotion : Consumable
         Health healthComponent = targetGameObject.GetComponent<Health>();
         if (healthComponent != null)
         {
-            Debug.Log("Heal " + targetGameObject);
             if (healFullHealth)
             {
                 healthComponent.HealFullHealth();

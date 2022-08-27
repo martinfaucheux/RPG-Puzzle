@@ -12,7 +12,7 @@ using System;
 
 
 [ExecuteInEditMode]
-public class AutoWallSprite: MonoBehaviour
+public class AutoWallSprite : MonoBehaviour
 {
 
     // TODO: Fix position, they might have been borken when migrating to new Direction class
@@ -31,7 +31,6 @@ public class AutoWallSprite: MonoBehaviour
 
     void Awake()
     {
-        //Debug.Log("Editor causes this Awake");
     }
 
     void Update()
@@ -39,9 +38,6 @@ public class AutoWallSprite: MonoBehaviour
         if (FindSpriteRenderer())
         {
             UpdateWallsInfo();
-
-            //Debug.Log(gameObject.ToString() + ": connected edges: " + _countConnectedEdges.ToString());
-            //Debug.Log(gameObject.ToString() + ": _hasWallUP: " + _hasWallUP.ToString());
 
             Sprite sprite = GetAppropriateSprite();
             _spriteRenderer.sprite = sprite;
@@ -62,7 +58,7 @@ public class AutoWallSprite: MonoBehaviour
             if (boolDirection)
                 _countConnectedEdges++;
         }
-            
+
     }
 
     private Sprite GetAppropriateSprite()
@@ -134,9 +130,10 @@ public class AutoWallSprite: MonoBehaviour
 
     private bool HasWallAtAnyDirection()
     {
-        foreach(Direction direction in Direction.GetAll<Direction>())
+        foreach (Direction direction in Direction.GetAll<Direction>())
         {
-            if (HasWallAtDirection(direction)){
+            if (HasWallAtDirection(direction))
+            {
                 return true;
             }
         }
@@ -147,7 +144,7 @@ public class AutoWallSprite: MonoBehaviour
     {
         GameObject[] wallObjList = GameObject.FindGameObjectsWithTag(wallTag);
 
-        foreach(GameObject wallObj in wallObjList)
+        foreach (GameObject wallObj in wallObjList)
         {
             float objPosX = wallObj.transform.position.x;
             float objPosY = wallObj.transform.position.y;
