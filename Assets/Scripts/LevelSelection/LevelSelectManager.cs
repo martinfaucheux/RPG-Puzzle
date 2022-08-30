@@ -20,8 +20,9 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
 
         // register confirm command to load next level
         _playerInputActions = new PlayerInputActions();
-        _playerInputActions.Player.Enable();
-        _playerInputActions.Player.Confirm.performed += LoadSelectedLevel;
+        _playerInputActions.UI.Enable();
+        _playerInputActions.UI.Confirm.performed += LoadSelectedLevel;
+        _playerInputActions.UI.Exit.performed += LoadMainMenu;
     }
 
     void Start()
@@ -41,6 +42,7 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
     void OnDestroy()
     {
         _playerInputActions.Player.Confirm.performed -= LoadSelectedLevel;
+        _playerInputActions.UI.Exit.performed -= LoadMainMenu;
     }
 
     public void SelectLevel(int levelId)
@@ -51,11 +53,19 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
 
     public void LoadSelectedLevel() => LevelLoader.instance.LoadLevel(selectedLevelId);
 
-    public void LoadSelectedLevel(InputAction.CallbackContext context)
+    private void LoadSelectedLevel(InputAction.CallbackContext context)
     {
         if (StateManager.instance.currentGameState == GameState.LEVEL_SELECT)
             LoadSelectedLevel();
     }
+
+    public void LoadMainMenu() => LevelLoader.instance.LoadFirstScene();
+    private void LoadMainMenu(InputAction.CallbackContext context)
+    {
+        if (StateManager.instance.currentGameState == GameState.LEVEL_SELECT)
+            LoadMainMenu();
+    }
+
 
     public static Vector3 GetRealWorldPosition(Vector2Int overWorldPos)
     {
