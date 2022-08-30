@@ -31,8 +31,7 @@ public class MovingObject : MonoBehaviour
     }
 
 
-    // Use this for initialization
-    protected virtual void Start()
+    void Start()
     {
         _matrixCollider = GetComponent<MatrixCollider>();
         if (_matrixCollider == null)
@@ -41,12 +40,13 @@ public class MovingObject : MonoBehaviour
         _spriteHolder = GetComponent<SpriteHolder>();
 
         if (_baseDirection != "")
+        {
             faceDirection = Direction.FromString(_baseDirection);
-
-        _spriteHolder.FaceDirection(faceDirection);
+            _spriteHolder.FaceDirection(faceDirection);
+        }
     }
 
-    protected virtual IEnumerator Move(Direction direction)
+    private IEnumerator Move(Direction direction)
     {
         faceDirection = direction;
         _spriteHolder.FaceDirection(direction);
