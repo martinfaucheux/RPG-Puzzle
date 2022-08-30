@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionMatrix : MonoBehaviour
+[ExecuteInEditMode]
+public class CollisionMatrix : SingletoneBase<CollisionMatrix>
 {
 
     public enum Mode
@@ -11,51 +12,35 @@ public class CollisionMatrix : MonoBehaviour
         ISOMETRIC
     }
 
-    //Static instance of GameManager which allows it to be accessed by any other script.
-    public static CollisionMatrix instance = null;
-
     public Vector2Int matrixSize;
     public Vector3 origin;
 
     public Mode mode = Mode.TOPDOWN;
-    public bool showSceneBounds = true;
     public Color sceneBoundsColor;
+    public bool showSceneBounds = true;
+
+    [field: Tooltip("If false, all interactions are allowed only if the target cell has a non blocking collider.")]
+    [field: SerializeField]
+    public bool emptyAllowInteraction { get; private set; } = true;
 
     // TODO: use GenericGrid instead
-    private List<MatrixCollider> colliderList = new List<MatrixCollider>();
-
-    //Awake is always called before any Start functions
-    void Awake()
-    {
-        //Check if instance already exists
-        if (instance == null)
-
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
-            Destroy(gameObject);
-
-    }
+    private List<MatrixCollider> _colliderList = new List<MatrixCollider>();
 
     public void AddCollider(MatrixCollider collider)
     {
-        colliderList.Add(collider);
+        _colliderList.Add(collider);
     }
 
     public void RemoveCollider(MatrixCollider collider)
     {
-        colliderList.Remove(collider);
+        _colliderList.Remove(collider);
     }
 
 
     // get the first object found at the given position
     public MatrixCollider GetObjectAtPosition(Vector2Int matrixPosition)
     {
-        foreach (MatrixCollider collider in colliderList)
+        foreach (MatrixCollider collider in _colliderList)
         {
             if (collider.matrixPosition == matrixPosition)
             {
@@ -68,7 +53,7 @@ public class CollisionMatrix : MonoBehaviour
     public List<MatrixCollider> GetObjectsAtPosition(Vector2Int matrixPosition)
     {
         List<MatrixCollider> result = new List<MatrixCollider>();
-        foreach (MatrixCollider collider in colliderList)
+        foreach (MatrixCollider collider in _colliderList)
         {
             if (collider.matrixPosition == matrixPosition)
             {
@@ -88,10 +73,11 @@ public class CollisionMatrix : MonoBehaviour
 
         return ((x >= 0) & (y >= 0) & (x < xMax) & (y < yMax));
     }
+    public Vector2Int GetMatrixPos(Transform transform) => GetMatrixPos(transform.position);
 
-    public Vector2Int GetMatrixPos(Transform transform)
+    public Vector2Int GetMatrixPos(Vector3 realWorldPosition)
     {
-        Vector3 realPos = transform.position - origin;
+        Vector3 realPos = realWorldPosition - origin;
         float x = realPos.x;
         float y = (mode == Mode.TOPDOWN) ? realPos.y : realPos.z;
         return new Vector2Int((int)x, (int)y);

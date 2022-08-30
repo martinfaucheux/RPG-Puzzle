@@ -3,65 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelLoader : MonoBehaviour
+public class LevelLoader : SingletoneBase<LevelLoader>
 {
-    public static LevelLoader instance = null;
     public int currentLevelId;
     public float transitionDuration = 0.5f;
-    [HideInInspector] public PlayerData playerSavedData;
     public LevelMetaDataCollection levelCollection;
 
     public LevelMetaData levelMetaData { get; private set; }
 
-    void Awake()
-    {
-        //Check if instance already exists
-        if (instance == null)
+    private int _levelSelectId { get { return SceneManager.sceneCountInBuildSettings - 1; } }
 
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
-            Destroy(gameObject);
-    }
+    // Number of scene included in build that are not levels (except for main menu)
+    // - Level Select Scene
+    private static int NON_LEVEL_SCENE_COUNT = 1;
 
     void Start()
     {
         currentLevelId = SceneManager.GetActiveScene().buildIndex;
         levelMetaData = levelCollection.GetLevelBySceneBuildIndex(currentLevelId);
 
+        // TODO: remove debug.log
+        // SaveLastLevelPlayed();
+        // Debug.Log("last played level: " + playerSavedData.lastPlayedLevel.ToString());
+
         // trigger animation for start of level
         // TODO: make this happen through events
         SceneChangeCircle.instance?.SceneStarts();
 
-        StartCoroutine(SetPlayState());
-    }
-
-    public void LoadNextLevel()
-    {
-        if (currentLevelId < SceneManager.sceneCountInBuildSettings)
-        {
-            int nextLevelId = currentLevelId + 1;
-            UnlockLevel(nextLevelId);
-
-            LoadLevel(nextLevelId);
-        }
+        StartCoroutine(SetState());
     }
 
     public void LoadPreviousLevel()
     {
         if (currentLevelId > 0)
-        {
             LoadLevel(currentLevelId - 1);
-        }
-    }
-
-    public void ReloadLevel()
-    {
-        LoadLevel(currentLevelId);
     }
 
     public void LoadLevel(int levelID)
@@ -70,69 +45,15 @@ public class LevelLoader : MonoBehaviour
         // TODO: make this happen through events
         SceneChangeCircle.instance?.SceneEnds();
         StartCoroutine(DelayLoadScene(levelID, transitionDuration));
-    }
 
-    public void LoadFirstScene()
-    {
-        LoadLevel(0);
+        if (IsLevelId(currentLevelId))
+            SaveManager.instance.SaveLastLevelPlayed(currentLevelId);
     }
+    public void ReloadLevel() => LoadLevel(currentLevelId);
 
-    public void LoadLevelSelectMenu()
-    {
-        int sceneId = SceneManager.sceneCountInBuildSettings - 1;
-        LoadLevel(sceneId);
-    }
+    public void LoadFirstScene() => LoadLevel(0);
 
-    public bool IsLevelUnlocked(int levelId)
-    {
-        return playerSavedData.IsUnlocked(levelId);
-    }
-
-    public List<int> GetUnlockedLevels()
-    {
-        return playerSavedData.GetUnlockedLevels();
-    }
-
-    public bool IsPreviousLevelAvailable()
-    {
-        return (IsLevelUnlocked(currentLevelId - 1));
-    }
-
-    public bool IsNextLevelAvailable()
-    {
-        return (IsLevelUnlocked(currentLevelId + 1));
-    }
-
-    public void UnlockLevel(int levelId)
-    {
-        playerSavedData.Unlock(levelId);
-    }
-
-    public void UnlockNextLevel()
-    {
-        playerSavedData.Unlock(currentLevelId + 1);
-    }
-
-    public void AddGem(int gemId)
-    {
-        playerSavedData.AddGem(currentLevelId, gemId);
-    }
-
-    public void SaveData()
-    {
-        DataSaver.SaveGameState(playerSavedData);
-    }
-
-
-    public void RetrieveGameState()
-    {
-        playerSavedData = DataSaver.LoadGameState();
-    }
-
-    public void DeleteSavedData()
-    {
-        DataSaver.DeleteSavedData();
-    }
+    public void LoadLevelSelectMenu() => LoadLevel(_levelSelectId);
 
     private IEnumerator DelayLoadScene(int sceneBuildIndex, float seconds)
     {
@@ -141,15 +62,20 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene(sceneBuildIndex);
     }
 
+    public void Quit() => Application.Quit();
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-    private IEnumerator SetPlayState()
+    private IEnumerator SetState()
     {
         yield return new WaitForSecondsRealtime(transitionDuration);
-        StateManager.instance?.SetState(GameState.PLAY);
+        GameState gameState = currentLevelId == _levelSelectId ? GameState.LEVEL_SELECT : GameState.PLAY;
+        StateManager.instance?.SetState(gameState);
+    }
+
+    public static bool IsLevelId(int levelId)
+    {
+        return (
+            levelId > 0
+            && levelId < SceneManager.sceneCountInBuildSettings - NON_LEVEL_SCENE_COUNT
+        );
     }
 }

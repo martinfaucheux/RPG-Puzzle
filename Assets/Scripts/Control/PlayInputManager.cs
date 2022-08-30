@@ -46,15 +46,14 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
     public void SwitchCurrentActionMap(string mapName)
     {
         foreach (KeyValuePair<string, InputActionMap> kv in _inputActionmaps)
-        {
             kv.Value.Disable();
-        }
+
         _inputActionmaps[mapName].Enable();
     }
 
     void ProcessMovement(InputAction.CallbackContext context)
     {
-        if (StateManager.instance.currentGameState == GameState.PLAY)
+        if (GameManager.instance.playerCanMove)
         {
             Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
             inputVector = Quaternion.Euler(0, 0, directionalInputRotation) * inputVector;
@@ -70,7 +69,7 @@ public class PlayInputManager : SingletoneBase<PlayInputManager>
     void EnterPause(InputAction.CallbackContext context) => GameManager.instance.EnterPause();
     void ExitPause(InputAction.CallbackContext context) => GameManager.instance.ExitPause();
     void Restart(InputAction.CallbackContext context) => GameManager.instance.Restart();
-    void EnterPostWin(InputAction.CallbackContext context) => GameManager.instance.EnterPostWin();
+    void EnterPostWin(InputAction.CallbackContext context) => GameManager.instance.ContinueToLevelSelect();
     void UnlockSkill(InputAction.CallbackContext context)
     {
         if (StateManager.instance.currentGameState == GameState.PLAY)

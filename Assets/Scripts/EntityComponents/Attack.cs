@@ -36,7 +36,7 @@ public class Attack : MonoBehaviour
 
         if (_healthComponent == null)
         {
-            Debug.Log(gameObject + ": no Health component found");
+            Debug.LogWarning(gameObject + ": no Health component found");
         }
         GameEvents.instance.onTurnStart += RecoverExhaust;
     }

@@ -3,50 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletoneBase<GameManager>
 {
-    public static GameManager instance = null;
-
     [Tooltip("time for basic action (e.g. moving)")]
     public float actionDuration = 0.1f;
-    public bool playerCanMove { get { return StateManager.instance.currentGameState == GameState.PLAY; } }
+    public bool playerCanMove { get { return GameManager.allowMovementState.Contains(StateManager.instance.currentGameState); } }
 
     private static GameState[] forbiddenReloadState = new GameState[] {
-        GameState.PAUSE, GameState.TRANSITION
+        GameState.PAUSE, GameState.TRANSITION, GameState.LEVEL_SELECT
     };
 
-
-    #region Singleton
-
-    void Awake()
-    {
-        //Check if instance already exists
-        if (instance == null)
-
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a CollisionMatrix.
-            Destroy(gameObject);
-
-    }
-
-    #endregion
+    public static readonly GameState[] allowMovementState = new GameState[] {
+        GameState.PLAY, GameState.LEVEL_SELECT
+    };
 
     public void Restart()
     {
         if (!(forbiddenReloadState.Contains(StateManager.instance.currentGameState)))
-        {
             LevelLoader.instance.ReloadLevel();
-        }
+
     }
 
     public void Win()
     {
-        Debug.Log("You win.");
         StateManager.instance.SetState(GameState.WIN);
     }
 
@@ -80,12 +59,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EnterPostWin()
+    public void ContinueToLevelSelect()
     {
         if (StateManager.instance.currentGameState == GameState.WIN)
         {
-            LevelLoader.instance.UnlockNextLevel();
-            LevelLoader.instance.SaveData();
+            List<int> unlockLevels = LevelLoader.instance.levelMetaData.unlockLevels;
+
+            ProgressManager.instance.Save(); // Save progress of the current level
+            SaveManager.instance.UnlockLevels(unlockLevels);
             LevelLoader.instance.LoadLevelSelectMenu();
         }
     }

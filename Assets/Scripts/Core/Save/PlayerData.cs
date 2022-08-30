@@ -3,41 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+// TODO: rename to ProgressData
+
 [System.Serializable]
 public class PlayerData
 {
 
-    Dictionary<int, LevelSaveData> levelData;
+    Dictionary<int, LevelProgressData> levelData;
     Dictionary<string, bool> seenInstructions;
+    public int lastPlayedLevel { get; private set; } = -1;
 
 
     public PlayerData(
-        Dictionary<int, LevelSaveData> levelData,
-        Dictionary<string, bool> seenInstructions
+        Dictionary<int, LevelProgressData> levelData,
+        Dictionary<string, bool> seenInstructions,
+        int lastPlayedLevel = -1
     )
     {
         this.levelData = levelData;
         this.seenInstructions = seenInstructions;
+        this.lastPlayedLevel = lastPlayedLevel;
     }
 
     public PlayerData() :
         this(
             // default PlayerData has first level unlocked
-            new Dictionary<int, LevelSaveData>() { { 1, new LevelSaveData() } },
+            new Dictionary<int, LevelProgressData>() { { 1, new LevelProgressData() } },
             new Dictionary<string, bool>()
         )
     { }
 
-    public LevelSaveData this[int levelId]
+    public LevelProgressData this[int levelId]
     {
-        get => levelData[levelId];
+        get
+        {
+            if (levelId == 0)
+                Debug.LogError("Attempt to fetch data of level 0");
+            return levelData[levelId];
+        }
         set => levelData[levelId] = value;
     }
+
+    public void SetLastPlayedLevel(int levelId) => lastPlayedLevel = levelId;
 
     public void Unlock(int levelId)
     {
         if (!IsUnlocked(levelId))
-            levelData[levelId] = new LevelSaveData();
+            levelData[levelId] = new LevelProgressData();
     }
 
     public void AddGem(int levelId, int gemId)
@@ -110,69 +122,3 @@ public class PlayerData
     public bool HasSeenInstruction(string instructionName) => seenInstructions.ContainsKey(instructionName);
 }
 
-[System.Serializable]
-public class LevelSaveData
-{
-    private Dictionary<int, bool> gemsCollected;
-    private Dictionary<int, bool> questsCompleted;
-    public LevelSaveData(bool[] gemsCollected, bool[] questsCompleted)
-    {
-        this.gemsCollected = new Dictionary<int, bool>();
-        this.questsCompleted = new Dictionary<int, bool>();
-
-        for (int i = 0; i < gemsCollected.Length; i++)
-        {
-            this.gemsCollected[i] = gemsCollected[i];
-        }
-
-        for (int i = 0; i < questsCompleted.Length; i++)
-        {
-            this.questsCompleted[i] = questsCompleted[i];
-        }
-    }
-
-    public LevelSaveData()
-    {
-        this.gemsCollected = new Dictionary<int, bool>();
-        this.questsCompleted = new Dictionary<int, bool>();
-    }
-
-    public bool isQuestCompleted(int questId)
-    {
-        if (questsCompleted.ContainsKey(questId))
-        {
-            return questsCompleted[questId];
-        }
-        return false;
-    }
-
-    public bool isGemCollected(int gemId)
-    {
-        if (gemsCollected.ContainsKey(gemId))
-        {
-            return gemsCollected[gemId];
-        }
-        return false;
-    }
-
-    public void AddGem(int gemId)
-    {
-        gemsCollected[gemId] = true;
-    }
-
-    public void AddQuest(int questId)
-    {
-        questsCompleted[questId] = true;
-    }
-
-    public int GetQuestCompleteCount()
-    {
-        return questsCompleted.Where(kv => kv.Value).Count();
-    }
-
-    public int GetCollectedGemsCount()
-    {
-        return gemsCollected.Where(kv => kv.Value).Count();
-    }
-
-}

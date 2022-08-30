@@ -50,8 +50,6 @@ public class Direction : Enumeration
 
     public static Direction GetFromCoord(float horizontal, float vertical)
     {
-        // Debug.Log((int)horizontal);
-        // Debug.Log((int)vertical);
         return GetFromCoord((int)horizontal, (int)vertical);
     }
 

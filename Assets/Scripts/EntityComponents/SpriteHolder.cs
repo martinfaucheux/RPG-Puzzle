@@ -23,10 +23,7 @@ public class SpriteHolder : MonoBehaviour
     {
         spriteHolderTransform = transform.Find(spriteHolderName);
         activeAnimator = GetComponentInChildren<Animator>(false);
-    }
 
-    private void Start()
-    {
         _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
         DiscoverSpriteGameObjects();
         activeAnimator = GetComponentInChildren<Animator>(false);

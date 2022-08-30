@@ -50,7 +50,6 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(int damagePoints)
     {
-        Debug.Log(gameObject.ToString() + " takes " + damagePoints.ToString() + " damage points");
         int newValue = CurrentHealthPoints - damagePoints;
         if (newValue < 0)
             newValue = 0;
@@ -88,8 +87,6 @@ public class Health : MonoBehaviour
     public void Die()
     {
         isDead = true;
-        Debug.Log(gameObject.ToString() + " is dead");
-
         if (_animator != null && AnimatorUtils.HasParameter(_animator, DIE_ANIMATION))
         {
             _spriteHolder.FaceDirection(Direction.DOWN);

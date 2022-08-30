@@ -31,8 +31,7 @@ public class MovingObject : MonoBehaviour
     }
 
 
-    // Use this for initialization
-    protected virtual void Start()
+    void Start()
     {
         _matrixCollider = GetComponent<MatrixCollider>();
         if (_matrixCollider == null)
@@ -41,12 +40,13 @@ public class MovingObject : MonoBehaviour
         _spriteHolder = GetComponent<SpriteHolder>();
 
         if (_baseDirection != "")
+        {
             faceDirection = Direction.FromString(_baseDirection);
-
-        _spriteHolder.FaceDirection(faceDirection);
+            _spriteHolder.FaceDirection(faceDirection);
+        }
     }
 
-    protected virtual IEnumerator Move(Direction direction)
+    private IEnumerator Move(Direction direction)
     {
         faceDirection = direction;
         _spriteHolder.FaceDirection(direction);
@@ -98,7 +98,7 @@ public class MovingObject : MonoBehaviour
         List<MatrixCollider> colliders = _matrixCollider.GetObjectsInDirection(direction);
 
         // check if the interaction is valid
-        if (!colliders.All(c => IsInteractionAllowed(c)))
+        if (!IsInteractionAllowed(colliders))
             yield break;
 
         List<ActivableObject> sortedActivables = new List<ActivableObject>();
@@ -128,8 +128,24 @@ public class MovingObject : MonoBehaviour
     }
 
     // <summary>
-    // check that the direction is valid for interaction
+    // check that the colliders and their activable object allow interaction
     // if not, the turn should be skipped
+    // </summary>
+    private bool IsInteractionAllowed(List<MatrixCollider> colliders)
+    {
+        if (!CollisionMatrix.instance.emptyAllowInteraction && colliders.Count == 0)
+            return false;
+
+        foreach (MatrixCollider collider in colliders)
+        {
+            if (!IsInteractionAllowed(collider))
+                return false;
+        }
+        return true;
+    }
+
+    // <summary>
+    // check that the collider and its activable object allow interaction
     // </summary>
     private bool IsInteractionAllowed(MatrixCollider collider)
     {
@@ -152,8 +168,7 @@ public class MovingObject : MonoBehaviour
         if (!_matrixCollider.IsValidDirection(direction))
             return false;
 
-        List<MatrixCollider> colliders = _matrixCollider.GetObjectsInDirection(direction);
-        return colliders.All(c => IsInteractionAllowed(c));
+        return IsInteractionAllowed(_matrixCollider.GetObjectsInDirection(direction));
     }
 
     // play OnLeave of current sitting Activable object

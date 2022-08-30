@@ -21,6 +21,6 @@ public class ChangeGemColor : MonoBehaviour
     {
         int currentLevelId = LevelLoader.instance.currentLevelId;
         int gemId = pickableObjectComponent.itemId;
-        return LevelLoader.instance.playerSavedData.IsGemCollected(currentLevelId, gemId);
+        return SaveManager.instance.IsGemCollected(currentLevelId, gemId);
     }
 }

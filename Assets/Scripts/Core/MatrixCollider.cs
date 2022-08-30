@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class MatrixCollider : MonoBehaviour
 {
 
@@ -14,7 +15,7 @@ public class MatrixCollider : MonoBehaviour
     void Start()
     {
         _collisionMatrix = CollisionMatrix.instance;
-        matrixPosition = _collisionMatrix.GetMatrixPos(this.transform);
+        SyncPosition();
         _collisionMatrix.AddCollider(this);
     }
 
@@ -22,6 +23,12 @@ public class MatrixCollider : MonoBehaviour
     {
         _collisionMatrix?.RemoveCollider(this);
     }
+
+    public void SyncPosition()
+    {
+        matrixPosition = _collisionMatrix.GetMatrixPos(this.transform);
+    }
+
 
     public Vector3 GetRealPos()
     {

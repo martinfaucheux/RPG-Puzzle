@@ -9,4 +9,6 @@ public class LevelMetaData : ScriptableObject
     public int sceneBuildIndex;
     public int gemCount = 1;
     public List<Quest> quests;
+    public Vector2Int overWorldPostion;
+    public List<int> unlockLevels;
 }

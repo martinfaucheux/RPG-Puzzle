@@ -27,7 +27,6 @@ public class Experience : MonoBehaviour
 
     public void GainExp(int expAmount)
     {
-        Debug.Log(gameObject.ToString() + " gains " + expAmount.ToString() + " exp points");
         currentExpPoints += expAmount;
 
         if (currentExpPoints >= targetExpPoints)
@@ -39,7 +38,6 @@ public class Experience : MonoBehaviour
 
     private void LevelUp()
     {
-        Debug.Log(gameObject.ToString() + " level up to " + (currentLevel + 1).ToString());
         currentExpPoints -= GetTargetExpForLevel(currentLevel);
         currentLevel++;
         targetExpPoints = GetTargetExpForLevel(currentLevel);

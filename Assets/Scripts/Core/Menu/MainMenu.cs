@@ -25,22 +25,26 @@ public class MainMenu : MonoBehaviour
             Destroy(gameObject);
     }
 
-    public virtual void Start(){
+    public virtual void Start()
+    {
 
         if (mainMenuGO == null)
-            Debug.Log("No mainMenuGO provided");
+            Debug.LogError("No mainMenuGO provided");
     }
 
-    public void ExitGame(){
+    public void ExitGame()
+    {
         LevelLoader.instance.Quit();
     }
 
-    public void ToggleMainMenu(){
+    public void ToggleMainMenu()
+    {
         mainMenuGO.SetActive(true);
         optionMenuGO?.SetActive(false);
     }
 
-    public void ToggleOptionMenu(){
+    public void ToggleOptionMenu()
+    {
         mainMenuGO.SetActive(false);
         optionMenuGO?.SetActive(true);
     }
