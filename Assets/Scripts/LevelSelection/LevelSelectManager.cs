@@ -41,7 +41,7 @@ public class LevelSelectManager : SingletoneBase<LevelSelectManager>
 
     void OnDestroy()
     {
-        _playerInputActions.Player.Confirm.performed -= LoadSelectedLevel;
+        _playerInputActions.UI.Confirm.performed -= LoadSelectedLevel;
         _playerInputActions.UI.Exit.performed -= LoadMainMenu;
     }
 
