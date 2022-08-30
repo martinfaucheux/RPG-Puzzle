@@ -27,7 +27,8 @@ public class LevelMetaDataCollectionCustomInspector : Editor
         DrawDefaultInspector();
 
         if (GUILayout.Button("Bake build indices"))
-            BakeBuildIndices();
+            if (!CheckDuplicates())
+                BakeBuildIndices();
 
         if (GUILayout.Button("Update OverWorld Positions"))
             UpdateOverWorldPositions();
@@ -43,7 +44,7 @@ public class LevelMetaDataCollectionCustomInspector : Editor
             );
             int sceneBuildIndex = SceneUtility.GetBuildIndexByScenePath(scenePath);
 
-            if (sceneBuildIndex < 0)
+            if (sceneBuildIndex <= 0)
             {
                 Debug.LogError(string.Format("Scene not found: '{0}'", levelMetaData.sceneName));
             }
@@ -60,6 +61,22 @@ public class LevelMetaDataCollectionCustomInspector : Editor
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
+    }
+
+    private bool CheckDuplicates()
+    {
+        var duplicates = t.levelList
+            .GroupBy(i => i.sceneName)
+            .Where(g => g.Count() > 1)
+            .Select(g => g.Key);
+
+        bool result = false;
+        foreach (string levelName in duplicates)
+        {
+            Debug.LogError("found duplicate entries for level " + levelName);
+            result = true;
+        }
+        return result;
     }
 
     private void UpdateOverWorldPositions()
