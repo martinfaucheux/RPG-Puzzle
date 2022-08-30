@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3971beb4849a8d545a90cfa14c01f96e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matrixPosition: {x: 0, y: 0}
+  matrixPosition: {x: 6, y: 9}
   isBlocking: 0
 --- !u!114 &94275964637305057
 MonoBehaviour:
@@ -61,11 +61,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <interactionPriority>k__BackingField: 5
-  _levelData: {fileID: 11400000, guid: b7403f237719b404b94aa77bcac97655, type: 2}
+  <levelData>k__BackingField: {fileID: 0}
   _textComponent: {fileID: 7996477501134566341}
   _spriteRenderer: {fileID: 94275966438142390}
   _lockedColor: {r: 0.26666668, g: 0.7725491, b: 0.53333336, a: 1}
-  _availableColor: {r: 0.41176474, g: 0.41176474, b: 0.40784317, a: 1}
+  _availableColor: {r: 0.97647065, g: 0.7725491, b: 0.5176471, a: 1}
   _gemsCollectedColor: {r: 0.5372549, g: 0.7411765, b: 1, a: 1}
   _questsCompletedColor: {r: 0.9921569, g: 0.5411765, b: 0, a: 1}
 --- !u!1 &94275966438143560
@@ -140,7 +140,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: e706c80f4b029194180c4f5971428c94, type: 3}
-  m_Color: {r: 0.5686275, g: 0.5686275, b: 0.5686275, a: 1}
+  m_Color: {r: 0.97647065, g: 0.7725491, b: 0.5176471, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
