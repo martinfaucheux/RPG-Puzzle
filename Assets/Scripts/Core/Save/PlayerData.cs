@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -39,7 +39,11 @@ public class PlayerData
         {
             if (levelId == 0)
                 Debug.LogError("Attempt to fetch data of level 0");
-            return levelData[levelId];
+            else if (!levelData.ContainsKey(levelId))
+                Debug.LogError("Unknown level: " + levelId.ToString());
+            else
+                return levelData[levelId];
+            return null;
         }
         set => levelData[levelId] = value;
     }
